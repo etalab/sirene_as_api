@@ -22,7 +22,7 @@ Règle de nommage : sirene_YYYYddd, YYY => 2017, 032 pour le 1er février car 32
 jour de l'année
 
 Ces fichiers paraissent le lendemain des 5 jours ouvrés classiques de semaine.
-Pour en savoir plus, [https://www.sirene.fr/sirene/public/faq?sirene_locale=fr]
+Pour en savoir plus, rendez vous sur la [https://www.sirene.fr/sirene/public/faq?sirene_locale=fr](faq de l'insee)
 
 
 ## Démonstration de ce projet
