@@ -1,0 +1,15 @@
+defaults: &defaults
+  adapter: postgresql
+  encoding: unicode
+  host: localhost
+  pool: 15
+  username: societes_gouv
+  password: password
+
+development:
+  database: societes_gouv_development
+  <<: *defaults
+
+test:
+  database: societes_gouv_test
+  <<: *defaults

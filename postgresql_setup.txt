@@ -1,0 +1,13 @@
+CREATE ROLE societes_gouv WITH LOGIN CREATEDB PASSWORD 'password';
+CREATE DATABASE societes_gouv_production WITH OWNER societes_gouv;
+CREATE DATABASE societes_gouv_development WITH OWNER societes_gouv;
+CREATE DATABASE societes_gouv_test WITH OWNER societes_gouv;
+
+\c societes_gouv_test;
+CREATE EXTENSION pg_trgm;
+
+\c societes_gouv_development;
+CREATE EXTENSION pg_trgm;
+
+\c societes_gouv_production;
+CREATE EXTENSION pg_trgm;
