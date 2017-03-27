@@ -52,4 +52,4 @@ de votre IP.
 
 # License
 
-En cours de décision, ne pas utiliser pour l'instant
+[MIT](https://fr.wikipedia.org/wiki/Licence_MIT)
