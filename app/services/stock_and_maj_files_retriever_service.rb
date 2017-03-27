@@ -5,12 +5,15 @@ class StockAndMajFilesRetrieverService
   include Singleton
 
   class << self
-    def needed_files
+    def update_links_since_last_monthly_stock
+      first_day_not_included_in_last_monthly_stock_day_number =
+        Time.new(current_year, last_monthly_stock_month_number + 1).yday
+
       sirene_update_and_stock_links.select do |l|
         l[:href].match(sirene_daily_update_filename_pattern)
-        day_number = $1
+        day_number = $1.to_i
 
-        needed_padded_days_numbers.include?(day_number)
+        day_number >= first_day_not_included_in_last_monthly_stock_day_number
       end
     end
 
@@ -20,34 +23,32 @@ class StockAndMajFilesRetrieverService
     end
 
     def sirene_daily_update_filename_pattern
-      /.*sirene_#{Time.now.year}([0-9]{3})_E_Q\.zip/
-    end
-
-    def needed_padded_days_numbers
-      # Insee release data the day after it was produced
-      now = Time.now
-      yesterday = Time.now - 1.day
-
-      current_month_first_day = Time.new(now.year,now.month,1)
-
-      (current_month_first_day.yday..yesterday.yday).to_a.map{ |dn| dn.to_s.rjust(3,'0') }
-    end
-
-    def last_monthly_stock_zip_file_name
-      # Insee releases a new stock file at the beginning of each month
-      # TODO check if it is not released yet
-      padded_month_number = Time.now.month.to_s.rjust(2,'0')
-      year = Time.now.year.to_s
-
-      "sirene_#{year}#{padded_month_number}_L_M.zip"
+      /.*sirene_#{current_year}([0-9]{3})_E_Q\.zip/
     end
 
     def sirene_monthly_stock_filename_pattern
-      /.*sirene_#{Time.now.year}([0-9]{2})_L_M\.zip/
+      /.*sirene_#{current_year}([0-9]{2})_L_M\.zip/
     end
 
     def files_repository
       'http://files.data.gouv.fr/sirene'
+    end
+
+    def last_monthly_stock_zip_filename
+      stock_links = sirene_update_and_stock_links.select do |l|
+        l[:href].match(sirene_monthly_stock_filename_pattern)
+      end
+
+      stock_links.map{ |sl| sl[:href] }.sort.last
+    end
+
+    def last_monthly_stock_month_number
+      last_monthly_stock_zip_filename.match(sirene_monthly_stock_filename_pattern)
+      padded_month_number = $1.to_i
+    end
+
+    def current_year
+      Time.now.year.to_s
     end
   end
 end
