@@ -1,5 +1,3 @@
-$sirets_processed ||= []
-
 class InsertEtablissementRowsJob
   attr_accessor :lines
 
@@ -13,7 +11,6 @@ class InsertEtablissementRowsJob
     for line in lines do
       etablissements << etablissement_attrs_from_line(line)
     end
-
 
     ar_keys = ['created_at', 'updated_at']
     ar_keys << etablissements.first.keys.map(&:to_s)

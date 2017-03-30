@@ -6,7 +6,6 @@
 
 # Ignore bundler config.
 /.bundle
-/public/*.csv
 
 # Ignore the default SQLite database.
 /db/*.sqlite3
@@ -23,3 +22,7 @@
 
 # Ignore solr dir
 /solr
+
+# Ignore zip archives and its unzipped csv result files
+/public/*.csv
+/public/*.zip
