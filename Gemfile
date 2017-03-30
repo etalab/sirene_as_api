@@ -13,14 +13,17 @@ gem 'puma', '~> 3.0'
 
 gem 'pg'
 
+# RDBM Agnostic connection pool manager
 gem 'connection_pool', '~> 2.2'
+
+# Backend jobs
+gem 'resque'
+gem 'sinatra', '~> 2.0.0.beta2'
 gem 'redis', '~> 3.0'
 gem 'redis-namespace'
 gem 'redis-objects'
 
-gem 'resque'
-gem 'sinatra', '~> 2.0.0.beta2'
-
+# Sunspot / Solr friends
 gem 'sunspot_rails'
 gem 'sunspot_solr'
 
@@ -28,6 +31,10 @@ gem 'rubyzip'
 gem 'smarter_csv'
 
 gem 'progress_bar'
+
+# Interactors
+gem "interactor", "~> 3.0"
+gem "interactor-rails", "~> 2.0"
 
 group :development, :test do
   gem 'byebug', platform: :mri
