@@ -51,6 +51,11 @@ group :development, :test do
   gem 'growl'
 end
 
+group :test do
+  gem 'vcr'
+  gem 'webmock'
+end
+
 group :development do
   gem 'brakeman', require: false
   gem 'listen', '~> 3.0.5'
