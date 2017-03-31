@@ -1,8 +1,13 @@
 require 'nokogiri'
 require 'open-uri'
 
-class GetLastMonthlyStockLink
-  include Interactor
+class GetLastMonthlyStockLink < SireneAsAPIInteractor
+  around do |interactor|
+    stdout_info_log "Visiting monthly stock distant directory"
+    interactor.call
+    stdout_success_log "Retrieved last monthly stock link : #{context.link}"
+    puts
+  end
 
   def call
     last_monthly_stock_relative_link = stock_relative_links.map{ |sl| sl[:href] }.sort.last
