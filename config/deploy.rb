@@ -18,6 +18,7 @@ set :shared_paths, [
   'tmp/pids',
   'tmp/cache',
   'tmp/sockets',
+  'tmp/files',
   'public/system',
   'public/uploads',
   'public/phat_dump_janvier.csv',
@@ -46,6 +47,9 @@ task :setup => :environment do
 
   queue! %[mkdir -p "#{deploy_to}/shared/tmp/cache"]
   queue! %[chmod g+rx,u+rwx "#{deploy_to}/shared/tmp/cache"]
+
+  queue! %[mkdir -p "#{deploy_to}/shared/tmp/files"]
+  queue! %[chmod g+rx,u+rwx "#{deploy_to}/shared/tmp/files"]
 
   queue! %[mkdir -p "#{deploy_to}/shared/tmp/sockets"]
   queue! %[chmod g+rx,u+rwx "#{deploy_to}/shared/tmp/sockets"]

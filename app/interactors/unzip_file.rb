@@ -2,7 +2,7 @@ require 'zip'
 
 class UnzipFile < SireneAsAPIInteractor
   around do |interactor|
-    stdout_info_log "Started unzipping #{context.filepath} into public/"
+    stdout_info_log "Started unzipping #{context.filepath} into tmp/files/"
 
     interactor.call
 
@@ -10,7 +10,7 @@ class UnzipFile < SireneAsAPIInteractor
   end
 
   def call
-    destination = 'public/'
+    destination = 'tmp/files/'
 
     context.unzipped_files = []
 
