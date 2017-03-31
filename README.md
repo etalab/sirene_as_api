@@ -60,51 +60,62 @@ Vous aurez besoin de :
 * un runtime java pour solr
 
 Une fois cloné ce répertoire à l'aide de
+
     git clone git@github.com:sgmap/sirene_as_api.git && cd sirene_as_api
 
 Lancez bundle install pour récupérer les gems nécessaires, ceci peut prendre un
 peu de temps en fonction de votre installation. Vous pouvez omettre l'installation de
 bundler s'il est déjà présent sur la machine
+
     gem install bundler && bundle install
 
 Il faut maintenant préparer la base de données postgres
+
     psql -f postgresql_setup.txt
 
 Assurez vous que tout s'est bien passé
+
     bundle exec rake db:create
 
 Puis runnez les migrations
+
     bundle exec rake db:migrate
 
 Si vous souhaitez utiliser les tests
+
     RAILS_ENV=test bundle exec rake db:migrate
 
 Puis lancez l'import du dernier dump
+
     bundle exec rake sirene_as_api:import_last_monthly_stock
 
 Une fois réalisé, lancez Solr, des fichiers de config seront copiés
+
     bundle exec rake sunspot:solr:start
 
 Lancez l'indexation
+
     bundle exec rake sunspot:reindex
 
 C'est prêt vous pouvez lancer le serveur
+
     bundle exec rails server
 
 Et y faire des requêtes
+
     curl 'localhost:3000/full_text/MA_RECHERCHE'
     curl 'localhost:3000/siret/MON_SIRET'
 
 ## Sunspot / SOlr
 
 ### Start the server
-    > bundle exec rake sunspot:solr:start
+    bundle exec rake sunspot:solr:start
 
 ### Stop the server
-    > bundle exec rake sunspot:solr:stop
+    bundle exec rake sunspot:solr:stop
 
 ### Reindex model
-    > bundle exec rake sunspot:reindex
+    bundle exec rake sunspot:reindex
 
 # License
 
