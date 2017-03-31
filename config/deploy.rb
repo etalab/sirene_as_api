@@ -4,9 +4,9 @@ require 'mina/git'
 
 set :domain, '94.23.0.49'
 set :port, 22
-set :repository, '/opt/git/societes_gouv'
+set :repository, '/opt/git/sirene_as_api'
 set :branch, 'master'
-set :deploy_to, '/var/www/societes_gouv'
+set :deploy_to, '/var/www/sirene_as_api'
 set :user, 'deploy'    # Username in the server to SSH to.
 
 set :rails_env, 'production'

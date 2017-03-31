@@ -3,13 +3,13 @@ defaults: &defaults
   encoding: unicode
   host: localhost
   pool: 15
-  username: societes_gouv
+  username: sirene_as_api
   password: password
 
 development:
-  database: societes_gouv_development
+  database: sirene_as_api_development
   <<: *defaults
 
 test:
-  database: societes_gouv_test
+  database: sirene_as_api_test
   <<: *defaults
