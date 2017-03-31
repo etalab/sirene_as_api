@@ -1,6 +1,4 @@
-class ApplyFrequentUpdateCsvPatch
-  include Interactor
-
+class ApplyFrequentUpdateCsvPatch < SireneAsAPIInteractor
   def call
     # TODO
   end

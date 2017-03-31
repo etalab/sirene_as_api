@@ -1,6 +1,4 @@
-class ApplyPatches
-  include Interactor
-
+class ApplyPatches < SireneAsAPIInteractor
   def call
     # TODO
   end

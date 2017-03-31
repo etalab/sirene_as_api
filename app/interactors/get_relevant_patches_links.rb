@@ -1,6 +1,4 @@
-class GetRelevantPatchesLinks
-  include Interactor
-
+class GetRelevantPatchesLinks < SireneAsAPIInteractor
   def call
     # TODO
   end

@@ -1,12 +1,12 @@
 require 'zip'
 
-class UnzipFile
-  include Interactor
-
+class UnzipFile < SireneAsAPIInteractor
   around do |interactor|
-    puts "------> Started unzipping #{context.filepath} into public/"
+    stdout_info_log "Started unzipping #{context.filepath} into public/"
+
     interactor.call
-    puts "------> SUCCESS File already existed or was unzipped properly #{context.filepath}"
+
+    puts
   end
 
   def call
@@ -16,13 +16,15 @@ class UnzipFile
 
     Zip::File.open(context.filepath) do |zip_file|
       zip_file.each do |f|
-        csv_path = File.join(destination, f.name)
+        unzipped_file_path = File.join(destination, f.name)
 
-        if File.exists?(csv_path)
-          context.unzipped_files << csv_path
+        if File.exists?(unzipped_file_path)
+          context.unzipped_files << unzipped_file_path
+          stdout_warn_log "Skipping unzip of file #{f.name} already a file at destination #{unzipped_file_path}"
         else
-          zip_file.extract(f, csv_path)
-          context.unzipped_files << csv_path
+          zip_file.extract(f, unzipped_file_path)
+          context.unzipped_files << unzipped_file_path
+          stdout_success_log "Unzipped file #{unzipped_file_path} successfully"
         end
 
       end

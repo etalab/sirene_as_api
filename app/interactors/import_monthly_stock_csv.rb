@@ -1,18 +1,35 @@
-class ImportMonthlyStockCsv
-  include Interactor
+class ImportMonthlyStockCsv < SireneAsAPIInteractor
+  around do |interactor|
+    stdout_info_log 'Starting csv import'
+    stdout_info_log 'Computing number of rows'
 
-  def call
+    context.csv_filename = context.unzipped_files.first
+    context.number_of_rows = %x(wc -l #{context.csv_filename}).split.first.to_i - 1
+
+    stdout_success_log "Found #{context.number_of_rows} rows to import"
+
+    stdout_info_log 'Importing rows'
+
     quietly do
       stdout_etablissement_count_change do
         stdout_benchmark_stats do
-
-          binding.pry
-          SmarterCSV.process(context.unzipped_files.first, csv_options) do |chunk|
-            InsertEtablissementRowsJob.new(chunk).perform
-          end
-
+          interactor.call
         end
       end
+    end
+
+    puts
+  end
+
+  def call
+    progress_bar = ProgressBar.create(
+      total: context.number_of_rows,
+      format: 'Progress %c/%C |%b>%i| %a %e'
+    )
+
+    SmarterCSV.process(context.csv_filename, csv_options) do |chunk|
+      InsertEtablissementRowsJob.new(chunk).perform
+      chunk.size.times { progress_bar.increment }
     end
   end
 
@@ -28,11 +45,14 @@ class ImportMonthlyStockCsv
   end
 
   def quietly
+    ar_log_level_before_block_execution = ActiveRecord::Base.logger.level
     log_level_before_block_execution = Rails.logger.level
 
     Rails.logger.level = :fatal
+    ActiveRecord::Base.logger.level = :error
     yield
     Rails.logger.level = log_level_before_block_execution
+    ActiveRecord::Base.logger.level = ar_log_level_before_block_execution
   end
 
   def stdout_etablissement_count_change

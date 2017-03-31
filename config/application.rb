@@ -12,12 +12,13 @@ require 'rails/test_unit/railtie'
 
 Bundler.require(*Rails.groups)
 
-module SocietesGouv
+module SireneAsAPI
   class Application < Rails::Application
     config.api_only = true
     config.active_record.schema_format = :sql
 
     # Background tasks
     config.active_job.queue_adapter = :resque
+    config.autoload_paths += %W(#{config.root}/lib #{config.root}/app/interactors #{config.root}/app/services)
   end
 end
