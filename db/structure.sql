@@ -267,7 +267,35 @@ CREATE INDEX entreprises_to_tsvector_idx1 ON etablissements USING gin (to_tsvect
 -- Name: entreprises_to_tsvector_idx2; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX entreprises_to_tsvector_idx2 ON etablissements USING gin (to_tsvector('french'::regconfig, (nom_raison_sociale)::text));
+CREATE INDEX entreprises_to_tsvector_idx2 ON etablissements USING gin (to_tsvector('french'::regconfig, (activite_principale)::text));
+
+
+--
+-- Name: entreprises_to_tsvector_idx3; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX entreprises_to_tsvector_idx3 ON etablissements USING gin (to_tsvector('french'::regconfig, (l6_normalisee)::text));
+
+
+--
+-- Name: entreprises_to_tsvector_idx4; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX entreprises_to_tsvector_idx4 ON etablissements USING gin (to_tsvector('french'::regconfig, (nom_raison_sociale)::text));
+
+
+--
+-- Name: index_etablissements_on_activite_principale; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_etablissements_on_activite_principale ON etablissements USING btree (activite_principale);
+
+
+--
+-- Name: index_etablissements_on_l6_normalisee; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_etablissements_on_l6_normalisee ON etablissements USING btree (l6_normalisee);
 
 
 --
