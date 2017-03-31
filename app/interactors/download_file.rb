@@ -2,7 +2,7 @@ require 'open-uri'
 
 class DownloadFile < SireneAsAPIInteractor
   around do |interactor|
-    context.filepath = "./public/#{filename}"
+    context.filepath = "./tmp/files/#{filename}"
 
     stdout_info_log "Attempting to download #{filename}"
 
