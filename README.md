@@ -8,13 +8,22 @@ la servant sous forme d'API.
 
 ## Qualification des fichiers mis à disposition par l'INSEE
 
-L'ensemble des fichiers mis à disposition pour le SIRENE se trouvent sur [data.gouv.fr](http://files.data.gouv.fr/sirene). On y trouve chaque début de mois un fichier dit stock qui reflète tous les établissements dont la diffusion commerciale est autorisée. Ces fichiers stocks sont accompagnés de fichiers de mise à jour mensuels, ainsi que de fichiers de mise à jour fréquentes.
+L'ensemble des fichiers mis à disposition pour le SIRENE se trouvent sur
+[data.gouv.fr](http://files.data.gouv.fr/sirene). On y trouve chaque début de
+mois un fichier dit stock qui reflète tous les établissements dont la diffusion commerciale
+est autorisée. Ces fichiers stocks sont accompagnés de fichiers stocks mensuels,
+ainsi que de fichiers de mise à jour fréquentes.
 
-### Fichiers de mise à jour mensuels
+### Fichiers stocks mensuels
 
 Règle de nommage : sirene_YYYYMM_L_M.zip, YYYY => 2017, MM => 01 pour janvier
 
+Pour récupérer le dernier stock et l'insérer en base, veuillez utiliser
 
+    rake sirene_as_api:import_last_monthly_stock
+
+Notez que ceci ne fait qu'insérer des rows et ne doit pas être lancé sur une
+base non vide
 
 ### Fichiers de mise à jour fréquents
 
