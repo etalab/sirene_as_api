@@ -1,13 +1,13 @@
-CREATE ROLE societes_gouv WITH LOGIN CREATEDB PASSWORD 'password';
-CREATE DATABASE societes_gouv_production WITH OWNER societes_gouv;
-CREATE DATABASE societes_gouv_development WITH OWNER societes_gouv;
-CREATE DATABASE societes_gouv_test WITH OWNER societes_gouv;
+CREATE ROLE sirene_as_api WITH LOGIN CREATEDB PASSWORD 'password';
+CREATE DATABASE sirene_as_api_production WITH OWNER societes_gouv;
+CREATE DATABASE sirene_as_api_development WITH OWNER societes_gouv;
+CREATE DATABASE sirene_as_api_test WITH OWNER societes_gouv;
 
-\c societes_gouv_test;
+\c sirene_as_api_test;
 CREATE EXTENSION pg_trgm;
 
-\c societes_gouv_development;
+\c sirene_as_api_development;
 CREATE EXTENSION pg_trgm;
 
-\c societes_gouv_production;
+\c sirene_as_api_production;
 CREATE EXTENSION pg_trgm;
