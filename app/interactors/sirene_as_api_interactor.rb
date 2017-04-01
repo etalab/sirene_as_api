@@ -10,14 +10,14 @@ class SireneAsAPIInteractor
   end
 
   def stdout_warn_log(msg)
-    puts msg.yellow
+    puts msg.capitalize.yellow
   end
 
   def stdout_success_log(msg)
-    puts "#{check_mark}  #{msg}".green
+    puts "#{check_mark}  #{msg.capitalize}".green
   end
 
   def stdout_info_log(msg)
-    puts "#{log_prefix}  #{msg}"
+    puts "#{log_prefix}  #{msg.capitalize}"
   end
 end
