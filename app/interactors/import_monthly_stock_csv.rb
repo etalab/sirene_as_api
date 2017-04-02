@@ -22,6 +22,11 @@ class ImportMonthlyStockCsv < SireneAsAPIInteractor
   end
 
   def call
+    unless clean_database?
+      context.fail!(error: 'database should be empty before importing a stock file')
+      return
+    end
+
     progress_bar = ProgressBar.create(
       total: context.number_of_rows,
       format: 'Progress %c/%C |%b>%i| %a %e'
@@ -31,6 +36,10 @@ class ImportMonthlyStockCsv < SireneAsAPIInteractor
       InsertEtablissementRowsJob.new(chunk).perform
       chunk.size.times { progress_bar.increment }
     end
+  end
+
+  def clean_database?
+    Etablissement.first.nil?
   end
 
   def csv_options
