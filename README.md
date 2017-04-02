@@ -93,7 +93,7 @@ Une fois réalisé, lancez Solr, des fichiers de config seront copiés
 
     bundle exec rake sunspot:solr:start
 
-Lancez l'indexation
+Lancez l'indexation (sur une base remplie, comptez ~ 1-2 heures)
 
     bundle exec rake sunspot:reindex
 
@@ -114,13 +114,13 @@ Tâches disponibles
 Tâches spécifiques sirene_as_api
     bundle exec rake -T sirene_as_api
 
-Remplissage base (dernier stock + mises a jour)
+Remplissage base (dernier stock + mises a jour) : ~ 4 heures, patching variable
     bundle exec rake sirene_as_api:populate_database
 
-Remplissage base dernier stock seulement
+Remplissage base dernier stock seulement : ~ 4 heures
     bundle exec rake sirene_as_api:import_last_monthly_stock
 
-Mise a jour et applications des patches idoines
+Mise a jour et applications des patches idoines : ~ 2 minutes par patch
     bundle exec rake sirene_as_api:select_and_apply_patches
 
 ACHTUNG *Il faut réindexer après chacune de ces opérations*. La réindexation
