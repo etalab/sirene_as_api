@@ -46,7 +46,7 @@ class GetRelevantPatchesLinks < SireneAsAPIInteractor
       day_number = Date.parse(latest_etablissement_mise_a_jour).yday
       padded_day_number = day_number.to_s.rjust(3,'0')
 
-      stdout_success_log "Will try to apply patches #{padded_day_number} and higher that are available
+      stdout_success_log "Will try to apply patches #{padded_day_number.succ} and higher that are available
       See documentation for more on patches file names formatting"
       padded_day_number
     end
