@@ -106,6 +106,26 @@ Et y faire des requêtes
     curl 'localhost:3000/full_text/MA_RECHERCHE'
     curl 'localhost:3000/siret/MON_SIRET'
 
+## Mises à jour / Administration
+
+Tâches disponibles
+    rake -T
+
+Tâches spécifiques sirene_as_api
+    bundle exec rake -T sirene_as_api
+
+Remplissage base (dernier stock + mises a jour)
+    bundle exec rake sirene_as_api:populate_database
+
+Remplissage base dernier stock seulement
+    bundle exec rake sirene_as_api:import_last_monthly_stock
+
+Mise a jour et applications des patches idoines
+    bundle exec rake sirene_as_api:select_and_apply_patches
+
+ACHTUNG *Il faut réindexer après chacune de ces opérations*. La réindexation
+automatique viendra plus tard
+
 ## Sunspot / SOlr
 
 ### Start the server
