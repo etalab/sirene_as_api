@@ -18,7 +18,7 @@ class UpdateEtablissementRowsJob
 
       nature_mise_a_jour = etablissement_attrs[:nature_mise_a_jour]
 
-      if nature_mise_a_jour== "I"
+      if nature_mise_a_jour == "I"
         # Il y a une paire I/F, I étant l'état initial
         next
       elsif nature_mise_a_jour == 'E'

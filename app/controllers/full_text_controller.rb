@@ -1,8 +1,5 @@
 class FullTextController < ApplicationController
   def show
-    # NICE SEGURIDAD
-    #r = Etablissement.fuzzy_search(params[:id]).limit(10)
-
     page = params[:page] || 1
 
     search = Etablissement.search do

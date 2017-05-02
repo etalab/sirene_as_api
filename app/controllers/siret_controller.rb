@@ -1,7 +1,7 @@
 class SiretController < ApplicationController
   def show
-    # NICE SEGURIDAD
     r = Etablissement.find_by(siret: params[:id])
+
     if r.nil?
       render json: { message: 'no results found' }, status: 404
     else
