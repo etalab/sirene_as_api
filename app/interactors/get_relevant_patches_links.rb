@@ -41,11 +41,9 @@ class GetRelevantPatchesLinks < SireneAsAPIInteractor
   def padded_latest_etablissement_mise_a_jour_day_number
     @padded_latest_etablissement_mise_a_jour_day_number ||= begin
       stdout_info_log "computing next patch that should be applied"
-      latest_etablissement_mise_a_jour = Etablissement.limit(1).order('date_mise_a_jour DESC').first.date_mise_a_jour
-
+      latest_etablissement_mise_a_jour = Etablissement.latest_mise_a_jour
       day_number = Date.parse(latest_etablissement_mise_a_jour).yday
       padded_day_number = day_number.to_s.rjust(3,'0')
-
       stdout_success_log "Will try to apply patches #{padded_day_number.succ} and higher that are available
       See documentation for more on patches file names formatting"
       padded_day_number
