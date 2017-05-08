@@ -13,3 +13,7 @@ development:
 test:
   database: sirene_as_api_test
   <<: *defaults
+
+production:
+  database: sirene_as_api_production
+  <<: *defaults
