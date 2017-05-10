@@ -8,34 +8,45 @@ describe ApplyPatch do
   # You need to start solr before doing any tests on test database and stop it
   # cleanly after to avoid bad requests due to PID/logging problems.
   before :all do
-    puts "Starting sunspot solr"
+    puts "Starting Sunspot Solr, waiting 3 sec to let it start..."
     system("rake", "sunspot:solr:start")
-    sleep 3 # Time for Solr to start
+    sleep 3
   end
+
   after :all do
+    DatabaseCleaner.clean
     system("rake", "sunspot:solr:stop")
   end
 
-  #this test will check the last update, then apply one patch in the ../fixtures/sample_patches folder,
-  # then rollback and check if the last update is the same.
+  # The last update time should be inferior to the one in the patch,
+  # and should be the same after patch is applied
   context 'when a patch must be applied' do
-    it 'rollback correctly the last patch' do
-      populate_test_database
-      # puts @all_etablissements.date_mise_a_jour
-      # pending("ApplyPatch test not yet implemented")
-      # ApplyPatch.new(link: test_link).call
-      # expect().to eq()
+    it 'apply correctly the patch' do
+      @sample_etablissements = populate_test_database
+      expect(last_update_before_applypatch).to be < last_update_after_applypatch
+      ApplyPatch.new(link: patch_link).call
+      expect(last_update_before_applypatch).to eq(last_update_after_applypatch)
     end
-    DatabaseCleaner.clean
   end
 
-  def test_link
+  def patch_link
     "http://files.data.gouv.fr/sirene/sirene_2017095_E_Q.zip"
   end
 
+  def last_update_before_applypatch
+    Etablissement.latest_mise_a_jour
+  end
+
+  def last_update_after_applypatch
+    "2017-04-05T19:34:44"
+  end
+
   def populate_test_database
+    sample_etablissements = Array.new
     20.times do
-      create(:etablissement)
+      etablissement = create(:etablissement)
+      sample_etablissements << etablissement
     end
+    sample_etablissements
   end
 end
