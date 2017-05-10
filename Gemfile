@@ -47,6 +47,9 @@ group :development, :test do
   gem 'guard-rails', require: false
   gem 'guard-rspec', require: false
 
+# factory_girl used for populating test database
+  gem 'factory_girl_rails'
+
   gem 'timecop'
   gem 'growl'
 end
@@ -54,6 +57,9 @@ end
 group :test do
   gem 'vcr'
   gem 'webmock'
+
+# database_cleaner used for cleaning database before test
+  gem 'database_cleaner'
 end
 
 group :development do
