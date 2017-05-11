@@ -22,7 +22,12 @@ VCR.configure do |config|
   config.cassette_library_dir = 'spec/fixtures/vcr_cassettes'
   config.hook_into :webmock
   config.configure_rspec_metadata!
+  # Condig allow http connections without cassettes for requests on Solr server
   config.allow_http_connections_when_no_cassette = true
+  # Config ignore_request to stop VCR from managing Solr server requests
+  config.ignore_request do |request|
+    URI(request.uri).port == 8981
+  end
 end
 
 RSpec.configure do |config|
