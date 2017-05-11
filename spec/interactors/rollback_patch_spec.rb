@@ -1,20 +1,46 @@
 require 'rails_helper'
 require 'ruby-progressbar'
+require 'database_cleaner'
 
-#this test will check the last update, then apply one patch in the ../fixtures/sample_patches folder,
-# then rollback and check if the last update is the same.
+DatabaseCleaner.strategy = :truncation
+
 describe RollbackPatch do
-  context 'when a patch must be cancelled' do
-    it 'rollback correctly the last patch'
-      # Etablissement = double("Etablissement", :latest_mise_a_jour => "2017-03-27T10:55:43", :find_or_initialize_by => ':siret=>"02407644000023"')
-      # update_before_patch = Etablissement.latest_mise_a_jour
-      # ApplyPatch.new(link: test_link).call
-      # RollbackPatch.new(link: test_link).call
-      # update_after_rollback = Etablissement.latest_mise_a_jour
-      # expect(update_before_patch).to eq(update_after_rollback)
+  # You need to start solr before doing any tests on test database and stop it
+  # cleanly after to avoid bad requests due to PID/logging problems.
+  before :all do
+    puts "Starting Sunspot Solr, waiting 3 sec to let it start..."
+    system("rake", "sunspot:solr:start")
+    sleep 3
+    populate_test_database
   end
 
-  def test_link
+  after :all do
+    DatabaseCleaner.clean
+    system("rake", "sunspot:solr:stop")
+  end
+
+  # This test check if the last update is different before applying the patch,
+  # then if it is the same after rollback
+  context 'when a patch must be rollback' do
+    it 'rollback correctly the patch' do
+      save_last_update = Etablissement.latest_mise_a_jour
+      ApplyPatch.new(link: patch_link).call
+      RollbackPatch.new(link: patch_link).call
+      expect(save_last_update).to eq(Etablissement.latest_mise_a_jour)
+    end
+  end
+
+  def patch_link
     "http://files.data.gouv.fr/sirene/sirene_2017095_E_Q.zip"
+  end
+
+  def last_update_after_applypatch
+    "2017-04-05T19:34:44"
+  end
+
+  def populate_test_database
+    50.times do
+      create(:etablissement)
+    end
   end
 end

@@ -22,13 +22,14 @@ describe ApplyPatch do
   # and should be the same after patch is applied
   context 'when a patch must be applied' do
     it 'apply correctly the patch' do
-      @sample_etablissements = populate_test_database
+      populate_test_database
       expect(last_update_before_applypatch).to be < last_update_after_applypatch
       ApplyPatch.new(link: patch_link).call
       expect(last_update_before_applypatch).to eq(last_update_after_applypatch)
     end
   end
 
+  # Sample patch link which last update is in last_update_after_applypatch
   def patch_link
     "http://files.data.gouv.fr/sirene/sirene_2017095_E_Q.zip"
   end
@@ -37,16 +38,14 @@ describe ApplyPatch do
     Etablissement.latest_mise_a_jour
   end
 
+  # Sample last update which is in patch from patch_link
   def last_update_after_applypatch
     "2017-04-05T19:34:44"
   end
 
   def populate_test_database
-    sample_etablissements = Array.new
-    20.times do
-      etablissement = create(:etablissement)
-      sample_etablissements << etablissement
+    50.times do
+      create(:etablissement)
     end
-    sample_etablissements
   end
 end
