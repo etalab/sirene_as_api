@@ -26,3 +26,5 @@
 # Ignore zip archives and its unzipped csv result files
 /public/*.csv
 /public/*.zip
+spec/interactors/solr/
+sunspot-solr.pid
