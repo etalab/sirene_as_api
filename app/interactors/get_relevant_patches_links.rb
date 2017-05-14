@@ -15,8 +15,16 @@ class GetRelevantPatchesLinks < SireneAsAPIInteractor
       sirene_update_and_stock_links.select do |l|
         l[:href].match(sirene_daily_update_filename_pattern)
         padded_day_number = $1
-
         padded_day_number && (padded_day_number > padded_latest_etablissement_mise_a_jour_day_number)
+      end
+      # If there are less than 5 patches, apply 5 patches anyway
+      if (relevant_patches_relative_links.size < 5)
+        stdout_info_log "#{relevant_patches_relative_links.size} patch found; last 5 patch will be applied."
+        relevant_patches_relative_links =
+          sirene_update_and_stock_links.select do |l|
+            l[:href].match(sirene_daily_update_filename_pattern)
+          end
+        relevant_patches_relative_links = relevant_patches_relative_links.last(5)
       end
 
     relevant_patches_absolute_links = relevant_patches_relative_links.map do |relative_link|
