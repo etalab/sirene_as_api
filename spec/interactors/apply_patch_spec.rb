@@ -18,11 +18,17 @@ describe ApplyPatch do
     system("rake", "sunspot:solr:stop")
   end
 
+  before :each do
+    puts "Cleaning the database before test..."
+    DatabaseCleaner.clean
+    puts "Populating the database before test..."
+    populate_test_database
+  end
+
   # The last update time should be inferior to the one in the patch,
   # and should be the same after patch is applied
   context 'when a patch must be applied' do
     it 'apply correctly the patch' do
-      populate_test_database
       expect(last_update_before_applypatch).to be < last_update_after_applypatch
       ApplyPatch.new(link: patch_link).call
       expect(last_update_before_applypatch).to eq(last_update_after_applypatch)

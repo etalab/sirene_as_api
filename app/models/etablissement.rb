@@ -6,6 +6,10 @@ class Etablissement < ApplicationRecord
   end
 
   def self.latest_mise_a_jour
-    self.limit(1).order('date_mise_a_jour DESC').first.date_mise_a_jour
+    self.latest_entry.date_mise_a_jour
+  end
+
+  def self.latest_entry
+    self.limit(1).order('date_mise_a_jour DESC').first
   end
 end
