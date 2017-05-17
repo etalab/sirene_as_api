@@ -3,7 +3,7 @@ require 'open-uri'
 
 class GetRelevantPatchesLinks < SireneAsAPIInteractor
   around do |interactor|
-    stdout_info_log "Visiting frequent update patches distant directory"
+    stdout_info_log 'Visiting frequent update patches distant directory'
     interactor.call
     stdout_success_log "Found #{context.links.size} patches !
     Retrieved relevant patches links : #{context.links}"
@@ -48,7 +48,7 @@ class GetRelevantPatchesLinks < SireneAsAPIInteractor
 
   def padded_latest_etablissement_mise_a_jour_day_number
     @padded_latest_etablissement_mise_a_jour_day_number ||= begin
-      stdout_info_log "computing next patch that should be applied"
+      stdout_info_log 'computing next patch that should be applied'
       latest_etablissement_mise_a_jour = Etablissement.latest_mise_a_jour
       day_number = Date.parse(latest_etablissement_mise_a_jour).yday
       padded_day_number = day_number.to_s.rjust(3,'0')
@@ -69,7 +69,6 @@ class GetRelevantPatchesLinks < SireneAsAPIInteractor
   def sirene_daily_update_filename_pattern
     /.*sirene_#{current_year}([0-9]{3})_E_Q\.zip/
   end
-
 
   def current_year
     Time.now.year.to_s
