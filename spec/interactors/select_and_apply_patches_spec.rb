@@ -39,9 +39,9 @@ describe SelectAndApplyPatches do
       end
       siren_first_patch = first_entry_from_first_patch_7_ago[:siren]
       date_first_patch = first_entry_from_first_patch_7_ago[:date_mise_a_jour]
-      date_first_patch_in_database = Etablissement.limit(1).find_by(siren: siren_first_patch).date_mise_a_jour
+      date_first_patch_in_database = Etablissement.unscoped.limit(1).find_by(siren: siren_first_patch).date_mise_a_jour
       expect(date_first_patch_in_database).to eq(date_first_patch)
-      last_entry_from_database = {:siren => Etablissement.latest_entry.siren, :date_mise_a_jour => Etablissement.latest_mise_a_jour}
+      last_entry_from_database = {:siren => Etablissement.unscoped.latest_entry.siren, :date_mise_a_jour => Etablissement.unscoped.latest_mise_a_jour}
       expect(last_entry_from_database).to eq(last_entry_from_last_patch)
     end
   end
@@ -65,9 +65,9 @@ describe SelectAndApplyPatches do
       end
       siren_first_patch = first_entry_from_first_patch_5_ago[:siren]
       date_first_patch = first_entry_from_first_patch_5_ago[:date_mise_a_jour]
-      date_first_patch_in_database = Etablissement.limit(1).find_by(siren: siren_first_patch).date_mise_a_jour
+      date_first_patch_in_database = Etablissement.unscoped.limit(1).find_by(siren: siren_first_patch).date_mise_a_jour
       expect(date_first_patch_in_database).to eq(date_first_patch)
-      last_entry_from_database = {siren: Etablissement.latest_entry.siren, date_mise_a_jour: Etablissement.latest_mise_a_jour}
+      last_entry_from_database = {siren: Etablissement.unscoped.latest_entry.siren, date_mise_a_jour: Etablissement.unscoped.latest_mise_a_jour}
       expect(last_entry_from_database).to eq(last_entry_from_last_patch)
     end
   end

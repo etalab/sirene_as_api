@@ -28,7 +28,7 @@ describe ApplyPatch do
   end
 
   def last_update_before_applypatch
-    Etablissement.latest_mise_a_jour
+    Etablissement.unscoped.latest_mise_a_jour
   end
 
   def populate_test_database
