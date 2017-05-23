@@ -71,6 +71,7 @@ bundler s'il est déjà présent sur la machine
 
 Il faut maintenant préparer la base de données postgres
 
+    sudo -u postgres -i
     psql -f postgresql_setup.txt
 
 Assurez vous que tout s'est bien passé
