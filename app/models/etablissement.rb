@@ -1,7 +1,7 @@
 # Class Etablissement
 class Etablissement < ApplicationRecord
   attr_accessor :csv_path
-  default_scope -> { where(nature_mise_a_jour: !"O") }
+  default_scope -> { where(nature_mise_a_jour: ["I", "F, ""C", "D", "E"]) }
 
   searchable do
     text :nom_raison_sociale
