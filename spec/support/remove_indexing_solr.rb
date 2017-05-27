@@ -3,10 +3,12 @@ class Etablissement < ApplicationRecord
   attr_accessor :csv_path
   default_scope -> { where(nature_mise_a_jour: ["I", "F, ""C", "D", "E"]) }
 
-  searchable auto_remove: false, auto_index: false do
+  searchable do
     text :nom_raison_sociale
   end
-
+  # searchable auto_remove: false, auto_index: false do
+  #   text :nom_raison_sociale
+  # end
   # private
   # def perform_index_tasks
   #   nil

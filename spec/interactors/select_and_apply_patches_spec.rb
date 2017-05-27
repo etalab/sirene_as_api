@@ -1,17 +1,8 @@
 require 'rails_helper'
 
 describe SelectAndApplyPatches do
-  before :each do
-    puts 'Cleaning the database before test...'
-    DatabaseCleaner.start
-    puts 'Populating the database before test...'
-    populate_test_database
-  end
-
-  after :each do
-    puts 'Cleaning the database after test...'
-    DatabaseCleaner.clean
-  end
+  use_database_cleaner
+  populate_database_before_test
 
   # Last entry from patch 2017088 :
   # Time 2017-03-29T19:01:16
@@ -69,12 +60,6 @@ describe SelectAndApplyPatches do
       expect(date_first_patch_in_database).to eq(date_first_patch)
       last_entry_from_database = {siren: Etablissement.unscoped.latest_entry.siren, date_mise_a_jour: Etablissement.unscoped.latest_mise_a_jour}
       expect(last_entry_from_database).to eq(last_entry_from_last_patch)
-    end
-  end
-
-  def populate_test_database
-    50.times do
-      create(:etablissement)
     end
   end
 
