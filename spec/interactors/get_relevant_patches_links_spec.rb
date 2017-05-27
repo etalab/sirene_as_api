@@ -1,17 +1,8 @@
 require 'rails_helper'
 
 describe GetRelevantPatchesLinks do
-  before :each do
-    puts 'Cleaning the database before test...'
-    DatabaseCleaner.start
-    puts 'Populating the database before test...'
-    populate_test_database
-  end
-
-  after :each do
-    puts 'Cleaning the database after test...'
-    DatabaseCleaner.clean
-  end
+  use_database_cleaner
+  populate_database_before_test
 
   context 'when in march & there are MORE than 5 patches',
           vcr: {  cassette_name: 'sirene_file_index_20170330',
@@ -30,12 +21,6 @@ describe GetRelevantPatchesLinks do
       add_one_recent_entry_2_patch_ago
       right_number_of_patches = 5
       expect(described_class.call.links.size).to eq(right_number_of_patches)
-    end
-  end
-
-  def populate_test_database
-    50.times do
-      create(:etablissement)
     end
   end
 

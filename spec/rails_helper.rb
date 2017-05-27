@@ -7,10 +7,14 @@ abort("The Rails environment is running in production mode!") if Rails.env.produ
 require 'spec_helper'
 require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
-require 'support/factory_girl'
-require 'support/remove_indexing_solr'
 require 'ruby-progressbar'
 require 'database_cleaner'
+require 'support/factory_girl'
+require 'support/remove_indexing_solr'
+require 'support/database_cleaner'
+require 'support/populate_database'
+require 'support/solr_server'
+require 'support/custom_matchers/json_matchers.rb'
 
 DatabaseCleaner.strategy = :truncation
 
@@ -34,6 +38,8 @@ DatabaseCleaner.strategy = :truncation
 ActiveRecord::Migration.maintain_test_schema!
 
 RSpec.configure do |config|
+  puts Rails.env
+
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
@@ -62,3 +68,4 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
 end
+puts Rails.env
