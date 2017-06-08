@@ -4,15 +4,20 @@ class FullTextController < ApplicationController
     #r = Etablissement.fuzzy_search(params[:id]).limit(10)
 
     page = params[:page] || 1
+    #activite_principale = params[:activite_principale]
 
     search = Etablissement.search do
       fulltext params[:id]
+      facet :activite_principale
+      with(:activite_principale, params[:activite_principale]) if params[:activite_principale].present?
+      facet :code_postal
+      with(:code_postal , params[:code_postal]) if params[:code_postal].present?
       paginate page: page, per_page: 10
     end
 
     results = search.results
 
-    if results.nil?
+    if results.blank?
       render json: { message: 'no results found' }, status: 404
     else
       results_payload = {

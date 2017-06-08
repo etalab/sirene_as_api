@@ -10,13 +10,11 @@ require 'rspec/rails'
 require 'ruby-progressbar'
 require 'database_cleaner'
 require 'support/factory_girl'
-require 'support/remove_indexing_solr'
 require 'support/database_cleaner'
 require 'support/populate_database'
 require 'support/solr_server'
 require 'support/custom_matchers/json_matchers.rb'
-
-DatabaseCleaner.strategy = :truncation
+require 'support/use_vcr.rb'
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -38,7 +36,6 @@ DatabaseCleaner.strategy = :truncation
 ActiveRecord::Migration.maintain_test_schema!
 
 RSpec.configure do |config|
-  puts Rails.env
 
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
@@ -68,4 +65,5 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
 end
-puts Rails.env
+
+require 'support/remove_indexing_solr'
