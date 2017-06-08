@@ -1,13 +1,13 @@
 require 'rails_helper'
 
 def use_database_cleaner
-  before :each do
-    puts 'Cleaning the database before test...'
+  DatabaseCleaner.strategy = :truncation
+
+  before :all do
     DatabaseCleaner.start
   end
 
-  after :each do
-    puts 'Cleaning the database after test...'
+  after :all do
     DatabaseCleaner.clean
   end
 end
