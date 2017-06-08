@@ -30,7 +30,7 @@ gem 'sunspot_solr'
 gem 'rubyzip'
 gem 'smarter_csv'
 
-gem 'progress_bar'
+gem 'ruby-progressbar'
 
 # Interactors
 gem "interactor", "~> 3.0"

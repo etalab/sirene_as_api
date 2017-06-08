@@ -4,7 +4,7 @@ require 'mina/git'
 
 set :domain, '94.23.0.49'
 set :port, 22
-set :repository, '/opt/git/sirene_as_api'
+set :repository, 'https://github.com/sgmap/sirene_as_api.git'
 set :branch, 'master'
 set :deploy_to, '/var/www/sirene_as_api'
 set :user, 'deploy'    # Username in the server to SSH to.
@@ -21,7 +21,6 @@ set :shared_paths, [
   'tmp/files',
   'public/system',
   'public/uploads',
-  'public/phat_dump_janvier.csv',
   'config/database.yml',
   'config/environments/production.rb',
   'config/secrets.yml',
