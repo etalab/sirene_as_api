@@ -5,8 +5,8 @@ namespace :sirene_as_api do
   end
 
   desc 'Updates database'
-  task :select_and_apply_patches => :environment do
-    SelectAndApplyPatches.call
+  task :update_database => :environment do
+    UpdateDatabase.call
   end
 
   desc 'Populate database with stock and apply relevant patches'

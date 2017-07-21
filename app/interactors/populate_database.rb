@@ -1,5 +1,5 @@
 class PopulateDatabase
   include Interactor::Organizer
 
-  organize ImportLastMonthlyStock, SelectAndApplyPatches
+  organize ImportLastMonthlyStock, SaveLastMonthlyStockName, SelectAndApplyPatches
 end
