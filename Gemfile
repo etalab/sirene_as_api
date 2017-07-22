@@ -31,6 +31,8 @@ gem 'rubyzip'
 gem 'smarter_csv'
 
 gem 'ruby-progressbar'
+# Gem progress_bar required for displaying progress in rake sunspot:reindex
+gem 'progress_bar'
 
 # Interactors
 gem "interactor", "~> 3.0"

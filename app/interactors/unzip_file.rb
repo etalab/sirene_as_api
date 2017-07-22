@@ -18,7 +18,7 @@ class UnzipFile < SireneAsAPIInteractor
       zip_file.each do |f|
         unzipped_file_path = File.join(destination, f.name)
 
-        if File.exists?(unzipped_file_path)
+        if File.exist?(unzipped_file_path)
           context.unzipped_files << unzipped_file_path
           stdout_warn_log "Skipping unzip of file #{f.name} already a file at destination #{unzipped_file_path}"
         else
@@ -26,7 +26,6 @@ class UnzipFile < SireneAsAPIInteractor
           context.unzipped_files << unzipped_file_path
           stdout_success_log "Unzipped file #{unzipped_file_path} successfully"
         end
-
       end
     end
   end

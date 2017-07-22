@@ -30,7 +30,7 @@ class GetRelevantPatchesLinks < SireneAsAPIInteractor
   private
 
   def get_minimum_5_patches(links)
-    if (links.size < 5)
+    if links.size < 5
       stdout_info_log "#{links.size} patch found; last 5 patch will be applied."
       links =
         sirene_update_and_stock_links.select do |l|
@@ -51,7 +51,6 @@ class GetRelevantPatchesLinks < SireneAsAPIInteractor
   def sirene_update_and_stock_links
     doc = Nokogiri::HTML(open(files_repository))
     links = doc.css('a')
-    return links
   end
 
   def padded_latest_etablissement_mise_a_jour_day_number
@@ -59,7 +58,7 @@ class GetRelevantPatchesLinks < SireneAsAPIInteractor
       stdout_info_log 'computing next patch that should be applied'
       latest_etablissement_mise_a_jour = Etablissement.latest_mise_a_jour
       day_number = Date.parse(latest_etablissement_mise_a_jour).yday
-      padded_day_number = day_number.to_s.rjust(3,'0')
+      padded_day_number = day_number.to_s.rjust(3, '0')
       stdout_success_log "Will try to apply patches #{padded_day_number.succ} and higher that are available
       See documentation for more on patches file names formatting"
       padded_day_number
