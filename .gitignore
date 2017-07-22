@@ -30,4 +30,4 @@ spec/interactors/solr/
 sunspot-solr.pid
 
 # Ignore last_monthly_stock_link storage
-/last_monthly_stock_link.txt
+.last_monthly_stock_link.txt

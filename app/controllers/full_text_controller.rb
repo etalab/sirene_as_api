@@ -3,7 +3,7 @@ class FullTextController < ApplicationController
     page = params[:page] || 1
     #activite_principale = params[:activite_principale]
 
-    search = Etablissement.search do
+    search = Etablissement.in_commercial_diffusion.search do
       fulltext params[:id]
       facet :activite_principale
       with(:activite_principale, params[:activite_principale]) if params[:activite_principale].present?

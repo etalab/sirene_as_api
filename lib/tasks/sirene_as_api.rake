@@ -13,4 +13,9 @@ namespace :sirene_as_api do
   task :populate_database => :environment do
     PopulateDatabase.call
   end
+
+  desc 'Delete all rows in database'
+  task :delete_database => :environment do
+    DeleteDatabase.call
+  end
 end
