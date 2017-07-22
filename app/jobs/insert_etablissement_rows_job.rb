@@ -8,15 +8,15 @@ class InsertEtablissementRowsJob
   def perform
     etablissements = []
 
-    for line in lines do
+    lines.each do |line|
       etablissements << EtablissementAttrsFromLine.instance.call(line)
     end
 
-    ar_keys = ['created_at', 'updated_at']
+    ar_keys = %w[created_at updated_at]
     ar_keys << etablissements.first.keys.map(&:to_s)
     ar_keys.flatten
 
-    ar_values_string = etablissements.map{ |h| value_string_from_enterprise_hash(h) }.join(', ')
+    ar_values_string = etablissements.map { |h| value_string_from_enterprise_hash(h) }.join(', ')
 
     ar_query_string = " INSERT INTO etablissements (#{ar_keys.join(',')})
                         VALUES
@@ -32,9 +32,9 @@ class InsertEtablissementRowsJob
 
     between_parenthesis = hash.values.map do |v|
       if v.nil?
-        "NULL"
+        'NULL'
       else
-        "'#{v.gsub("'","''")}'"
+        "'#{v.gsub("'", "''")}'"
       end
     end.join(',')
 

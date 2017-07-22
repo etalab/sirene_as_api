@@ -8,8 +8,8 @@ class UpdateEtablissementRowsJob
     etablissements = []
 
     for line in lines do
-      etablissement_attrs = EtablissementAttrsFromLine.instance.call(line)
-      etablissements << etablissement_attrs
+      etablissement_atts = EtablissementAttrsFromLine.instance.call(line)
+      etablissements << etablissement_atts
     end
 
     etablissements.each do |etablissement_attrs|
@@ -18,7 +18,7 @@ class UpdateEtablissementRowsJob
 
       nature_mise_a_jour = etablissement_attrs[:nature_mise_a_jour]
 
-      if nature_mise_a_jour == "I"
+      if nature_mise_a_jour == 'I'
         # Il y a une paire I/F, I étant l'état initial
         next
       elsif nature_mise_a_jour == 'E'
@@ -30,8 +30,6 @@ class UpdateEtablissementRowsJob
 
         next
       end
-
-
       etablissement.update_attributes(etablissement_attrs)
     end
   end

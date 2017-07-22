@@ -1,8 +1,6 @@
-# Class Etablissement
-
 class Etablissement < ApplicationRecord
   attr_accessor :csv_path
-  scope :in_commercial_diffusion, -> { where(nature_mise_a_jour: ["I", "F, ""C", "D"]) }
+  scope :in_commercial_diffusion, -> { where(nature_mise_a_jour: %w[I F C D]) }
 
   searchable do
     text :nom_raison_sociale
@@ -15,6 +13,6 @@ class Etablissement < ApplicationRecord
   end
 
   def self.latest_entry
-    unscoped.limit(1).order('date_mise_a_jour DESC').first
+    limit(1).order('date_mise_a_jour DESC').first
   end
 end

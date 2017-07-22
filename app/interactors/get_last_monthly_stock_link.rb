@@ -15,6 +15,7 @@ class GetLastMonthlyStockLink < SireneAsAPIInteractor
   end
 
   private
+
   def stock_relative_links
     sirene_update_and_stock_links.select do |l|
       l[:href].match(sirene_monthly_stock_filename_pattern)
