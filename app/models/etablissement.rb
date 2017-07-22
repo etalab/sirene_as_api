@@ -2,7 +2,7 @@
 
 class Etablissement < ApplicationRecord
   attr_accessor :csv_path
-  default_scope -> { where(nature_mise_a_jour: ["I", "F, ""C", "D"]) }
+  scope :in_commercial_diffusion, -> { where(nature_mise_a_jour: ["I", "F, ""C", "D"]) }
 
   searchable do
     text :nom_raison_sociale
