@@ -3,21 +3,19 @@ require 'rails_helper'
 describe FullTextController do
   context 'when doing a search that isnt found', :type => :request do
     it 'doesnt return anything' do
-      get "/full_text/thiscompanydoesntexist5678754579828655384"
+      get '/full_text/thiscompanydoesntexist5678754579828655384'
       expect(response.body).to look_like_json
-      expect(body_as_json).to match({ message: 'no results found' })
+      expect(body_as_json).to match(message: 'no results found')
       expect(response).to have_http_status(404)
     end
   end
 
   context 'when doing a simple search with no facet', :type => :request do
-    let!(:etablissement){ create(:etablissement, nom_raison_sociale: "foobarcompany") }
+    let!(:etablissement){ create(:etablissement, nom_raison_sociale: 'foobarcompany') }
     it 'return the correct results' do
-      Sunspot.index etablissement
-      Sunspot.commit
       Etablissement.reindex
 
-      get "/full_text/foobarcompany"
+      get '/full_text/foobarcompany'
 
       expect(response.body).to look_like_json
       result_hash = body_as_json
@@ -29,20 +27,18 @@ describe FullTextController do
         page: 1,
       })
       name_result = result_etablissements[:etablissement][0][:nom_raison_sociale]
-      expect(name_result).to match("foobarcompany")
+      expect(name_result).to match('foobarcompany')
       expect(response).to have_http_status(200)
     end
   end
 
   context 'when doing a 1 facet search', :type => :request do
-    let!(:etablissement){ create(:etablissement, nom_raison_sociale: "foobarcompany", activite_principale: "APE41") }
-    let!(:etablissement2){ create(:etablissement, nom_raison_sociale: "foobarcompany", activite_principale: "APE42") }
+    let!(:etablissement){ create(:etablissement, nom_raison_sociale: 'foobarcompany', activite_principale: 'APE41') }
+    let!(:etablissement2){ create(:etablissement, nom_raison_sociale: 'foobarcompany', activite_principale: 'APE42') }
     it 'return the correct results' do
-      Sunspot.index {etablissement etablissement2}
-      Sunspot.commit
       Etablissement.reindex
 
-      get "/full_text/foobarcompany?activite_principale=APE42"
+      get '/full_text/foobarcompany?activite_principale=APE42'
 
       expect(response.body).to look_like_json
       result_hash = body_as_json
@@ -54,21 +50,19 @@ describe FullTextController do
         page: 1,
       })
       name_result = result_etablissements[:etablissement][0][:nom_raison_sociale]
-      expect(name_result).to match("foobarcompany")
+      expect(name_result).to match('foobarcompany')
       expect(response).to have_http_status(200)
     end
   end
 
   context 'when doing a 2 facet search', :type => :request do
-   let!(:etablissement){ create(:etablissement, nom_raison_sociale: "foobarcompany", activite_principale: "APE41", code_postal: "123456") }
-   let!(:etablissement2){ create(:etablissement, nom_raison_sociale: "foobarcompany", activite_principale: "APE42", code_postal: "234567") }
-   let!(:etablissement3){ create(:etablissement, nom_raison_sociale: "foobarcompany", activite_principale: "APE42", code_postal: "424242") }
+   let!(:etablissement){ create(:etablissement, nom_raison_sociale: 'foobarcompany', activite_principale: 'APE41', code_postal: '123456') }
+   let!(:etablissement2){ create(:etablissement, nom_raison_sociale: 'foobarcompany', activite_principale: 'APE42', code_postal: '234567') }
+   let!(:etablissement3){ create(:etablissement, nom_raison_sociale: 'foobarcompany', activite_principale: 'APE42', code_postal: '424242') }
    it 'return the correct results' do
-     Sunspot.index {etablissemnet1 etablissement2 etablissement3}
-     Sunspot.commit
      Etablissement.reindex
 
-     get "/full_text/foobarcompany?activite_principale=APE42&code_postal=424242"
+     get '/full_text/foobarcompany?activite_principale=APE42&code_postal=424242'
 
      expect(response.body).to look_like_json
      result_hash = body_as_json
@@ -80,9 +74,8 @@ describe FullTextController do
        page: 1,
      })
      name_result = result_etablissements[:etablissement][0][:nom_raison_sociale]
-     expect(name_result).to match("foobarcompany")
+     expect(name_result).to match('foobarcompany')
      expect(response).to have_http_status(200)
    end
   end
 end
-

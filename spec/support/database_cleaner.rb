@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 def use_database_cleaner
-  DatabaseCleaner.strategy = :truncation
+  DatabaseCleaner.strategy = :delete
 
   before :all do
     DatabaseCleaner.start
