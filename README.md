@@ -10,42 +10,41 @@ Le projet se découpe en trois sous-projets :
 
   - Une API Ruby on Rails qui importe les fichiers de données
     mis à disposition par l'INSEE : [sirene_as_api](https://github.com/sgmap/sirene_as_api)
-  - Un script capable de monter l'API automatiquement : [sirene_as_api_ansible](https://github.com/sgmap/sirene_as_api_ansible)
-  - Une interface de recherche Front-end en Vue.js : [sirene_as_api_front](https://github.com/sgmap/sirene_as_api_front)
+  - Un script capable de déployer l'API automatiquement : [sirene_as_api_ansible](https://github.com/sgmap/sirene_as_api_ansible)
+  - Une interface web de recherche exploitant l'API en Vue.js : [sirene_as_api_front](https://github.com/sgmap/sirene_as_api_front)
 
 ## Qualification des fichiers mis à disposition par l'INSEE
 
 L'ensemble des fichiers mis à disposition pour le SIRENE se trouvent sur
-[data.gouv.fr](http://files.data.gouv.fr/sirene). On y trouve chaque début de
-mois un fichier dit stock qui reflète tous les établissements dont la diffusion commerciale
-est autorisée. Ces fichiers stocks sont accompagnés de fichiers stocks mensuels,
-ainsi que de fichiers de mise à jour fréquentes.
+[data.gouv.fr](http://www.data.gouv.fr/fr/datasets/base-sirene-des-entreprises-et-de-leurs-etablissements-siren-siret/). 
+On y trouve chaque début de mois un fichier dit stock qui recense toutes 
+les entreprises et leurs établissements. 
+Ces fichiers stocks mensuels sont accompagnés de fichiers de mises à jour 
+quotidiennes (tous les jours ouvrés), ainsi que de fichiers de mises à jour 
+mensuelles dites "de recalage".
 
 ### Fichiers stocks mensuels
 
 Il s'agit de fichiers mensuels contenant toute la base de donnée.
 Règle de nommage : sirene_YYYYMM_L_M.zip, YYYY => 2017, MM => 01 pour janvier
 
-### Fichiers de mise à jour fréquents
+### Fichiers de mises à jour quotidiennes
 
 Il s'agit de fichiers quotidiens mettant à jour la base de donnée.
-Règle de nommage : sirene_YYYYddd, YYY => 2017, 032 pour le 1er février car 32e
+Règle de nommage : sirene_YYYYddd, YYY => 2017, ddd => 032 pour le 1er février car 32e
 jour de l'année
 
-Ces fichiers paraissent le lendemain des 5 jours ouvrés classiques de semaine.
+Ces fichiers paraissent dans la nuit suivant chaque jour ouvré.
 Pour en savoir plus, rendez vous sur la [faq de l'insee](https://www.sirene.fr/sirene/public/faq?sirene_locale=fr)
 
 Une commande Rake est disponible pour mettre à jour la base de données
 (Cf. liste des tâches plus bas). Ces commandes doivent pour le moment être lancées
-manuellement, la mise à jour automatique viendra plus tard.
+manuellement, une mise à jour automatique est prévue à terme.
 
 ## Requêtes API
 
     curl 'http://localhost:3000/full_text/VOTRE_RECHERCHE'
     curl 'http://localhost:3000/siret/VOTRE_SIRET'
-
-L'API sera bientot disponible sur nos serveurs. Le fair use est fixé à 1000 requêtes
-par heure. Au dela vous risquez un bannissement de votre IP.
 
 ### Spécifications pour la recherche par nom d'entreprise
 
@@ -55,20 +54,20 @@ pour obtenir d'autres pages on peut passer le numéro en paramètre :
 
     curl 'http://localhost:3000/full_text/VOTRE_RECHERCHE?page=2'
 
-Le faceting est implémenté avec les parametres code postal et activité principale :
+La recherche par facette est implémentée avec les paramètres code_postal et activite_principale :
 
     curl 'http://localhost:3000/full_text/VOTRE_RECHERCHE?code_postal=CODE_POSTAL&activite_principale=ACTIVITE_PRINCIPALE'
 
-D'autres faceting seront implémentés en fonction des retours utilisateurs.
+D'autres facettes pourront être implémentées en fonction des retours utilisateurs.
 
-# Installation par soi même et setup
+# Installation et configuration
 
 Vous aurez besoin de :
 * postgresql en version supérieure a 9.5, la dernière version stable de
   préférence
 * ruby en version 2.4.1
 * git installé
-* bundler d'installé
+* bundler installé
 * un runtime java pour solr
 
 Une fois cloné ce répertoire à l'aide de
@@ -90,7 +89,7 @@ Assurez vous que tout s'est bien passé :
 
     bundle exec rake db:create
 
-Puis runnez les migrations :
+Puis éxécutez les migrations :
 
     bundle exec rake db:migrate
 
@@ -98,16 +97,16 @@ Si vous souhaitez utiliser les tests :
 
     RAILS_ENV=test bundle exec rake db:migrate
 
-Peuplez la database : Cette commande importe le dernier fichier stock mensuel
+Peuplez la base de données : Cette commande importe le dernier fichier stock mensuel
 ainsi que les mises à jour quotidiennes.
 
     bundle exec rake sirene_as_api:populate_database
 
-Une fois réalisé, lancez Solr, des fichiers de config seront copiés :
+Une fois réalisé, lancez Solr, des fichiers de configuration seront copiés :
 
     bundle exec rake sunspot:solr:start
 
-Lancez l'indexation (sur une base remplie, comptez ~ 1 heure)
+Lancez l'indexation (sur une base remplie, comptez au moins une heure)
 
     bundle exec rake sunspot:reindex
 
@@ -138,8 +137,8 @@ Mise a jour et applications des patches idoines : ~ 2 minutes par patch
 
     bundle exec rake sirene_as_api:update_database
 
-ACHTUNG *Il faut réindexer après chacune de ces opérations*. La réindexation
-automatique viendra plus tard.
+ATTENTION *Il faut réindexer après chacune de ces opérations*. Une réindexation
+automatique est prévue à terme.
 
     bundle exec rake sunspot:reindex
 
@@ -152,7 +151,7 @@ Suppression database, en cas de problèmes :
 La commande `bundle exec rake sirene_as_api:update_database` peut être lancée
 a chaque nouveau fichier
 
-## Sunspot / SOlr
+## Sunspot / Solr
 
 ### Demarrer le serveur
     bundle exec rake sunspot:solr:start
@@ -160,7 +159,7 @@ a chaque nouveau fichier
 ### Arreter le serveur
     bundle exec rake sunspot:solr:stop
 
-### Reindéxation
+### Réindexation
     bundle exec rake sunspot:reindex
 
 # License
