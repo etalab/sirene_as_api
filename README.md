@@ -23,18 +23,12 @@ ainsi que de fichiers de mise à jour fréquentes.
 
 ### Fichiers stocks mensuels
 
+Il s'agit de fichiers mensuels contenant toute la base de donnée.
 Règle de nommage : sirene_YYYYMM_L_M.zip, YYYY => 2017, MM => 01 pour janvier
-
-Pour récupérer le dernier stock et l'insérer en base, veuillez utiliser
-
-    rake sirene_as_api:import_last_monthly_stock
-
-Notez que ceci ne fait qu'insérer des rows et ne doit pas être lancé sur une
-base non vide.
-
 
 ### Fichiers de mise à jour fréquents
 
+Il s'agit de fichiers quotidiens mettant à jour la base de donnée.
 Règle de nommage : sirene_YYYYddd, YYY => 2017, 032 pour le 1er février car 32e
 jour de l'année
 
@@ -47,11 +41,11 @@ manuellement, la mise à jour automatique viendra plus tard.
 
 ## Requêtes API
 
-    curl 'http://entreprises.beta.gouv.fr/full_text/VOTRE_RECHERCHE'
-    curl 'http://entreprises.beta.gouv.fr/siret/VOTRE_SIRET'
+    curl 'http://localhost:3000/full_text/VOTRE_RECHERCHE'
+    curl 'http://localhost:3000/siret/VOTRE_SIRET'
 
-Le fair use est de 1000 requêtes par heure. Au dela vous risquez un bannissement
-de votre IP.
+L'API sera bientot disponible sur nos serveurs. Le fair use est fixé à 1000 requêtes
+par heure. Au dela vous risquez un bannissement de votre IP.
 
 ### Spécifications pour la recherche par nom d'entreprise
 
@@ -59,11 +53,11 @@ L'API retourne 10 résultats par page, au format JSON, avec le nombre total de
 résultats et le nombre total de pages. La page par défaut est la première,
 pour obtenir d'autres pages on peut passer le numéro en paramètre :
 
-    curl 'http://entreprises.beta.gouv.fr/full_text/VOTRE_RECHERCHE?page=2'
+    curl 'http://localhost:3000/full_text/VOTRE_RECHERCHE?page=2'
 
 Le faceting est implémenté avec les parametres code postal et activité principale :
 
-    curl 'http://entreprises.beta.gouv.fr/full_text/VOTRE_RECHERCHE?code_postal=CODE_POSTAL&activite_principale=ACTIVITE_PRINCIPALE'
+    curl 'http://localhost:3000/full_text/VOTRE_RECHERCHE?code_postal=CODE_POSTAL&activite_principale=ACTIVITE_PRINCIPALE'
 
 D'autres faceting seront implémentés en fonction des retours utilisateurs.
 
@@ -113,7 +107,7 @@ Une fois réalisé, lancez Solr, des fichiers de config seront copiés :
 
     bundle exec rake sunspot:solr:start
 
-Lancez l'indexation (sur une base remplie, comptez ~ 1 heures)
+Lancez l'indexation (sur une base remplie, comptez ~ 1 heure)
 
     bundle exec rake sunspot:reindex
 
@@ -128,19 +122,15 @@ Et y faire des requêtes :
 
 ## Mises à jour / Administration
 
-Tâches disponibles
-
-    rake -T
-
-Tâches spécifiques sirene_as_api
-
-    bundle exec rake -T sirene_as_api
+Tâches disponibles : `rake -T`, ou spécifiques sirene_as_api : `bundle exec rake -T sirene_as_api`
 
 Remplissage base (dernier stock + mises a jour) : ~ 3 heures, patching variable
+(Attention : Cette commande est à lancer sur base vide)
 
     bundle exec rake sirene_as_api:populate_database
 
 Remplissage base dernier stock seulement : ~ 3 heures
+(Attention : Cette commande est à lancer sur base vide)
 
     bundle exec rake sirene_as_api:import_last_monthly_stock
 
@@ -153,11 +143,14 @@ automatique viendra plus tard.
 
     bundle exec rake sunspot:reindex
 
+Suppression database, en cas de problèmes :
+
+    bundle exec rake sirene_as_api:delete_database
+
 ### Mises à jour automatiques
 
 La commande `bundle exec rake sirene_as_api:update_database` peut être lancée
 a chaque nouveau fichier
-
 
 ## Sunspot / SOlr
 
@@ -172,4 +165,4 @@ a chaque nouveau fichier
 
 # License
 
-[MIT](https://fr.wikipedia.org/wiki/Licence_MIT)
+Ce projet est sous [license MIT](https://fr.wikipedia.org/wiki/Licence_MIT)
