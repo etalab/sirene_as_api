@@ -12,6 +12,7 @@ def populate_test_database
   end
 end
 
+# TODO: Replace sample by array#cycle
 def populate_test_database_with_only_diffusion
   5.times do
     create(:etablissement, nature_mise_a_jour: %w[I F C D].sample)
