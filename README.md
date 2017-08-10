@@ -16,11 +16,11 @@ Le projet se découpe en trois sous-projets :
 ## Qualification des fichiers mis à disposition par l'INSEE
 
 L'ensemble des fichiers mis à disposition pour le SIRENE se trouvent sur
-[data.gouv.fr](http://www.data.gouv.fr/fr/datasets/base-sirene-des-entreprises-et-de-leurs-etablissements-siren-siret/). 
-On y trouve chaque début de mois un fichier dit stock qui recense toutes 
-les entreprises et leurs établissements. 
-Ces fichiers stocks mensuels sont accompagnés de fichiers de mises à jour 
-quotidiennes (tous les jours ouvrés), ainsi que de fichiers de mises à jour 
+[data.gouv.fr](http://www.data.gouv.fr/fr/datasets/base-sirene-des-entreprises-et-de-leurs-etablissements-siren-siret/).
+On y trouve chaque début de mois un fichier dit stock qui recense toutes
+les entreprises et leurs établissements.
+Ces fichiers stocks mensuels sont accompagnés de fichiers de mises à jour
+quotidiennes (tous les jours ouvrés), ainsi que de fichiers de mises à jour
 mensuelles dites "de recalage".
 
 ### Fichiers stocks mensuels
@@ -38,8 +38,8 @@ Ces fichiers paraissent dans la nuit suivant chaque jour ouvré.
 Pour en savoir plus, rendez vous sur la [faq de l'insee](https://www.sirene.fr/sirene/public/faq?sirene_locale=fr)
 
 Une commande Rake est disponible pour mettre à jour la base de données
-(Cf. liste des tâches plus bas). Ces commandes doivent pour le moment être lancées
-manuellement, une mise à jour automatique est prévue à terme.
+(Cf. liste des tâches plus bas). Toute mise à jour est suivie par une
+réindexation automatique.
 
 ## Requêtes API
 
@@ -137,11 +137,6 @@ Mise a jour et applications des patches idoines : ~ 2 minutes par patch
 
     bundle exec rake sirene_as_api:update_database
 
-ATTENTION *Il faut réindexer après chacune de ces opérations*. Une réindexation
-automatique est prévue à terme.
-
-    bundle exec rake sunspot:reindex
-
 Suppression database, en cas de problèmes :
 
     bundle exec rake sirene_as_api:delete_database
@@ -153,6 +148,13 @@ a chaque nouveau fichier
 
 ## Sunspot / Solr
 
+  Le serveur Solr doit être actif pour toute requête ou changement sur la
+  base de donnée.
+  Il est nécessaire de précéder ces commandes de `RAILS_ENV=MonEnvironnement`.
+  Attention, avoir plus d'un seul serveur Solr actif peut être source de
+  problèmes, il est par exemple conseillé de désactiver le serveur `test`
+  si vous souhaiter effectuer des opérations en `development`.
+
 ### Demarrer le serveur
     bundle exec rake sunspot:solr:start
 
@@ -160,6 +162,10 @@ a chaque nouveau fichier
     bundle exec rake sunspot:solr:stop
 
 ### Réindexation
+
+La réindexation est automatique après un changement appliqué à la base de
+donnée, mais il est également possible de réindexer manuellement :
+
     bundle exec rake sunspot:reindex
 
 # License

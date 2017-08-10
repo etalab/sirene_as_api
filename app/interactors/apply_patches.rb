@@ -1,14 +1,12 @@
 class ApplyPatches < SireneAsAPIInteractor
   around do |interactor|
-    stdout_info_log "Attempting to apply patches, one patch at a time"
+    stdout_info_log 'Attempting to apply patches, one patch at a time'
     interactor.call
 
     puts
   end
 
   def call
-    patches_links = context.links
-
     # Sorting in case patch index displays links in wrong order
     context.links.sort.each do |patch_link|
       apply_patch_with_log_msgs(patch_link)

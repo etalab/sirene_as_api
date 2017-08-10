@@ -10,6 +10,7 @@ describe SiretController do
     end
   end
 
+# TODO sirets more explicit, maybe with a #{siret_not_found}
   context 'when doing a simple search', :type => :request do
     let!(:etablissement){ create(:etablissement, nom_raison_sociale: 'foobarcompany', siret: '666555444') }
     it 'return the correct results' do
