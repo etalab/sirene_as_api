@@ -1,6 +1,7 @@
 require 'mina/bundler'
 require 'mina/rails'
 require 'mina/git'
+require 'mina/rbenv'
 
 set :domain, 'sirene.entreprise.api.gouv.fr'
 set :port, 22
@@ -29,7 +30,11 @@ set :shared_paths, [
 
 # This task is the environment that is loaded for most commands, such as
 # `mina deploy` or `mina rake`.
-set_default :ruby_version, "ruby-2.4.1"
+#set_default :ruby_version, "ruby-2.4.1"
+
+task :environment do
+  invoke :'rbenv:load'
+end
 
 # Put any custom mkdir's in here for when `mina setup` is ran.
 # For Rails apps, we'll make some of the shared paths that are shared between
