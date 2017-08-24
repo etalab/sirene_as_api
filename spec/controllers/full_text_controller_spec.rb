@@ -55,15 +55,14 @@ describe FullTextController do
     end
   end
 
-  # TODO : APE41 and 42 isnt explicit, should rename them, or create an array with reals APE, same for postal code
   context 'when doing a 2 facet search', :type => :request do
-   let!(:etablissement){ create(:etablissement, nom_raison_sociale: 'foobarcompany', activite_principale: 'APE41', code_postal: '123456') }
-   let!(:etablissement2){ create(:etablissement, nom_raison_sociale: 'foobarcompany', activite_principale: 'APE42', code_postal: '234567') }
-   let!(:etablissement3){ create(:etablissement, nom_raison_sociale: 'foobarcompany', activite_principale: 'APE42', code_postal: '424242') }
+   let!(:etablissement){ create(:etablissement, nom_raison_sociale: 'foobarcompany', activite_principale: 'ACTIVITY1', code_postal: '92000') }
+   let!(:etablissement2){ create(:etablissement, nom_raison_sociale: 'foobarcompany', activite_principale: 'ACTIVITY2', code_postal: '75000') }
+   let!(:etablissement3){ create(:etablissement, nom_raison_sociale: 'foobarcompany', activite_principale: 'ACTIVITY2', code_postal: '34070') }
    it 'return the correct results' do
      Etablissement.reindex
 
-     get '/full_text/foobarcompany?activite_principale=APE42&code_postal=424242'
+     get '/full_text/foobarcompany?activite_principale=ACTIVITY2&code_postal=34070'
 
      expect(response.body).to look_like_json
      result_hash = body_as_json

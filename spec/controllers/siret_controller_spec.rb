@@ -10,13 +10,13 @@ describe SiretController do
     end
   end
 
-# TODO sirets more explicit, maybe with a #{siret_not_found}
   context 'when doing a simple search', :type => :request do
-    let!(:etablissement){ create(:etablissement, nom_raison_sociale: 'foobarcompany', siret: '666555444') }
+    siret_not_found = '123456789'
+    let!(:etablissement){ create(:etablissement, nom_raison_sociale: 'foobarcompany', siret: siret_not_found) }
     it 'return the correct results' do
       Etablissement.reindex
 
-      get '/siret/666555444'
+      get "/siret/#{siret_not_found}"
 
       expect(response.body).to look_like_json
       expect(response).to have_http_status(200)
