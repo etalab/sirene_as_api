@@ -2,11 +2,11 @@ require 'mina/bundler'
 require 'mina/rails'
 require 'mina/git'
 
-set :domain, '***REMOVED***'
+set :domain, 'sirene.entreprise.api.gouv.fr'
 set :port, 22
 set :repository, 'https://github.com/sgmap/sirene_as_api.git'
 set :branch, 'master'
-set :deploy_to, '/var/www/sirene_as_api'
+set :deploy_to, '/var/www/sirene_production'
 set :user, 'deploy'    # Username in the server to SSH to.
 
 set :rails_env, 'production'
@@ -29,7 +29,7 @@ set :shared_paths, [
 
 # This task is the environment that is loaded for most commands, such as
 # `mina deploy` or `mina rake`.
-set_default :ruby_version, "ruby-2.3.1"
+set_default :ruby_version, "ruby-2.4.1"
 
 # Put any custom mkdir's in here for when `mina setup` is ran.
 # For Rails apps, we'll make some of the shared paths that are shared between
