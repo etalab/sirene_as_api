@@ -86,10 +86,11 @@ describe FullTextController do
    it 'spellcheck correctly and return the correct word' do
      Etablissement.reindex
 
-     get '/full_text/foubarcompany' # Typo here on purpose
+     get '/full_text/f00barcompany'
 
      expect(response.body).to look_like_json
      result_hash = body_as_json
+     puts result_hash
      result_spellcheck = result_hash.extract!(:spellcheck_suggestion)
      expect(result_spellcheck).to match('foobarcompany')
      expect(response).to have_http_status(200)
