@@ -23,6 +23,7 @@ class ImportMonthlyStockCsv < SireneAsAPIInteractor
 
   def call
     unless clean_database?
+      stdout_warn_log("Database not empty. Please run 'bundle exec rake sirene_as_api:delete_database' before populating.")
       context.fail!(error: 'database should be empty before importing a stock file')
       return
     end

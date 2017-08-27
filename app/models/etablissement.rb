@@ -1,3 +1,5 @@
+# ADD constants about nature_mise_a_jour out of commercial diffusion for better simplicity
+
 class Etablissement < ApplicationRecord
   attr_accessor :csv_path
 

@@ -2,11 +2,12 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.5.7
--- Dumped by pg_dump version 9.5.7
+-- Dumped from database version 9.6.4
+-- Dumped by pg_dump version 9.6.4
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SET check_function_bodies = false;
@@ -218,14 +219,14 @@ CREATE TABLE schema_migrations (
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: etablissements id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY etablissements ALTER COLUMN id SET DEFAULT nextval('etablissements_id_seq'::regclass);
 
 
 --
--- Name: ar_internal_metadata_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: ar_internal_metadata ar_internal_metadata_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY ar_internal_metadata
@@ -233,7 +234,7 @@ ALTER TABLE ONLY ar_internal_metadata
 
 
 --
--- Name: etablissements_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: etablissements etablissements_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY etablissements
@@ -241,7 +242,7 @@ ALTER TABLE ONLY etablissements
 
 
 --
--- Name: schema_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: schema_migrations schema_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY schema_migrations
