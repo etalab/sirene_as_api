@@ -32,6 +32,8 @@ set :shared_paths, [
 # `mina deploy` or `mina rake`.
 #set_default :ruby_version, "ruby-2.4.1"
 
+set :rbenv_path, '/usr/local/rbenv'
+
 task :environment do
   invoke :'rbenv:load'
 end
