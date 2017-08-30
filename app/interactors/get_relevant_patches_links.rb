@@ -19,7 +19,7 @@ class GetRelevantPatchesLinks < SireneAsAPIInteractor
     relevant_patches_relative_links =
       select_all_patches_after_(padded_latest_etablissement_mise_a_jour_day_number)
 
-    unless context.rebuilding_database?
+    unless context.rebuilding_database
       if there_is_less_than_5_patches_since_last_monthly_stock
         relevant_patches_relative_links = patches_since_last_monthly_stock
       else
