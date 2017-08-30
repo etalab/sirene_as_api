@@ -144,7 +144,13 @@ Suppression database, en cas de problèmes :
 ### Mises à jour automatiques
 
 La commande `bundle exec rake sirene_as_api:update_database` peut être lancée
-a chaque nouveau fichier
+a chaque nouveau fichier.
+Pour automatiser le processus, il suffit de lancer :
+
+    whenever --update-crontab
+
+La gem [whenever](https://github.com/javan/whenever) s'occupe de mettre à jour
+vos tâches cron.
 
 ## Sunspot / Solr
 
