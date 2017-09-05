@@ -20,8 +20,15 @@
 # Ignore Byebug command history file.
 .byebug_history
 
-# Ignore solr dir
-/solr
+# Ignore solr data
+/solr/default/data/index/*
+/solr/default/data/tlog/*
+/solr/development/*
+/solr/test/*
+
+# Ignore solr pids except production
+/solr/pids/development/*
+/solr/pids/test/*
 
 # Ignore zip archives and its unzipped csv result files
 /public/*.csv

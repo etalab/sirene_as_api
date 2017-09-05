@@ -150,7 +150,7 @@ Pour automatiser le processus, il suffit de lancer :
     whenever --update-crontab
 
 La gem [whenever](https://github.com/javan/whenever) s'occupe de mettre à jour
-vos tâches cron.
+vos tâches cron. Par défaut la mise à jour se fait à 4h30 du matin.
 
 ## Sunspot / Solr
 
