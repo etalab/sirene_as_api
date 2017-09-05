@@ -23,8 +23,7 @@ set :shared_paths, [
   'public/uploads',
   'config/database.yml',
   'config/environments/production.rb',
-  'config/secrets.yml',
-  'solr'
+  'config/secrets.yml'
 ]
 
 # This task is the environment that is loaded for most commands, such as
@@ -82,4 +81,3 @@ task :deploy => :environment do
     end
   end
 end
-
