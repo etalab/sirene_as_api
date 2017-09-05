@@ -38,6 +38,9 @@ gem 'progress_bar'
 gem "interactor", "~> 3.0"
 gem "interactor-rails", "~> 2.0"
 
+# Gem for deploying cron jobs
+gem 'whenever', :require => false
+
 group :development, :test do
   gem 'byebug', platform: :mri
   gem 'pry'

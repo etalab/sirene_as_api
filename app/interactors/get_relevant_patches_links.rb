@@ -19,7 +19,7 @@ class GetRelevantPatchesLinks < SireneAsAPIInteractor
     relevant_patches_relative_links =
       select_all_patches_after_(padded_latest_etablissement_mise_a_jour_day_number)
 
-    unless context.we_are_rebuilding_database
+    unless context.rebuilding_database
       if there_is_less_than_5_patches_since_last_monthly_stock
         relevant_patches_relative_links = patches_since_last_monthly_stock
       else
@@ -72,7 +72,7 @@ class GetRelevantPatchesLinks < SireneAsAPIInteractor
   end
 
   def change_into_absolute_links(relative_links)
-    relative_links.map! do |relative_link|
+    relative_links.map do |relative_link|
       "#{files_domain}#{relative_link[:href]}"
     end
   end
