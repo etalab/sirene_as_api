@@ -3,6 +3,7 @@ require 'sunspot'
 class FullTextController < ApplicationController
   def show
     @page = params[:page] || 1
+    @searches_done = 0
     spellcheck_search(params[:id])
   end
 
@@ -21,11 +22,10 @@ class FullTextController < ApplicationController
       render json: results_payload, status: 200
     else
       spellchecked_query = search.spellcheck_collation
-      # puts 'SPELLCHECK :'.red
-      # puts spellchecked_query
-      if spellchecked_query.nil?
+      if spellchecked_query.nil? || @searches_done >= 3
         render json: { message: 'no results found' }, status: 404
       else
+        @searches_done += 1
         spellcheck_search(spellchecked_query)
       end
     end
