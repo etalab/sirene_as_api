@@ -2,13 +2,12 @@ require 'sunspot'
 
 class FullTextController < ApplicationController
   def show
-    @page = params[:page] || 1
-    @searches_done = 0
-    spellcheck_search(params[:id])
+    page = params[:page] || 1
+    spellcheck_search(params[:id], page)
   end
 
-  def spellcheck_search(query)
-    search = search_with_solr_options(query)
+  def spellcheck_search(query, page)
+    search = search_with_solr_options(query, page)
     results = search.results
 
     if !results.blank?
@@ -16,22 +15,21 @@ class FullTextController < ApplicationController
         total_results: search.total,
         total_pages: results.total_pages,
         per_page: results.per_page,
-        page: @page,
+        page: page,
         etablissement: results
       }
       render json: results_payload, status: 200
     else
       spellchecked_query = search.spellcheck_collation
-      if spellchecked_query.nil? || @searches_done >= 3
+      if spellchecked_query.nil?
         render json: { message: 'no results found' }, status: 404
       else
-        @searches_done += 1
         spellcheck_search(spellchecked_query)
       end
     end
   end
 
-  def search_with_solr_options(keyword)
+  def search_with_solr_options(keyword, page)
     search = Etablissement.search do
       fulltext keyword
       facet :activite_principale
@@ -42,7 +40,7 @@ class FullTextController < ApplicationController
       spellcheck :count => 5
 
       without(:nature_mise_a_jour).any_of(%w[O E]) # Scoping
-      paginate page: @page, per_page: 10
+      paginate page: page, per_page: 10
     end
     search
   end
