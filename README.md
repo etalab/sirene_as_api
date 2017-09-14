@@ -87,15 +87,15 @@ Il faut maintenant préparer la base de données postgres :
 
 Assurez vous que tout s'est bien passé :
 
-    bundle exec rake db:create
+    bundle exec rails db:create
 
 Puis éxécutez les migrations :
 
-    bundle exec rake db:migrate
+    bundle exec rails db:migrate
 
 Si vous souhaitez utiliser les tests :
 
-    RAILS_ENV=test bundle exec rake db:migrate
+    RAILS_ENV=test bundle exec rails db:migrate
 
 Peuplez la base de données : Cette commande importe le dernier fichier stock mensuel
 ainsi que les mises à jour quotidiennes.
