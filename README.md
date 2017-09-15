@@ -141,6 +141,8 @@ Suppression database, en cas de problèmes :
 
     bundle exec rake sirene_as_api:delete_database
 
+Il est conseillé de rajouter RAILS_ENV=production en environnement de production.
+
 ### Mises à jour automatiques
 
 La commande `bundle exec rake sirene_as_api:update_database` peut être lancée
