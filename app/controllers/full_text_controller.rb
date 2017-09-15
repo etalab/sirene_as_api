@@ -3,6 +3,7 @@ require 'sunspot'
 class FullTextController < ApplicationController
   def show
     page = params[:page] || 1
+    @number_of_searches = 0
     spellcheck_search(params[:id], page)
   end
 
@@ -21,10 +22,11 @@ class FullTextController < ApplicationController
       render json: results_payload, status: 200
     else
       spellchecked_query = search.spellcheck_collation
-      if spellchecked_query.nil?
+      if spellchecked_query.nil? || @number_of_searches >= 2
         render json: { message: 'no results found' }, status: 404
       else
-        spellcheck_search(spellchecked_query)
+        @number_of_searches += 1
+        spellcheck_search(spellchecked_query, page)
       end
     end
   end
@@ -36,10 +38,14 @@ class FullTextController < ApplicationController
       with(:activite_principale, params[:activite_principale]) if params[:activite_principale].present?
       facet :code_postal
       with(:code_postal, params[:code_postal]) if params[:code_postal].present?
+      facet :is_ess
+      with(:is_ess, params[:is_ess]) if params[:is_ess].present?
+      facet :nature_entrepreneur_individuel
+      with(:nature_entrepreneur_individuel, params[:nature_entrepreneur_individuel]) if params[:nature_entrepreneur_individuel].present?
 
       spellcheck :count => 5
 
-      without(:nature_mise_a_jour).any_of(%w[O E]) # Scoping
+      # without(:nature_mise_a_jour).any_of(%w[O E]) # Scoping deactivated for now
       paginate page: page, per_page: 10
     end
     search

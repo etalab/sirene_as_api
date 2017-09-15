@@ -8,6 +8,8 @@ class Etablissement < ApplicationRecord
     string :activite_principale
     string :code_postal
     string :nature_mise_a_jour
+    string :is_ess
+    string :nature_entrepreneur_individuel
   end
 
   def self.latest_mise_a_jour
