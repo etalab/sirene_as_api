@@ -38,10 +38,6 @@ class FullTextController < ApplicationController
       with(:activite_principale, params[:activite_principale]) if params[:activite_principale].present?
       facet :code_postal
       with(:code_postal, params[:code_postal]) if params[:code_postal].present?
-      facet :is_ess
-      with(:is_ess, params[:is_ess]) if params[:is_ess].present?
-      facet :nature_entrepreneur_individuel
-      with(:nature_entrepreneur_individuel, params[:nature_entrepreneur_individuel]) if params[:nature_entrepreneur_individuel].present?
 
       spellcheck :count => 5
 

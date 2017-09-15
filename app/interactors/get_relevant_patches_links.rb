@@ -73,7 +73,7 @@ class GetRelevantPatchesLinks < SireneAsAPIInteractor
 
   def change_into_absolute_links(relative_links)
     relative_links.map do |relative_link|
-      "#{files_domain}/#{relative_link[:href]}"
+      "#{files_repository}/#{relative_link[:href]}"
     end
   end
 
