@@ -34,6 +34,9 @@ gem 'ruby-progressbar'
 # Gem progress_bar required for displaying progress in rake sunspot:reindex
 gem 'progress_bar'
 
+# Generate logs for elasticsearch
+gem 'logstasher'
+
 # Interactors
 gem "interactor", "~> 3.0"
 gem "interactor-rails", "~> 2.0"
