@@ -29,7 +29,7 @@ class EtablissementAttrsFromLine
       code_postal: line[:codpos],
       cedex: line[:cedex],
       region: line[:rpet],
-      libelle: line[:libreg],
+      libelle_region: line[:libreg],
       departement: line[:depet],
       arrondissement: line[:arronet],
       canton: line[:ctonet],
