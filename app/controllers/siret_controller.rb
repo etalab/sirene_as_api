@@ -1,9 +1,8 @@
 class SiretController < ApplicationController
   def show
-    r = Etablissement.find_by(siret: params[:id])
+    r = Etablissement.find_by(siret: params[:siret])
 
-    # Don't show results out of commercial diffusion
-    if r.nil? || %w[O E].include?(r.nature_mise_a_jour)
+    if r.nil? # || %w[O E].include?(r.nature_mise_a_jour) # Uncomment to filter results out of commercial diffusion
       render json: { message: 'no results found' }, status: 404
     else
       render json: { etablissement: r }, status: 200
@@ -11,6 +10,6 @@ class SiretController < ApplicationController
   end
 
   def siret_params
-    params.permit(:id)
+    params.permit(:siret)
   end
 end
