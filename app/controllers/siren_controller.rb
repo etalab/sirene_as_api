@@ -1,11 +1,11 @@
 class SirenController < ApplicationController
   def show
-    results = Etablissement.where(siren: params[:siren])
+    results = Etablissement.where(siren: params[:siren]).pluck(:siret)
 
     if !results.blank?
       results_payload = {
         total_results: results.size,
-        etablissements: results
+        etablissements: results.sort
       }
       render json: results_payload, status: 200
     else
