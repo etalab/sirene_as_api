@@ -4,7 +4,7 @@ class FullTextController < ApplicationController
   def show
     page = params[:page] || 1
     @number_of_searches = 0
-    spellcheck_search(params[:id], page)
+    spellcheck_search(params[:text], page)
   end
 
   def spellcheck_search(query, page)
