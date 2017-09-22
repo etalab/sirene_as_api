@@ -90,7 +90,7 @@ CREATE TABLE etablissements (
     code_postal character varying,
     cedex character varying,
     region character varying,
-    libelle character varying,
+    libelle_region character varying,
     departement character varying,
     arrondissement character varying,
     canton character varying,
@@ -328,6 +328,7 @@ SET search_path TO "$user", public;
 INSERT INTO "schema_migrations" (version) VALUES
 ('20170118130314'),
 ('20170124130819'),
-('20170130100203');
+('20170130100203'),
+('20170922094826');
 
 
