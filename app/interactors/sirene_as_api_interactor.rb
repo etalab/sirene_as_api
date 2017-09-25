@@ -10,7 +10,7 @@ class SireneAsAPIInteractor
   end
 
   def stdout_warn_log(msg)
-    puts seven_spaces + msg.capitalize.yellow
+    puts seven_spaces + "#{warning_mark} #{msg.capitalize}".yellow
   end
 
   def stdout_success_log(msg)
@@ -19,6 +19,10 @@ class SireneAsAPIInteractor
 
   def seven_spaces
     ' ' * 7
+  end
+
+  def warning_mark
+    "\xE2\x9A\xA0"
   end
 
   def check_mark
