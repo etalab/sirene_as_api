@@ -30,7 +30,7 @@ class ImportMonthlyStockCsv < SireneAsAPIInteractor
 
     progress_bar = ProgressBar.create(
       total: context.number_of_rows,
-      format: 'Progress %c/%C |%b>%i| %a %e'
+      format: 'Progress %c/%C (%P %%) |%b>%i| %a %e'
     )
 
     SmarterCSV.process(context.csv_filename, csv_options) do |chunk|
