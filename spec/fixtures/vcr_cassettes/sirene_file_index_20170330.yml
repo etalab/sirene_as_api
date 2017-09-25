@@ -1,3 +1,5 @@
+# Manually changed file : links starting with /sirene/sirene_{*} have been changed
+# to /sirene_{*} to reflect changes in files_repository
 ---
 http_interactions:
 - request:
@@ -54,347 +56,347 @@ http_interactions:
             <td class="coldate">&nbsp;</td>
            </tr>
            <tr class="item file type-text file type-plain">
-            <td class="colname"><a href="/sirene/README.txt">README.txt</a></td>
+            <td class="colname"><a href="README.txt">README.txt</a></td>
             <td class="colsize">2Ki</td>
             <td class="coldate">2017-01-04 19:10:16</td>
            </tr>
            <tr class="item file type-application file type-zip">
-            <td class="colname"><a href="/sirene/sirene_201612_L_M.zip">sirene_201612_L_M.zip</a></td>
+            <td class="colname"><a href="sirene_201612_L_M.zip">sirene_201612_L_M.zip</a></td>
             <td class="colsize">1Gi</td>
             <td class="coldate">2017-01-05 00:12:08</td>
            </tr>
            <tr class="item file type-application file type-zip">
-            <td class="colname"><a href="/sirene/sirene_2017002_E_Q.zip">sirene_2017002_E_Q.zip</a></td>
+            <td class="colname"><a href="sirene_2017002_E_Q.zip">sirene_2017002_E_Q.zip</a></td>
             <td class="colsize">444Ki</td>
             <td class="coldate">2017-01-05 00:44:58</td>
            </tr>
            <tr class="item file type-application file type-zip">
-            <td class="colname"><a href="/sirene/sirene_2017003_E_Q.zip">sirene_2017003_E_Q.zip</a></td>
+            <td class="colname"><a href="sirene_2017003_E_Q.zip">sirene_2017003_E_Q.zip</a></td>
             <td class="colsize">6Mi</td>
             <td class="coldate">2017-01-05 00:45:01</td>
            </tr>
            <tr class="item file type-application file type-zip">
-            <td class="colname"><a href="/sirene/sirene_2017004_E_Q.zip">sirene_2017004_E_Q.zip</a></td>
+            <td class="colname"><a href="sirene_2017004_E_Q.zip">sirene_2017004_E_Q.zip</a></td>
             <td class="colsize">2Mi</td>
             <td class="coldate">2017-01-05 03:37:42</td>
            </tr>
            <tr class="item file type-application file type-zip">
-            <td class="colname"><a href="/sirene/sirene_2017005_E_Q.zip">sirene_2017005_E_Q.zip</a></td>
+            <td class="colname"><a href="sirene_2017005_E_Q.zip">sirene_2017005_E_Q.zip</a></td>
             <td class="colsize">2Mi</td>
             <td class="coldate">2017-01-06 03:40:47</td>
            </tr>
            <tr class="item file type-application file type-zip">
-            <td class="colname"><a href="/sirene/sirene_2017006_E_Q.zip">sirene_2017006_E_Q.zip</a></td>
+            <td class="colname"><a href="sirene_2017006_E_Q.zip">sirene_2017006_E_Q.zip</a></td>
             <td class="colsize">2Mi</td>
             <td class="coldate">2017-01-07 05:04:04</td>
            </tr>
            <tr class="item file type-application file type-zip">
-            <td class="colname"><a href="/sirene/sirene_2017009_E_Q.zip">sirene_2017009_E_Q.zip</a></td>
+            <td class="colname"><a href="sirene_2017009_E_Q.zip">sirene_2017009_E_Q.zip</a></td>
             <td class="colsize">1Mi</td>
             <td class="coldate">2017-01-10 02:07:51</td>
            </tr>
            <tr class="item file type-application file type-zip">
-            <td class="colname"><a href="/sirene/sirene_2017010_E_Q.zip">sirene_2017010_E_Q.zip</a></td>
+            <td class="colname"><a href="sirene_2017010_E_Q.zip">sirene_2017010_E_Q.zip</a></td>
             <td class="colsize">4Mi</td>
             <td class="coldate">2017-01-11 02:07:52</td>
            </tr>
            <tr class="item file type-application file type-zip">
-            <td class="colname"><a href="/sirene/sirene_2017011_E_Q.zip">sirene_2017011_E_Q.zip</a></td>
+            <td class="colname"><a href="sirene_2017011_E_Q.zip">sirene_2017011_E_Q.zip</a></td>
             <td class="colsize">3Mi</td>
             <td class="coldate">2017-01-12 02:07:49</td>
            </tr>
            <tr class="item file type-application file type-zip">
-            <td class="colname"><a href="/sirene/sirene_2017012_E_Q.zip">sirene_2017012_E_Q.zip</a></td>
+            <td class="colname"><a href="sirene_2017012_E_Q.zip">sirene_2017012_E_Q.zip</a></td>
             <td class="colsize">3Mi</td>
             <td class="coldate">2017-01-13 13:07:48</td>
            </tr>
            <tr class="item file type-application file type-zip">
-            <td class="colname"><a href="/sirene/sirene_2017013_E_Q.zip">sirene_2017013_E_Q.zip</a></td>
+            <td class="colname"><a href="sirene_2017013_E_Q.zip">sirene_2017013_E_Q.zip</a></td>
             <td class="colsize">2Mi</td>
             <td class="coldate">2017-01-16 11:07:46</td>
            </tr>
            <tr class="item file type-application file type-zip">
-            <td class="colname"><a href="/sirene/sirene_2017016_E_Q.zip">sirene_2017016_E_Q.zip</a></td>
+            <td class="colname"><a href="sirene_2017016_E_Q.zip">sirene_2017016_E_Q.zip</a></td>
             <td class="colsize">2Mi</td>
             <td class="coldate">2017-01-17 10:07:44</td>
            </tr>
            <tr class="item file type-application file type-zip">
-            <td class="colname"><a href="/sirene/sirene_2017017_E_Q.zip">sirene_2017017_E_Q.zip</a></td>
+            <td class="colname"><a href="sirene_2017017_E_Q.zip">sirene_2017017_E_Q.zip</a></td>
             <td class="colsize">2Mi</td>
             <td class="coldate">2017-01-18 02:07:45</td>
            </tr>
            <tr class="item file type-application file type-zip">
-            <td class="colname"><a href="/sirene/sirene_2017018_E_Q.zip">sirene_2017018_E_Q.zip</a></td>
+            <td class="colname"><a href="sirene_2017018_E_Q.zip">sirene_2017018_E_Q.zip</a></td>
             <td class="colsize">2Mi</td>
             <td class="coldate">2017-01-19 02:07:43</td>
            </tr>
            <tr class="item file type-application file type-zip">
-            <td class="colname"><a href="/sirene/sirene_2017019_E_Q.zip">sirene_2017019_E_Q.zip</a></td>
+            <td class="colname"><a href="sirene_2017019_E_Q.zip">sirene_2017019_E_Q.zip</a></td>
             <td class="colsize">2Mi</td>
             <td class="coldate">2017-01-20 02:07:42</td>
            </tr>
            <tr class="item file type-application file type-zip">
-            <td class="colname"><a href="/sirene/sirene_201701_L_M.zip">sirene_201701_L_M.zip</a></td>
+            <td class="colname"><a href="sirene_201701_L_M.zip">sirene_201701_L_M.zip</a></td>
             <td class="colsize">1Gi</td>
             <td class="coldate">2017-02-01 17:13:32</td>
            </tr>
            <tr class="item file type-application file type-zip">
-            <td class="colname"><a href="/sirene/sirene_201701_M_M.zip">sirene_201701_M_M.zip</a></td>
+            <td class="colname"><a href="sirene_201701_M_M.zip">sirene_201701_M_M.zip</a></td>
             <td class="colsize">48Mi</td>
             <td class="coldate">2017-02-01 14:07:44</td>
            </tr>
            <tr class="item file type-application file type-zip">
-            <td class="colname"><a href="/sirene/sirene_2017020_E_Q.zip">sirene_2017020_E_Q.zip</a></td>
+            <td class="colname"><a href="sirene_2017020_E_Q.zip">sirene_2017020_E_Q.zip</a></td>
             <td class="colsize">2Mi</td>
             <td class="coldate">2017-01-21 02:07:40</td>
            </tr>
            <tr class="item file type-application file type-zip">
-            <td class="colname"><a href="/sirene/sirene_2017023_E_Q.zip">sirene_2017023_E_Q.zip</a></td>
+            <td class="colname"><a href="sirene_2017023_E_Q.zip">sirene_2017023_E_Q.zip</a></td>
             <td class="colsize">2Mi</td>
             <td class="coldate">2017-01-24 03:07:39</td>
            </tr>
            <tr class="item file type-application file type-zip">
-            <td class="colname"><a href="/sirene/sirene_2017024_E_Q.zip">sirene_2017024_E_Q.zip</a></td>
+            <td class="colname"><a href="sirene_2017024_E_Q.zip">sirene_2017024_E_Q.zip</a></td>
             <td class="colsize">2Mi</td>
             <td class="coldate">2017-01-25 02:07:37</td>
            </tr>
            <tr class="item file type-application file type-zip">
-            <td class="colname"><a href="/sirene/sirene_2017025_E_Q.zip">sirene_2017025_E_Q.zip</a></td>
+            <td class="colname"><a href="sirene_2017025_E_Q.zip">sirene_2017025_E_Q.zip</a></td>
             <td class="colsize">2Mi</td>
             <td class="coldate">2017-01-26 02:07:36</td>
            </tr>
            <tr class="item file type-application file type-zip">
-            <td class="colname"><a href="/sirene/sirene_2017026_E_Q.zip">sirene_2017026_E_Q.zip</a></td>
+            <td class="colname"><a href="sirene_2017026_E_Q.zip">sirene_2017026_E_Q.zip</a></td>
             <td class="colsize">2Mi</td>
             <td class="coldate">2017-01-27 02:07:36</td>
            </tr>
            <tr class="item file type-application file type-zip">
-            <td class="colname"><a href="/sirene/sirene_2017027_E_Q.zip">sirene_2017027_E_Q.zip</a></td>
+            <td class="colname"><a href="sirene_2017027_E_Q.zip">sirene_2017027_E_Q.zip</a></td>
             <td class="colsize">2Mi</td>
             <td class="coldate">2017-01-28 02:07:34</td>
            </tr>
            <tr class="item file type-application file type-zip">
-            <td class="colname"><a href="/sirene/sirene_201702_L_M.zip">sirene_201702_L_M.zip</a></td>
+            <td class="colname"><a href="sirene_201702_L_M.zip">sirene_201702_L_M.zip</a></td>
             <td class="colsize">1Gi</td>
             <td class="coldate">2017-03-01 09:13:14</td>
            </tr>
            <tr class="item file type-application file type-zip">
-            <td class="colname"><a href="/sirene/sirene_201702_M_M.zip">sirene_201702_M_M.zip</a></td>
+            <td class="colname"><a href="sirene_201702_M_M.zip">sirene_201702_M_M.zip</a></td>
             <td class="colsize">33Mi</td>
             <td class="coldate">2017-03-01 04:07:14</td>
            </tr>
            <tr class="item file type-application file type-zip">
-            <td class="colname"><a href="/sirene/sirene_2017030_E_Q.zip">sirene_2017030_E_Q.zip</a></td>
+            <td class="colname"><a href="sirene_2017030_E_Q.zip">sirene_2017030_E_Q.zip</a></td>
             <td class="colsize">7Mi</td>
             <td class="coldate">2017-02-01 14:07:54</td>
            </tr>
            <tr class="item file type-application file type-zip">
-            <td class="colname"><a href="/sirene/sirene_2017031_E_Q.zip">sirene_2017031_E_Q.zip</a></td>
+            <td class="colname"><a href="sirene_2017031_E_Q.zip">sirene_2017031_E_Q.zip</a></td>
             <td class="colsize">2Mi</td>
             <td class="coldate">2017-02-01 14:07:57</td>
            </tr>
            <tr class="item file type-application file type-zip">
-            <td class="colname"><a href="/sirene/sirene_2017032_E_Q.zip">sirene_2017032_E_Q.zip</a></td>
+            <td class="colname"><a href="sirene_2017032_E_Q.zip">sirene_2017032_E_Q.zip</a></td>
             <td class="colsize">2Mi</td>
             <td class="coldate">2017-02-02 02:07:30</td>
            </tr>
            <tr class="item file type-application file type-zip">
-            <td class="colname"><a href="/sirene/sirene_2017033_E_Q.zip">sirene_2017033_E_Q.zip</a></td>
+            <td class="colname"><a href="sirene_2017033_E_Q.zip">sirene_2017033_E_Q.zip</a></td>
             <td class="colsize">2Mi</td>
             <td class="coldate">2017-02-03 02:07:29</td>
            </tr>
            <tr class="item file type-application file type-zip">
-            <td class="colname"><a href="/sirene/sirene_2017034_E_Q.zip">sirene_2017034_E_Q.zip</a></td>
+            <td class="colname"><a href="sirene_2017034_E_Q.zip">sirene_2017034_E_Q.zip</a></td>
             <td class="colsize">2Mi</td>
             <td class="coldate">2017-02-04 02:07:28</td>
            </tr>
            <tr class="item file type-application file type-zip">
-            <td class="colname"><a href="/sirene/sirene_2017037_E_Q.zip">sirene_2017037_E_Q.zip</a></td>
+            <td class="colname"><a href="sirene_2017037_E_Q.zip">sirene_2017037_E_Q.zip</a></td>
             <td class="colsize">2Mi</td>
             <td class="coldate">2017-02-07 02:07:25</td>
            </tr>
            <tr class="item file type-application file type-zip">
-            <td class="colname"><a href="/sirene/sirene_2017038_E_Q.zip">sirene_2017038_E_Q.zip</a></td>
+            <td class="colname"><a href="sirene_2017038_E_Q.zip">sirene_2017038_E_Q.zip</a></td>
             <td class="colsize">2Mi</td>
             <td class="coldate">2017-02-08 02:07:24</td>
            </tr>
            <tr class="item file type-application file type-zip">
-            <td class="colname"><a href="/sirene/sirene_2017039_E_Q.zip">sirene_2017039_E_Q.zip</a></td>
+            <td class="colname"><a href="sirene_2017039_E_Q.zip">sirene_2017039_E_Q.zip</a></td>
             <td class="colsize">2Mi</td>
             <td class="coldate">2017-02-09 02:07:23</td>
            </tr>
            <tr class="item file type-application file type-zip">
-            <td class="colname"><a href="/sirene/sirene_2017040_E_Q.zip">sirene_2017040_E_Q.zip</a></td>
+            <td class="colname"><a href="sirene_2017040_E_Q.zip">sirene_2017040_E_Q.zip</a></td>
             <td class="colsize">2Mi</td>
             <td class="coldate">2017-02-10 02:07:22</td>
            </tr>
            <tr class="item file type-application file type-zip">
-            <td class="colname"><a href="/sirene/sirene_2017041_E_Q.zip">sirene_2017041_E_Q.zip</a></td>
+            <td class="colname"><a href="sirene_2017041_E_Q.zip">sirene_2017041_E_Q.zip</a></td>
             <td class="colsize">2Mi</td>
             <td class="coldate">2017-02-11 02:07:22</td>
            </tr>
            <tr class="item file type-application file type-zip">
-            <td class="colname"><a href="/sirene/sirene_2017044_E_Q.zip">sirene_2017044_E_Q.zip</a></td>
+            <td class="colname"><a href="sirene_2017044_E_Q.zip">sirene_2017044_E_Q.zip</a></td>
             <td class="colsize">2Mi</td>
             <td class="coldate">2017-02-14 02:07:19</td>
            </tr>
            <tr class="item file type-application file type-zip">
-            <td class="colname"><a href="/sirene/sirene_2017045_E_Q.zip">sirene_2017045_E_Q.zip</a></td>
+            <td class="colname"><a href="sirene_2017045_E_Q.zip">sirene_2017045_E_Q.zip</a></td>
             <td class="colsize">2Mi</td>
             <td class="coldate">2017-02-15 02:07:18</td>
            </tr>
            <tr class="item file type-application file type-zip">
-            <td class="colname"><a href="/sirene/sirene_2017046_E_Q.zip">sirene_2017046_E_Q.zip</a></td>
+            <td class="colname"><a href="sirene_2017046_E_Q.zip">sirene_2017046_E_Q.zip</a></td>
             <td class="colsize">2Mi</td>
             <td class="coldate">2017-02-16 02:07:17</td>
            </tr>
            <tr class="item file type-application file type-zip">
-            <td class="colname"><a href="/sirene/sirene_2017047_E_Q.zip">sirene_2017047_E_Q.zip</a></td>
+            <td class="colname"><a href="sirene_2017047_E_Q.zip">sirene_2017047_E_Q.zip</a></td>
             <td class="colsize">2Mi</td>
             <td class="coldate">2017-02-17 02:07:16</td>
            </tr>
            <tr class="item file type-application file type-zip">
-            <td class="colname"><a href="/sirene/sirene_2017048_E_Q.zip">sirene_2017048_E_Q.zip</a></td>
+            <td class="colname"><a href="sirene_2017048_E_Q.zip">sirene_2017048_E_Q.zip</a></td>
             <td class="colsize">2Mi</td>
             <td class="coldate">2017-02-18 02:07:15</td>
            </tr>
            <tr class="item file type-application file type-zip">
-            <td class="colname"><a href="/sirene/sirene_2017051_E_Q.zip">sirene_2017051_E_Q.zip</a></td>
+            <td class="colname"><a href="sirene_2017051_E_Q.zip">sirene_2017051_E_Q.zip</a></td>
             <td class="colsize">2Mi</td>
             <td class="coldate">2017-02-21 02:07:13</td>
            </tr>
            <tr class="item file type-application file type-zip">
-            <td class="colname"><a href="/sirene/sirene_2017052_E_Q.zip">sirene_2017052_E_Q.zip</a></td>
+            <td class="colname"><a href="sirene_2017052_E_Q.zip">sirene_2017052_E_Q.zip</a></td>
             <td class="colsize">2Mi</td>
             <td class="coldate">2017-02-22 02:07:12</td>
            </tr>
            <tr class="item file type-application file type-zip">
-            <td class="colname"><a href="/sirene/sirene_2017053_E_Q.zip">sirene_2017053_E_Q.zip</a></td>
+            <td class="colname"><a href="sirene_2017053_E_Q.zip">sirene_2017053_E_Q.zip</a></td>
             <td class="colsize">2Mi</td>
             <td class="coldate">2017-02-23 02:07:11</td>
            </tr>
            <tr class="item file type-application file type-zip">
-            <td class="colname"><a href="/sirene/sirene_2017054_E_Q.zip">sirene_2017054_E_Q.zip</a></td>
+            <td class="colname"><a href="sirene_2017054_E_Q.zip">sirene_2017054_E_Q.zip</a></td>
             <td class="colsize">2Mi</td>
             <td class="coldate">2017-02-24 02:07:10</td>
            </tr>
            <tr class="item file type-application file type-zip">
-            <td class="colname"><a href="/sirene/sirene_2017055_E_Q.zip">sirene_2017055_E_Q.zip</a></td>
+            <td class="colname"><a href="sirene_2017055_E_Q.zip">sirene_2017055_E_Q.zip</a></td>
             <td class="colsize">2Mi</td>
             <td class="coldate">2017-02-25 02:07:10</td>
            </tr>
            <tr class="item file type-application file type-zip">
-            <td class="colname"><a href="/sirene/sirene_2017058_E_Q.zip">sirene_2017058_E_Q.zip</a></td>
+            <td class="colname"><a href="sirene_2017058_E_Q.zip">sirene_2017058_E_Q.zip</a></td>
             <td class="colsize">2Mi</td>
             <td class="coldate">2017-02-28 02:07:07</td>
            </tr>
            <tr class="item file type-application file type-zip">
-            <td class="colname"><a href="/sirene/sirene_2017059_E_Q.zip">sirene_2017059_E_Q.zip</a></td>
+            <td class="colname"><a href="sirene_2017059_E_Q.zip">sirene_2017059_E_Q.zip</a></td>
             <td class="colsize">2Mi</td>
             <td class="coldate">2017-03-01 02:07:06</td>
            </tr>
            <tr class="item file type-application file type-zip">
-            <td class="colname"><a href="/sirene/sirene_2017060_E_Q.zip">sirene_2017060_E_Q.zip</a></td>
+            <td class="colname"><a href="sirene_2017060_E_Q.zip">sirene_2017060_E_Q.zip</a></td>
             <td class="colsize">2Mi</td>
             <td class="coldate">2017-03-02 02:07:05</td>
            </tr>
            <tr class="item file type-application file type-zip">
-            <td class="colname"><a href="/sirene/sirene_2017061_E_Q.zip">sirene_2017061_E_Q.zip</a></td>
+            <td class="colname"><a href="sirene_2017061_E_Q.zip">sirene_2017061_E_Q.zip</a></td>
             <td class="colsize">2Mi</td>
             <td class="coldate">2017-03-03 02:07:05</td>
            </tr>
            <tr class="item file type-application file type-zip">
-            <td class="colname"><a href="/sirene/sirene_2017062_E_Q.zip">sirene_2017062_E_Q.zip</a></td>
+            <td class="colname"><a href="sirene_2017062_E_Q.zip">sirene_2017062_E_Q.zip</a></td>
             <td class="colsize">2Mi</td>
             <td class="coldate">2017-03-04 02:07:03</td>
            </tr>
            <tr class="item file type-application file type-zip">
-            <td class="colname"><a href="/sirene/sirene_2017065_E_Q.zip">sirene_2017065_E_Q.zip</a></td>
+            <td class="colname"><a href="sirene_2017065_E_Q.zip">sirene_2017065_E_Q.zip</a></td>
             <td class="colsize">2Mi</td>
             <td class="coldate">2017-03-07 02:07:01</td>
            </tr>
            <tr class="item file type-application file type-zip">
-            <td class="colname"><a href="/sirene/sirene_2017066_E_Q.zip">sirene_2017066_E_Q.zip</a></td>
+            <td class="colname"><a href="sirene_2017066_E_Q.zip">sirene_2017066_E_Q.zip</a></td>
             <td class="colsize">2Mi</td>
             <td class="coldate">2017-03-08 02:07:02</td>
            </tr>
            <tr class="item file type-application file type-zip">
-            <td class="colname"><a href="/sirene/sirene_2017067_E_Q.zip">sirene_2017067_E_Q.zip</a></td>
+            <td class="colname"><a href="sirene_2017067_E_Q.zip">sirene_2017067_E_Q.zip</a></td>
             <td class="colsize">2Mi</td>
             <td class="coldate">2017-03-09 02:06:59</td>
            </tr>
            <tr class="item file type-application file type-zip">
-            <td class="colname"><a href="/sirene/sirene_2017068_E_Q.zip">sirene_2017068_E_Q.zip</a></td>
+            <td class="colname"><a href="sirene_2017068_E_Q.zip">sirene_2017068_E_Q.zip</a></td>
             <td class="colsize">2Mi</td>
             <td class="coldate">2017-03-10 02:06:59</td>
            </tr>
            <tr class="item file type-application file type-zip">
-            <td class="colname"><a href="/sirene/sirene_2017069_E_Q.zip">sirene_2017069_E_Q.zip</a></td>
+            <td class="colname"><a href="sirene_2017069_E_Q.zip">sirene_2017069_E_Q.zip</a></td>
             <td class="colsize">2Mi</td>
             <td class="coldate">2017-03-11 02:06:57</td>
            </tr>
            <tr class="item file type-application file type-zip">
-            <td class="colname"><a href="/sirene/sirene_2017072_E_Q.zip">sirene_2017072_E_Q.zip</a></td>
+            <td class="colname"><a href="sirene_2017072_E_Q.zip">sirene_2017072_E_Q.zip</a></td>
             <td class="colsize">2Mi</td>
             <td class="coldate">2017-03-14 02:06:54</td>
            </tr>
            <tr class="item file type-application file type-zip">
-            <td class="colname"><a href="/sirene/sirene_2017073_E_Q.zip">sirene_2017073_E_Q.zip</a></td>
+            <td class="colname"><a href="sirene_2017073_E_Q.zip">sirene_2017073_E_Q.zip</a></td>
             <td class="colsize">2Mi</td>
             <td class="coldate">2017-03-15 02:06:53</td>
            </tr>
            <tr class="item file type-application file type-zip">
-            <td class="colname"><a href="/sirene/sirene_2017074_E_Q.zip">sirene_2017074_E_Q.zip</a></td>
+            <td class="colname"><a href="sirene_2017074_E_Q.zip">sirene_2017074_E_Q.zip</a></td>
             <td class="colsize">2Mi</td>
             <td class="coldate">2017-03-16 02:06:53</td>
            </tr>
            <tr class="item file type-application file type-zip">
-            <td class="colname"><a href="/sirene/sirene_2017075_E_Q.zip">sirene_2017075_E_Q.zip</a></td>
+            <td class="colname"><a href="sirene_2017075_E_Q.zip">sirene_2017075_E_Q.zip</a></td>
             <td class="colsize">2Mi</td>
             <td class="coldate">2017-03-17 02:06:52</td>
            </tr>
            <tr class="item file type-application file type-zip">
-            <td class="colname"><a href="/sirene/sirene_2017076_E_Q.zip">sirene_2017076_E_Q.zip</a></td>
+            <td class="colname"><a href="sirene_2017076_E_Q.zip">sirene_2017076_E_Q.zip</a></td>
             <td class="colsize">2Mi</td>
             <td class="coldate">2017-03-20 08:06:49</td>
            </tr>
            <tr class="item file type-application file type-zip">
-            <td class="colname"><a href="/sirene/sirene_2017079_E_Q.zip">sirene_2017079_E_Q.zip</a></td>
+            <td class="colname"><a href="sirene_2017079_E_Q.zip">sirene_2017079_E_Q.zip</a></td>
             <td class="colsize">2Mi</td>
             <td class="coldate">2017-03-21 02:06:49</td>
            </tr>
            <tr class="item file type-application file type-zip">
-            <td class="colname"><a href="/sirene/sirene_2017080_E_Q.zip">sirene_2017080_E_Q.zip</a></td>
+            <td class="colname"><a href="sirene_2017080_E_Q.zip">sirene_2017080_E_Q.zip</a></td>
             <td class="colsize">2Mi</td>
             <td class="coldate">2017-03-22 02:06:47</td>
            </tr>
            <tr class="item file type-application file type-zip">
-            <td class="colname"><a href="/sirene/sirene_2017081_E_Q.zip">sirene_2017081_E_Q.zip</a></td>
+            <td class="colname"><a href="sirene_2017081_E_Q.zip">sirene_2017081_E_Q.zip</a></td>
             <td class="colsize">2Mi</td>
             <td class="coldate">2017-03-23 02:06:47</td>
            </tr>
            <tr class="item file type-application file type-zip">
-            <td class="colname"><a href="/sirene/sirene_2017082_E_Q.zip">sirene_2017082_E_Q.zip</a></td>
+            <td class="colname"><a href="sirene_2017082_E_Q.zip">sirene_2017082_E_Q.zip</a></td>
             <td class="colsize">2Mi</td>
             <td class="coldate">2017-03-24 02:06:46</td>
            </tr>
            <tr class="item file type-application file type-zip">
-            <td class="colname"><a href="/sirene/sirene_2017083_E_Q.zip">sirene_2017083_E_Q.zip</a></td>
+            <td class="colname"><a href="sirene_2017083_E_Q.zip">sirene_2017083_E_Q.zip</a></td>
             <td class="colsize">2Mi</td>
             <td class="coldate">2017-03-25 02:06:44</td>
            </tr>
            <tr class="item file type-application file type-zip">
-            <td class="colname"><a href="/sirene/sirene_2017086_E_Q.zip">sirene_2017086_E_Q.zip</a></td>
+            <td class="colname"><a href="sirene_2017086_E_Q.zip">sirene_2017086_E_Q.zip</a></td>
             <td class="colsize">528Ki</td>
             <td class="coldate">2017-03-28 01:06:42</td>
            </tr>
            <tr class="item file type-application file type-zip">
-            <td class="colname"><a href="/sirene/sirene_2017087_E_Q.zip">sirene_2017087_E_Q.zip</a></td>
+            <td class="colname"><a href="sirene_2017087_E_Q.zip">sirene_2017087_E_Q.zip</a></td>
             <td class="colsize">2Mi</td>
             <td class="coldate">2017-03-29 01:06:41</td>
            </tr>
            <tr class="item file type-application file type-zip">
-            <td class="colname"><a href="/sirene/sirene_2017088_E_Q.zip">sirene_2017088_E_Q.zip</a></td>
+            <td class="colname"><a href="sirene_2017088_E_Q.zip">sirene_2017088_E_Q.zip</a></td>
             <td class="colsize">2Mi</td>
             <td class="coldate">2017-03-30 01:06:41</td>
            </tr>
@@ -402,6 +404,6 @@ http_interactions:
           </table>
          </body>
         </html>
-    http_version: 
+    http_version:
   recorded_at: Thu, 30 Mar 2017 10:58:56 GMT
 recorded_with: VCR 3.0.3

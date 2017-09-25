@@ -11,7 +11,7 @@ class GetLastMonthlyStockLink < SireneAsAPIInteractor
 
   def call
     last_monthly_stock_relative_link = stock_relative_links.map{ |sl| sl[:href] }.sort.last
-    context.link = "#{files_domain}#{last_monthly_stock_relative_link}"
+    context.link = "#{files_repository}/#{last_monthly_stock_relative_link}"
   end
 
   private
