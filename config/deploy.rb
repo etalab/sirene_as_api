@@ -90,8 +90,9 @@ end
 task :warning_info do
   warning_sign = '\xE2\x9A\xA0'
   comment %{#{warning_sign}#{warning_sign}#{warning_sign}#{warning_sign}}.yellow
-  comment %{#{warning_sign} If it's the first install run the folowing command #{warning_sign}}.yellow
+  comment %{#{warning_sign} If it's the first install run the folowing commands #{warning_sign}}.yellow
   comment %{#{warning_sign} in the following directory: #{fetch(:deploy_to)}/current #{warning_sign}}.yellow
+  comment %{bundle exec rake sunspot:solr:start RAILS_ENV=#{ENV['to']}}.green
   comment %{bundle exec rake sirene_as_api:populate_database RAILS_ENV=#{ENV['to']}}.green
   comment %{#{warning_sign}#{warning_sign}#{warning_sign}#{warning_sign}}.yellow
 end
