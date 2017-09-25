@@ -38,6 +38,9 @@ class FullTextController < ApplicationController
       with(:activite_principale, params[:activite_principale]) if params[:activite_principale].present?
       facet :code_postal
       with(:code_postal, params[:code_postal]) if params[:code_postal].present?
+      facet :is_ess
+      with(:is_ess, params[:is_ess]) if params[:is_ess].present?
+      with_filter_entrepreneur_individuel if params[:is_entrepreneur_individuel].present?
 
       spellcheck :count => 5
 
@@ -45,6 +48,14 @@ class FullTextController < ApplicationController
       paginate page: page, per_page: 10
     end
     search
+  end
+end
+
+def with_filter_entrepreneur_individuel
+  if params[:is_entrepreneur_individuel] == 'yes'
+    with(:nature_entrepreneur_individuel, ('1'..'9').to_a)
+  elsif params[:is_entrepreneur_individuel] == 'no'
+    without(:nature_entrepreneur_individuel, ('1'..'9').to_a)
   end
 end
 
