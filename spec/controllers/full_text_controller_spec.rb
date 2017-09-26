@@ -10,6 +10,29 @@ describe FullTextController do
     end
   end
 
+# Per page param
+  context 'when specifying the per_page param', :type => :request do
+    it 'return the right number of results per page' do
+      per_page_custom = 15
+      per_page_custom.times do
+        create(:etablissement, nom_raison_sociale: "foobarcompany")
+      end
+      Etablissement.reindex
+
+      get "/full_text/foobarcompany?per_page=#{per_page_custom}"
+
+      expect(response.body).to look_like_json
+      result_hash = body_as_json
+      result_hash.extract!(:etablissement)
+      expect(result_hash).to match({
+        total_results: per_page_custom,
+        total_pages: 1,
+        per_page: per_page_custom,
+        page: 1,
+      })
+    end
+  end
+
 # Faceting
   context 'when doing a simple search with no facet', :type => :request do
     let!(:etablissement){ create(:etablissement, nom_raison_sociale: 'foobarcompany') }

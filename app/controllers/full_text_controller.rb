@@ -5,12 +5,13 @@ class FullTextController < ApplicationController
 
   def show
     page = params[:page] || 1
+    per_page = params[:per_page] || 10
     @number_of_searches = 0
-    spellcheck_search(params[:text], page)
+    spellcheck_search(params[:text], page, per_page)
   end
 
-  def spellcheck_search(query, page)
-    search = search_with_solr_options(query, page)
+  def spellcheck_search(query, page, per_page)
+    search = search_with_solr_options(query, page, per_page)
     results = search.results
 
     if !results.blank?
@@ -28,12 +29,12 @@ class FullTextController < ApplicationController
         render json: { message: 'no results found' }, status: 404
       else
         @number_of_searches += 1
-        spellcheck_search(spellchecked_query, page)
+        spellcheck_search(spellchecked_query, page, per_page)
       end
     end
   end
 
-  def search_with_solr_options(keyword, page)
+  def search_with_solr_options(keyword, page, per_page)
     search = Etablissement.search do
       fulltext keyword
       facet :activite_principale
@@ -51,7 +52,7 @@ class FullTextController < ApplicationController
       # without(:nature_mise_a_jour).any_of(%w[O E])
       # without(:statut_prospection).any_of('O')
       # filter_nature_prospection if @filter_nature_prospection
-      paginate page: page, per_page: 10
+      paginate page: page, per_page: per_page
     end
     search
   end
