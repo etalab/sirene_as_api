@@ -141,4 +141,32 @@ describe FullTextController do
       expect(number_results).to eq(4)
     end
   end
+
+  #Params filter is_entrepreneur_individuel
+  context 'when doing a search for entrepreneur individuel', :type => :request do
+    let!(:etablissement){ create(:etablissement, nom_raison_sociale: 'foobarcompany', nature_entrepreneur_individuel: '1') }
+    let!(:etablissement2){ create(:etablissement, nom_raison_sociale: 'foobarcompany', nature_entrepreneur_individuel: '6') }
+    let!(:etablissement3){ create(:etablissement, nom_raison_sociale: 'foobarcompany', nature_entrepreneur_individuel: '9') }
+    let!(:etablissement4){ create(:etablissement, nom_raison_sociale: 'foobarcompany')}
+    it 'show the entrepreneurs individuels in results when I want them' do
+      Etablissement.reindex
+
+      get '/full_text/foobarcompany?is_entrepreneur_individuel=yes'
+
+      result_hash = body_as_json
+      result_etablissements = result_hash.extract!(:etablissement)
+      number_results = result_etablissements[:etablissement].size
+      expect(number_results).to eq(3)
+    end
+    it 'doesnt show the entrepreneurs individuels when I dont want them' do
+      Etablissement.reindex
+
+      get '/full_text/foobarcompany?is_entrepreneur_individuel=no'
+
+      result_hash = body_as_json
+      result_etablissements = result_hash.extract!(:etablissement)
+      number_results = result_etablissements[:etablissement].size
+      expect(number_results).to eq(1)
+    end
+  end
 end
