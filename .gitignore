@@ -17,6 +17,9 @@
 !/log/.keep
 !/tmp/files/.keep
 
+# rvm
+.rvmrc
+
 # Ignore Byebug command history file.
 .byebug_history
 

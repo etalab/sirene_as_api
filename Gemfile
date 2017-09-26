@@ -1,4 +1,3 @@
-ruby '2.4.1'
 source 'https://rubygems.org'
 
 git_source(:github) do |repo_name|
@@ -9,7 +8,7 @@ end
 gem 'rails', '~> 5.0.1'
 gem 'rack-cors'
 
-gem 'puma', '~> 3.0'
+gem 'listen', '~> 3.0.5'
 
 gem 'pg'
 
@@ -46,6 +45,7 @@ gem 'whenever', :require => false
 
 group :development, :test do
   gem 'byebug', platform: :mri
+  gem 'colorize'
   gem 'pry'
   gem 'pry-byebug'
 
@@ -72,8 +72,8 @@ end
 
 group :development do
   gem 'brakeman', require: false
-  gem 'listen', '~> 3.0.5'
-  gem 'mina', ref: '343a7', git: 'https://github.com/mina-deploy/mina.git'
+  gem 'mina'
+  gem 'mina-whenever'
   gem 'rails_best_practices'
   gem 'rubocop-checkstyle_formatter', require: false
   gem 'rubocop-rspec', require: false
