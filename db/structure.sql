@@ -105,7 +105,7 @@ CREATE TABLE etablissements (
     is_siege character varying,
     enseigne character varying,
     indicateur_champ_publipostage character varying,
-    statut_diffusion character varying,
+    statut_prospection character varying,
     date_introduction_base_diffusion character varying,
     nature_entrepreneur_individuel character varying,
     libelle_nature_entrepreneur_individuel character varying,
@@ -329,6 +329,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170118130314'),
 ('20170124130819'),
 ('20170130100203'),
-('20170922094826');
+('20170922094826'),
+('20170925105117');
 
 

@@ -1,13 +1,13 @@
 require 'rails_helper'
 
 def use_database_cleaner
-  DatabaseCleaner.strategy = :delete
+  DatabaseCleaner.strategy = :deletion
 
-  before :all do
+  before :each do
     DatabaseCleaner.start
   end
 
-  after :all do
+  after :each do
     DatabaseCleaner.clean
   end
 end

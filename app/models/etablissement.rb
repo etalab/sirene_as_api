@@ -10,6 +10,7 @@ class Etablissement < ApplicationRecord
     string :nature_mise_a_jour
     string :is_ess
     string :nature_entrepreneur_individuel
+    string :statut_prospection
   end
 
   def self.latest_mise_a_jour

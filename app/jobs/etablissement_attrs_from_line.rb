@@ -44,7 +44,7 @@ class EtablissementAttrsFromLine
       is_siege: line[:siege],
       enseigne: line[:enseigne],
       indicateur_champ_publipostage: line[:ind_publipo],
-      statut_diffusion: line[:diffcom],
+      statut_prospection: line[:diffcom],
       date_introduction_base_diffusion: line[:amintret],
       nature_entrepreneur_individuel: line[:natetab],
       libelle_nature_entrepreneur_individuel: line[:libnatetab],

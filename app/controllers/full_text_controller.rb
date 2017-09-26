@@ -1,14 +1,17 @@
 require 'sunspot'
 
 class FullTextController < ApplicationController
+  @filter_nature_prospection = true
+
   def show
     page = params[:page] || 1
+    per_page = params[:per_page] || 10
     @number_of_searches = 0
-    spellcheck_search(params[:text], page)
+    spellcheck_search(params[:text], page, per_page)
   end
 
-  def spellcheck_search(query, page)
-    search = search_with_solr_options(query, page)
+  def spellcheck_search(query, page, per_page)
+    search = search_with_solr_options(query, page, per_page)
     results = search.results
 
     if !results.blank?
@@ -26,12 +29,12 @@ class FullTextController < ApplicationController
         render json: { message: 'no results found' }, status: 404
       else
         @number_of_searches += 1
-        spellcheck_search(spellchecked_query, page)
+        spellcheck_search(spellchecked_query, page, per_page)
       end
     end
   end
 
-  def search_with_solr_options(keyword, page)
+  def search_with_solr_options(keyword, page, per_page)
     search = Etablissement.search do
       fulltext keyword
       facet :activite_principale
@@ -41,13 +44,23 @@ class FullTextController < ApplicationController
       facet :is_ess
       with(:is_ess, params[:is_ess]) if params[:is_ess].present?
       with_filter_entrepreneur_individuel if params[:is_entrepreneur_individuel].present?
+      without(:nature_mise_a_jour, %w[O E])
+      without(:statut_prospection, 'O')
 
       spellcheck :count => 5
 
-      # without(:nature_mise_a_jour).any_of(%w[O E]) # Scoping deactivated for now
-      paginate page: page, per_page: 10
+      # without(:nature_mise_a_jour).any_of(%w[O E])
+      # without(:statut_prospection).any_of('O')
+      # filter_nature_prospection if @filter_nature_prospection
+      paginate page: page, per_page: per_page
     end
     search
+  end
+
+  # Scoping
+  def filter_nature_prospection
+    without(:nature_mise_a_jour).any_of(%w[O E])
+    without(:statut_prospection, 'O')
   end
 end
 

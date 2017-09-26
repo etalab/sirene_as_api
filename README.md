@@ -41,24 +41,71 @@ Une commande Rake est disponible pour mettre à jour la base de données
 (Cf. liste des tâches plus bas). Toute mise à jour est suivie par une
 réindexation automatique.
 
-## Requêtes API
+# Requêtes
 
-    curl 'http://localhost:3000/full_text/VOTRE_RECHERCHE'
-    curl 'http://localhost:3000/siret/VOTRE_SIRET'
+Trois endpoints sont disponibles sur l'API :
 
-### Spécifications pour la recherche par nom d'entreprise
+## Recherche FullText
 
-L'API retourne 10 résultats par page, au format JSON, avec le nombre total de
-résultats et le nombre total de pages. La page par défaut est la première,
-pour obtenir d'autres pages on peut passer le numéro en paramètre :
+Il s'agit de l'endpoint principal. Vous pouvez faire des requêtes avec Curl :
 
-    curl 'http://localhost:3000/full_text/VOTRE_RECHERCHE?page=2'
+    curl 'localhost:3000/full_text/MA_RECHERCHE'
 
-La recherche par facette est implémentée avec les paramètres code_postal et activite_principale :
+ou simplement en copiant l'adresse ´localhost:3000/full_text/MA_RECHERCHE´
+dans votre navigateur favori.
 
-    curl 'http://localhost:3000/full_text/VOTRE_RECHERCHE?code_postal=CODE_POSTAL&activite_principale=ACTIVITE_PRINCIPALE'
+### Format de réponse
+
+L'API renvoie les réponses au format JSON avec les attributs suivant :
+
+| Attribut      | Valeur                       |
+|---------------|------------------------------|
+| total_results | Total résultats              |
+| total_pages   | Total de pages               |
+| per_page      | Nombre de résultats par page |
+| page          | Page actuelle                |
+| etablissement | Résultats                    |
+
+### Pagination
+
+La page par défaut est la première. L'API renvoie par défaut 10 résultats par page.
+Ces attributs peuvents être modifiés en passant en paramètres `page` et `per_page`.
+
+### Filtrage par faceting
+
+Les options suivantes de filtrage sont disponibles :
+
+| Filtrage désiré                                           | Requête GET               | Valeur                                              |
+|-----------------------------------------------------------|---------------------------|-----------------------------------------------------|
+| Activité principale de l'entreprise                       | activite_principale       | Le code `activité principale` désiré                |
+| Code postal                                               | code_postal               | Le code postal désiré                               |
+| Appartenance au champs de l'économie sociale et solidaire | is_ess                    | `O` pour Oui, `N` pour Non, `I` pour Invalide       |
+| Entreprises individuelles                                 | is_entrepreneur_individuel| `yes` pour Oui, `no` pour Non                       |
 
 D'autres facettes pourront être implémentées en fonction des retours utilisateurs.
+
+### Exemple
+
+Je souhaite les entreprises individuelles avec "foobar" dans le nom, je désire 15
+résultats par page et afficher la deuxième page (soit les résultats 15 à 30) :
+
+    curl 'localhost:3000/full_text/foobar?page=2&per_page=15&is_entrepreneur_individuel=yes'
+
+## Recherche par Numéro SIRET
+
+La requête se fait par :
+
+    curl 'localhost:3000/siret/MON_SIRET'
+
+L'API renvoie un JSON de l'établissement correspondant.
+
+## Recherche par Numéro SIREN (établissements enfants)
+
+La requête se fait par :
+
+    curl 'localhost:3000/siren/MON_SIREN'
+
+l'API renvoie le nombre total de sirets existants à partir de ce siren, ainsi que la liste des sirets en question.
 
 # Installation et configuration
 
@@ -83,6 +130,7 @@ bundler s'il est déjà présent sur la machine
 Il faut maintenant préparer la base de données postgres :
 
     sudo -u postgres -i
+    cd /path/vers/dossier/sirene_as_api
     psql -f postgresql_setup.txt
 
 Assurez vous que tout s'est bien passé :
@@ -97,27 +145,24 @@ Si vous souhaitez utiliser les tests :
 
     RAILS_ENV=test bundle exec rails db:migrate
 
-Peuplez la base de données : Cette commande importe le dernier fichier stock mensuel
-ainsi que les mises à jour quotidiennes.
-
-    bundle exec rake sirene_as_api:populate_database
-
-Une fois réalisé, lancez Solr, des fichiers de configuration seront copiés :
+Vous pouvez maintenant lancer Solr :
 
     bundle exec rake sunspot:solr:start
 
-Lancez l'indexation (sur une base remplie, comptez au moins une heure)
+Peuplez la base de données : Cette commande importe le dernier fichier stock mensuel
+ainsi que les mises à jour quotidiennes. Attention, cette commande s'éxécute sur
+une base vide.
 
-    bundle exec rake sunspot:reindex
+    bundle exec rake sirene_as_api:populate_database
+
+Si la commande précédente échoue en cours de route ou si la base n'est pas vide,
+éxecutez plutôt :
+
+    bundle exec rake sirene_as_api:update_database
 
 C'est prêt ! vous pouvez lancer le serveur :
 
     bundle exec rails server
-
-Et y faire des requêtes :
-
-    curl 'localhost:3000/full_text/MA_RECHERCHE'
-    curl 'localhost:3000/siret/MON_SIRET'
 
 ## Mises à jour / Administration
 
@@ -147,7 +192,9 @@ Il est conseillé de rajouter RAILS_ENV=production en environnement de productio
 
 La commande `bundle exec rake sirene_as_api:update_database` peut être lancée
 a chaque nouveau fichier.
-Pour automatiser le processus, il suffit de lancer :
+Le processus devrait être automatisé a l'installation du serveur.
+Pour modifier la fréquence des mises à jour, modifiez config/schedule.rb
+puis exécutez la commande :
 
     whenever --update-crontab
 
