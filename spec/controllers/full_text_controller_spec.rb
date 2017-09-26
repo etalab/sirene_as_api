@@ -10,6 +10,7 @@ describe FullTextController do
     end
   end
 
+# Faceting
   context 'when doing a simple search with no facet', :type => :request do
     let!(:etablissement){ create(:etablissement, nom_raison_sociale: 'foobarcompany') }
     it 'return the correct results' do
@@ -79,6 +80,7 @@ describe FullTextController do
    end
   end
 
+# Spellchecking
   context 'when a word contains a typo', :type => :request do
    let!(:etablissement){ create(:etablissement, nom_raison_sociale: 'foobarcompany') }
    let!(:etablissement2){ create(:etablissement, nom_raison_sociale: 'samplecompany') }
@@ -94,5 +96,49 @@ describe FullTextController do
      expect(result_spellcheck).to match('foobarcompany')
      expect(response).to have_http_status(200)
    end
+  end
+
+# Filtration of Etablissements out of commercial prospection
+  context 'when there are only etablissements in commercial diffusion', :type => :request do
+    it 'show them in the search results' do
+      populate_test_database_with_4_only_diffusion
+      Etablissement.reindex
+
+      get '/full_text/foobarcompany'
+
+      result_hash = body_as_json
+      result_etablissements = result_hash.extract!(:etablissement)
+      number_results = result_etablissements[:etablissement].size
+
+      expect(number_results).to match(4)
+    end
+  end
+
+  context 'when there are only etablissements out of commercial diffusion', :type => :request do
+    it 'show nothing' do
+      populate_test_database_with_3_no_diffusion
+      Etablissement.reindex
+
+      get '/full_text/foobarcompany'
+
+      result_hash = body_as_json
+      result_etablissements = result_hash.extract!(:etablissement)
+      expect(result_etablissements).to be_empty
+    end
+  end
+
+  context 'when there is every kind of etablissements', :type => :request do
+    it 'show no etablissements out of commercial diffusion' do
+      populate_test_database_with_4_only_diffusion
+      populate_test_database_with_3_no_diffusion
+      Etablissement.reindex
+
+      get '/full_text/foobarcompany'
+
+      result_hash = body_as_json
+      result_etablissements = result_hash.extract!(:etablissement)
+      number_results = result_etablissements[:etablissement].size
+      expect(number_results).to eq(4)
+    end
   end
 end

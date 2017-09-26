@@ -1,6 +1,8 @@
 require 'sunspot'
 
 class FullTextController < ApplicationController
+  @filter_nature_prospection = true
+
   def show
     page = params[:page] || 1
     @number_of_searches = 0
@@ -41,13 +43,23 @@ class FullTextController < ApplicationController
       facet :is_ess
       with(:is_ess, params[:is_ess]) if params[:is_ess].present?
       with_filter_entrepreneur_individuel if params[:is_entrepreneur_individuel].present?
+      without(:nature_mise_a_jour, %w[O E])
+      without(:statut_prospection, 'O')
 
       spellcheck :count => 5
 
-      # without(:nature_mise_a_jour).any_of(%w[O E]) # Scoping deactivated for now
+      # without(:nature_mise_a_jour).any_of(%w[O E])
+      # without(:statut_prospection).any_of('O')
+      # filter_nature_prospection if @filter_nature_prospection
       paginate page: page, per_page: 10
     end
     search
+  end
+
+  # Scoping
+  def filter_nature_prospection
+    without(:nature_mise_a_jour).any_of(%w[O E])
+    without(:statut_prospection, 'O')
   end
 end
 
