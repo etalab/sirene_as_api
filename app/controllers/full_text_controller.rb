@@ -48,11 +48,9 @@ class FullTextController < ApplicationController
       without(:statut_prospection, 'O')
 
       spellcheck :count => 5
-
-      # without(:nature_mise_a_jour).any_of(%w[O E])
-      # without(:statut_prospection).any_of('O')
-      # filter_nature_prospection if @filter_nature_prospection
       paginate page: page, per_page: per_page
+      order_by(:score, :desc)
+      order_by(:tranche_effectif_salarie_entreprise, :desc)
     end
     search
   end

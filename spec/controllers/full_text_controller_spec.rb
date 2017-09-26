@@ -192,4 +192,26 @@ describe FullTextController do
       expect(number_results).to eq(1)
     end
   end
+
+  # Order results by score then Etablissement size
+  context 'when doing a search for entrepreneur individuel', :type => :request do
+    let!(:etablissement1){ create(:etablissement, id: 1, nom_raison_sociale: 'foobarcompany', tranche_effectif_salarie_entreprise: '0') }
+    let!(:etablissement2){ create(:etablissement, id: 2,nom_raison_sociale: 'foobarcompany', tranche_effectif_salarie_entreprise: '11') }
+    let!(:etablissement3){ create(:etablissement, id: 3, nom_raison_sociale: 'foobarcompany2', tranche_effectif_salarie_entreprise: '0') }
+    let!(:etablissement4){ create(:etablissement, id: 4, nom_raison_sociale: 'foobarcompany2', tranche_effectif_salarie_entreprise: '11') }
+    let!(:etablissement5){ create(:etablissement, id: 5, nom_raison_sociale: 'randomcompany', tranche_effectif_salarie_entreprise: '53') }
+    it 'order close matchs by score then by tranche_effectif_salarie_entreprise' do
+      Etablissement.reindex
+
+      get '/full_text/foobar*'
+
+      result_hash = body_as_json
+      result_etablissements = result_hash.extract!(:etablissement)
+      id_from_etablissements = result_etablissements[:etablissement].map{|x| x[:id]}
+      puts 'DEBUG'
+      puts result_etablissements
+      puts id_from_etablissements
+      expect(id_from_etablissements).to eq([2, 4, 1, 3])
+    end
+  end
 end
