@@ -78,9 +78,9 @@ end
 task :passenger do
   comment %{Attempting to start Passenger app}.green
   command %{
-    if (sudo passenger-status | grep siade_#{ENV['to']}) >/dev/null
+    if (sudo passenger-status | grep sirene_#{ENV['to']}) >/dev/null
     then
-      passenger-config restart-app /var/www/siade_#{ENV['to']}/current
+      passenger-config restart-app /var/www/sirene_#{ENV['to']}/current
     else
       echo 'Skipping: no passenger app found (will be automatically loaded)'
     fi
@@ -89,10 +89,10 @@ end
 
 task :warning_info do
   warning_sign = '\xE2\x9A\xA0'
-  comment %{#{warning_sign}#{warning_sign}#{warning_sign}#{warning_sign}}.yellow
+  comment %{#{warning_sign} #{warning_sign} #{warning_sign} #{warning_sign}}.yellow
   comment %{#{warning_sign} If it's the first install run the folowing commands #{warning_sign}}.yellow
   comment %{#{warning_sign} in the following directory: #{fetch(:deploy_to)}/current #{warning_sign}}.yellow
   comment %{bundle exec rake sunspot:solr:start RAILS_ENV=#{ENV['to']}}.green
   comment %{bundle exec rake sirene_as_api:populate_database RAILS_ENV=#{ENV['to']}}.green
-  comment %{#{warning_sign}#{warning_sign}#{warning_sign}#{warning_sign}}.yellow
+  comment %{#{warning_sign} #{warning_sign} #{warning_sign} #{warning_sign}}.yellow
 end
