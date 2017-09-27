@@ -3,8 +3,6 @@ sandbox:
     hostname: localhost
     port: 8984
     log_level: INFO
-    path: /solr/sandbox
-
 
 development:
   solr:
