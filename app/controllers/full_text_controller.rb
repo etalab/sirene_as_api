@@ -44,21 +44,17 @@ class FullTextController < ApplicationController
       facet :is_ess
       with(:is_ess, params[:is_ess]) if params[:is_ess].present?
       with_filter_entrepreneur_individuel if params[:is_entrepreneur_individuel].present?
-      without(:nature_mise_a_jour, %w[O E])
-      without(:statut_prospection, 'O')
 
-      spellcheck :count => 5
+      # Scoping
+      without(:nature_mise_a_jour).any_of(%w[O E])
+      without(:statut_prospection, 'N')
+
+      spellcheck :count => 2
       paginate page: page, per_page: per_page
       order_by(:score, :desc)
       order_by(:tranche_effectif_salarie_entreprise, :desc)
     end
     search
-  end
-
-  # Scoping
-  def filter_nature_prospection
-    without(:nature_mise_a_jour).any_of(%w[O E])
-    without(:statut_prospection, 'O')
   end
 end
 

@@ -22,7 +22,7 @@ def populate_test_database_with_3_no_diffusion
   %w[O E].cycle(1) do |x|
     create(:etablissement, nom_raison_sociale: "foobarcompany", nature_mise_a_jour: x)
   end
-    create(:etablissement, nom_raison_sociale: "foobarcompany", statut_prospection: 'O')
+    create(:etablissement, nom_raison_sociale: "foobarcompany", statut_prospection: 'N')
 end
 
 def populate_test_database_with_6_all

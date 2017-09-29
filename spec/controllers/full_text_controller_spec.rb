@@ -208,9 +208,6 @@ describe FullTextController do
       result_hash = body_as_json
       result_etablissements = result_hash.extract!(:etablissement)
       id_from_etablissements = result_etablissements[:etablissement].map{|x| x[:id]}
-      puts 'DEBUG'
-      puts result_etablissements
-      puts id_from_etablissements
       expect(id_from_etablissements).to eq([2, 4, 1, 3])
     end
   end
