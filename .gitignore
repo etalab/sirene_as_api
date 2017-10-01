@@ -28,6 +28,8 @@
 /solr/default/data/tlog/*
 /solr/development/*
 /solr/test/*
+/solr/production/data/*
+/solr/sandbox/data/*
 
 # Ignore solr pids except production
 /solr/pids/development/*

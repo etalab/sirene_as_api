@@ -3,6 +3,7 @@ sandbox:
     hostname: localhost
     port: 8984
     log_level: INFO
+    path: /solr/sandbox
 
 development:
   solr:
@@ -23,6 +24,7 @@ production:
     hostname: localhost
     port: 8983
     log_level: WARNING
+    path: /solr/production
 
   # auto_commit_after_request: false
   # auto_commit_after_delete_request: false
