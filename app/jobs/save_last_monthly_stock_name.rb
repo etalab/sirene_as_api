@@ -7,14 +7,18 @@ class SaveLastMonthlyStockName < SireneAsAPIInteractor
       It will be created for the import to continue, but it is supposed to be a shared folder created by Mina deploy.")
     end
 
-    File.open("#{link_folder}/#{link_file}", 'w+') { |f| f << context.link }
+    File.open(full_path, 'w+') { |f| f << context.link }
   end
 
   def link_folder
-    '.last_monthly_link_applied'
+    '.last_monthly_stock_applied'
   end
 
   def link_file
-    'last_monthly_stock_name.txt'
+    'last_monthly_stock_link_name.txt'
+  end
+
+  def full_path
+    "#{link_folder}/#{link_file}"
   end
 end

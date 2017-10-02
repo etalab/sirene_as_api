@@ -78,7 +78,7 @@ class GetRelevantPatchesLinks < SireneAsAPIInteractor
   end
 
   def last_monthly_stock_name
-    File.read('/.last_monthly_link_applied/last_monthly_stock_name.txt')
+    File.read(SaveLastMonthlyStockName.new.full_path)
   end
 
   def sirene_update_and_stock_links

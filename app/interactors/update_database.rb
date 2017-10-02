@@ -3,7 +3,7 @@ class UpdateDatabase < SireneAsAPIInteractor
     stdout_info_log 'Checking if last monthly stock link was applied...'
     last_published_stock_name = GetLastMonthlyStockLink.call.link
 
-    unless File.exist?('/.last_monthly_link_applied/last_monthly_stock_name.txt')
+    unless File.exist?(SaveLastMonthlyStockName.new.full_path)
       stdout_info_log('Last monthly stock link not found.')
       destroy_and_rebuild_database
       return
@@ -22,7 +22,7 @@ class UpdateDatabase < SireneAsAPIInteractor
   private
 
   def last_monthly_stock_name
-    File.read('.last_monthly_stock_name.txt')
+    File.read(SaveLastMonthlyStockName.new.full_path)
   end
 
   def destroy_and_rebuild_database
