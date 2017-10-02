@@ -20,7 +20,11 @@ set :rails_env, ENV['to']
 set :forward_agent, true
 set :port, 22
 set :repository, 'https://github.com/sgmap/sirene_as_api.git'
-set :branch, 'master'
+if ENV['to'] == 'production'
+  set :branch, 'master'
+else
+  set :branch, 'sandbox'
+end
 
 # shared dirs and files will be symlinked into the app-folder by the 'deploy:link_shared_paths' step.
 set :shared_dirs, fetch(:shared_dirs, []).push(
