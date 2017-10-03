@@ -20,5 +20,5 @@
 # Learn more: http://github.com/javan/whenever
 
 every 1.day, :at => '4:30 am' do
-  rake "sirene_as_api:update_database"
+  rake "sirene_as_api:automatic_update_database"
 end

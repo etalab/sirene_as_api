@@ -147,7 +147,7 @@ Si vous souhaitez utiliser les tests :
 
 Vous pouvez maintenant lancer Solr :
 
-    bundle exec rake sunspot:solr:start
+    RAILS_ENV=production bundle exec rake sunspot:solr:start
 
 Peuplez la base de données : Cette commande importe le dernier fichier stock mensuel
 ainsi que les mises à jour quotidiennes. Attention, cette commande s'éxécute sur
@@ -182,15 +182,26 @@ Mise a jour et applications des patches idoines : ~ 2 minutes par patch
 
     bundle exec rake sirene_as_api:update_database
 
+Attention ! En début de mois / à chaque nouveau fichier stock, la base de donnée est supprimée puis ré-importée
+entièrement. L'opération prend ~ 3 heures. Cette commande vous demandera confirmation.
+
+Suppression des fichiers temporaires stocks et mises à jour quotidiennes :
+
+    bundle exec rake sirene_as_api:delete_temporary_files
+
+Mise à jour et application des patches idoines (sans prompt) + Suppression des fichiers temporaires :
+
+    bundle exec rake sirene_as_api:automatic_update_database
+
 Suppression database, en cas de problèmes :
 
     bundle exec rake sirene_as_api:delete_database
 
-Il est conseillé de rajouter RAILS_ENV=production en environnement de production.
+Il est conseillé de rajouter RAILS_ENV=production au début des commandes en environnement de production.
 
 ### Mises à jour automatiques
 
-La commande `bundle exec rake sirene_as_api:update_database` peut être lancée
+La commande `bundle exec rake sirene_as_api:automatic_update_database` peut être lancée
 a chaque nouveau fichier.
 Le processus devrait être automatisé a l'installation du serveur.
 Pour modifier la fréquence des mises à jour, modifiez config/schedule.rb
@@ -200,6 +211,9 @@ puis exécutez la commande :
 
 La gem [whenever](https://github.com/javan/whenever) s'occupe de mettre à jour
 vos tâches cron. Par défaut la mise à jour se fait à 4h30 du matin.
+
+L'API reste disponible sans interruptions pendant ce process, excepté ~ 3 heures lors de la
+suppression / réimportation du fichier stock au début de chaque mois.
 
 ## Sunspot / Solr
 

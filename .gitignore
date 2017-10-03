@@ -41,6 +41,9 @@
 spec/interactors/solr/
 sunspot-solr.pid
 
+# Ignore dummy files created by tests
+/spec/fixtures/files_for_deletion_test/*
+
 # Ignore last_monthly_stock_link storage
 /.last_monthly_stock_applied/*
 

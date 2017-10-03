@@ -4,7 +4,7 @@ class SaveLastMonthlyStockName < SireneAsAPIInteractor
     unless File.directory?(link_folder)
       FileUtils.mkdir(link_folder)
       stdout_warn_log("Warning : Folder #{link_folder} doesn't exist.
-      It will be created for the import to continue, but it is supposed to be a shared folder created by Mina deploy.")
+      It will be created for the import to continue.")
     end
 
     File.open(full_path, 'w+') { |f| f << context.link }
