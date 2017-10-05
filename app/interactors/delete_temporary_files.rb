@@ -3,7 +3,6 @@ class DeleteTemporaryFiles < SireneAsAPIInteractor
 
   def call
     return unless context.success?
-    puts 'MY CONTEXT' + context.success?.to_s
     stdout_info_log("Deleting files in #{temp_files_location}")
     Dir["#{temp_files_location}/*"].select{ |f| looks_like_temporary_file(f) }.each do |file|
       File.delete(file)
