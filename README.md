@@ -112,7 +112,7 @@ l'API renvoie le nombre total de sirets existants à partir de ce siren, ainsi q
 Vous aurez besoin de :
 * postgresql en version supérieure a 9.5, la dernière version stable de
   préférence
-* ruby en version 2.4.1
+* ruby en version 2.4.2
 * git installé
 * bundler installé
 * un runtime java pour solr
