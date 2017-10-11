@@ -36,7 +36,18 @@ class FullTextController < ApplicationController
 
   def search_with_solr_options(keyword, page, per_page)
     search = Etablissement.search do
-      fulltext keyword
+      fulltext keyword do
+        # Better scoring for phrases, with words separated up until 1 word.
+        # Search "Commune Montpellier" will be boosted for result "Commune de Montpellier"
+        phrase_fields :nom_raison_sociale => 2.0
+        phrase_slop 1
+
+        # Boost results for Mairies, as it often searched.
+        # Search "Montpellier" will be boosted for the actual city Etablissement.
+        boost(2) { with(:enseigne).equal_to("MAIRIE") }
+      end
+
+      # Faceting / Filtering
       facet :activite_principale
       with(:activite_principale, params[:activite_principale]) if params[:activite_principale].present?
       facet :code_postal
@@ -44,13 +55,17 @@ class FullTextController < ApplicationController
       facet :is_ess
       with(:is_ess, params[:is_ess]) if params[:is_ess].present?
       with_filter_entrepreneur_individuel if params[:is_entrepreneur_individuel].present?
-
+      # facet :enseigne
+      # with(:enseigne, "MAIRIE")
       # Scoping
       without(:nature_mise_a_jour).any_of(%w[O E])
       without(:statut_prospection, 'N')
 
+      # Spellcheck / pagination
       spellcheck :count => 2
       paginate page: page, per_page: per_page
+
+      # Ordering
       order_by(:score, :desc)
       order_by(:tranche_effectif_salarie_entreprise, :desc)
     end

@@ -10,6 +10,24 @@ describe FullTextController do
     end
   end
 
+# Prioritize Etablissements which are Mairies
+context 'when looking for an Etablissement which have a Mairie (commune)', :type => :request do
+  let!(:etablissement1){ create(:etablissement, id: 1, nom_raison_sociale: 'Commune de Montpellier', enseigne: 'MAIRIE') }
+  let!(:etablissement2){ create(:etablissement, id: 2, nom_raison_sociale: 'Commune de Montpellier', enseigne: 'null') }
+  let!(:etablissement3){ create(:etablissement, id: 3, nom_raison_sociale: 'Montpellier', enseigne: 'others') }
+  let!(:etablissement4){ create(:etablissement, id: 4, nom_raison_sociale: 'Unrelated', enseigne: 'null') }
+  it 'prioritize the Mairie Etablissement result' do
+    Etablissement.reindex
+
+    get "/full_text/montpellier"
+
+    result_hash = body_as_json
+    result_etablissements = result_hash.extract!(:etablissement)
+    expect(result_etablissements[:etablissement].size).to equal(3)
+    expect(result_etablissements[:etablissement].first[:id]).to equal(1)
+  end
+end
+
 # Per page param
   context 'when specifying the per_page param', :type => :request do
     it 'return the right number of results per page' do

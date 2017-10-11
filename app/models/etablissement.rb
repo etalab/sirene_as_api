@@ -12,6 +12,7 @@ class Etablissement < ApplicationRecord
     string :nature_entrepreneur_individuel
     string :statut_prospection
     string :tranche_effectif_salarie_entreprise
+    string :enseigne
   end
 
   def self.latest_mise_a_jour

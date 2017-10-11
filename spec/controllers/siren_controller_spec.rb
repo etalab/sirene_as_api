@@ -1,3 +1,5 @@
+require 'rails_helper'
+
 describe SirenController do
   context 'when doing a search that isnt found', :type => :request do
     it 'doesnt return anything' do
@@ -11,15 +13,17 @@ describe SirenController do
 
   context 'when doing a simple search', :type => :request do
     siren_found = '123456789'
+    siret_father = '12345678900002'
     siret_brother = '12345678900001'
-    siret_sister = '12345678900002'
+    siret_sister = '12345678900003'
     unrelated_siren = '111111111'
     unrelated_siret = '11111111100001'
+    let!(:etablissement_father){ create(:etablissement, nom_raison_sociale: 'foobarcompany_father', siren: siren_found, siret: siret_father, is_siege: 1) }
     let!(:etablissement_brother){ create(:etablissement, nom_raison_sociale: 'foobarcompany_brother', siren: siren_found, siret: siret_brother) }
     let!(:etablissement_sister){ create(:etablissement, nom_raison_sociale: 'foobarcompany_sister', siren: siren_found, siret: siret_sister) }
     let!(:etablissement_unrelated){ create(:etablissement, nom_raison_sociale: 'unrelated_company', siren: unrelated_siren, siret: unrelated_siret) }
 
-    it 'return the correct list of sirets, in the correct order' do
+    it 'return the correct etablissements' do
       Etablissement.reindex
 
       get "/siren/#{siren_found}"
@@ -27,11 +31,13 @@ describe SirenController do
       expect(response.body).to look_like_json
       expect(response).to have_http_status(200)
       result_hash = body_as_json
-      puts 'result_et:: ' + result_hash[:etablissements].to_s
-      total_results = result_hash[:total_results]
-      siret_results = result_hash[:etablissements]
-      expect(total_results).to match(2)
-      expect(siret_results).to match(["#{siret_brother}", "#{siret_sister}"])
+
+      expect(result_hash).to match({
+        total_results: 3,
+        siege_social_siret: [siret_father],
+        other_etablissements_sirets: [siret_sister, siret_brother],
+        numero_tva_intra: "FR32123456789"
+      })
     end
   end
 end
