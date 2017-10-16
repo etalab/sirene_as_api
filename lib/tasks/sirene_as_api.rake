@@ -28,9 +28,4 @@ namespace :sirene_as_api do
   task :delete_temporary_files => :environment do
     DeleteTemporaryFiles.call
   end
-
-  desc 'Check consistensy of :is_siege in the database'
-  task :test_is_siege => :environment do
-    CheckIfOnlyOneSiege.call
-  end
 end
