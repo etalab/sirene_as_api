@@ -1,5 +1,9 @@
 require 'logger'
 
+# For every siren we have 1 or more Etablissements (end therefore sirets).
+# This script check if in our database we do have one and only one
+# Etablissement with is_siege=1, which should be the normal behavior.
+
 class CheckIfOnlyOneSiege < SireneAsAPIInteractor
   def call
     create_log_file
