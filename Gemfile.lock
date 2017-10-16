@@ -66,6 +66,9 @@ GEM
       multipart-post (>= 1.2, < 3)
     ffi (1.9.18)
     formatador (0.2.5)
+    fuubar (2.2.0)
+      rspec-core (~> 3.0)
+      ruby-progressbar (~> 1.4)
     globalid (0.4.0)
       activesupport (>= 4.2.0)
     growl (1.0.3)
@@ -303,6 +306,7 @@ DEPENDENCIES
   connection_pool (~> 2.2)
   database_cleaner
   factory_girl_rails
+  fuubar
   growl
   guard
   guard-rails

@@ -65,6 +65,7 @@ end
 group :test do
   gem 'vcr'
   gem 'webmock'
+  gem 'fuubar'
 
 # database_cleaner used for cleaning database before test
   gem 'database_cleaner'
