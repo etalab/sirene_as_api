@@ -6,7 +6,7 @@ class SirenController < ApplicationController
     if !@results.blank?
       results_payload = {
         total_results: @results_sirets.size,
-        siege_social_siret: the_siege_siret,
+        siege_social: the_siege_etablissement,
         # siege_name: the_siege_name(results, the_siege_siret), TODO: implement later
         other_etablissements_sirets: not_siege_sirets,
         # other_etablissements_names: not_siege_names(results), TODO: implement later
@@ -19,7 +19,11 @@ class SirenController < ApplicationController
   end
 
   def the_siege_siret
-    @results.where(is_siege: '1').pluck(:siret)
+    the_siege_etablissement.where(is_siege: '1').pluck(:siret)
+  end
+
+  def the_siege_etablissement
+    @results.where(is_siege: '1')
   end
 
   def not_siege_sirets

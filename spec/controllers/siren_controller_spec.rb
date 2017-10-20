@@ -31,13 +31,14 @@ describe SirenController do
       expect(response.body).to look_like_json
       expect(response).to have_http_status(200)
       result_hash = body_as_json
+      result_siege_social = result_hash.extract!(:siege_social)
 
       expect(result_hash).to match({
         total_results: 3,
-        siege_social_siret: [siret_father],
         other_etablissements_sirets: [siret_sister, siret_brother],
         numero_tva_intra: "FR32123456789"
       })
+      expect(result_siege_social[:siege_social][0][:siret]).to eq(siret_father)
     end
   end
 end
