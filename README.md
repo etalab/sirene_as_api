@@ -105,7 +105,11 @@ La requête se fait par :
 
     curl 'localhost:3000/siren/MON_SIREN'
 
-l'API renvoie le nombre total de sirets existants à partir de ce siren, ainsi que la liste des sirets en question.
+l'API renvoie :
+  - Le nombre total de sirets existants à partir de ce siren.
+  - Les données de l'établissement siège correspondant à ce siren.
+  - La liste des sirets enfants (sirets correspondants à ce siren & qui ne sont pas le siège de l'établissement)
+  - Le numéro de TVA intracommunautaire.
 
 # Installation et configuration
 
@@ -116,6 +120,9 @@ Vous aurez besoin de :
 * git installé
 * bundler installé
 * un runtime java pour solr
+
+ Pour vous simplifier la tâche, nous vous conseillons d'utiliser le script Ansible mis a disposition pour déployer votre
+ architecture. Une tâche [Mina](https://github.com/mina-deploy/mina) est également disponible (fichier config/deploy.rb).
 
 Une fois cloné ce répertoire à l'aide de
 
