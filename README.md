@@ -113,7 +113,13 @@ l'API renvoie :
 
 # Installation et configuration
 
-Vous aurez besoin de :
+Pour installer rapidement & efficacement l'API en environnement de production,
+vous pouvez vous referer a la documentation sur [sirene_as_api_ansible](https://github.com/sgmap/sirene_as_api_ansible)
+et utiliser les scripts de déploiement automatiques.
+
+## Installation manuelle en environnement dev
+
+Pour une installation manuelle, vous aurez besoin de :
 * postgresql en version supérieure a 9.5, la dernière version stable de
   préférence
 * ruby en version 2.4.2
@@ -133,6 +139,8 @@ peu de temps en fonction de votre installation. Vous pouvez omettre l'installati
 bundler s'il est déjà présent sur la machine
 
     gem install bundler && bundle install
+
+## Preparation de la base de donnée
 
 Il faut maintenant préparer la base de données postgres :
 

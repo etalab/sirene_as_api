@@ -12,6 +12,8 @@ print "Deploy to #{ENV['to']}\n".green
 
 set :user, 'deploy' # Username in the server to SSH to.
 set :application_name, 'sirene'
+
+# FOR CLIENT MINA DEPLOYMENT : Replace this domain adress with your own
 set :domain, 'sirene.entreprise.api.gouv.fr'
 
 set :deploy_to, "/var/www/sirene_#{ENV['to']}"
