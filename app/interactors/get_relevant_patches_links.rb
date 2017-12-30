@@ -11,7 +11,7 @@ class GetRelevantPatchesLinks < SireneAsAPIInteractor
     else
       stdout_success_log "Found #{context.links.size} patches !
       Retrieved relevant patches links : #{context.links}"
-      puts # REVIEW: ask about this line
+      puts
     end
   end
 
@@ -60,11 +60,6 @@ class GetRelevantPatchesLinks < SireneAsAPIInteractor
   end
 
   def patches_since_last_monthly_stock
-    # The following regexp catch the last 2 numbers of a string ergo the month
-    last_month_stock_applied = /\d\d(?=[^\d])/.match(last_monthly_stock_name)[0]
-    # The last month stock link is published be at the beginning of current month,
-    # modulo 12 for december->january
-    current_month = (last_month_stock_applied.to_i + 1) % 12
     yday_beginning_current_month = Date.new(current_year.to_i, current_month, 1).yday
     beginning_current_month = yday_beginning_current_month.to_s.rjust(3, '0')
 
@@ -111,5 +106,18 @@ class GetRelevantPatchesLinks < SireneAsAPIInteractor
 
   def current_year
     Time.now.year.to_s
+  end
+
+  def current_month
+    # The following regexp catch the last 2 numbers of a string ergo the month
+    last_month_stock_applied = /\d\d(?=[^\d])/.match(last_monthly_stock_name)[0]
+    # The last month stock link is published be at the beginning of current month,
+    # modulo 12 for december->january
+    # Edge case: if last month is november, return 12 and not zero.
+    unless (last_month_stock_applied.to_i == 11)
+      current_month = (last_month_stock_applied.to_i + 1) % 12
+    else
+      current_month = 12
+    end
   end
 end
