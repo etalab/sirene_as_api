@@ -139,6 +139,24 @@ end
    end
   end
 
+  # Spellchecking collation
+  context 'when two close words both contains a typo', :type => :request do
+   let!(:etablissement){ create(:etablissement, nom_raison_sociale: 'foobar company') }
+   let!(:etablissement2){ create(:etablissement, nom_raison_sociale: 'sample company') }
+   let!(:etablissement3){ create(:etablissement, nom_raison_sociale: 'another company') }
+   it 'spellcheck correctly and return the correct word' do
+     Etablissement.reindex
+
+     get '/full_text/fo0ar%20compa' # Typos on purpose
+
+     expect(response.body).to look_like_json
+     result_hash = body_as_json
+     result_spellcheck = result_hash[:etablissement][0][:nom_raison_sociale]
+     expect(result_spellcheck).to match('foobar company')
+     expect(response).to have_http_status(200)
+   end
+  end
+
 # Filtration of Etablissements out of commercial prospection
   context 'when there are only etablissements in commercial diffusion', :type => :request do
     it 'show them in the search results' do
