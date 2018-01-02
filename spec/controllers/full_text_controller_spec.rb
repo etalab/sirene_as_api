@@ -123,14 +123,13 @@ end
 
 # Spellchecking
   context 'when a word contains a typo', :type => :request do
-   let!(:etablissement){ create(:etablissement, nom_raison_sociale: 'foobarcompany') }
+   let!(:etablissement1){ create(:etablissement, nom_raison_sociale: 'foobarcompany') }
    let!(:etablissement2){ create(:etablissement, nom_raison_sociale: 'samplecompany') }
    let!(:etablissement3){ create(:etablissement, nom_raison_sociale: 'anothercompany') }
    it 'spellcheck correctly and return the correct word' do
      Etablissement.reindex
 
      get '/full_text/fo0barcompany' # Typo on purpose
-
      expect(response.body).to look_like_json
      result_hash = body_as_json
      result_spellcheck = result_hash[:etablissement][0][:nom_raison_sociale]
@@ -147,7 +146,7 @@ end
    it 'spellcheck correctly and return the correct word' do
      Etablissement.reindex
 
-     get '/full_text/fo0ar%20compa' # Typos on purpose
+     get '/full_text/fo0bar%20compani' # Typos on purpose
 
      expect(response.body).to look_like_json
      result_hash = body_as_json

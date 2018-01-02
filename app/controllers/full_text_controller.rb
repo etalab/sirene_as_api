@@ -1,12 +1,17 @@
 require 'sunspot'
 
+
+# TODO: Implement @filter_nature_prospection
+# TODO: Spellchecking have been moved to solr so no need to do a recursive spellcheck,
+# only one extra search is okay.
+# TODO: Factorize & clean
 class FullTextController < ApplicationController
   @filter_nature_prospection = true
 
   def show
     page = params[:page] || 1
     per_page = params[:per_page] || 10
-    @number_of_searches = 0
+    @number_of_searches = 1
     spellcheck_search(params[:text], page, per_page)
   end
 
@@ -15,6 +20,11 @@ class FullTextController < ApplicationController
     results = search.results
 
     if !results.blank?
+
+       # to delete
+      puts 'FOUND. SPELLCHECK COLLATION:' + search.spellcheck_collation.to_s
+      puts 'SUGGESTIONS SUNSPOT:' + search.spellcheck_suggestions.to_s
+
       results_payload = {
         total_results: search.total,
         total_pages: results.total_pages,
@@ -25,6 +35,11 @@ class FullTextController < ApplicationController
       render json: results_payload, status: 200
     else
       spellchecked_query = search.spellcheck_collation
+      # binding.pry
+       # to delete
+      puts 'NOT FOUND. SPELLCHECK:' + search.spellcheck_collation.to_s
+      puts 'SUGGESTIONS SUNSPOT:' + search.spellcheck_suggestions.to_s
+
       if spellchecked_query.nil? || @number_of_searches >= 2
         render json: { message: 'no results found' }, status: 404
       else
@@ -81,22 +96,20 @@ def with_filter_entrepreneur_individuel
   end
 end
 
-# Modified Sunspot classes for making Spellcheck work.
+# Code below used to debug Solr Spellchecking.
 module Sunspot::Search
   class StandardSearch
-    def spellcheck_suggestion_for(term)
-      if spellcheck_suggestions.nil? || spellcheck_suggestions[term].nil?
-        return nil
-      end
-      spellcheck_suggestions[term]['suggestion'].sort_by do |suggestion|
-        suggestion['freq']
-      end.last['word']
-    end
-
     def spellcheck_collation(*terms)
+      # Uncomment the following line for console feedback
+      # puts 'SPELLCHECK FROM INSIDE SUNSPOT: ' + solr_spellcheck.to_s
+
+      # Following line changed since Sunspot doesn't allow collation on 1 term on this version.
+      # Length is usually > 2 on most sunspot versions, we put it at > 0 here.
       if solr_spellcheck['suggestions'] && solr_spellcheck['suggestions'].length > 0
         collation = terms.join(" ").dup if terms
 
+        # If we are given a query string, tokenize it and strictly replace
+        # the terms that aren't present in the index
         if terms.length > 0
           terms.each do |term|
             if (spellcheck_suggestions[term]||{})['origFreq'] == 0
@@ -105,6 +118,8 @@ module Sunspot::Search
           end
         end
 
+        # If no query was given, or all terms are present in the index,
+        # return Solr's suggested collation.
         if terms.length == 0
           collation = solr_spellcheck['collations'][-1]
         end
