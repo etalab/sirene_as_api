@@ -96,7 +96,7 @@ def with_filter_entrepreneur_individuel
   end
 end
 
-# Code below used to debug Solr Spellchecking.
+Code below used to debug Solr Spellchecking.
 module Sunspot::Search
   class StandardSearch
     def spellcheck_collation(*terms)
@@ -105,6 +105,7 @@ module Sunspot::Search
 
       # Following line changed since Sunspot doesn't allow collation on 1 term on this version.
       # Length is usually > 2 on most sunspot versions, we put it at > 0 here.
+      # TODO: Check why we don't have last version of the code here.
       if solr_spellcheck['suggestions'] && solr_spellcheck['suggestions'].length > 0
         collation = terms.join(" ").dup if terms
 
