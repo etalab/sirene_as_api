@@ -130,6 +130,7 @@ end
      Etablissement.reindex
 
      get '/full_text/fo0barcompany' # Typo on purpose
+     
      expect(response.body).to look_like_json
      result_hash = body_as_json
      result_spellcheck = result_hash[:etablissement][0][:nom_raison_sociale]

@@ -96,7 +96,7 @@ def with_filter_entrepreneur_individuel
   end
 end
 
-Code below used to debug Solr Spellchecking.
+# Code below used to debug Solr Spellchecking.
 module Sunspot::Search
   class StandardSearch
     def spellcheck_collation(*terms)

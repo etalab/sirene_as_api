@@ -9,7 +9,7 @@ require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
 require 'ruby-progressbar'
 require 'database_cleaner'
-require 'support/factory_girl'
+require 'support/factory_bot'
 require 'support/database_cleaner'
 require 'support/populate_database'
 require 'support/solr_server'
