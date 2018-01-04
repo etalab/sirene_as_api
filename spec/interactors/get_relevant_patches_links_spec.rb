@@ -8,6 +8,8 @@ describe GetRelevantPatchesLinks do
 
     it 'retrieves the right number of patches' do
       allow(File).to receive(:read) { 'http://files.data.gouv.fr/sirene/sirene_201702_L_M.zip' }
+      allow(Time).to receive(:now) { Time.new(2017, 03, 31) }
+
       right_number_of_patches = 3
       expect(described_class.call.links.size).to eq(right_number_of_patches)
     end
@@ -20,6 +22,8 @@ describe GetRelevantPatchesLinks do
 
     it 'retrieves 5 patches' do
       allow(File).to receive(:read) { 'http://files.data.gouv.fr/sirene/sirene_201702_L_M.zip' }
+      allow(Time).to receive(:now) { Time.new(2017, 03, 31) }
+
       right_number_of_patches = 5
       expect(described_class.call.links.size).to eq(right_number_of_patches)
     end
@@ -32,6 +36,8 @@ describe GetRelevantPatchesLinks do
 
     it 'retrieves the right number of patches' do
       allow(File).to receive(:read) { 'http://files.data.gouv.fr/sirene/sirene_201702_L_M.zip' }
+      allow(Time).to receive(:now) { Time.new(2017, 03, 31) }
+
       right_number_of_patches = 7
       expect(described_class.call.links.size).to eq(right_number_of_patches)
     end

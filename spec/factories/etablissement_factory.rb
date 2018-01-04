@@ -3,7 +3,7 @@
 # Creation : C, Entŕee diffusion : D
 # Suppression : E, Sortie diffusion : O
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :etablissement do
     sequence(:nom) {|n| "entreprise#{n}" }
     sequence(:siren) { |n| "11111#{n}" }

@@ -38,8 +38,4 @@ class GetLastMonthlyStockLink < SireneAsAPIInteractor
   def sirene_monthly_stock_filename_pattern
     /.*sirene_#{current_year}([0-9]{2})_L_M\.zip/
   end
-
-  def current_year
-    Time.now.year.to_s
-  end
 end

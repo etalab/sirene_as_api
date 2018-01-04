@@ -55,8 +55,8 @@ group :development, :test do
   gem 'guard-rails', require: false
   gem 'guard-rspec', require: false
 
-# factory_girl used for populating test database
-  gem 'factory_girl_rails'
+# factory_bot used for populating test database
+  gem 'factory_bot_rails'
 
   gem 'timecop'
   gem 'growl'
