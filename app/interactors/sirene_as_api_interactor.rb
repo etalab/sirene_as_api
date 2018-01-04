@@ -28,4 +28,19 @@ class SireneAsAPIInteractor
   def check_mark
     "\xE2\x9C\x93"
   end
+
+  def time_now
+    Time.now
+    # Edge case : If you are early january of a year, and you want the last monthly
+    # patch of december, replace Time by any time of last year :
+    # Time.new(2017, 12, 31)
+  end
+
+  def current_year
+    time_now.year.to_s
+  end
+
+  def current_month
+    time_now.month.to_s
+  end
 end
