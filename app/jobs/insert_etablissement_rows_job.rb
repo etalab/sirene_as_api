@@ -1,4 +1,4 @@
-class InsertEtablissementRowsJob
+class InsertEtablissementRowsJob < EtablissementRowJobs
   attr_accessor :lines
 
   def initialize(lines)
@@ -6,11 +6,7 @@ class InsertEtablissementRowsJob
   end
 
   def perform
-    etablissements = []
-
-    lines.each do |line|
-      etablissements << EtablissementAttrsFromLine.instance.call(line)
-    end
+    etablissements = fill_etablissements
 
     ar_keys = %w[created_at updated_at]
     ar_keys << etablissements.first.keys.map(&:to_s)

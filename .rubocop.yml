@@ -1,0 +1,14 @@
+AllCops:
+  Exclude:
+    - 'Guardfile'
+    - 'db/migrate/*'
+    - 'bin/*'
+
+Metrics/LineLength:
+  Max: 120
+
+Documentation:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false

@@ -4,7 +4,7 @@ class ApplyFrequentUpdateCsvPatch < SireneAsAPIInteractor
     stdout_info_log 'Computing number of rows'
 
     context.csv_filename = context.unzipped_files.first
-    context.number_of_rows = %x(wc -l #{context.csv_filename}).split.first.to_i - 1
+    context.number_of_rows = `wc -l #{context.csv_filename}`.split.first.to_i - 1
 
     stdout_success_log "Found #{context.number_of_rows} rows in patch"
 

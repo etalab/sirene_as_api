@@ -3,11 +3,11 @@ require 'sunspot'
 # TODO: Spellchecking have been moved to solr so no need to do a recursive spellcheck,
 # only one extra search is okay.
 class FullTextController < ApplicationController
+  FILTER_NATURE_PROSPECTION = true
   def show
     page = params[:page] || 1
     per_page = params[:per_page] || 10
     @number_of_searches = 1
-    @@filter_nature_prospection = true
     spellcheck_search(params[:text], page, per_page)
   end
 
@@ -31,39 +31,43 @@ class FullTextController < ApplicationController
 
   def search_with_solr_options(keyword, page, per_page)
     search = Etablissement.search do
-      fulltext keyword do
-        # Better scoring for phrases, with words separated up until 1 word.
-        # Search "Commune Montpellier" will be boosted for result "Commune de Montpellier"
-        phrase_fields :nom_raison_sociale => 2.0
-        phrase_slop 1
-
-        # Boost results for Mairies, as it often searched.
-        # Search "Montpellier" will be boosted for the actual city Etablissement.
-        boost(2) { with(:enseigne).equal_to("MAIRIE") }
-      end
-
+      run_search_with_main_options(keyword)
       # Faceting / Filtering
-      facet :activite_principale
-      with(:activite_principale, params[:activite_principale]) if params[:activite_principale].present?
-      facet :code_postal
-      with(:code_postal, params[:code_postal]) if params[:code_postal].present?
-      facet :is_ess
-      with(:is_ess, params[:is_ess]) if params[:is_ess].present?
-      with_filter_entrepreneur_individuel if params[:is_entrepreneur_individuel].present?
-
+      with_faceting_options
       # Scoping
-      without_statut_prospection if @@filter_nature_prospection
-
+      without_statut_prospection if FILTER_NATURE_PROSPECTION
+      # Filter for entrepreneur individuel if asked
+      with_filter_entrepreneur_individuel if params[:is_entrepreneur_individuel].present?
       # Spellcheck / pagination
-      spellcheck :count => 2
+      spellcheck count: 2
       paginate page: page, per_page: per_page
-
       # Ordering
-      order_by(:score, :desc)
-      order_by(:tranche_effectif_salarie_entreprise, :desc)
+      order_results_options
     end
     search
   end
+end
+
+def run_search_with_main_options(keyword)
+  fulltext keyword do
+    # Better scoring for phrases, with words separated up until 1 word.
+    # Search "Commune Montpellier" will be boosted for result "Commune de Montpellier"
+    phrase_fields nom_raison_sociale: 2.0
+    phrase_slop 1
+
+    # Boost results for Mairies, as it often searched.
+    # Search "Montpellier" will be boosted for the actual city Etablissement.
+    boost(2) { with(:enseigne).equal_to('MAIRIE') }
+  end
+end
+
+def with_faceting_options
+  facet :activite_principale
+  with(:activite_principale, params[:activite_principale]) if params[:activite_principale].present?
+  facet :code_postal
+  with(:code_postal, params[:code_postal]) if params[:code_postal].present?
+  facet :is_ess
+  with(:is_ess, params[:is_ess]) if params[:is_ess].present?
 end
 
 def without_statut_prospection
@@ -79,6 +83,11 @@ def with_filter_entrepreneur_individuel
   end
 end
 
+def order_results_options
+  order_by(:score, :desc)
+  order_by(:tranche_effectif_salarie_entreprise, :desc)
+end
+
 def render_payload(search, results, page)
   results_payload = {
     total_results: search.total,
@@ -91,6 +100,7 @@ def render_payload(search, results, page)
 end
 
 # Code below used to debug Solr Spellchecking.
+# rubocop:disable all
 module Sunspot::Search
   class StandardSearch
     def spellcheck_collation(*terms)
@@ -126,3 +136,4 @@ module Sunspot::Search
     end
   end
 end
+# rubocop:enable all

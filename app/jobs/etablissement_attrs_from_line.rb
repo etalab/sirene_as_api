@@ -1,3 +1,7 @@
+# rubocop:disable Metrics/ClassLength
+# rubocop:disable Metrics/AbcSize
+# rubocop:disable Metrics/MethodLength
+
 class EtablissementAttrsFromLine
   include Singleton
 
@@ -125,5 +129,10 @@ class EtablissementAttrsFromLine
       siret_predecesseur_successeur: line[:siretps],
       telephone: line[:tel]
     }
+    etablissement_attrs
   end
 end
+
+# rubocop:enable Metrics/ClassLength
+# rubocop:enable Metrics/AbcSize
+# rubocop:enable Metrics/MethodLength
