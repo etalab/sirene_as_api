@@ -1,19 +1,19 @@
 # Helpers to check specs for pure JSON Api
-RSpec::Matchers.define :look_like_json do |expected|
-  match do |actual|
+RSpec::Matchers.define :look_like_json do
+  match do |string|
     begin
-      JSON.parse(actual)
+      JSON.parse(string)
     rescue JSON::ParserError
       false
     end
   end
 
-  failure_message do |actual|
-    "\"#{actual}\" is not parsable by JSON.parse"
+  failure_message do |string|
+    "\"#{string}\" is not parsable by JSON.parse"
   end
 
   description do
-    "Expect to be JSON parsable string"
+    'Expect to be JSON parsable string'
   end
 end
 
