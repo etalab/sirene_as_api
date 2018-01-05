@@ -43,4 +43,8 @@ class SireneAsAPIInteractor
   def current_month
     time_now.month.to_s
   end
+
+  def last_year
+    (time_now.year - 1).to_s
+  end
 end

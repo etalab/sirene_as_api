@@ -17,9 +17,13 @@ class GetLastMonthlyStockLink < SireneAsAPIInteractor
   private
 
   def stock_relative_links
-    sirene_update_and_stock_links.select do |l|
-      l[:href].match(sirene_monthly_stock_filename_pattern)
-    end
+    stock_relative_links =
+      if current_month == '1'
+        select_stock_relative_links_edge_case_january
+      else
+        select_stock_relative_links
+      end
+    stock_relative_links
   end
 
   def sirene_update_and_stock_links
@@ -36,7 +40,23 @@ class GetLastMonthlyStockLink < SireneAsAPIInteractor
     "#{files_domain}/sirene"
   end
 
+  def select_stock_relative_links
+    sirene_update_and_stock_links.select do |l|
+      l[:href].match(sirene_monthly_stock_filename_pattern)
+    end
+  end
+
+  def select_stock_relative_links_edge_case_january
+    sirene_update_and_stock_links.select do |l|
+      l[:href].match(sirene_january_stock_filename_pattern)
+    end
+  end
+
   def sirene_monthly_stock_filename_pattern
     /.*sirene_#{current_year}([0-9]{2})_L_M\.zip/
+  end
+
+  def sirene_january_stock_filename_pattern
+    /.*sirene_#{last_year}([0-9]{2})_L_M\.zip/
   end
 end
