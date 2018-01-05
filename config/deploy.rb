@@ -39,18 +39,18 @@ set :shared_dirs, fetch(:shared_dirs, []).push(
   'tmp/pids',
   'tmp/sockets',
   '.last_monthly_stock_applied',
-  'solr',
+  'solr'
 )
 
 set :shared_files, fetch(:shared_files, []).push(
   'config/database.yml',
   'config/environments/production.rb',
-  'config/secrets.yml',
+  'config/secrets.yml'
 )
 
 # This task is the environment that is loaded for all remote run commands, such as
 # `mina deploy` or `mina rake`.
-task :environment do
+task :remote_environment do
   set :rbenv_path, '/usr/local/rbenv'
   invoke :'rbenv:load'
 end
@@ -62,8 +62,8 @@ task :setup do
   # command %(rbenv install 2.3.0)
 end
 
-desc "Deploys the current version to the server."
-task :deploy => :environment do
+desc 'Deploys the current version to the server.'
+task :deploy do
   deploy do
     # Put things that will set up an empty directory into a fully set-up
     # instance of your project.
@@ -71,15 +71,15 @@ task :deploy => :environment do
     invoke :'deploy:link_shared_paths'
     invoke :'bundle:install'
     invoke :'rails:db_migrate'
-    #invoke :'rails:assets_precompile'
+    # invoke :'rails:assets_precompile'
 
     on :launch do
       command "touch #{fetch(:deploy_to)}/current/tmp/restart.txt"
       invoke :'whenever:update'
-      invoke :'passenger'
+      invoke :passenger
     end
 
-    invoke :'warning_info'
+    invoke :warning_info
   end
 end
 

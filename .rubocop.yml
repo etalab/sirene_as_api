@@ -12,3 +12,7 @@ Documentation:
 
 Style/FrozenStringLiteralComment:
   Enabled: false
+
+Style/PercentLiteralDelimiters:
+  PreferredDelimiters:
+    default: '{}'

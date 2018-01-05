@@ -16,15 +16,15 @@ class GetRelevantPatchesLinks < SireneAsAPIInteractor
   end
 
   def call
-    relevant_patches_relative_links =
-      select_all_patches_after_(padded_latest_etablissement_mise_a_jour_day_number)
+    relevant_patches_relative_links = select_all_patches_after_(padded_latest_etablissement_mise_a_jour_day_number)
 
     unless context.rebuilding_database
-      if there_is_less_than_5_patches_since_last_monthly_stock
-        relevant_patches_relative_links = patches_since_last_monthly_stock
-      else
-        relevant_patches_relative_links = get_minimum_5_patches(relevant_patches_relative_links)
-      end
+      relevant_patches_relative_links =
+        if there_are_less_than_5_patches_since_last_monthly_stock
+          patches_since_last_monthly_stock
+        else
+          get_minimum_5_patches(relevant_patches_relative_links)
+        end
     end
 
     context.links = change_into_absolute_links(relevant_patches_relative_links)
@@ -41,7 +41,7 @@ class GetRelevantPatchesLinks < SireneAsAPIInteractor
   def select_all_patches_after_(this_day)
     sirene_update_and_stock_links.select do |l|
       l[:href].match(sirene_daily_update_filename_pattern)
-      padded_day_number = $1
+      padded_day_number = Regexp.last_match[1] if Regexp.last_match
       padded_day_number && (padded_day_number > this_day)
     end
   end
@@ -55,7 +55,7 @@ class GetRelevantPatchesLinks < SireneAsAPIInteractor
     end
   end
 
-  def there_is_less_than_5_patches_since_last_monthly_stock
+  def there_are_less_than_5_patches_since_last_monthly_stock
     patches_since_last_monthly_stock.size < 5
   end
 
