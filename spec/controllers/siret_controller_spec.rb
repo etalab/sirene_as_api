@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe SiretController do
-  context 'when doing a search that isnt found', :type => :request do
+  context 'when doing a search that isnt found', type: :request do
     it 'doesnt return anything' do
       siret_not_found = '9999999999999999999999'
       get "/siret/#{siret_not_found}"
@@ -11,9 +11,9 @@ describe SiretController do
     end
   end
 
-  context 'when doing a simple search', :type => :request do
+  context 'when doing a simple search', type: :request do
     siret_found = '123456789'
-    let!(:etablissement){ create(:etablissement, nom_raison_sociale: 'foobarcompany', siret: siret_found) }
+    let!(:etablissement) { create(:etablissement, nom_raison_sociale: 'foobarcompany', siret: siret_found) }
     it 'return the correct results' do
       Etablissement.reindex
 

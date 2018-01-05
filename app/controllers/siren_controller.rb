@@ -4,18 +4,22 @@ class SirenController < ApplicationController
     @results_sirets = @results.pluck(:siret)
 
     if !@results.blank?
-      results_payload = {
-        total_results: @results_sirets.size,
-        siege_social: the_siege_etablissement,
-        # siege_name: the_siege_name(results, the_siege_siret), TODO: implement later
-        other_etablissements_sirets: not_siege_sirets,
-        # other_etablissements_names: not_siege_names(results), TODO: implement later
-        numero_tva_intra: numero_tva_for(params[:siren])
-      }
-      render json: results_payload, status: 200
+      render_payload_siren
     else
       render json: { message: 'no results found' }, status: 404
     end
+  end
+
+  def render_payload_siren
+    results_payload = {
+      total_results: @results_sirets.size,
+      siege_social: the_siege_etablissement,
+      # siege_name: the_siege_name(results, the_siege_siret), TODO: implement later
+      other_etablissements_sirets: not_siege_sirets,
+      # other_etablissements_names: not_siege_names(results), TODO: implement later
+      numero_tva_intra: numero_tva_for(params[:siren])
+    }
+    render json: results_payload, status: 200
   end
 
   def the_siege_siret
@@ -27,7 +31,7 @@ class SirenController < ApplicationController
   end
 
   def not_siege_sirets
-    @results_sirets.reject {|siret| the_siege_siret.include?(siret)}
+    @results_sirets.reject { |siret| the_siege_siret.include?(siret) }
   end
 
   def numero_tva_for(siren)

@@ -6,7 +6,7 @@ class DownloadFile < SireneAsAPIInteractor
 
     stdout_info_log "Attempting to download #{filename}"
 
-    if File.exists?(context.filepath)
+    if File.exist?(context.filepath)
       stdout_warn_log "#{filename} already exists ! Skipping download"
     else
       interactor.call
@@ -22,6 +22,7 @@ class DownloadFile < SireneAsAPIInteractor
   end
 
   private
+
   def filename
     URI(context.link).path.split('/').last
   end

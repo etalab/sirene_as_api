@@ -1,0 +1,24 @@
+AllCops:
+  Exclude:
+    - 'Guardfile'
+    - 'db/migrate/*'
+    - 'bin/*'
+    - 'config/initializers/*'
+
+Metrics/LineLength:
+  Max: 120
+
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/*/*'
+    - 'db/schema.rb'
+
+Documentation:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/PercentLiteralDelimiters:
+  PreferredDelimiters:
+    default: '{}'

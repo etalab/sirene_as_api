@@ -5,8 +5,8 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-gem 'rails', '~> 5.0.1'
 gem 'rack-cors'
+gem 'rails', '~> 5.0.1'
 
 gem 'listen', '~> 3.0.5'
 
@@ -16,11 +16,11 @@ gem 'pg'
 gem 'connection_pool', '~> 2.2'
 
 # Backend jobs
-gem 'resque'
-gem 'sinatra', '~> 2.0.0.beta2'
 gem 'redis', '~> 3.0'
 gem 'redis-namespace'
 gem 'redis-objects'
+gem 'resque'
+gem 'sinatra', '~> 2.0.0.beta2'
 
 # Sunspot / Solr friends
 gem 'sunspot_rails'
@@ -37,11 +37,11 @@ gem 'progress_bar'
 gem 'logstasher'
 
 # Interactors
-gem "interactor", "~> 3.0"
-gem "interactor-rails", "~> 2.0"
+gem 'interactor', '~> 3.0'
+gem 'interactor-rails', '~> 2.0'
 
 # Gem for deploying cron jobs
-gem 'whenever', :require => false
+gem 'whenever', require: false
 
 group :development, :test do
   gem 'byebug', platform: :mri
@@ -55,19 +55,19 @@ group :development, :test do
   gem 'guard-rails', require: false
   gem 'guard-rspec', require: false
 
-# factory_bot used for populating test database
+  # factory_bot used for populating test database
   gem 'factory_bot_rails'
 
-  gem 'timecop'
   gem 'growl'
+  gem 'timecop'
 end
 
 group :test do
+  gem 'fuubar'
   gem 'vcr'
   gem 'webmock'
-  gem 'fuubar'
 
-# database_cleaner used for cleaning database before test
+  # database_cleaner used for cleaning database before test
   gem 'database_cleaner'
 end
 

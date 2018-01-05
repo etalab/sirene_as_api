@@ -4,7 +4,7 @@ class ImportMonthlyStockCsv < SireneAsAPIInteractor
     stdout_info_log 'Computing number of rows'
 
     context.csv_filename = context.unzipped_files.first
-    context.number_of_rows = %x(wc -l #{context.csv_filename}).split.first.to_i - 1
+    context.number_of_rows = `wc -l #{context.csv_filename}`.split.first.to_i - 1
 
     stdout_success_log "Found #{context.number_of_rows} rows to import"
 
@@ -23,24 +23,33 @@ class ImportMonthlyStockCsv < SireneAsAPIInteractor
 
   def call
     unless clean_database?
-      stdout_warn_log("Database not empty. Please run 'bundle exec rake sirene_as_api:delete_database' before populating.")
+      stdout_warn_log("Database not empty.
+        Please run 'bundle exec rake sirene_as_api:delete_database' before populating.")
       context.fail!(error: 'database should be empty before importing a stock file')
       return
     end
 
-    progress_bar = ProgressBar.create(
-      total: context.number_of_rows,
-      format: 'Progress %c/%C (%P %%) |%b>%i| %a %e'
-    )
+    progress_bar = create_progressbar(context)
 
-    SmarterCSV.process(context.csv_filename, csv_options) do |chunk|
-      InsertEtablissementRowsJob.new(chunk).perform
-      chunk.size.times { progress_bar.increment }
-    end
+    process_csv_job(context, progress_bar)
   end
 
   def clean_database?
     Etablissement.first.nil?
+  end
+
+  def create_progressbar(context)
+    ProgressBar.create(
+      total: context.number_of_rows,
+      format: 'Progress %c/%C (%P %%) |%b>%i| %a %e'
+    )
+  end
+
+  def process_csv_job(context, progress_bar)
+    SmarterCSV.process(context.csv_filename, csv_options) do |chunk|
+      InsertEtablissementRowsJob.new(chunk).perform
+      chunk.size.times { progress_bar.increment }
+    end
   end
 
   def csv_options

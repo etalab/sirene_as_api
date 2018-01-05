@@ -32,7 +32,7 @@ class SireneAsAPIInteractor
   def time_now
     Time.now
     # Edge case : If you are early january of a year, and you want the last monthly
-    # patch of december, replace Time by any time of last year :
+    # patch of december / the last daily patches, replace Time.now by this :
     # Time.new(2017, 12, 31)
   end
 
@@ -42,5 +42,9 @@ class SireneAsAPIInteractor
 
   def current_month
     time_now.month.to_s
+  end
+
+  def last_year
+    (time_now.year - 1).to_s
   end
 end
