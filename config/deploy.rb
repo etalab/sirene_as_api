@@ -63,7 +63,7 @@ task :setup do
 end
 
 desc 'Deploys the current version to the server.'
-task :deploy do
+task deploy: :remote_environment do
   deploy do
     # Put things that will set up an empty directory into a fully set-up
     # instance of your project.
@@ -73,7 +73,7 @@ task :deploy do
     invoke :'rails:db_migrate'
     # invoke :'rails:assets_precompile'
 
-    on :launch do
+    on launch: :remote_environment do
       command "touch #{fetch(:deploy_to)}/current/tmp/restart.txt"
       invoke :'whenever:update'
       invoke :passenger
@@ -83,7 +83,7 @@ task :deploy do
   end
 end
 
-task :passenger do
+task passenger: :remote_environment do
   comment %{Attempting to start Passenger app}.green
   command %{
     if (sudo passenger-status | grep sirene_#{ENV['to']}) >/dev/null
@@ -95,7 +95,7 @@ task :passenger do
   }
 end
 
-task :warning_info do
+task warning_info: :remote_environment do
   warning_sign = '\xE2\x9A\xA0'
   comment %{#{warning_sign} #{warning_sign} #{warning_sign} #{warning_sign}}.yellow
   comment %{#{warning_sign} If it's the first install (or a reboot) run the folowing commands #{warning_sign}}.yellow
