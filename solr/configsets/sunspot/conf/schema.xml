@@ -80,6 +80,8 @@
                omitNorms="true"/>
 
     <fieldType name="daterange" class="solr.DateRangeField" omitNorms="true" />
+    <!-- A specialized field for geospatial search. If indexed, this fieldType must not be multivalued. -->
+    <fieldType name="location" class="solr.LatLonType" subFieldSuffix="_coordinate"/>
 
     <!-- Special field type for spell correction. Be careful about
          adding filters here, as they apply *before* your values go in
@@ -94,8 +96,19 @@
         <filter class="solr.LowerCaseFilterFactory"/>
       </analyzer>
     </fieldType>
-    <!-- A specialized field for geospatial search. If indexed, this fieldType must not be multivalued. -->
-    <fieldType name="location" class="solr.LatLonType" subFieldSuffix="_coordinate"/>
+
+    <!-- Custom implementations for autocomplete suggestions -->
+    <fieldType name="autocomplete" class="solr.TextField" positionIncrementGap="100">
+      <analyzer type="index">
+        <tokenizer class="solr.KeywordTokenizerFactory"/>
+        <filter class="solr.LowerCaseFilterFactory"/>
+        <filter class="solr.EdgeNGramFilterFactory" minGramSize="1" maxGramSize="25" />
+      </analyzer>
+      <analyzer type="query">
+        <tokenizer class="solr.KeywordTokenizerFactory"/>
+        <filter class="solr.LowerCaseFilterFactory"/>
+      </analyzer>
+    </fieldType>
   </types>
   <fields>
     <!-- Valid attributes for fields:
@@ -131,6 +144,7 @@
     <field name="class_name" stored="false" type="string" multiValued="false" indexed="true"/>
     <!-- *** This field is used by Sunspot! *** -->
     <field name="text" stored="false" type="string" multiValued="true" indexed="true"/>
+
     <!-- *** This field is used by Sunspot! *** -->
     <field name="lat" stored="true" type="tdouble" multiValued="false" indexed="true"/>
     <!-- *** This field is used by Sunspot! *** -->
@@ -252,7 +266,9 @@
     <dynamicField name="*_llm" stored="false" type="location" multiValued="true" indexed="true"/>
     <dynamicField name="*_lls" stored="true" type="location" multiValued="false" indexed="true"/>
     <dynamicField name="*_llms" stored="true" type="location" multiValued="true" indexed="true"/>
+    <!-- Putting stored to true so we can get autocomplete to work / deactivated for now-->
     <field name="textSpell" stored="false" type="textSpell" multiValued="true" indexed="true"/>
+    <field name="autocomplete" stored="true" type="autocomplete" multiValued="true" indexed="true"/>
 
     <!-- required by Solr 5 -->
     <field name="_version_" type="tlong" indexed="true" stored="true" multiValued="false" />
@@ -274,5 +290,6 @@
   <!-- Use copyField to copy the fields you want to run spell checking
        on into one field. For example: -->
   <copyField source="*_text"  dest="textSpell" />
+  <copyField source="*_text"  dest="autocomplete" />
   <copyField source="*_s"  dest="textSpell" />
 </schema>

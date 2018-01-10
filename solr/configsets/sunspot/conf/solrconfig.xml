@@ -362,7 +362,7 @@
 
          addHttpRequestToContext - if set to true, it will instruct
          the requestParsers to include the original HttpServletRequest
-         object in the context map of the SolrQueryRequest under the
+         object in the context map of the SolrQueryRequest under th#/e
          key "httpRequest". It will not be used by any of the existing
          Solr components, but may be useful when developing custom
          plugins.
@@ -581,6 +581,38 @@
     </lst> -->
 
   </searchComponent>
+
+  <!-- Custom search component to configure suggestions -->
+  <searchComponent name="suggest" class="solr.SuggestComponent">
+    <lst name="suggester">
+      <str name="name">suggest</str>
+      <str name="lookupImpl">AnalyzingLookupFactory</str>
+      <str name="storeDir">suggester_analyzinglookupfactory_dir</str>
+      <str name="dictionaryImpl">DocumentDictionaryFactory</str>
+      <str name="field">autocomplete</str>
+      <!-- <str name="weightField">price</str> TODO: Implement weight--> 
+      <str name="suggestAnalyzerFieldType">autocomplete</str>
+      <str name="exactMatchFirst">true</str>
+      <str name="preserveSep">true</str>
+      <str name="preservePositionIncrements">true</str>
+
+      <str name="buildOnOptimize">true</str>
+      <str name="buildOnStartup">false</str>
+      <str name="buildOnCommit">false</str>
+    </lst>
+  </searchComponent>
+
+  <!-- Custom request handler to configure suggestions -->
+  <requestHandler name="/suggesthandler" class="solr.SearchHandler" startup="lazy">
+    <lst name="defaults">
+      <str name="suggest">true</str>
+      <str name="suggest.dictionary">suggest</str>
+      <str name="suggest.count">10</str>
+    </lst>
+    <arr name="components">
+      <str>suggest</str>
+    </arr>
+  </requestHandler>
 
   <!-- Search Components
 

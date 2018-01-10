@@ -5,7 +5,10 @@ describe FullTextController do
     it 'doesnt return anything' do
       get '/full_text/ghost_company_5678754579828655384'
       expect(response.body).to look_like_json
-      expect(body_as_json).to match(message: 'no results found')
+      expect(body_as_json).to match(
+        message: 'no results found',
+        spellcheck: nil,
+        suggestions: [])
       expect(response).to have_http_status(404)
     end
   end
@@ -46,7 +49,9 @@ describe FullTextController do
         total_results: per_page_custom,
         total_pages: 1,
         per_page: per_page_custom,
-        page: 1
+        page: 1,
+        spellcheck: nil,
+        suggestions: ["foobarcompany"]
       )
     end
   end
@@ -66,7 +71,9 @@ describe FullTextController do
         total_results: 1,
         total_pages: 1,
         per_page: 10,
-        page: 1
+        page: 1,
+        spellcheck: nil,
+        suggestions: ["foobarcompany"]
       )
       name_result = result_etablissements[:etablissement][0][:nom_raison_sociale]
       expect(name_result).to match('foobarcompany')
@@ -89,7 +96,9 @@ describe FullTextController do
         total_results: 1,
         total_pages: 1,
         per_page: 10,
-        page: 1
+        page: 1,
+        spellcheck: nil,
+        suggestions: ["foobarcompany"]
       )
       name_result = result_etablissements[:etablissement][0][:nom_raison_sociale]
       expect(name_result).to match('foobarcompany')
@@ -113,7 +122,9 @@ describe FullTextController do
        total_results: 1,
        total_pages: 1,
        per_page: 10,
-       page: 1
+       page: 1,
+       spellcheck: nil,
+       suggestions: ["foobarcompany"]
      )
      name_result = result_etablissements[:etablissement][0][:nom_raison_sociale]
      expect(name_result).to match('foobarcompany')
@@ -133,9 +144,9 @@ describe FullTextController do
 
       expect(response.body).to look_like_json
       result_hash = body_as_json
-      result_spellcheck = result_hash[:etablissement][0][:nom_raison_sociale]
+      result_spellcheck = result_hash[:spellcheck]
       expect(result_spellcheck).to match('foobarcompany')
-      expect(response).to have_http_status(200)
+      expect(response).to have_http_status(404)
     end
   end
 
@@ -151,9 +162,9 @@ describe FullTextController do
 
       expect(response.body).to look_like_json
       result_hash = body_as_json
-      result_spellcheck = result_hash[:etablissement][0][:nom_raison_sociale]
+      result_spellcheck = result_hash[:spellcheck]
       expect(result_spellcheck).to match('foobar company')
-      expect(response).to have_http_status(200)
+      expect(response).to have_http_status(404)
     end
   end
 

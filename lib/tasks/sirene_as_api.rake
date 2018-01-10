@@ -28,4 +28,9 @@ namespace :sirene_as_api do
   task delete_temporary_files: :environment do
     DeleteTemporaryFiles.call
   end
+
+  desc 'Build the suggester dictionary for getting suggestions'
+  task build_dictionary: :environment do
+    SolrRequests.new.build_dictionary
+  end
 end

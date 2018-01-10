@@ -1,31 +1,23 @@
 require 'sunspot'
 
-# TODO: Spellchecking have been moved to solr so no need to do a recursive spellcheck,
-# only one extra search is okay.
 class FullTextController < ApplicationController
   FILTER_NATURE_PROSPECTION = true
   def show
     page = params[:page] || 1
     per_page = params[:per_page] || 10
-    @number_of_searches = 1
-    spellcheck_search(params[:text], page, per_page)
+    fulltext_search(params[:text], page, per_page)
   end
 
-  def spellcheck_search(query, page, per_page)
+  private
+
+  def fulltext_search(query, page, per_page)
     search = search_with_solr_options(query, page, per_page)
     results = search.results
 
     if !results.blank?
-      render_payload(search, results, page)
+      render_payload_success(query, search, results, page)
     else
-      spellchecked_query = search.spellcheck_collation
-
-      if spellchecked_query.nil? || @number_of_searches >= 2
-        render json: { message: 'no results found' }, status: 404
-      else
-        @number_of_searches += 1
-        spellcheck_search(spellchecked_query, page, per_page)
-      end
+      render_payload_not_found(query, search)
     end
   end
 
@@ -41,6 +33,8 @@ class FullTextController < ApplicationController
       # Spellcheck / pagination
       spellcheck count: 2
       paginate page: page, per_page: per_page
+      # Suggestions
+      # autocomplete suggestions, using: :nom_raison_sociale
       # Ordering
       order_results_options
     end
@@ -88,15 +82,30 @@ def order_results_options
   order_by(:tranche_effectif_salarie_entreprise, :desc)
 end
 
-def render_payload(search, results, page)
+def render_payload_success(query, search, results, page)
   results_payload = {
     total_results: search.total,
     total_pages: results.total_pages,
     per_page: results.per_page,
     page: page,
-    etablissement: results
+    etablissement: results,
+    spellcheck: search.spellcheck_collation,
+    suggestions: request_suggestions(query)
   }
   render json: results_payload, status: 200
+end
+
+def render_payload_not_found(query, search)
+  results_payload = {
+    message: 'no results found',
+    spellcheck: search.spellcheck_collation,
+    suggestions: request_suggestions(query)
+  }
+  render json: results_payload, status: 404
+end
+
+def request_suggestions(query) # REVIEW : Security problem ?...
+  SolrRequests.new(query).get_suggestion
 end
 
 # Code below used to debug Solr Spellchecking.
@@ -133,6 +142,23 @@ module Sunspot::Search
       else
         nil
       end
+    end
+  end
+end
+
+# Custom implementation of Sunspot to get suggestions from Solr
+module Sunspot::Type
+  class AutocompleteType < AbstractType
+    def indexed_name(name)
+      "#{name}_ac"
+    end
+
+    def to_indexed(value)
+      value.to_s if value
+    end
+
+    def cast(string)
+      string
     end
   end
 end

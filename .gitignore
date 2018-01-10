@@ -24,8 +24,7 @@
 .byebug_history
 
 # Ignore solr data
-/solr/default/data/index/*
-/solr/default/data/tlog/*
+/solr/default/data/*
 /solr/development/*
 /solr/test/*
 /solr/production/data/*
