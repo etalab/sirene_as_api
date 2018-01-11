@@ -65,6 +65,15 @@ L'API renvoie les réponses au format JSON avec les attributs suivant :
 | per_page      | Nombre de résultats par page |
 | page          | Page actuelle                |
 | etablissement | Résultats                    |
+| spellcheck    | Correction orthographique suggérée |
+| suggestions   | Suggestions de recherche |
+
+### Suggestions de recherche
+
+Les suggestions de recherche sont utiles pour obtenir une complétion sur une requête utilisateur incomplète.
+Vous pouvez n'obtenir que les suggestions par la commande suivante :
+
+    curl 'localhost:3000/suggest/MA_RECHERCHE'
 
 ### Pagination
 

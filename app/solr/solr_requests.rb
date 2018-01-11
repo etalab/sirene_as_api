@@ -1,16 +1,17 @@
 require 'net/http'
+require 'uri'
 
 class SolrRequests < SireneAsAPIInteractor
   attr_accessor :keyword
 
-  def initialize *keyword
-    @keyword = keyword[0].to_s
+  def initialize *keywords
+    keyword = keywords[0].to_s.gsub(/[+<>=&,;\n]/, ' ') # Get first word in params & Prevent Solr injections
+    @keyword = URI.decode(keyword)
   end
 
   def get_suggestion
     http_session = Net::HTTP.new('localhost', solr_port)
     solr_response = http_session.get(uri_solr)
-    puts 'DEBUG :' + uri_solr
     extract_suggestions(solr_response.body)
   end
 
@@ -28,12 +29,11 @@ class SolrRequests < SireneAsAPIInteractor
   private
 
   def uri_solr
-    "/solr/#{Rails.env}/suggesthandler?wt=json&suggest.q=#{@keyword}"
+    uri = "/solr/#{Rails.env}/suggesthandler?wt=json&suggest.q=#{@keyword}"
+    URI.encode(uri)
   end
 
   def extract_suggestions(solr_response_body)
-    return if solr_response_body.empty?
-
     suggestions = []
     solr_response_hash = JSON.parse(solr_response_body)
 
