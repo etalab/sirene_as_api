@@ -105,7 +105,7 @@ def render_payload_not_found(query, search)
 end
 
 def request_suggestions(query) # REVIEW : Security problem ?...
-  SolrRequests.new(query).get_suggestion
+  SolrRequests.new(query).get_suggestions
 end
 
 # Code below used to debug Solr Spellchecking.
@@ -145,21 +145,3 @@ module Sunspot::Search
     end
   end
 end
-
-# Custom implementation of Sunspot to get suggestions from Solr
-module Sunspot::Type
-  class AutocompleteType < AbstractType
-    def indexed_name(name)
-      "#{name}_ac"
-    end
-
-    def to_indexed(value)
-      value.to_s if value
-    end
-
-    def cast(string)
-      string
-    end
-  end
-end
-# rubocop:enable all

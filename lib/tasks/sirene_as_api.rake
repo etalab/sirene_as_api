@@ -1,5 +1,5 @@
 namespace :sirene_as_api do
-  desc 'Populate db with last monthly stock'
+  desc 'Populate db with last monthly stock (need manual reindex after)'
   task import_last_monthly_stock: :environment do
     ImportLastMonthlyStock.call
   end

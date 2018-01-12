@@ -2,7 +2,7 @@ class SuggestController < ApplicationController
   def show
     keyword = params[:suggest_query]
     return if keyword.empty?
-    suggestions = SolrRequests.new(keyword).get_suggestion
+    suggestions = SolrRequests.new(keyword).get_suggestions
     if suggestions.empty?
       render json: { message: 'no suggestions found' }, status: 404
     else

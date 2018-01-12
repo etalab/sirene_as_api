@@ -9,20 +9,20 @@ class SolrRequests < SireneAsAPIInteractor
     @keyword = URI.decode(keyword)
   end
 
-  def get_suggestion
+  def get_suggestions
     http_session = Net::HTTP.new('localhost', solr_port)
     solr_response = http_session.get(uri_solr)
     extract_suggestions(solr_response.body)
   end
 
   def build_dictionary
-    stdout_info_log 'Building suggester dictionary..'
+    stdout_info_log 'Building suggester dictionary... This might take a while (~30 mins)'
     begin
       request_build_dictionary
     rescue StandardError => error
-      stdout_warning_log "Error while building dictionary : #{error}"
+      stdout_warn_log "Error while building dictionary : #{error}"
     else
-      stdout_success_log('Dictionary was correctly built.')
+      stdout_success_log('Dictionary was correctly built !')
     end
   end
 
@@ -45,6 +45,7 @@ class SolrRequests < SireneAsAPIInteractor
 
   def request_build_dictionary
     http_session = Net::HTTP.new('localhost', solr_port)
+    http_session.read_timeout = 3600 # 1 hour max to build dictionary
     uri = "/solr/#{Rails.env}/suggesthandler?suggest.build=true"
     http_session.get(uri)
     return

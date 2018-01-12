@@ -75,6 +75,12 @@ Vous pouvez n'obtenir que les suggestions par la commande suivante :
 
     curl 'localhost:3000/suggest/MA_RECHERCHE'
 
+**Attention : La construction du dictionnaire de suggestions est une tache lourde.**  
+Une allocation de memoire vive de minimum 4G est actuellement conseillée. L'opération prend environ 30 minutes.  
+Une fois le dictionnaire construit, une allocation de 2G est suffisante pour utiliser les suggestions. En dessous, les suggestions seront desactivées, mais vous pourrez toujours utiliser toutes les autres fonctionnalités de l'API.
+
+L'allocation de mémoire de la Machine Virtuelle Java peut être modifié dans le fichier config/sunspot.yml.  
+
 ### Pagination
 
 La page par défaut est la première. L'API renvoie par défaut 10 résultats par page.
@@ -260,6 +266,13 @@ La réindexation est automatique après un changement appliqué à la base de
 donnée, mais il est également possible de réindexer manuellement :
 
     bundle exec rake sunspot:reindex
+
+### Construction du dictionnaire de suggestions
+
+Le dictionnaire se reconstruit automatiquement après un changement dans la base de donnée,
+ou avec la commande suivante :
+
+    bundle exec rake sirene_as_api:build_dictionary
 
 # License
 

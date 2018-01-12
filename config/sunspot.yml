@@ -12,7 +12,7 @@ development:
     port: 8982
     log_level: INFO
     path: /solr/development
-    memory: 2G # Use large memory usage (4G or more) when building the suggester dictionnary
+    memory: 4G # Use large memory usage (4G or more) when building the suggester dictionnary
 
 test:
   solr:

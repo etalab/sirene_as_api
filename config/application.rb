@@ -20,6 +20,11 @@ module SireneAsAPI
     # Background tasks
     config.active_job.queue_adapter = :resque
     config.autoload_paths +=
-      %W[#{config.root}/lib #{config.root}/app/interactors #{config.root}/app/services #{config.root}/db/checks_db]
+      %W[#{config.root}/lib
+         #{config.root}/app/interactors
+         #{config.root}/app/interactors/organizers
+         #{config.root}/app/solr
+         #{config.root}/db/checks_db
+       ]
   end
 end
