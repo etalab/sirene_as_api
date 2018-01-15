@@ -30,10 +30,6 @@
 /solr/production/data/*
 /solr/sandbox/data/*
 
-# Ignore solr pids except production
-/solr/pids/development/*
-/solr/pids/test/*
-
 # Ignore zip archives and its unzipped csv result files
 /public/*.csv
 /public/*.zip
