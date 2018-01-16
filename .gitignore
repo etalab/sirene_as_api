@@ -30,6 +30,9 @@
 /solr/production/data/*
 /solr/sandbox/data/*
 
+# Ignore PIDs (automatically generated each time)
+/solr/pids/*
+
 # Ignore zip archives and its unzipped csv result files
 /public/*.csv
 /public/*.zip
