@@ -39,7 +39,12 @@ set :shared_dirs, fetch(:shared_dirs, []).push(
   'tmp/pids',
   'tmp/sockets',
   '.last_monthly_stock_applied',
-  'solr'
+  'solr/default',
+  'solr/production',
+  'solr/sandbox',
+  'solr/development',
+  'solr/pids',
+  'solr/tests'
 )
 
 set :shared_files, fetch(:shared_files, []).push(
