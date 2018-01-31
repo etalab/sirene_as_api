@@ -19,6 +19,10 @@
 
 # Learn more: http://github.com/javan/whenever
 
-every 1.day, at: '4:30 am' do
-  rake 'sirene_as_api:automatic_update_database'
+every 1.day, at: '5:00 am' do
+  rake 'sirene_as_api:automatic_update_database', :environment => 'production'
+end
+
+every 1.day, at: '9:00 am' do
+  rake 'sirene_as_api:automatic_update_database', :environment => 'sandbox'
 end
