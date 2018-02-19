@@ -5,6 +5,9 @@ class Etablissement < ApplicationRecord
 
   searchable do
     text :nom_raison_sociale
+    text :libelle_activite_principale_entreprise
+    text :libelle_commune
+    text :l4_normalisee
     string :activite_principale
     string :code_postal
     string :nature_mise_a_jour
