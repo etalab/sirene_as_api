@@ -12,6 +12,94 @@ describe FullTextController do
       expect(response).to have_http_status(404)
     end
   end
+  
+  # Fulltext works on commune names too
+  context 'when fulltext searching a Commune name', type: :request do
+    let!(:etablissement1) { create(:etablissement, id: 1, nom_raison_sociale: 'foobar company', libelle_commune: 'PARIS') }
+    let!(:etablissement2) { create(:etablissement, id: 2, nom_raison_sociale: 'another etablissement', libelle_commune: 'MARSEILLE') }
+    let!(:etablissement3) { create(:etablissement, id: 3, nom_raison_sociale: 'etablissement to find', libelle_commune: 'MONTPELLIER') }
+    it 'finds correctly the Etablissement at the Commune searched' do
+      Etablissement.reindex
+
+      get '/full_text/montpellier'
+
+      result_hash = body_as_json
+      result_etablissements = result_hash.extract!(:etablissement)
+      expect(result_etablissements[:etablissement].size).to equal(1)
+      expect(result_etablissements[:etablissement].first[:id]).to equal(3)
+    end
+  end
+
+  # Fulltext works on adress (l4_normalisee)
+  context 'when fulltext searching an adress', type: :request do
+    let!(:etablissement1) { create(:etablissement, id: 1, nom_raison_sociale: 'foobar company', l4_normalisee: '12 avenue Ali Baba') }
+    let!(:etablissement2) { create(:etablissement, id: 2, nom_raison_sociale: 'another etablissement', l4_normalisee: "42 rue de l'auto-stoppeur") }
+    let!(:etablissement3) { create(:etablissement, id: 3, nom_raison_sociale: 'etablissement to find', libelle_commune: '12 rue de la grenouille') }
+    it 'finds correctly the Etablissement at the adress searched' do
+      Etablissement.reindex
+
+      get '/full_text/12%20rue%20grenouille'
+
+      result_hash = body_as_json
+      result_etablissements = result_hash.extract!(:etablissement)
+      expect(result_etablissements[:etablissement].first[:id]).to equal(3)
+    end
+  end
+
+  # Fulltext works on libelle_activite_principale_entreprise
+  context 'when fulltext searching an adress', type: :request do
+    let!(:etablissement1) { create(:etablissement, id: 1, nom_raison_sociale: 'foobar company', libelle_activite_principale_entreprise: 'Programmation') }
+    let!(:etablissement2) { create(:etablissement, id: 2, nom_raison_sociale: 'another etablissement', libelle_activite_principale_entreprise: 'Location de pédalos') }
+    let!(:etablissement3) { create(:etablissement, id: 3, nom_raison_sociale: 'etablissement to find', libelle_activite_principale_entreprise: 'Activités du spectacle') }
+    it 'finds correctly the Etablissement at the adress searched' do
+      Etablissement.reindex
+
+      get '/full_text/spectacle'
+
+      result_hash = body_as_json
+      result_etablissements = result_hash.extract!(:etablissement)
+      expect(result_etablissements[:etablissement].size).to equal(1)
+      expect(result_etablissements[:etablissement].first[:id]).to equal(3)
+    end
+  end
+
+  # Fulltext works on a combination of Etablissement name and commune
+  context 'when fulltext searching an Etablissement name & a Commune name', type: :request do
+    let!(:etablissement1) { create(:etablissement, id: 1, nom_raison_sociale: 'foobar company', libelle_commune: 'PARIS') }
+    let!(:etablissement2) { create(:etablissement, id: 2, nom_raison_sociale: 'ThisEtablissement to not find', libelle_commune: 'MARSEILLE') }
+    let!(:etablissement3) { create(:etablissement, id: 3, nom_raison_sociale: 'ThisEtablissement to find', libelle_commune: 'MONTPELLIER') }
+    it 'finds correctly the Etablissement at the commune searched' do
+      Etablissement.reindex
+
+      get '/full_text/montpellier%20thisetablissement'
+
+      result_hash = body_as_json
+      result_etablissements = result_hash.extract!(:etablissement)
+      expect(result_etablissements[:etablissement].size).to eq(1)
+      expect(result_etablissements[:etablissement].first[:id]).to equal(3)
+    end
+  end
+
+   # Boosting works better on name, then commune, then other fields
+  context 'when fulltext searching an Etablissement name & a Commune name & adress & activite_principale', type: :request do
+    let!(:etablissement1) { create(:etablissement, id: 1, nom_raison_sociale: 'TEST') }
+    let!(:etablissement2) { create(:etablissement, id: 2, l4_normalisee: 'TEST') }
+    let!(:etablissement3) { create(:etablissement, id: 3, libelle_commune: 'TEST') }
+    let!(:etablissement4) { create(:etablissement, id: 4, libelle_activite_principale_entreprise: 'TEST') }
+    it 'score correctly the name before the commune & before other fields' do
+      Etablissement.reindex
+
+      get '/full_text/TEST'
+
+      result_hash = body_as_json
+      result_etablissements = result_hash.extract!(:etablissement)
+      expect(result_etablissements[:etablissement].size).to eq(4)
+      # We check that nom_raison_sociale and libelle_commune gets out first, the other 2 don't matter
+      result_etablissements_ids = []
+      result_etablissements[:etablissement].map { |x| result_etablissements_ids << x[:id] }
+      expect(result_etablissements_ids).to be_in([[1, 3, 2, 4], [1, 3, 4, 2]])
+    end
+  end
 
   # Prioritize Etablissements which are Mairies
   context 'when looking for an Etablissement which have a Mairie (commune)', type: :request do

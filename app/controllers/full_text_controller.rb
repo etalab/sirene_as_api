@@ -44,10 +44,23 @@ end
 
 def run_search_with_main_options(keyword)
   fulltext keyword do
+
+    # Matches on name scores x3, on commune name scores x2
+    fields(
+      :nom_raison_sociale => 3.0,
+      :libelle_commune => 2.0,
+      :libelle_activite_principale_entreprise => 1.0,
+      :l4_normalisee => 1.0
+    )
+
     # Better scoring for phrases, with words separated up until 1 word.
     # Search "Commune Montpellier" will be boosted for result "Commune de Montpellier"
     phrase_fields nom_raison_sociale: 2.0
     phrase_slop 1
+
+    # Better scoring if someone search "rue mairie" for "rue de la mairie"
+    phrase_fields l4_normalisee: 2.0
+    phrase_slop 2
 
     # Boost results for Mairies, as it often searched.
     # Search "Montpellier" will be boosted for the actual city Etablissement.
