@@ -1,6 +1,6 @@
 require 'sunspot'
 
-class FullTextController < ApplicationController
+class API::V1::FullTextController < ApplicationController
   FILTER_NATURE_PROSPECTION = true
   def show
     page = params[:page] || 1

@@ -1,9 +1,9 @@
 require 'rails_helper'
 
-describe FullTextController do
+describe API::V1::FullTextController do
   context 'when doing a search that isnt found', type: :request do
     it 'doesnt return anything' do
-      get '/full_text/ghost_company_5678754579828655384'
+      get '/v1/full_text/ghost_company_5678754579828655384'
       expect(response.body).to look_like_json
       expect(body_as_json).to match(
         message: 'no results found',
@@ -21,7 +21,7 @@ describe FullTextController do
     it 'finds correctly the Etablissement at the Commune searched' do
       Etablissement.reindex
 
-      get '/full_text/montpellier'
+      get '/v1/full_text/montpellier'
 
       result_hash = body_as_json
       result_etablissements = result_hash.extract!(:etablissement)
@@ -38,7 +38,7 @@ describe FullTextController do
     it 'finds correctly the Etablissement at the adress searched' do
       Etablissement.reindex
 
-      get '/full_text/12%20rue%20grenouille'
+      get '/v1/full_text/12%20rue%20grenouille'
 
       result_hash = body_as_json
       result_etablissements = result_hash.extract!(:etablissement)
@@ -54,7 +54,7 @@ describe FullTextController do
     it 'finds correctly the Etablissement at the adress searched' do
       Etablissement.reindex
 
-      get '/full_text/spectacle'
+      get '/v1/full_text/spectacle'
 
       result_hash = body_as_json
       result_etablissements = result_hash.extract!(:etablissement)
@@ -71,7 +71,7 @@ describe FullTextController do
     it 'finds correctly the Etablissement at the commune searched' do
       Etablissement.reindex
 
-      get '/full_text/montpellier%20thisetablissement'
+      get '/v1/full_text/montpellier%20thisetablissement'
 
       result_hash = body_as_json
       result_etablissements = result_hash.extract!(:etablissement)
@@ -89,7 +89,7 @@ describe FullTextController do
     it 'score correctly the name before the commune & before other fields' do
       Etablissement.reindex
 
-      get '/full_text/TEST'
+      get '/v1/full_text/TEST'
 
       result_hash = body_as_json
       result_etablissements = result_hash.extract!(:etablissement)
@@ -110,7 +110,7 @@ describe FullTextController do
     it 'prioritize the Mairie Etablissement result' do
       Etablissement.reindex
 
-      get '/full_text/montpellier'
+      get '/v1/full_text/montpellier'
 
       result_hash = body_as_json
       result_etablissements = result_hash.extract!(:etablissement)
@@ -128,7 +128,7 @@ describe FullTextController do
       end
       Etablissement.reindex
 
-      get "/full_text/foobarcompany?per_page=#{per_page_custom}"
+      get "/v1/full_text/foobarcompany?per_page=#{per_page_custom}"
 
       expect(response.body).to look_like_json
       result_hash = body_as_json
@@ -150,7 +150,7 @@ describe FullTextController do
     it 'return the correct results' do
       Etablissement.reindex
 
-      get '/full_text/foobarcompany'
+      get '/v1/full_text/foobarcompany'
 
       expect(response.body).to look_like_json
       result_hash = body_as_json
@@ -175,7 +175,7 @@ describe FullTextController do
     it 'return the correct results' do
       Etablissement.reindex
 
-      get '/full_text/foobarcompany?activite_principale=APE42'
+      get '/v1/full_text/foobarcompany?activite_principale=APE42'
 
       expect(response.body).to look_like_json
       result_hash = body_as_json
@@ -201,7 +201,7 @@ describe FullTextController do
    it 'return the correct results' do
      Etablissement.reindex
 
-     get '/full_text/foobarcompany?activite_principale=ACTIVITY2&code_postal=34070'
+     get '/v1/full_text/foobarcompany?activite_principale=ACTIVITY2&code_postal=34070'
 
      expect(response.body).to look_like_json
      result_hash = body_as_json
@@ -228,7 +228,7 @@ describe FullTextController do
     it 'spellcheck correctly and return the correct word' do
       Etablissement.reindex
 
-      get '/full_text/fo0barcompany' # Typo on purpose
+      get '/v1/full_text/fo0barcompany' # Typo on purpose
 
       expect(response.body).to look_like_json
       result_hash = body_as_json
@@ -246,7 +246,7 @@ describe FullTextController do
     it 'spellcheck correctly and return the correct word' do
       Etablissement.reindex
 
-      get '/full_text/fo0bar%20compani' # Typos on purpose
+      get '/v1/full_text/fo0bar%20compani' # Typos on purpose
 
       expect(response.body).to look_like_json
       result_hash = body_as_json
@@ -262,7 +262,7 @@ describe FullTextController do
       populate_test_database_with_4_only_diffusion
       Etablissement.reindex
 
-      get '/full_text/foobarcompany'
+      get '/v1/full_text/foobarcompany'
 
       result_hash = body_as_json
       result_etablissements = result_hash.extract!(:etablissement)
@@ -277,7 +277,7 @@ describe FullTextController do
       populate_test_database_with_3_no_diffusion
       Etablissement.reindex
 
-      get '/full_text/foobarcompany'
+      get '/v1/full_text/foobarcompany'
 
       result_hash = body_as_json
       result_etablissements = result_hash.extract!(:etablissement)
@@ -291,7 +291,7 @@ describe FullTextController do
       populate_test_database_with_3_no_diffusion
       Etablissement.reindex
 
-      get '/full_text/foobarcompany'
+      get '/v1/full_text/foobarcompany'
 
       result_hash = body_as_json
       result_etablissements = result_hash.extract!(:etablissement)
@@ -309,7 +309,7 @@ describe FullTextController do
     it 'show the entrepreneurs individuels in results when I want them' do
       Etablissement.reindex
 
-      get '/full_text/foobarcompany?is_entrepreneur_individuel=yes'
+      get '/v1/full_text/foobarcompany?is_entrepreneur_individuel=yes'
 
       result_hash = body_as_json
       result_etablissements = result_hash.extract!(:etablissement)
@@ -319,7 +319,7 @@ describe FullTextController do
     it 'doesnt show the entrepreneurs individuels when I dont want them' do
       Etablissement.reindex
 
-      get '/full_text/foobarcompany?is_entrepreneur_individuel=no'
+      get '/v1/full_text/foobarcompany?is_entrepreneur_individuel=no'
 
       result_hash = body_as_json
       result_etablissements = result_hash.extract!(:etablissement)
@@ -338,7 +338,7 @@ describe FullTextController do
     it 'order close matchs by score then by tranche_effectif_salarie_entreprise' do
       Etablissement.reindex
 
-      get '/full_text/foobar*'
+      get '/v1/full_text/foobar*'
 
       result_hash = body_as_json
       result_etablissements = result_hash.extract!(:etablissement)

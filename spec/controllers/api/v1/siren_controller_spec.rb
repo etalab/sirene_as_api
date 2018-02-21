@@ -1,10 +1,10 @@
 require 'rails_helper'
 
-describe SirenController do
+describe API::V1::SirenController do
   context 'when doing a search that isnt found', type: :request do
     it 'doesnt return anything' do
       siren_not_found = '9999999999999999999999'
-      get "/siren/#{siren_not_found}"
+      get "/v1/siren/#{siren_not_found}"
       expect(response.body).to look_like_json
       expect(body_as_json).to match(message: 'no results found')
       expect(response).to have_http_status(404)
@@ -26,7 +26,7 @@ describe SirenController do
     it 'return the correct etablissements' do
       Etablissement.reindex
 
-      get "/siren/#{siren_found}"
+      get "/v1/siren/#{siren_found}"
 
       expect(response.body).to look_like_json
       expect(response).to have_http_status(200)
