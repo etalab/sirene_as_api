@@ -33,6 +33,9 @@ gem 'ruby-progressbar'
 # Gem progress_bar required for displaying progress in rake sunspot:reindex
 gem 'progress_bar'
 
+# Loader in terminal for heavy tasks
+gem 'whirly'
+
 # Generate logs for elasticsearch
 gem 'logstasher'
 

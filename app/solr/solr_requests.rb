@@ -20,7 +20,7 @@ class SolrRequests < SireneAsAPIInteractor
     begin
       request_build_dictionary
     rescue StandardError => error
-      stdout_warn_log "Error while building dictionary : #{error}"
+      stdout_error_log "Error while building dictionary : #{error}"
     else
       stdout_success_log('Dictionary was correctly built !')
     end

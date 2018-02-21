@@ -7,7 +7,13 @@ class UpdateEtablissementRowsJob < EtablissementRowJobs
   def perform
     etablissements = fill_etablissements
 
-    update_attrs(etablissements)
+    begin
+      update_attrs(etablissements)   
+    rescue StandardError => error
+      stdout_error_log "Error: Could not update etablissement attributes:  #{error.class}
+        Make sure Solr server is launched on the right environment and accessible."
+      exit
+    end
   end
 
   def update_attrs(etablissements)
