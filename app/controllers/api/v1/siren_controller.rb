@@ -1,4 +1,4 @@
-class SirenController < ApplicationController
+class API::V1::SirenController < ApplicationController
   def show
     @results = Etablissement.where(siren: params[:siren])
     @results_sirets = @results.pluck(:siret)

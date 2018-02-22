@@ -1,10 +1,10 @@
 require 'rails_helper'
 
-describe SiretController do
+describe API::V1::SiretController do
   context 'when doing a search that isnt found', type: :request do
     it 'doesnt return anything' do
       siret_not_found = '9999999999999999999999'
-      get "/siret/#{siret_not_found}"
+      get "/v1/siret/#{siret_not_found}"
       expect(response.body).to look_like_json
       expect(body_as_json).to match(message: 'no results found')
       expect(response).to have_http_status(404)
@@ -17,7 +17,7 @@ describe SiretController do
     it 'return the correct results' do
       Etablissement.reindex
 
-      get "/siret/#{siret_found}"
+      get "/v1/siret/#{siret_found}"
 
       expect(response.body).to look_like_json
       expect(response).to have_http_status(200)

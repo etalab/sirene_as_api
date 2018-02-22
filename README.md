@@ -50,9 +50,9 @@ Trois endpoints sont disponibles sur l'API :
 
 Il s'agit de l'endpoint principal. Vous pouvez faire des requêtes avec Curl :
 
-    curl 'localhost:3000/full_text/MA_RECHERCHE'
+    curl 'localhost:3000/v1/full_text/MA_RECHERCHE'
 
-ou simplement en copiant l'adresse ´localhost:3000/full_text/MA_RECHERCHE´
+ou simplement en copiant l'adresse ´localhost:3000/v1/full_text/MA_RECHERCHE´
 dans votre navigateur favori.
 
 ### Format de réponse
@@ -74,7 +74,7 @@ L'API renvoie les réponses au format JSON avec les attributs suivant :
 Les suggestions de recherche sont utiles pour obtenir une complétion sur une requête utilisateur incomplète.
 Vous pouvez n'obtenir que les suggestions par la commande suivante :
 
-    curl 'localhost:3000/suggest/MA_RECHERCHE'
+    curl 'localhost:3000/v1/suggest/MA_RECHERCHE'
 
 **Attention : La construction du dictionnaire de suggestions est une tache lourde.**  
 Une allocation de memoire vive de minimum 4G est actuellement conseillée. L'opération prend environ 30 minutes.  
@@ -105,13 +105,13 @@ D'autres facettes pourront être implémentées en fonction des retours utilisat
 Je souhaite les entreprises individuelles avec "foobar" dans le nom, je désire 15
 résultats par page et afficher la deuxième page (soit les résultats 15 à 30) :
 
-    curl 'localhost:3000/full_text/foobar?page=2&per_page=15&is_entrepreneur_individuel=yes'
+    curl 'localhost:3000/v1/full_text/foobar?page=2&per_page=15&is_entrepreneur_individuel=yes'
 
 ## Recherche par Numéro SIRET
 
 La requête se fait par :
 
-    curl 'localhost:3000/siret/MON_SIRET'
+    curl 'localhost:3000/v1/siret/MON_SIRET'
 
 L'API renvoie un JSON de l'établissement correspondant.
 
@@ -119,7 +119,7 @@ L'API renvoie un JSON de l'établissement correspondant.
 
 La requête se fait par :
 
-    curl 'localhost:3000/siren/MON_SIREN'
+    curl 'localhost:3000/v1/siren/MON_SIREN'
 
 l'API renvoie :
   - Le nombre total de sirets existants à partir de ce siren.

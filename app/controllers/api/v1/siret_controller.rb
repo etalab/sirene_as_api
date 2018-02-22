@@ -1,4 +1,4 @@
-class SiretController < ApplicationController
+class API::V1::SiretController < ApplicationController
   def show
     r = Etablissement.find_by(siret: params[:siret])
 

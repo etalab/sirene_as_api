@@ -1,4 +1,4 @@
-class SuggestController < ApplicationController
+class API::V1::SuggestController < ApplicationController
   def show
     keyword = params[:suggest_query]
     return if keyword.empty?

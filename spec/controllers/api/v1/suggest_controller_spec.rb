@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe SuggestController do
+describe API::V1::SuggestController do
   context 'when doing a simple search', type: :request do
     it 'creates a correct Solr request and return the result' do
       keyword = 'test_suggestion'
@@ -8,7 +8,7 @@ describe SuggestController do
 
       expect(SolrRequests).to receive(:new).with(keyword).and_return(request_instance)
       expect(request_instance).to receive(:get_suggestions).and_return('example suggestion')
-      get "/suggest/#{keyword}" # This needs to be after expectations
+      get "/v1/suggest/#{keyword}" # This needs to be after expectations
     end
 
     it 'render the correct payload for no results' do
@@ -17,7 +17,7 @@ describe SuggestController do
 
       expect(SolrRequests).to receive(:new).with(keyword).and_return(request_instance)
       expect(request_instance).to receive(:get_suggestions).and_return('')
-      get "/suggest/#{keyword}"
+      get "/v1/suggest/#{keyword}"
       result_hash = body_as_json
       expect(result_hash).to match( message: 'no suggestions found' )
       expect(response).to have_http_status(404)
@@ -29,7 +29,7 @@ describe SuggestController do
 
       expect(SolrRequests).to receive(:new).with(keyword).and_return(request_instance)
       expect(request_instance).to receive(:get_suggestions).and_return('example suggestion')
-      get "/suggest/#{keyword}"
+      get "/v1/suggest/#{keyword}"
       result_hash = body_as_json
       expect(result_hash).to match( suggestions: 'example suggestion' )
       expect(response).to have_http_status(200)
