@@ -1,6 +1,3 @@
-env:
-  global:
-  - CC_TEST_REPORTER_ID=SECRET_ID
 language: ruby
 rbenv:
 - 1.0.0
@@ -10,11 +7,19 @@ jdk:
 env:
   matrix:
   - DB=postgresql
-  - secure: ouI22NnrrfprAVO2ifBnm+Gw6taE5NJhTdvbkhcNwIFWzF701zaSGJHIQUrU7Pw9Y71q2IOy5+ee1jkFn4H/e250wHjVHzIE0pmvl4iPNF1iA72jLmyVYKe2+MNNSchfmVltZwCwljCPGCy140CFfrcV7IINjhdbYoYGT2nZiroYN93+UOrBzHTaHt3/2AsnYrgixl+UJbYgp6oPAGYwMDSE7JL5uB6kJsuJEHGNvzNV1RzLc8/6DYnhprOPleGkPaojTQebd5fc7zUiYi205DeSXVhW1pQcx5zIJG3YcPll5V3zXN+djaF0nMKXIoYwet9u7wGcggq3a4x25LtUULxdwAXzvg2/XZKWi9vHxw+39JD/2bzlLCnr88Hvm4CkWFh3+qmLLChqNgpynG+ETMH/1230jAddEgxaS+5u0gWOZEI1+7XjOdr74+8GeUz7YFHg69Uwf6vpTW7xSIPHjRHAaCh626le1s31YkbwNW2nUxFvVsxRGPU+eCyxQuvMrr/FXNL/9TJZMJWUAaEky5zESkvGXVqSbUj5s8sqqrnV9oPXVPLeSsrod21OaA4STizn8zPIKOoaYpIX3d0kUlSRZn0WJw3HF+7gdrzKtYdpmJNxj3C0v0Hueg8t6FMQFZKLgRsEjwBTqLuuJsb/rjX6ntqBiLKPbEhLyzCw4xs=
+  # CodeCoverage ID
+  - secure: symtwtFAhzoi2x0G/77b2lUB2ev32VsiSTH30mFAjJ20bGtupIDh8ymyA/vgrj65rXZo9PkZy3LyhB0k80fdYDJmmw0tRQLF8Rkwt9ELwXXEsXlBShgGhpzphdp2h2L2HLO06PVODzNYkY0IoNpViyBErz7ndSV/IO/SZFt91uN9F9TrgWowb+3VqgFAh5NWwgLNOlXNLqFxnm1j/Ownuz+bnklZgvL0h3WxUXWj3BQoQbUpM/yJSbos9uGV3H/ITwUoHdUN6yKycmdsAxRW1Hv9RuwiMvBKjr75lVF+yM0ojH8F+VwXeSLdQTiywQG86aKk0uQDvQuJJ269z61UOuE/4NY0NJzoKPG7IhApH4A/hgdOGjAhVCix2DyWePp1mRnkrtPLsL1vbmtFj5cTTSLllUva46SQB2OLRWJRXkyCLjoKlnoWIzsn8vtr7jD/2N0Njsr35KPq9ILAKykXmss2tESuDUOTm2Ic5yBuw0AXQCdvkb/Zyb5MxdtQjOAZze9HzyJdPoX3mmFjJCZrXD9lnu3FgmxGarerBo8TDUBNIKpZ6qfMFw3MQtWBod+nZeYhl4yU0LA/b6v07ZPshIkI0ikVgJWVn3eAD3Y02hLIsACMm0G3qkHvdjoU5PfTynCO6zk1ajhiSdmHHYz7Nf/uy4dpMMvEQi06kyxV8q8=
 script:
 - bundle exec rspec
 before_script:
 - psql -U postgres -f postgresql_setup.txt
 - RAILS_ENV=test bundle exec rails db:migrate
 - RAILS_ENV=test bundle exec rake sunspot:solr:start
+  # Need to sleep to let solr launch
 - sleep 15
+  # CodeCoverage report
+- curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+- chmod +x ./cc-test-reporter
+- ./cc-test-reporter before-build
+after_script:
+- ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
