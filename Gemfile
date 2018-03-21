@@ -10,7 +10,7 @@ gem 'rails', '~> 5.0.1'
 
 gem 'listen', '~> 3.0.5'
 
-gem 'pg'
+gem 'pg', '~> 0.20'
 
 # RDBM Agnostic connection pool manager
 gem 'connection_pool', '~> 2.2'
@@ -20,7 +20,7 @@ gem 'redis', '~> 3.0'
 gem 'redis-namespace'
 gem 'redis-objects'
 gem 'resque'
-gem 'sinatra', '~> 2.0.0.beta2'
+gem 'sinatra', '~> 2.0.1'
 
 # Sunspot / Solr friends
 gem 'sunspot_rails'
@@ -66,6 +66,7 @@ group :test do
   gem 'fuubar'
   gem 'vcr'
   gem 'webmock'
+  gem 'simplecov', require: false
 
   # database_cleaner used for cleaning database before test
   gem 'database_cleaner'
