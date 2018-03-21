@@ -1,16 +1,20 @@
+env:
+  global:
+  - CC_TEST_REPORTER_ID=SECRET_ID
 language: ruby
 rbenv:
-  - "1.0.0"
+- 1.0.0
 cache: bundler
 jdk:
-  - openjdk8
+- openjdk8
 env:
+  matrix:
   - DB=postgresql
+  - secure: ouI22NnrrfprAVO2ifBnm+Gw6taE5NJhTdvbkhcNwIFWzF701zaSGJHIQUrU7Pw9Y71q2IOy5+ee1jkFn4H/e250wHjVHzIE0pmvl4iPNF1iA72jLmyVYKe2+MNNSchfmVltZwCwljCPGCy140CFfrcV7IINjhdbYoYGT2nZiroYN93+UOrBzHTaHt3/2AsnYrgixl+UJbYgp6oPAGYwMDSE7JL5uB6kJsuJEHGNvzNV1RzLc8/6DYnhprOPleGkPaojTQebd5fc7zUiYi205DeSXVhW1pQcx5zIJG3YcPll5V3zXN+djaF0nMKXIoYwet9u7wGcggq3a4x25LtUULxdwAXzvg2/XZKWi9vHxw+39JD/2bzlLCnr88Hvm4CkWFh3+qmLLChqNgpynG+ETMH/1230jAddEgxaS+5u0gWOZEI1+7XjOdr74+8GeUz7YFHg69Uwf6vpTW7xSIPHjRHAaCh626le1s31YkbwNW2nUxFvVsxRGPU+eCyxQuvMrr/FXNL/9TJZMJWUAaEky5zESkvGXVqSbUj5s8sqqrnV9oPXVPLeSsrod21OaA4STizn8zPIKOoaYpIX3d0kUlSRZn0WJw3HF+7gdrzKtYdpmJNxj3C0v0Hueg8t6FMQFZKLgRsEjwBTqLuuJsb/rjX6ntqBiLKPbEhLyzCw4xs=
 script:
-  - bundle exec rspec
+- bundle exec rspec
 before_script:
-  - psql -U postgres -f postgresql_setup.txt
-  - RAILS_ENV=test bundle exec rails db:migrate
-  - RAILS_ENV=test bundle exec rake sunspot:solr:start
-   # Give solr time to start
-  - sleep 15
+- psql -U postgres -f postgresql_setup.txt
+- RAILS_ENV=test bundle exec rails db:migrate
+- RAILS_ENV=test bundle exec rake sunspot:solr:start
+- sleep 15
