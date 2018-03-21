@@ -339,7 +339,7 @@ DEPENDENCIES
   ruby-progressbar
   rubyzip
   simplecov
-  sinatra (~> 2.0.0.beta2)
+  sinatra (~> 2.0.1)
   smarter_csv
   spring
   spring-commands-rspec

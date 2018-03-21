@@ -20,7 +20,7 @@ gem 'redis', '~> 3.0'
 gem 'redis-namespace'
 gem 'redis-objects'
 gem 'resque'
-gem 'sinatra', '~> 2.0.0.beta2'
+gem 'sinatra', '~> 2.0.1'
 
 # Sunspot / Solr friends
 gem 'sunspot_rails'
