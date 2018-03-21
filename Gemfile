@@ -66,7 +66,8 @@ group :test do
   gem 'fuubar'
   gem 'vcr'
   gem 'webmock'
-  gem 'simplecov', require: false
+  gem 'simplecov'
+  gem 'simplecov-console'
 
   # database_cleaner used for cleaning database before test
   gem 'database_cleaner'

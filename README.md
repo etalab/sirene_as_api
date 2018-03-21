@@ -1,6 +1,4 @@
-[![Maintainability](https://api.codeclimate.com/v1/badges/cb7334374140808435c3/maintainability)](https://codeclimate.com/github/betagouv/sirene_as_api/maintainability)
-
-[![Test Coverage](https://api.codeclimate.com/v1/badges/cb7334374140808435c3/test_coverage)](https://codeclimate.com/github/betagouv/sirene_as_api/test_coverage)
+[![Maintainability](https://api.codeclimate.com/v1/badges/cb7334374140808435c3/maintainability)](https://codeclimate.com/github/betagouv/sirene_as_api/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/cb7334374140808435c3/test_coverage)](https://codeclimate.com/github/betagouv/sirene_as_api/test_coverage)
 
 # SIRENE_as_api
 

@@ -21,6 +21,8 @@ ENV['RAILS_ENV'] ||= 'test'
 require 'vcr'
 # require_relative "./../app/models/etablissement.rb"
 require 'simplecov'
+require 'simplecov-console'
+SimpleCov.formatter = SimpleCov.formatter = SimpleCov::Formatter::Console
 SimpleCov.start 'rails'
 
 VCR.configure do |config|

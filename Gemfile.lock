@@ -40,6 +40,7 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.5.2)
       public_suffix (>= 2.0.2, < 4.0)
+    ansi (1.5.0)
     arel (7.1.4)
     ast (2.4.0)
     brakeman (4.2.0)
@@ -93,6 +94,7 @@ GEM
       rspec (>= 2.99.0, < 4.0)
     hashdiff (0.3.7)
     highline (1.7.10)
+    hirb (0.7.3)
     i18n (0.9.5)
       concurrent-ruby (~> 1.0)
     interactor (3.1.0)
@@ -252,6 +254,10 @@ GEM
       docile (~> 1.1)
       json (>= 1.8, < 3)
       simplecov-html (~> 0.10.0)
+    simplecov-console (0.4.2)
+      ansi
+      hirb
+      simplecov
     simplecov-html (0.10.2)
     sinatra (2.0.1)
       mustermann (~> 1.0)
@@ -339,6 +345,7 @@ DEPENDENCIES
   ruby-progressbar
   rubyzip
   simplecov
+  simplecov-console
   sinatra (~> 2.0.1)
   smarter_csv
   spring
