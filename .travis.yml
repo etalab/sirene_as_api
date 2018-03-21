@@ -1,0 +1,16 @@
+language: ruby
+rbenv:
+  - "1.0.0"
+cache: bundler
+jdk:
+  - openjdk8
+env:
+  - DB=postgresql
+script:
+  - bundle exec rspec
+before_script:
+  - psql -U postgres -f postgresql_setup.txt
+  - RAILS_ENV=test bundle exec rails db:migrate
+  - RAILS_ENV=test bundle exec rake sunspot:solr:start
+   # Give solr time to start
+  - sleep 15

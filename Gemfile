@@ -10,7 +10,7 @@ gem 'rails', '~> 5.0.1'
 
 gem 'listen', '~> 3.0.5'
 
-gem 'pg'
+gem 'pg', '~> 0.20'
 
 # RDBM Agnostic connection pool manager
 gem 'connection_pool', '~> 2.2'
