@@ -20,6 +20,8 @@ ENV['RAILS_ENV'] ||= 'test'
 
 require 'vcr'
 # require_relative "./../app/models/etablissement.rb"
+require 'simplecov'
+SimpleCov.start 'rails'
 
 VCR.configure do |config|
   config.cassette_library_dir = 'spec/fixtures/vcr_cassettes'
