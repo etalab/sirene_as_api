@@ -64,7 +64,7 @@ def run_search_with_main_options(keyword)
 
     # Boost results for Mairies, as it often searched.
     # Search "Montpellier" will be boosted for the actual city Etablissement.
-    boost(2) { with(:enseigne).equal_to('MAIRIE') }
+    boost(5) { with(:enseigne).equal_to('MAIRIE') }
   end
 end
 
