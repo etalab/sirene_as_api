@@ -66,6 +66,7 @@
         <filter class="solr.LowerCaseFilterFactory"/>
         <!-- <filter class="solr.PorterStemFilterFactory"/> -->
         <filter class="solr.SynonymFilterFactory" synonyms="synonyms.txt" ignoreCase="true" expand="true" tokenizerFactory="solr.StandardTokenizerFactory"/>
+        <filter class="solr.SnowballPorterFilterFactory" language="French" />
       </analyzer>
     </fieldType>
     <!-- *** This fieldType is used by Sunspot! *** -->

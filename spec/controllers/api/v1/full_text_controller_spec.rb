@@ -423,4 +423,33 @@ describe API::V1::FullTextController do
       expect(number_results).to eq(1)
     end
   end
+
+  # Solr pluralization and singularization (SnowballPorterFilterFactory)
+  context 'when searching a name singular', type: :request do
+    let!(:etablissement1) { create(:etablissement, id: 1, nom_raison_sociale: 'Cave de Montpellier') }
+    it 'finds the correct plural result' do
+      Etablissement.reindex
+
+      get '/v1/full_text/Caves%20de%20Montpellier'
+
+      result_hash = body_as_json
+      result_etablissements = result_hash.extract!(:etablissement)
+      number_results = result_etablissements[:etablissement].size
+      expect(number_results).to eq(1)
+    end
+  end
+
+  context 'when searching a name plural', type: :request do
+    let!(:etablissement1) { create(:etablissement, id: 1, nom_raison_sociale: 'Caves de Montpellier') }
+    it 'finds the correct singular result' do
+      Etablissement.reindex
+
+      get '/v1/full_text/Cave%20de%20Montpellier'
+
+      result_hash = body_as_json
+      result_etablissements = result_hash.extract!(:etablissement)
+      number_results = result_etablissements[:etablissement].size
+      expect(number_results).to eq(1)
+    end
+  end
 end
