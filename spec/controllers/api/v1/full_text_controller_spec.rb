@@ -346,4 +346,47 @@ describe API::V1::FullTextController do
       expect(id_from_etablissements).to eq([2, 4, 1, 3])
     end
   end
+
+  # Solr synonyms work
+  context 'when searching with a common contraction', type: :request do
+    let!(:etablissement1) { create(:etablissement, id: 1, nom_raison_sociale: 'madame rene') }
+    it 'finds the correct result corresponding to the contraction extended' do
+      Etablissement.reindex
+
+      get '/v1/full_text/mme%20rene'
+
+      result_hash = body_as_json
+      result_etablissements = result_hash.extract!(:etablissement)
+      number_results = result_etablissements[:etablissement].size
+      expect(number_results).to eq(1)
+    end
+  end
+
+  context 'when searching without a common contraction', type: :request do
+    let!(:etablissement1) { create(:etablissement, id: 1, nom_raison_sociale: 'mme rene') }
+    it 'finds the correct exact result' do
+      Etablissement.reindex
+
+      get '/v1/full_text/mme%20rene'
+
+      result_hash = body_as_json
+      result_etablissements = result_hash.extract!(:etablissement)
+      number_results = result_etablissements[:etablissement].size
+      expect(number_results).to eq(1)
+    end
+  end
+
+  context 'when searching with a common contraction', type: :request do
+    let!(:etablissement1) { create(:etablissement, id: 1, nom_raison_sociale: 'mme rene') }
+    it 'finds the correct result corresponding exactly' do
+      Etablissement.reindex
+
+      get '/v1/full_text/madame%20rene'
+
+      result_hash = body_as_json
+      result_etablissements = result_hash.extract!(:etablissement)
+      number_results = result_etablissements[:etablissement].size
+      expect(number_results).to eq(1)
+    end
+  end
 end
