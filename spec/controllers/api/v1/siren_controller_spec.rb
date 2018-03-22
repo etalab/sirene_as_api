@@ -37,6 +37,10 @@ describe API::V1::SirenController do
         total_results: 3,
         other_etablissements_sirets: [siret_sister, siret_brother],
         numero_tva_intra: 'FR32123456789'
+      ).or match(
+        total_results: 3,
+        other_etablissements_sirets: [siret_brother, siret_sister],
+        numero_tva_intra: 'FR32123456789'
       )
       expect(result_siege_social[:siege_social][0][:siret]).to eq(siret_father)
     end
