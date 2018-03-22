@@ -63,6 +63,40 @@ describe API::V1::FullTextController do
     end
   end
 
+  # Fulltext works on enseigne
+  context 'when fulltext searching an enseigne', type: :request do
+    let!(:etablissement1) { create(:etablissement, id: 1, nom_raison_sociale: 'foobar company', enseigne: 'Lol Market') }
+    let!(:etablissement2) { create(:etablissement, id: 2, nom_raison_sociale: 'another etablissement', enseigne: 'The Prancing Poney Inn') }
+    let!(:etablissement3) { create(:etablissement, id: 3, nom_raison_sociale: 'etablissement to find', enseigne: 'Secretariat General') }
+    it 'finds correctly the Etablissement' do
+      Etablissement.reindex
+
+      get '/v1/full_text/secretariat%20general'
+
+      result_hash = body_as_json
+      result_etablissements = result_hash.extract!(:etablissement)
+      expect(result_etablissements[:etablissement].size).to equal(1)
+      expect(result_etablissements[:etablissement].first[:id]).to equal(3)
+    end
+  end
+
+  # Fulltext works on nom commercial (l2_normalisee)
+  context 'when fulltext searching an enseigne', type: :request do
+    let!(:etablissement1) { create(:etablissement, id: 1, nom_raison_sociale: 'foobar company', l2_normalisee: 'Lol Market') }
+    let!(:etablissement2) { create(:etablissement, id: 2, nom_raison_sociale: 'another etablissement', l2_normalisee: 'The Prancing Poney Inn') }
+    let!(:etablissement3) { create(:etablissement, id: 3, nom_raison_sociale: 'etablissement to find', l2_normalisee: 'Secretariat General') }
+    it 'finds correctly the Etablissement' do
+      Etablissement.reindex
+
+      get '/v1/full_text/secretariat%20general'
+
+      result_hash = body_as_json
+      result_etablissements = result_hash.extract!(:etablissement)
+      expect(result_etablissements[:etablissement].size).to equal(1)
+      expect(result_etablissements[:etablissement].first[:id]).to equal(3)
+    end
+  end
+
   # Fulltext works on a combination of Etablissement name and commune
   context 'when fulltext searching an Etablissement name & a Commune name', type: :request do
     let!(:etablissement1) { create(:etablissement, id: 1, nom_raison_sociale: 'foobar company', libelle_commune: 'PARIS') }
