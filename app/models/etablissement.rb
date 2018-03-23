@@ -8,6 +8,10 @@ class Etablissement < ApplicationRecord
     text :libelle_activite_principale_entreprise
     text :libelle_commune
     text :l4_normalisee
+    text :l2_normalisee
+    text :enseigne
+    # Enseigne must be both string and text to use fulltext and faceting
+    string :enseigne
     string :activite_principale
     string :code_postal
     string :nature_mise_a_jour
@@ -15,7 +19,6 @@ class Etablissement < ApplicationRecord
     string :nature_entrepreneur_individuel
     string :statut_prospection
     string :tranche_effectif_salarie_entreprise
-    string :enseigne
   end
 
   def self.latest_mise_a_jour

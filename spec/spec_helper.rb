@@ -20,10 +20,19 @@ ENV['RAILS_ENV'] ||= 'test'
 
 require 'vcr'
 # require_relative "./../app/models/etablissement.rb"
+
+# Test coverage options
 require 'simplecov'
 require 'simplecov-console'
 SimpleCov.formatter = SimpleCov.formatter = SimpleCov::Formatter::Console
-SimpleCov.start 'rails'
+SimpleCov.start 'rails' do
+    add_filter '/app/channels/'
+    add_filter '/app/jobs/etablissement_attrs_from_line.rb'
+    add_filter '/app/jobs/application_job.rb'
+    add_filter '/app/mailers/'
+    add_filter '/lib/string.rb'
+    add_filter '/app/interactors/organizers/'
+end
 
 VCR.configure do |config|
   config.cassette_library_dir = 'spec/fixtures/vcr_cassettes'

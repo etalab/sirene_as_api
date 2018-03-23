@@ -63,6 +63,40 @@ describe API::V1::FullTextController do
     end
   end
 
+  # Fulltext works on enseigne
+  context 'when fulltext searching an enseigne', type: :request do
+    let!(:etablissement1) { create(:etablissement, id: 1, nom_raison_sociale: 'foobar company', enseigne: 'Lol Market') }
+    let!(:etablissement2) { create(:etablissement, id: 2, nom_raison_sociale: 'another etablissement', enseigne: 'The Prancing Poney Inn') }
+    let!(:etablissement3) { create(:etablissement, id: 3, nom_raison_sociale: 'etablissement to find', enseigne: 'Secretariat General') }
+    it 'finds correctly the Etablissement' do
+      Etablissement.reindex
+
+      get '/v1/full_text/secretariat%20general'
+
+      result_hash = body_as_json
+      result_etablissements = result_hash.extract!(:etablissement)
+      expect(result_etablissements[:etablissement].size).to equal(1)
+      expect(result_etablissements[:etablissement].first[:id]).to equal(3)
+    end
+  end
+
+  # Fulltext works on nom commercial (l2_normalisee)
+  context 'when fulltext searching an enseigne', type: :request do
+    let!(:etablissement1) { create(:etablissement, id: 1, nom_raison_sociale: 'foobar company', l2_normalisee: 'Lol Market') }
+    let!(:etablissement2) { create(:etablissement, id: 2, nom_raison_sociale: 'another etablissement', l2_normalisee: 'The Prancing Poney Inn') }
+    let!(:etablissement3) { create(:etablissement, id: 3, nom_raison_sociale: 'etablissement to find', l2_normalisee: 'Secretariat General') }
+    it 'finds correctly the Etablissement' do
+      Etablissement.reindex
+
+      get '/v1/full_text/secretariat%20general'
+
+      result_hash = body_as_json
+      result_etablissements = result_hash.extract!(:etablissement)
+      expect(result_etablissements[:etablissement].size).to equal(1)
+      expect(result_etablissements[:etablissement].first[:id]).to equal(3)
+    end
+  end
+
   # Fulltext works on a combination of Etablissement name and commune
   context 'when fulltext searching an Etablissement name & a Commune name', type: :request do
     let!(:etablissement1) { create(:etablissement, id: 1, nom_raison_sociale: 'foobar company', libelle_commune: 'PARIS') }
@@ -344,6 +378,78 @@ describe API::V1::FullTextController do
       result_etablissements = result_hash.extract!(:etablissement)
       id_from_etablissements = result_etablissements[:etablissement].map { |x| x[:id] }
       expect(id_from_etablissements).to eq([2, 4, 1, 3])
+    end
+  end
+
+  # Solr synonyms work
+  context 'when searching with a common contraction', type: :request do
+    let!(:etablissement1) { create(:etablissement, id: 1, nom_raison_sociale: 'madame rene') }
+    it 'finds the correct result corresponding to the contraction extended' do
+      Etablissement.reindex
+
+      get '/v1/full_text/mme%20rene'
+
+      result_hash = body_as_json
+      result_etablissements = result_hash.extract!(:etablissement)
+      number_results = result_etablissements[:etablissement].size
+      expect(number_results).to eq(1)
+    end
+  end
+
+  context 'when searching without a common contraction', type: :request do
+    let!(:etablissement1) { create(:etablissement, id: 1, nom_raison_sociale: 'mme rene') }
+    it 'finds the correct exact result' do
+      Etablissement.reindex
+
+      get '/v1/full_text/mme%20rene'
+
+      result_hash = body_as_json
+      result_etablissements = result_hash.extract!(:etablissement)
+      number_results = result_etablissements[:etablissement].size
+      expect(number_results).to eq(1)
+    end
+  end
+
+  context 'when searching with a common contraction', type: :request do
+    let!(:etablissement1) { create(:etablissement, id: 1, nom_raison_sociale: 'mme rene') }
+    it 'finds the correct result corresponding exactly' do
+      Etablissement.reindex
+
+      get '/v1/full_text/madame%20rene'
+
+      result_hash = body_as_json
+      result_etablissements = result_hash.extract!(:etablissement)
+      number_results = result_etablissements[:etablissement].size
+      expect(number_results).to eq(1)
+    end
+  end
+
+  # Solr pluralization and singularization (SnowballPorterFilterFactory)
+  context 'when searching a name singular', type: :request do
+    let!(:etablissement1) { create(:etablissement, id: 1, nom_raison_sociale: 'Cave de Montpellier') }
+    it 'finds the correct plural result' do
+      Etablissement.reindex
+
+      get '/v1/full_text/Caves%20de%20Montpellier'
+
+      result_hash = body_as_json
+      result_etablissements = result_hash.extract!(:etablissement)
+      number_results = result_etablissements[:etablissement].size
+      expect(number_results).to eq(1)
+    end
+  end
+
+  context 'when searching a name plural', type: :request do
+    let!(:etablissement1) { create(:etablissement, id: 1, nom_raison_sociale: 'Caves de Montpellier') }
+    it 'finds the correct singular result' do
+      Etablissement.reindex
+
+      get '/v1/full_text/Cave%20de%20Montpellier'
+
+      result_hash = body_as_json
+      result_etablissements = result_hash.extract!(:etablissement)
+      number_results = result_etablissements[:etablissement].size
+      expect(number_results).to eq(1)
     end
   end
 end

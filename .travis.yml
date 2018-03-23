@@ -16,7 +16,7 @@ before_script:
 - RAILS_ENV=test bundle exec rails db:migrate
 - RAILS_ENV=test bundle exec rake sunspot:solr:start
   # Need to sleep to let solr launch
-- sleep 15
+- sleep 30
   # CodeCoverage report
 - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
 - chmod +x ./cc-test-reporter
