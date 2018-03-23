@@ -21,17 +21,20 @@ ENV['RAILS_ENV'] ||= 'test'
 require 'vcr'
 # require_relative "./../app/models/etablissement.rb"
 
-# Test coverage options
-require 'simplecov'
-require 'simplecov-console'
-SimpleCov.formatter = SimpleCov.formatter = SimpleCov::Formatter::Console
-SimpleCov.start 'rails' do
-    add_filter '/app/channels/'
-    add_filter '/app/jobs/etablissement_attrs_from_line.rb'
-    add_filter '/app/jobs/application_job.rb'
-    add_filter '/app/mailers/'
-    add_filter '/lib/string.rb'
-    add_filter '/app/interactors/organizers/'
+# Test coverage options (activated only if rspec is run without arguments)
+if ARGV.grep(/spec\.rb/).empty?
+  require 'simplecov'
+  require 'simplecov-console'
+  SimpleCov.formatter = SimpleCov.formatter = SimpleCov::Formatter::Console
+  SimpleCov.start 'rails' do
+      add_filter '/app/channels/'
+      add_filter '/app/jobs/etablissement_attrs_from_line.rb'
+      add_filter '/app/interactors/set_automatic_context.rb'
+      add_filter '/app/jobs/application_job.rb'
+      add_filter '/app/mailers/'
+      add_filter '/lib/string.rb'
+      add_filter '/app/interactors/organizers/'
+  end
 end
 
 VCR.configure do |config|

@@ -17,8 +17,13 @@ class InsertEtablissementRowsJob < EtablissementRowJobs
     ar_query_string = " INSERT INTO etablissements (#{ar_keys.join(',')})
                         VALUES
                         #{ar_values_string}; "
-
-    ActiveRecord::Base.connection.execute(ar_query_string)
+    begin
+      ActiveRecord::Base.connection.execute(ar_query_string)
+    rescue StandardError => error
+      stdout_error_log "Error: Cannot insert etablissement attributes. Cause : #{error.class}
+        Make sure that your Solr server is launched for the right environment and accessible."
+      exit
+    end
     true
   end
 
