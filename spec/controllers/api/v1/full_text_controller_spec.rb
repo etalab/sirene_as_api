@@ -178,6 +178,32 @@ describe API::V1::FullTextController do
     end
   end
 
+  # Limitation of per page param
+  context 'when asking for a per_page over 100', type: :request do
+    it 'returns results with 100 per_page' do
+      per_page_asked = 120
+      number_etablissements = 10
+      number_etablissements.times do
+        create(:etablissement, nom_raison_sociale: 'foobarcompany')
+      end
+      Etablissement.reindex
+
+      get "/v1/full_text/foobarcompany?per_page=#{per_page_asked}"
+
+      expect(response.body).to look_like_json
+      result_hash = body_as_json
+      result_hash.extract!(:etablissement)
+      expect(result_hash).to match(
+        total_results: number_etablissements,
+        total_pages: 1,
+        per_page: 100,
+        page: 1,
+        spellcheck: nil,
+        suggestions: ["foobarcompany"]
+      )
+    end
+  end
+
   # Faceting
   context 'when doing a simple search with no facet', type: :request do
     let!(:etablissement) { create(:etablissement, nom_raison_sociale: 'foobarcompany') }
