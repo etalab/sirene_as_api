@@ -2,13 +2,19 @@ require 'sunspot'
 
 class API::V1::FullTextController < ApplicationController
   FILTER_NATURE_PROSPECTION = true
+
   def show
     page = params[:page] || 1
-    per_page = params[:per_page] || 10
+    per_page = per_page_default_10_max_100
     fulltext_search(params[:text], page, per_page)
   end
 
   private
+
+  def per_page_default_10_max_100
+    per_page = params[:per_page] || 10
+    per_page = per_page.to_i < 100 ? per_page : 100
+  end
 
   def fulltext_search(query, page, per_page)
     search = search_with_solr_options(query, page, per_page)
