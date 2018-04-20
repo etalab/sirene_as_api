@@ -65,17 +65,17 @@ RSpec.configure do |config|
   end
 
   # Silence output during tests
-  # original_stderr = $stderr
-  # original_stdout = $stdout
-  # config.before(:all) do
-  #   # Redirect stderr and stdout
-  #   $stderr = File.open(File::NULL, 'w')
-  #   $stdout = File.open(File::NULL, 'w')
-  # end
-  # config.after(:all) do
-  #   $stderr = original_stderr
-  #   $stdout = original_stdout
-  # end
+  original_stderr = $stderr
+  original_stdout = $stdout
+  config.before(:all) do
+    # Redirect stderr and stdout
+    $stderr = File.open(File::NULL, 'w')
+    $stdout = File.open(File::NULL, 'w')
+  end
+  config.after(:all) do
+    $stderr = original_stderr
+    $stdout = original_stdout
+  end
 
   # rspec-mocks config goes here. You can use an alternate test double
   # library (such as bogus or mocha) by changing the `mock_with` option here.
