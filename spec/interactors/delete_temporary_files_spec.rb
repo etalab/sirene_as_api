@@ -1,18 +1,20 @@
 require 'rails_helper'
 
-# We delete temporary files only if they start with 'sirc-' AND finish with .csv
-# Or start with 'sirene_' AND finish with .zip
+# We delete temporary files only if they start with 'geo-sirene' AND finish with .csv or .csv.gz
 describe DeleteTemporaryFiles do
   before(:each) do
     @test_folder = 'spec/fixtures/files_for_deletion_test'
-    @files_to_delete = ['sirc-1234.csv', 'sirene_1234.zip']
+    @files_to_delete = [
+      'geo-sirene_2017032_E_Q.csv',
+      'geo-sirene_2017032_E_Q.csv.gz',
+      'geo-sirene_1234.csv',
+      'geo-sirene_1234.csv.gz'
+    ]
     @files_to_keep = [
-      'sirc-test.csv',
-      'sirc_1234.csv',
-      'sirc-134.zip',
-      'sirene-1234.zip',
-      'sirene_test.zip',
-      'sirene_1234.csv'
+      'sirene-1234.csv.gz',
+      'geo-sirene_test.zip',
+      'unrelated.json',
+      'keep_me.gz'
     ]
     @all_files = @files_to_delete + @files_to_keep
     @all_files.each { |file| File.new("#{@test_folder}/#{file}", 'w+') }

@@ -10,21 +10,14 @@ class GetLastMonthlyStockLink < SireneAsAPIInteractor
   end
 
   def call
-    last_monthly_stock_relative_link = stock_relative_links.map { |sl| sl[:href] }.sort.last
+    last_monthly_stock_relative_link = "#{current_year}-#{last_month}/geo-sirene.csv.gz"
+    if (current_month == '01')
+      last_monthly_stock_relative_link = "#{last_year}-12/geo-sirene.csv.gz"
+    end
     context.link = "#{files_repository}/#{last_monthly_stock_relative_link}"
   end
 
   private
-
-  def stock_relative_links
-    stock_relative_links =
-      if current_month == '1'
-        select_stock_relative_links_edge_case_january
-      else
-        select_stock_relative_links
-      end
-    stock_relative_links
-  end
 
   def sirene_update_and_stock_links
     doc = Nokogiri::HTML(open(files_repository))
@@ -33,11 +26,11 @@ class GetLastMonthlyStockLink < SireneAsAPIInteractor
   end
 
   def files_domain
-    'http://files.data.gouv.fr'
+    'http://data.cquest.org'
   end
 
   def files_repository
-    "#{files_domain}/sirene"
+    "#{files_domain}/geo_sirene"
   end
 
   def select_stock_relative_links
@@ -53,10 +46,10 @@ class GetLastMonthlyStockLink < SireneAsAPIInteractor
   end
 
   def sirene_monthly_stock_filename_pattern
-    /.*sirene_#{current_year}([0-9]{2})_L_M\.zip/
+    /.*sirene_#{current_year}([0-9]{2})_L_M\.csv.gz/
   end
 
   def sirene_january_stock_filename_pattern
-    /.*sirene_#{last_year}([0-9]{2})_L_M\.zip/
+    /.*sirene_#{last_year}([0-9]{2})_L_M\.csv.gz/
   end
 end
