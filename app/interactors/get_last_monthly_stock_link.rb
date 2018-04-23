@@ -10,9 +10,9 @@ class GetLastMonthlyStockLink < SireneAsAPIInteractor
   end
 
   def call
-    last_monthly_stock_relative_link = "#{current_year}-#{last_month}/geo-sirene.csv.gz"
+    last_monthly_stock_relative_link = "#{current_year}-#{last_month}/geo_sirene.csv.gz"
     if (current_month == '01')
-      last_monthly_stock_relative_link = "#{last_year}-12/geo-sirene.csv.gz"
+      last_monthly_stock_relative_link = "#{last_year}-12/geo_sirene.csv.gz"
     end
     context.link = "#{files_repository}/#{last_monthly_stock_relative_link}"
   end
