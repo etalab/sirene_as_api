@@ -20,11 +20,11 @@ class DeleteTemporaryFiles < SireneAsAPIInteractor
 
   def looks_like_csv_files(file)
     # Csv file starting with sirc- + at least one number
-    return true if File.extname(file) == '.csv' && File.basename(file).match(/^geo-sirene_/)
+    return true if File.extname(file) == '.csv' && File.basename(file).match(/^geo[-_]sirene_/)
   end
 
   def looks_like_gz_file(file)
     # Zip file starting with sirene_ + at least one number
-    return true if File.extname(file) == '.gz' && File.basename(file).match(/^geo-sirene_/)
+    return true if File.extname(file) == '.gz' && File.basename(file).match(/^geo[-_]sirene_/)
   end
 end

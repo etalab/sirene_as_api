@@ -8,7 +8,9 @@ describe DeleteTemporaryFiles do
       'geo-sirene_2017032_E_Q.csv',
       'geo-sirene_2017032_E_Q.csv.gz',
       'geo-sirene_1234.csv',
-      'geo-sirene_1234.csv.gz'
+      'geo-sirene_1234.csv.gz',
+      'geo_sirene_2012_12.csv.gz',
+      'geo_sirene_2011_03.csv.gz'
     ]
     @files_to_keep = [
       'sirene-1234.csv.gz',
