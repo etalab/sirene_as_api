@@ -59,7 +59,7 @@ class ImportMonthlyStockCsv < SireneAsAPIInteractor
       row_sep: "\r\n",
       convert_values_to_numeric: false,
       key_mapping: {},
-      file_encoding: 'windows-1252'
+      file_encoding: 'UTF-8'
     }
   end
 
