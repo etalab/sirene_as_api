@@ -1,6 +1,6 @@
 class ApplyPatches < SireneAsAPIInteractor
   around do |interactor|
-    stdout_info_log 'Attempting to apply patches, one patch at a time'
+    stdout_info_log 'Attempting to apply patches, one patch at a time' unless context.links.empty?
     interactor.call
 
     puts

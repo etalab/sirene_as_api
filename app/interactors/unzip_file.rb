@@ -1,7 +1,5 @@
 class UnzipFile < SireneAsAPIInteractor
   around do |interactor|
-    stdout_info_log "Started unzipping #{context.filepath} into tmp/files/"
-
     interactor.call
 
     puts
@@ -12,16 +10,18 @@ class UnzipFile < SireneAsAPIInteractor
 
     context.unzipped_files = []
 
-    Zlib::GzipReader::open(context.filepath) do |zip_file|
-      unzipped_file_path = File.join(destination, zip_file.orig_name)
+    Zlib::GzipReader::open(context.filepath) do |input_stream|
+      unzipped_file_path = File.join(destination, context.filename.chomp('.gz'))
+      stdout_info_log "Started unzipping #{context.filepath} into #{unzipped_file_path}"
 
       if File.exist?(unzipped_file_path)
         context.unzipped_files << unzipped_file_path
-        stdout_warn_log "Skipping unzip of file #{zip_file.orig_name} already a file at destination #{unzipped_file_path}"
+        stdout_warn_log "Skipping unzip of file #{context.filename} already a file at destination #{unzipped_file_path}"
       else
-        f = File.new(unzipped_file_path, "w+")
-        f.write(zip_file.read)
-        f.close
+        File.open(unzipped_file_path, "w+") do |output_stream|
+          IO.copy_stream(input_stream, output_stream)
+          output_stream.close
+        end
         context.unzipped_files << unzipped_file_path
         stdout_success_log "Unzipped file #{unzipped_file_path} successfully"
       end
