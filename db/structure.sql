@@ -28,20 +28,6 @@ CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
 
 
---
--- Name: pg_trgm; Type: EXTENSION; Schema: -; Owner: -
---
-
-CREATE EXTENSION IF NOT EXISTS pg_trgm WITH SCHEMA public;
-
-
---
--- Name: EXTENSION pg_trgm; Type: COMMENT; Schema: -; Owner: -
---
-
-COMMENT ON EXTENSION pg_trgm IS 'text similarity measurement and index searching based on trigrams';
-
-
 SET search_path = public, pg_catalog;
 
 SET default_tablespace = '';
@@ -186,7 +172,14 @@ CREATE TABLE etablissements (
     siret_predecesseur_successeur character varying,
     telephone character varying,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    longitude character varying,
+    latitude character varying,
+    geo_score character varying,
+    geo_type character varying,
+    geo_adresse character varying,
+    geo_id character varying,
+    geo_ligne character varying
 );
 
 
@@ -330,6 +323,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170124130819'),
 ('20170130100203'),
 ('20170922094826'),
-('20170925105117');
+('20170925105117'),
+('20180420104754');
 
 

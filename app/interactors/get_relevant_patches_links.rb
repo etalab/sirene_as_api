@@ -96,14 +96,14 @@ class GetRelevantPatchesLinks < SireneAsAPIInteractor
   end
 
   def files_domain
-    'http://files.data.gouv.fr'
+    'http://data.cquest.org'
   end
 
   def files_repository
-    "#{files_domain}/sirene"
+    "#{files_domain}/geo_sirene/quotidien"
   end
 
   def sirene_daily_update_filename_pattern
-    /.*sirene_#{current_year}([0-9]{3})_E_Q\.zip/
+    /.*geo-sirene_#{current_year}([0-9]{3})_E_Q\.csv.gz/
   end
 end

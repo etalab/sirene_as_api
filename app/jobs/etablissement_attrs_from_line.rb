@@ -127,7 +127,14 @@ class EtablissementAttrsFromLine
       indicateur_mise_a_jour_caractere_productif_entreprise: line[:mproden],
       indicateur_mise_a_jour_nic_siege: line[:mnicsiege],
       siret_predecesseur_successeur: line[:siretps],
-      telephone: line[:tel]
+      telephone: line[:tel],
+      longitude: line[:longitude],
+      latitude: line[:latitude],
+      geo_score: line[:geo_score],
+      geo_type: line[:geo_type],
+      geo_adresse: line[:geo_adresse],
+      geo_id: line[:geo_id],
+      geo_ligne: line[:geo_ligne]
     }
     etablissement_attrs
   end

@@ -1,0 +1,131 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://data.cquest.org/geo_sirene/quotidien
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.13.12
+      Date:
+      - Mon, 23 Apr 2018 08:56:15 GMT
+      Content-Type:
+      - text/html; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+    body:
+      encoding: ASCII-8BIT
+      string: "<html>\r\n<head><title>Index of /geo_sirene/quotidien/</title></head>\r\n<body
+        bgcolor=\"white\">\r\n<h1>Index of /geo_sirene/quotidien/</h1><hr><pre><a
+        href=\"../\">../</a>\r\n<a href=\"geo-sirene_2017002_E_Q.csv.gz\">geo-sirene_2017002_E_Q.csv.gz</a>
+        \                     06-Apr-2018 17:32              522650\r\n<a href=\"geo-sirene_2017002_E_Q.log\">geo-sirene_2017002_E_Q.log</a>
+        \                        06-Apr-2018 17:32               16581\r\n<a href=\"geo-sirene_2017003_E_Q.csv.gz\">geo-sirene_2017003_E_Q.csv.gz</a>
+        \                     06-Apr-2018 19:04             6800337\r\n<a href=\"geo-sirene_2017003_E_Q.log\">geo-sirene_2017003_E_Q.log</a>
+        \                        06-Apr-2018 19:04             3552543\r\n<a href=\"geo-sirene_2017004_E_Q.csv.gz\">geo-sirene_2017004_E_Q.csv.gz</a>
+        \                     06-Apr-2018 17:36             2311695\r\n<a href=\"geo-sirene_2017004_E_Q.log\">geo-sirene_2017004_E_Q.log</a>
+        \                        06-Apr-2018 17:36               77632\r\n<a href=\"geo-sirene_2017005_E_Q.csv.gz\">geo-sirene_2017005_E_Q.csv.gz</a>
+        \                     06-Apr-2018 17:34             2348466\r\n<a href=\"geo-sirene_2017005_E_Q.log\">geo-sirene_2017005_E_Q.log</a>
+        \                        06-Apr-2018 17:34               73298\r\n<a href=\"geo-sirene_2017006_E_Q.csv.gz\">geo-sirene_2017006_E_Q.csv.gz</a>
+        \                     06-Apr-2018 17:26             2149599\r\n<a href=\"geo-sirene_2017006_E_Q.log\">geo-sirene_2017006_E_Q.log</a>
+        \                        06-Apr-2018 17:26               51105\r\n<a href=\"geo-sirene_2017009_E_Q.csv.gz\">geo-sirene_2017009_E_Q.csv.gz</a>
+        \                     06-Apr-2018 17:24             1621517\r\n<a href=\"geo-sirene_2017009_E_Q.log\">geo-sirene_2017009_E_Q.log</a>
+        \                        06-Apr-2018 17:24               44307\r\n<a href=\"geo-sirene_2017010_E_Q.csv.gz\">geo-sirene_2017010_E_Q.csv.gz</a>
+        \                     06-Apr-2018 18:20             4600496\r\n<a href=\"geo-sirene_2017010_E_Q.log\">geo-sirene_2017010_E_Q.log</a>
+        \                        06-Apr-2018 18:20             1918094\r\n<a href=\"geo-sirene_2017011_E_Q.csv.gz\">geo-sirene_2017011_E_Q.csv.gz</a>
+        \                     06-Apr-2018 17:26             3431785\r\n<a href=\"geo-sirene_2017011_E_Q.log\">geo-sirene_2017011_E_Q.log</a>
+        \                        06-Apr-2018 17:26              101673\r\n<a href=\"geo-sirene_2017012_E_Q.csv.gz\">geo-sirene_2017012_E_Q.csv.gz</a>
+        \                     06-Apr-2018 17:30             3112022\r\n<a href=\"geo-sirene_2017012_E_Q.log\">geo-sirene_2017012_E_Q.log</a>
+        \                        06-Apr-2018 17:30              842310\r\n<a href=\"geo-sirene_2017013_E_Q.csv.gz\">geo-sirene_2017013_E_Q.csv.gz</a>
+        \                     06-Apr-2018 17:16             2403290\r\n<a href=\"geo-sirene_2017013_E_Q.log\">geo-sirene_2017013_E_Q.log</a>
+        \                        06-Apr-2018 17:16               90259\r\n<a href=\"geo-sirene_2017016_E_Q.csv.gz\">geo-sirene_2017016_E_Q.csv.gz</a>
+        \                     06-Apr-2018 17:15             2415458\r\n<a href=\"geo-sirene_2017016_E_Q.log\">geo-sirene_2017016_E_Q.log</a>
+        \                        06-Apr-2018 17:15              103085\r\n<a href=\"geo-sirene_2017017_E_Q.csv.gz\">geo-sirene_2017017_E_Q.csv.gz</a>
+        \                     06-Apr-2018 17:16             2664504\r\n<a href=\"geo-sirene_2017017_E_Q.log\">geo-sirene_2017017_E_Q.log</a>
+        \                        06-Apr-2018 17:16              164524\r\n<a href=\"geo-sirene_2017018_E_Q.csv.gz\">geo-sirene_2017018_E_Q.csv.gz</a>
+        \                     06-Apr-2018 17:11             2387763\r\n<a href=\"geo-sirene_2017018_E_Q.log\">geo-sirene_2017018_E_Q.log</a>
+        \                        06-Apr-2018 17:11               71036\r\n<a href=\"geo-sirene_2017019_E_Q.csv.gz\">geo-sirene_2017019_E_Q.csv.gz</a>
+        \                     06-Apr-2018 17:05             1919475\r\n<a href=\"geo-sirene_2017019_E_Q.log\">geo-sirene_2017019_E_Q.log</a>
+        \                        06-Apr-2018 17:05               45161\r\n<a href=\"geo-sirene_2017020_E_Q.csv.gz\">geo-sirene_2017020_E_Q.csv.gz</a>
+        \                     06-Apr-2018 17:05             2134311\r\n<a href=\"geo-sirene_2017020_E_Q.log\">geo-sirene_2017020_E_Q.log</a>
+        \                        06-Apr-2018 17:05               36021\r\n<a href=\"geo-sirene_2017023_E_Q.csv.gz\">geo-sirene_2017023_E_Q.csv.gz</a>
+        \                     06-Apr-2018 17:04             2234839\r\n<a href=\"geo-sirene_2017023_E_Q.log\">geo-sirene_2017023_E_Q.log</a>
+        \                        06-Apr-2018 17:04               50139\r\n<a href=\"geo-sirene_2017024_E_Q.csv.gz\">geo-sirene_2017024_E_Q.csv.gz</a>
+        \                     06-Apr-2018 17:04             2571060\r\n<a href=\"geo-sirene_2017024_E_Q.log\">geo-sirene_2017024_E_Q.log</a>
+        \                        06-Apr-2018 17:04               72802\r\n<a href=\"geo-sirene_2017025_E_Q.csv.gz\">geo-sirene_2017025_E_Q.csv.gz</a>
+        \                     06-Apr-2018 17:01             2204846\r\n<a href=\"geo-sirene_2017025_E_Q.log\">geo-sirene_2017025_E_Q.log</a>
+        \                        06-Apr-2018 17:01               51810\r\n<a href=\"geo-sirene_2017026_E_Q.csv.gz\">geo-sirene_2017026_E_Q.csv.gz</a>
+        \                     06-Apr-2018 16:57             2275085\r\n<a href=\"geo-sirene_2017026_E_Q.log\">geo-sirene_2017026_E_Q.log</a>
+        \                        06-Apr-2018 16:57               51883\r\n<a href=\"geo-sirene_2017027_E_Q.csv.gz\">geo-sirene_2017027_E_Q.csv.gz</a>
+        \                     06-Apr-2018 16:55             2113472\r\n<a href=\"geo-sirene_2017027_E_Q.log\">geo-sirene_2017027_E_Q.log</a>
+        \                        06-Apr-2018 16:55               37800\r\n<a href=\"geo-sirene_2017030_E_Q.csv.gz\">geo-sirene_2017030_E_Q.csv.gz</a>
+        \                     06-Apr-2018 17:40             8050144\r\n<a href=\"geo-sirene_2017030_E_Q.log\">geo-sirene_2017030_E_Q.log</a>
+        \                        06-Apr-2018 17:40              426705\r\n<a href=\"geo-sirene_2017031_E_Q.csv.gz\">geo-sirene_2017031_E_Q.csv.gz</a>
+        \                     06-Apr-2018 16:56             2646770\r\n<a href=\"geo-sirene_2017031_E_Q.log\">geo-sirene_2017031_E_Q.log</a>
+        \                        06-Apr-2018 16:56               53031\r\n<a href=\"geo-sirene_2017032_E_Q.csv.gz\">geo-sirene_2017032_E_Q.csv.gz</a>
+        \                     06-Apr-2018 16:52             2387436\r\n<a href=\"geo-sirene_2017032_E_Q.log\">geo-sirene_2017032_E_Q.log</a>
+        \                        06-Apr-2018 16:52               49282\r\n<a href=\"geo-sirene_2017033_E_Q.csv.gz\">geo-sirene_2017033_E_Q.csv.gz</a>
+        \                     06-Apr-2018 16:50             2397647\r\n<a href=\"geo-sirene_2017033_E_Q.log\">geo-sirene_2017033_E_Q.log</a>
+        \                        06-Apr-2018 16:50               42704\r\n<a href=\"geo-sirene_2017034_E_Q.csv.gz\">geo-sirene_2017034_E_Q.csv.gz</a>
+        \                     06-Apr-2018 16:46             2059044\r\n<a href=\"geo-sirene_2017034_E_Q.log\">geo-sirene_2017034_E_Q.log</a>
+        \                        06-Apr-2018 16:46               42011\r\n<a href=\"geo-sirene_2017037_E_Q.csv.gz\">geo-sirene_2017037_E_Q.csv.gz</a>
+        \                     06-Apr-2018 16:47             2338542\r\n<a href=\"geo-sirene_2017037_E_Q.log\">geo-sirene_2017037_E_Q.log</a>
+        \                        06-Apr-2018 16:47               56407\r\n<a href=\"geo-sirene_2017038_E_Q.csv.gz\">geo-sirene_2017038_E_Q.csv.gz</a>
+        \                     06-Apr-2018 16:45             2274016\r\n<a href=\"geo-sirene_2017038_E_Q.log\">geo-sirene_2017038_E_Q.log</a>
+        \                        06-Apr-2018 16:45               49168\r\n<a href=\"geo-sirene_2017039_E_Q.csv.gz\">geo-sirene_2017039_E_Q.csv.gz</a>
+        \                     06-Apr-2018 16:41             2149725\r\n<a href=\"geo-sirene_2017039_E_Q.log\">geo-sirene_2017039_E_Q.log</a>
+        \                        06-Apr-2018 16:41               62953\r\n<a href=\"geo-sirene_2017040_E_Q.csv.gz\">geo-sirene_2017040_E_Q.csv.gz</a>
+        \                     06-Apr-2018 16:41             2477820\r\n<a href=\"geo-sirene_2017040_E_Q.log\">geo-sirene_2017040_E_Q.log</a>
+        \                        06-Apr-2018 16:41               83422\r\n<a href=\"geo-sirene_2017041_E_Q.csv.gz\">geo-sirene_2017041_E_Q.csv.gz</a>
+        \                     06-Apr-2018 16:37             2163836\r\n<a href=\"geo-sirene_2017041_E_Q.log\">geo-sirene_2017041_E_Q.log</a>
+        \                        06-Apr-2018 16:37               59191\r\n<a href=\"geo-sirene_2017044_E_Q.csv.gz\">geo-sirene_2017044_E_Q.csv.gz</a>
+        \                     06-Apr-2018 16:45             2345322\r\n<a href=\"geo-sirene_2017044_E_Q.log\">geo-sirene_2017044_E_Q.log</a>
+        \                        06-Apr-2018 16:45               65134\r\n<a href=\"geo-sirene_2017045_E_Q.csv.gz\">geo-sirene_2017045_E_Q.csv.gz</a>
+        \                     06-Apr-2018 16:36             2312139\r\n<a href=\"geo-sirene_2017045_E_Q.log\">geo-sirene_2017045_E_Q.log</a>
+        \                        06-Apr-2018 16:36               42906\r\n<a href=\"geo-sirene_2017046_E_Q.csv.gz\">geo-sirene_2017046_E_Q.csv.gz</a>
+        \                     06-Apr-2018 16:36             2222654\r\n<a href=\"geo-sirene_2017046_E_Q.log\">geo-sirene_2017046_E_Q.log</a>
+        \                        06-Apr-2018 16:36               44762\r\n<a href=\"geo-sirene_2017047_E_Q.csv.gz\">geo-sirene_2017047_E_Q.csv.gz</a>
+        \                     06-Apr-2018 16:32             2049356\r\n<a href=\"geo-sirene_2017047_E_Q.log\">geo-sirene_2017047_E_Q.log</a>
+        \                        06-Apr-2018 16:32               42056\r\n<a href=\"geo-sirene_2017048_E_Q.csv.gz\">geo-sirene_2017048_E_Q.csv.gz</a>
+        \                     06-Apr-2018 16:29             1903194\r\n<a href=\"geo-sirene_2017048_E_Q.log\">geo-sirene_2017048_E_Q.log</a>
+        \                        06-Apr-2018 16:29               36653\r\n<a href=\"geo-sirene_2017051_E_Q.csv.gz\">geo-sirene_2017051_E_Q.csv.gz</a>
+        \                     06-Apr-2018 16:28             1958905\r\n<a href=\"geo-sirene_2017051_E_Q.log\">geo-sirene_2017051_E_Q.log</a>
+        \                        06-Apr-2018 16:28               43145\r\n<a href=\"geo-sirene_2017052_E_Q.csv.gz\">geo-sirene_2017052_E_Q.csv.gz</a>
+        \                     06-Apr-2018 16:26             2186865\r\n<a href=\"geo-sirene_2017052_E_Q.log\">geo-sirene_2017052_E_Q.log</a>
+        \                        06-Apr-2018 16:26               35074\r\n<a href=\"geo-sirene_2017053_E_Q.csv.gz\">geo-sirene_2017053_E_Q.csv.gz</a>
+        \                     06-Apr-2018 16:26             2134519\r\n<a href=\"geo-sirene_2017053_E_Q.log\">geo-sirene_2017053_E_Q.log</a>
+        \                        06-Apr-2018 16:26               44379\r\n<a href=\"geo-sirene_2017054_E_Q.csv.gz\">geo-sirene_2017054_E_Q.csv.gz</a>
+        \                     06-Apr-2018 16:27             2154731\r\n<a href=\"geo-sirene_2017054_E_Q.log\">geo-sirene_2017054_E_Q.log</a>
+        \                        06-Apr-2018 16:27               55088\r\n<a href=\"geo-sirene_2017055_E_Q.csv.gz\">geo-sirene_2017055_E_Q.csv.gz</a>
+        \                     06-Apr-2018 16:24             2087072\r\n<a href=\"geo-sirene_2017055_E_Q.log\">geo-sirene_2017055_E_Q.log</a>
+        \                        06-Apr-2018 16:24               39126\r\n<a href=\"geo-sirene_2017058_E_Q.csv.gz\">geo-sirene_2017058_E_Q.csv.gz</a>
+        \                     06-Apr-2018 16:22             2006961\r\n<a href=\"geo-sirene_2017058_E_Q.log\">geo-sirene_2017058_E_Q.log</a>
+        \                        06-Apr-2018 16:22               39045\r\n<a href=\"geo-sirene_2017059_E_Q.csv.gz\">geo-sirene_2017059_E_Q.csv.gz</a>
+        \                     06-Apr-2018 16:20             2114004\r\n<a href=\"geo-sirene_2017059_E_Q.log\">geo-sirene_2017059_E_Q.log</a>
+        \                        06-Apr-2018 16:20               40879\r\n<a href=\"geo-sirene_2017060_E_Q.csv.gz\">geo-sirene_2017060_E_Q.csv.gz</a>
+        \                     06-Apr-2018 16:17             2226709\r\n<a href=\"geo-sirene_2017060_E_Q.log\">geo-sirene_2017060_E_Q.log</a>
+        \                        06-Apr-2018 16:17               48721\r\n<a href=\"geo-sirene_2017061_E_Q.csv.gz\">geo-sirene_2017061_E_Q.csv.gz</a>
+        \                     06-Apr-2018 16:17             2097876\r\n<a href=\"geo-sirene_2017061_E_Q.log\">geo-sirene_2017061_E_Q.log</a>
+        \                        06-Apr-2018 16:17               40647\r\n<a href=\"geo-sirene_2017062_E_Q.csv.gz\">geo-sirene_2017062_E_Q.csv.gz</a>
+        \                     06-Apr-2018 16:15             1838628\r\n<a href=\"geo-sirene_2017062_E_Q.log\">geo-sirene_2017062_E_Q.log</a>
+        \                        06-Apr-2018 16:15               34476\r\n<a href=\"geo-sirene_2017065_E_Q.csv.gz\">geo-sirene_2017065_E_Q.csv.gz</a>
+        \                     06-Apr-2018 16:16             2138754\r\n<a href=\"geo-sirene_2017065_E_Q.log\">geo-sirene_2017065_E_Q.log</a>
+        \                        06-Apr-2018 16:16               50352\r\n
+        \                        21-Apr-2018 06:05               34298\r\n</pre><hr></body>\r\n</html>\r\n"
+    http_version: 
+  recorded_at: Thu, 30 Mar 2017 22:00:00 GMT
+recorded_with: VCR 4.0.0
