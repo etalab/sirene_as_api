@@ -34,6 +34,7 @@ if ARGV.grep(/spec\.rb/).empty?
       add_filter '/app/mailers/'
       add_filter '/lib/string.rb'
       add_filter '/app/interactors/organizers/'
+      add_filter '/app/jobs/solr_reindex.rb'
   end
 end
 
