@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'spec_helper'
 
 describe UnzipFile do
   patch_filepath = 'spec/fixtures/sample_patches/geo-sirene_2017024_E_Q.csv.gz'
@@ -9,7 +10,7 @@ describe UnzipFile do
 
   context 'when called & The file is already there' do
     before do
-      File.new(expected_unzipped_file_path, 'w+')
+      File.new(expected_unzipped_file_path, 'w')
     end
     
     it 'pass the adress in context' do

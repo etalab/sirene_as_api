@@ -19,7 +19,7 @@ describe DeleteTemporaryFiles do
       'keep_me.gz'
     ]
     @all_files = @files_to_delete + @files_to_keep
-    @all_files.each { |file| File.new("#{@test_folder}/#{file}", 'w+') }
+    @all_files.each { |file| File.new("#{@test_folder}/#{file}", 'w') }
   end
 
   context 'When there are files to delete and files not to delete' do
