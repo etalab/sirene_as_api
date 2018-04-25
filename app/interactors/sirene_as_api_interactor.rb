@@ -61,10 +61,16 @@ class SireneAsAPIInteractor
   end
 
   def current_month
-    time_now.month.to_s
+    # we need to format month from '3' to '03'
+    format('%02d', time_now.month.to_s)
   end
 
   def last_year
     (time_now.year - 1).to_s
+  end
+
+  def last_month
+    return format('%02d', (time_now.month - 1).to_s) if current_month != '01'
+    return '12'
   end
 end

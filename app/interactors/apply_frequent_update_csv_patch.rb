@@ -24,7 +24,6 @@ class ApplyFrequentUpdateCsvPatch < SireneAsAPIInteractor
       total: context.number_of_rows,
       format: 'Progress %c/%C |%b>%i| %a %e'
     )
-
     SmarterCSV.process(context.csv_filename, csv_options) do |chunk|
       UpdateEtablissementRowsJob.new(chunk).perform
       chunk.size.times { progress_bar.increment }
@@ -34,11 +33,11 @@ class ApplyFrequentUpdateCsvPatch < SireneAsAPIInteractor
   def csv_options
     {
       chunk_size: 500,
-      col_sep: ';',
+      col_sep: ',',
       row_sep: "\r\n",
       convert_values_to_numeric: false,
       key_mapping: {},
-      file_encoding: 'windows-1252'
+      file_encoding: 'UTF-8'
     }
   end
 
