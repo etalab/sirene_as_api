@@ -61,7 +61,9 @@
     <!-- *** This fieldType is used by Sunspot! *** -->
     <fieldType name="text" class="solr.TextField" omitNorms="false">
       <analyzer>
-        <tokenizer class="solr.StandardTokenizerFactory"/>
+        <!-- Replacing StandardTokenizer by LetterTokenizer to make anything not a letter a separator -->
+        <!-- <tokenizer class="solr.StandardTokenizerFactory"/> -->
+        <tokenizer class="solr.LetterTokenizerFactory"/>
         <!-- <filter class="solr.StandardFilterFactory"/> -->
         <filter class="solr.LowerCaseFilterFactory"/>
         <!-- <filter class="solr.PorterStemFilterFactory"/> -->
