@@ -478,4 +478,21 @@ describe API::V1::FullTextController do
       expect(number_results).to eq(1)
     end
   end
+
+  # Solr apostrophe management
+  context 'when a name contains an apostrophe', type: :request do
+    let!(:etablissement1) { create(:etablissement, id: 1, nom_raison_sociale: 'lady') }
+    let!(:etablissement2) { create(:etablissement, id: 2, nom_raison_sociale: "M\'lady") }
+    let!(:etablissement3) { create(:etablissement, id: 3, nom_raison_sociale: 'Mlady') }
+    it 'correctly see apostrophe as a separator' do
+      Etablissement.reindex
+
+      get '/v1/full_text/lady'
+
+      result_hash = body_as_json
+      result_etablissements = result_hash.extract!(:etablissement)
+      number_results = result_etablissements[:etablissement].size
+      expect(number_results).to eq(2)
+    end
+  end
 end
