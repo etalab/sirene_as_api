@@ -4,5 +4,6 @@ Rails.application.routes.draw do
     get 'siren/:siren' => '/api/v1/siren#show'
     get 'full_text/:text' => '/api/v1/full_text#show'
     get 'suggest/:suggest_query' => '/api/v1/suggest#show'
+    get 'nearby_etablissements/:siret' => '/api/v1/nearby_etablissements#show'
   end
 end

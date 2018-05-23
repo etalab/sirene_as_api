@@ -6,7 +6,7 @@ class API::V1::FullTextController < ApplicationController
   def show
     page = params[:page] || 1
     per_page = per_page_default_10_max_100
-    fulltext_search(params[:text], page, per_page)
+    fulltext_search(params[:text], page, per_page) # TODO use strong params
   end
 
   private
