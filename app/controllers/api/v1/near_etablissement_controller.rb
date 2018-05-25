@@ -12,6 +12,8 @@ class API::V1::NearEtablissementController < ApplicationController
     search_nearby_etablissements(siret, radius, options)
   end
 
+  private
+
   def search_nearby_etablissements(siret, radius, options)
     etablissement = search_from_siret(siret) || return
 
@@ -69,8 +71,6 @@ class API::V1::NearEtablissementController < ApplicationController
   def render_payload_not_found
     render json: { message: 'no results found' }, status: 404
   end
-
-  private
 
   def near_etablissement_params
     params.permit(:siret, :radius, :only_same_activity, :approximate_same_activity)

@@ -2,8 +2,8 @@ require 'sunspot'
 
 class API::V1::NearPointController < ApplicationController
   def show
-    latitude = latlong_params[:lat] || latlong_params[:latitude]
-    longitude = latlong_params[:long] || latlong_params[:longitude] # test this
+    latitude = latlong_params[:lat]
+    longitude = latlong_params[:long]
     radius = latlong_params[:radius] || 5
 
     render_bad_request && return unless latitude && longitude
@@ -12,6 +12,8 @@ class API::V1::NearPointController < ApplicationController
 
     render_payload(search)
   end
+
+  private
 
   def render_bad_request
     render json: { message: 'bad request: missing latitude or longitude' }, status: 400
@@ -46,9 +48,7 @@ class API::V1::NearPointController < ApplicationController
     render json: { message: 'no results found' }, status: 404
   end
 
-  private
-
   def latlong_params
-    params.permit(:latitude, :longitude, :lat, :long, :radius)
+    params.permit(:lat, :long, :radius)
   end
 end

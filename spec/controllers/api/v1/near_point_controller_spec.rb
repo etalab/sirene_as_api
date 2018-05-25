@@ -25,7 +25,7 @@ describe API::V1::NearPointController do
     it 'return results in 200 payload' do
       Etablissement.reindex
 
-      get '/v1/near_point/?latitude=48.000&longitude=3.000'
+      get '/v1/near_point/?lat=48.000&long=3.000'
 
       result_hash = body_as_json
       expect(body_as_json).to match(
@@ -52,7 +52,7 @@ describe API::V1::NearPointController do
     it 'returns 404 payload' do
       Etablissement.reindex
 
-      get '/v1/near_point/?latitude=20.000&longitude=20.000'
+      get '/v1/near_point/?lat=20.000&long=20.000'
 
       expect(response.body).to look_like_json
       expect(body_as_json).to match(message: 'no results found')
@@ -74,7 +74,7 @@ describe API::V1::NearPointController do
     it 'returns 400 payload' do
       Etablissement.reindex
 
-      get '/v1/near_point/?longitude=20.000'
+      get '/v1/near_point/?long=20.000'
 
       expect(response.body).to look_like_json
       expect(body_as_json).to match(message: 'bad request: missing latitude or longitude')
