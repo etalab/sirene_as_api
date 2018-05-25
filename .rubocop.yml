@@ -10,7 +10,8 @@ Metrics/LineLength:
 
 Metrics/BlockLength:
   Exclude:
-    - 'spec/*/*'
+    - 'spec/**'
+    - 'spec/controllers/api/v1/*'
     - 'db/schema.rb'
 
 Documentation:

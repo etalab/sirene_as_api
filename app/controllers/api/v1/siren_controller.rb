@@ -14,9 +14,7 @@ class API::V1::SirenController < ApplicationController
     results_payload = {
       total_results: @results_sirets.size,
       siege_social: the_siege_etablissement,
-      # siege_name: the_siege_name(results, the_siege_siret), TODO: implement later
       other_etablissements_sirets: not_siege_sirets,
-      # other_etablissements_names: not_siege_names(results), TODO: implement later
       numero_tva_intra: numero_tva_for(params[:siren])
     }
     render json: results_payload, status: 200

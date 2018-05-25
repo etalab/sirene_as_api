@@ -16,7 +16,7 @@ class SolrRequests < SireneAsAPIInteractor
   end
 
   def build_dictionary
-    stdout_info_log 'Building suggester dictionary... This might take a while (~30 mins)'
+    stdout_info_log 'Building suggester dictionary... This might take a while (~1-2 hours)'
     begin
       request_build_dictionary
     rescue StandardError => error
