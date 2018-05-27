@@ -20,6 +20,9 @@ Documentation:
 Style/FrozenStringLiteralComment:
   Enabled: false
 
+Style/ClassAndModuleChildren:
+  EnforcedStyle: compact
+
 Style/PercentLiteralDelimiters:
   PreferredDelimiters:
     default: '{}'

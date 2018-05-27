@@ -42,7 +42,7 @@ describe API::V1::NearEtablissementController do
         total_results: 1,
         total_pages: 1,
         etablissements: result_hash[:etablissements]
-        )
+      )
       expect(result_hash[:etablissements].first[:id]).to eq(2)
       expect(response).to have_http_status(200)
     end
@@ -81,8 +81,8 @@ describe API::V1::NearEtablissementController do
   end
 
   context 'when SIRET isnt found', type: :request do
-    let!(:etablissement_to_not_find) {create(:etablissement, id: 1, siret: '123456')}
-    it 'returns 404 payload' do
+    let!(:etablissement_to_not_find) { create(:etablissement, id: 1, siret: '123456') }
+    it 'returns 400 payload' do
       Etablissement.reindex
 
       get '/v1/near_etablissement/999999'
@@ -216,7 +216,7 @@ describe API::V1::NearEtablissementController do
     it 'find only them if user want to' do
       Etablissement.reindex
 
-      get '/v1/near_etablissement/123456?approximate_same_activity=true'
+      get '/v1/near_etablissement/123456?approximate_activity=true'
 
       result_hash = body_as_json
       expect(response).to have_http_status(200)
@@ -224,6 +224,51 @@ describe API::V1::NearEtablissementController do
       number_results = result_etablissements[:etablissements].size
       expect(number_results).to eq(1)
       expect(result_etablissements[:etablissements].first[:id]).to eq(2)
+    end
+  end
+
+  context 'when specifying the radius', type: :request do
+    let!(:etablissement_to_search) do
+      create(
+        :etablissement,
+        id: 1,
+        siret: '123456',
+        latitude: '48.000001',
+        longitude: '3.000001',
+        activite_principale: '6201Z'
+      )
+    end
+    let!(:etablissement_to_find) do
+      create(
+        :etablissement,
+        id: 2,
+        siret: '123457',
+        latitude: '48.000009',
+        longitude: '3.000009',
+        activite_principale: '6201Z'
+      )
+    end
+    let!(:etablissement_to_find_after) do
+      create(
+        :etablissement,
+        id: 3,
+        siret: '123458',
+        latitude: '49.00000', # Unnamed road in Kazakhstan
+        longitude: '4.000000',
+        activite_principale: '6201Z'
+      )
+    end
+    it 'correctly find the results' do
+      Etablissement.reindex
+
+      get '/v1/near_etablissement/123456'
+
+      result_hash = body_as_json
+      expect(result_hash[:etablissements].size).to eq(1)
+
+      get '/v1/near_etablissement/123456?radius=1000'
+      result_hash = body_as_json
+      expect(result_hash[:etablissements].size).to eq(2)
     end
   end
 end

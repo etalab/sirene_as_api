@@ -2,22 +2,10 @@ require 'sunspot'
 
 class API::V1::NearEtablissementController < ApplicationController
   def show
-    siret = near_etablissement_params[:siret]
-    radius = near_etablissement_params[:radius] || 5
-    options = {
-      only_same_activity: near_etablissement_params[:only_same_activity] || false,
-      approximate_same_activity: near_etablissement_params[:approximate_same_activity] || false
-    }
+    etablissement = search_from_siret || return
+    options = search_options_params
 
-    search_nearby_etablissements(siret, radius, options)
-  end
-
-  private
-
-  def search_nearby_etablissements(siret, radius, options)
-    etablissement = search_from_siret(siret) || return
-
-    search =  search_around_etablissement(etablissement, radius, options)
+    search =  search_around_etablissement(etablissement, options)
     results = search.results
     # Deleting searched etablissement from results
     results.delete(etablissement)
@@ -25,25 +13,38 @@ class API::V1::NearEtablissementController < ApplicationController
     render_payload(search, results)
   end
 
-  def search_from_siret(siret)
+  private
+
+  def search_from_siret
+    siret = near_etablissement_params[:siret]
+
     etablissement = Etablissement.find_by(siret: siret)
     render json: { message: 'invalid SIRET' }, status: 400 if etablissement.nil?
     etablissement
   end
 
-  def search_around_etablissement(etablissement, radius, options)
+  def search_options_params
+    options = {
+      only_same_activity: near_etablissement_params[:only_same_activity] || false,
+      approximate_activity: near_etablissement_params[:approximate_activity] || false,
+      radius: near_etablissement_params[:radius] || 5
+    }
+    options
+  end
+
+  def search_around_etablissement(etablissement, options)
     Etablissement.search do
       # Less precise but faster search with bbox
-      with(:location).in_radius(etablissement[:latitude], etablissement[:longitude], radius, bbox: true)
+      with(:location).in_radius(etablissement[:latitude], etablissement[:longitude], options[:radius], bbox: true)
 
       facet :activite_principale
       with(:activite_principale, etablissement[:activite_principale]) if options[:only_same_activity]
-      if options[:approximate_same_activity]
-        adjust_solr_params do |params|
-          params[:fq].push("activite_principale_s: #{approximated_activity(etablissement)}")
-        end
-      end
+      adjust_solr_params { |params| add_similar_activities(params, etablissement) } if options[:approximate_activity]
     end
+  end
+
+  def add_similar_activities(params, etablissement)
+    params[:fq].push("activite_principale_s: #{approximated_activity(etablissement)}")
   end
 
   def approximated_activity(etablissement)
@@ -73,6 +74,6 @@ class API::V1::NearEtablissementController < ApplicationController
   end
 
   def near_etablissement_params
-    params.permit(:siret, :radius, :only_same_activity, :approximate_same_activity)
+    params.permit(:siret, :radius, :only_same_activity, :approximate_activity)
   end
 end
