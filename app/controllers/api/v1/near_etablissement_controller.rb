@@ -3,7 +3,7 @@ require 'sunspot'
 class API::V1::NearEtablissementController < ApplicationController
   def show
     etablissement = search_from_siret || return
-    options = search_options_params
+    options = options_from_params
 
     search =  search_around_etablissement(etablissement, options)
     results = search.results
@@ -23,28 +23,44 @@ class API::V1::NearEtablissementController < ApplicationController
     etablissement
   end
 
-  def search_options_params
-    options = {
+  def options_from_params
+    {
       only_same_activity: near_etablissement_params[:only_same_activity] || false,
       approximate_activity: near_etablissement_params[:approximate_activity] || false,
-      radius: near_etablissement_params[:radius] || 5
+      radius: near_etablissement_params[:radius] || 5,
+      page: page_param_as_integer,
+      per_page: per_page_default_10_max_100
     }
-    options
+  end
+
+  def page_param_as_integer
+    near_etablissement_params[:page].nil? ? 1 : near_etablissement_params[:page].to_i
+  end
+
+  def per_page_default_10_max_100
+    per_page = near_etablissement_params[:per_page] || 10
+    per_page.to_i < 100 ? per_page : 100
   end
 
   def search_around_etablissement(etablissement, options)
-    Etablissement.search do
+    Etablissement.search do |s|
       # Less precise but faster search with bbox
-      with(:location).in_radius(etablissement[:latitude], etablissement[:longitude], options[:radius], bbox: true)
+      s.with(:location).in_radius(etablissement[:latitude], etablissement[:longitude], options[:radius], bbox: true)
 
-      facet :activite_principale
-      with(:activite_principale, etablissement[:activite_principale]) if options[:only_same_activity]
-      adjust_solr_params { |params| add_similar_activities(params, etablissement) } if options[:approximate_activity]
+      s.paginate page: options[:page], per_page: options[:per_page]
+
+      with_faceting(s, options, etablissement)
     end
   end
 
-  def add_similar_activities(params, etablissement)
-    params[:fq].push("activite_principale_s: #{approximated_activity(etablissement)}")
+  def with_faceting(search, options, etablissement)
+    search.facet :activite_principale
+    search.with(:activite_principale, etablissement[:activite_principale]) if options[:only_same_activity]
+    search.adjust_solr_params { |p| add_similar_activities(p, etablissement) } if options[:approximate_activity]
+  end
+
+  def add_similar_activities(solr_params, etablissement)
+    solr_params[:fq].push("activite_principale_s: #{approximated_activity(etablissement)}")
   end
 
   def approximated_activity(etablissement)
@@ -56,7 +72,7 @@ class API::V1::NearEtablissementController < ApplicationController
     if !results.blank?
       render_payload_success(search, results)
     else
-      render_payload_not_found
+      render json: { message: 'no results found' }, status: 404
     end
   end
 
@@ -64,16 +80,14 @@ class API::V1::NearEtablissementController < ApplicationController
     results_payload = {
       total_results: search.total - 1,
       total_pages: results.total_pages,
+      per_page: results.per_page,
+      page: page_param_as_integer,
       etablissements: results
     }
     render json: results_payload, status: 200
   end
 
-  def render_payload_not_found
-    render json: { message: 'no results found' }, status: 404
-  end
-
   def near_etablissement_params
-    params.permit(:siret, :radius, :only_same_activity, :approximate_activity)
+    params.permit(:siret, :radius, :only_same_activity, :approximate_activity, :page, :per_page)
   end
 end

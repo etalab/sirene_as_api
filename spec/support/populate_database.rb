@@ -30,3 +30,9 @@ def populate_test_database_with_6_all
     create(:etablissement, nom_raison_sociale: 'foobarcompany', nature_mise_a_jour: x)
   end
 end
+
+def populate_with_11_local_companies(latitude, longitude)
+  11.times do
+    create(:etablissement, latitude: latitude, longitude: longitude)
+  end
+end

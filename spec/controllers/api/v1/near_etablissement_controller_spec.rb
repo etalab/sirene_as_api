@@ -41,6 +41,8 @@ describe API::V1::NearEtablissementController do
       expect(body_as_json).to match(
         total_results: 1,
         total_pages: 1,
+        per_page: 10,
+        page: 1,
         etablissements: result_hash[:etablissements]
       )
       expect(result_hash[:etablissements].first[:id]).to eq(2)
@@ -269,6 +271,53 @@ describe API::V1::NearEtablissementController do
       get '/v1/near_etablissement/123456?radius=1000'
       result_hash = body_as_json
       expect(result_hash[:etablissements].size).to eq(2)
+    end
+  end
+
+  context 'when using param per_page', type: :request do
+    let!(:etablissement_to_search) do
+      create(
+        :etablissement,
+        id: 1,
+        siret: '123456',
+        latitude: '48.000001',
+        longitude: '3.000001',
+        activite_principale: '6201Z'
+      )
+    end
+    it 'works' do
+      populate_with_11_local_companies('48.000001', '3.000001')
+      Etablissement.reindex
+
+      get '/v1/near_etablissement/123456'
+      result_hash = body_as_json
+      result_hash.extract!(:etablissements)
+      expect(result_hash).to match(
+        total_results: 11,
+        total_pages: 2,
+        per_page: 10,
+        page: 1
+      )
+
+      get '/v1/near_etablissement/123456?per_page=15'
+      result_hash = body_as_json
+      result_hash.extract!(:etablissements)
+      expect(result_hash).to match(
+        total_results: 11,
+        total_pages: 1,
+        per_page: 15,
+        page: 1
+      )
+
+      get '/v1/near_etablissement/123456?per_page=5&page=2'
+      result_hash = body_as_json
+      result_hash.extract!(:etablissements)
+      expect(result_hash).to match(
+        total_results: 11,
+        total_pages: 3,
+        per_page: 5,
+        page: 2
+      )
     end
   end
 end

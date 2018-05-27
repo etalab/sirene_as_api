@@ -5,7 +5,7 @@ class SolrRequests < SireneAsAPIInteractor
   attr_accessor :keyword
 
   def initialize *keywords
-    keyword = keywords[0].to_s.gsub(/[+<>=&,;\n]/, ' ') # Get first word in params & Prevent Solr injections
+    keyword = keywords[0].to_s.gsub(/[+<>'"=&,;\n]/, ' ') # Get first word in params & Prevent Solr injections
     @keyword = URI.decode(keyword)
   end
 
