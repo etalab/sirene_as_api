@@ -19,7 +19,6 @@
 ENV['RAILS_ENV'] ||= 'test'
 
 require 'vcr'
-# require_relative "./../app/models/etablissement.rb"
 
 # Test coverage options (activated only if rspec is run without arguments)
 if ARGV.grep(/spec\.rb/).empty?

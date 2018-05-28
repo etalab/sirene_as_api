@@ -19,7 +19,7 @@ describe API::V1::SuggestController do
       expect(request_instance).to receive(:get_suggestions).and_return('')
       get "/v1/suggest/#{keyword}"
       result_hash = body_as_json
-      expect(result_hash).to match( message: 'no suggestions found' )
+      expect(result_hash).to match( message: 'no suggestions found')
       expect(response).to have_http_status(404)
     end
 
@@ -31,7 +31,7 @@ describe API::V1::SuggestController do
       expect(request_instance).to receive(:get_suggestions).and_return('example suggestion')
       get "/v1/suggest/#{keyword}"
       result_hash = body_as_json
-      expect(result_hash).to match( suggestions: 'example suggestion' )
+      expect(result_hash).to match(suggestions: 'example suggestion')
       expect(response).to have_http_status(200)
     end
   end

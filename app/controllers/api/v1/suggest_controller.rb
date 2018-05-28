@@ -1,6 +1,6 @@
 class API::V1::SuggestController < ApplicationController
   def show
-    keyword = params[:suggest_query]
+    keyword = params[:suggest_query] # TODO use strong params
     return if keyword.empty?
     suggestions = SolrRequests.new(keyword).get_suggestions
     if suggestions.empty?
