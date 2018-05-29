@@ -1,6 +1,6 @@
 class API::V1::SirenController < ApplicationController
   def show
-    @results = Etablissement.where(siren: params[:siren])
+    @results = Etablissement.where(siren: params[:siren]) # TODO use strong params
     @results_sirets = @results.pluck(:siret)
 
     if !@results.blank?
@@ -14,9 +14,8 @@ class API::V1::SirenController < ApplicationController
     results_payload = {
       total_results: @results_sirets.size,
       siege_social: siege_etablissement,
-      # siege_name: the_siege_name(results, siege_siret), TODO: implement later
+      # siege_name: siege_name(results, siege_siret), TODO: implement later
       other_etablissements_sirets: not_siege_sirets,
-      # other_etablissements_names: not_siege_names(results), TODO: implement later
       numero_tva_intra: numero_tva_for(params[:siren])
     }
     render json: results_payload, status: 200
