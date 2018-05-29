@@ -10,10 +10,16 @@ la servant sous forme d'API.
 
 Le projet se découpe en trois sous-projets :
 
-  - Une API Ruby on Rails qui importe les fichiers de données
-    mis à disposition par l'INSEE : [sirene_as_api](https://github.com/sgmap/sirene_as_api)
-  - Un script capable de déployer l'API automatiquement : [sirene_as_api_ansible](https://github.com/sgmap/sirene_as_api_ansible)
-  - Une interface web de recherche exploitant l'API en Vue.js : [sirene_as_api_front](https://github.com/sgmap/sirene_as_api_front)
+- Une API Ruby on Rails qui importe les fichiers de données
+mis à disposition par l'INSEE : [sirene_as_api](https://github.com/sgmap/sirene_as_api)
+
+- Un script capable de déployer l'API automatiquement : [sirene_as_api_ansible](https://github.com/sgmap/sirene_as_api_ansible)
+
+- Une interface web de recherche exploitant l'API en Vue.js : [sirene_as_api_front](https://github.com/sgmap/sirene_as_api_front)
+
+## ⚠️ Breaking changes ⚠️
+
+- **02/06/2018** Sur l'endpoint `/v1/siren/`, la propriété `siege_social` affichait jusque là le hash de l'établissement dans un array. Elle affiche dorénavant directement le hash.
 
 ## Qualification des fichiers mis à disposition par l'INSEE
 
