@@ -53,12 +53,12 @@ def run_search_with_main_options(keyword)
 
     # Matches on name scores x3, on commune name scores x2
     fields(
-      :nom_raison_sociale => 3.0,
-      :libelle_commune => 2.0,
-      :libelle_activite_principale_entreprise => 1.0,
-      :l4_normalisee => 1.0,
-      :l2_normalisee => 1.0,
-      :enseigne => 1.0
+      nom_raison_sociale: 3.0,
+      libelle_commune: 2.0,
+      libelle_activite_principale_entreprise: 1.0,
+      l4_normalisee: 1.0,
+      l2_normalisee: 1.0,
+      enseigne: 1.0
     )
 
     # Better scoring for phrases, with words separated up until 1 word.
