@@ -1,0 +1,146 @@
+---
+http_interactions:
+- request:
+    method: head
+    uri: http://data.cquest.org/
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.13.12
+      Date:
+      - Wed, 06 Jun 2018 09:35:24 GMT
+      Content-Type:
+      - text/html; charset=utf-8
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Sat, 31 Mar 2018 22:00:00 GMT
+- request:
+    method: get
+    uri: http://data.cquest.org/geo_sirene
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 301
+      message: Moved Permanently
+    headers:
+      Server:
+      - nginx/1.13.12
+      Date:
+      - Wed, 06 Jun 2018 09:35:24 GMT
+      Content-Type:
+      - text/html
+      Content-Length:
+      - '186'
+      Location:
+      - http://data.cquest.org/geo_sirene/
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: "<html>\r\n<head><title>301 Moved Permanently</title></head>\r\n<body
+        bgcolor=\"white\">\r\n<center><h1>301 Moved Permanently</h1></center>\r\n<hr><center>nginx/1.13.12</center>\r\n</body>\r\n</html>\r\n"
+    http_version: 
+  recorded_at: Sat, 31 Mar 2018 22:00:00 GMT
+- request:
+    method: get
+    uri: http://data.cquest.org/geo_sirene/
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.13.12
+      Date:
+      - Wed, 06 Jun 2018 09:35:24 GMT
+      Content-Type:
+      - text/html; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+    body:
+      encoding: ASCII-8BIT
+      string: "<html>\r\n<head><title>Index of /geo_sirene/</title></head>\r\n<body
+        bgcolor=\"white\">\r\n<h1>Index of /geo_sirene/</h1><hr><pre><a href=\"../\">../</a>\r\n<a
+        href=\"2017-12/\">2017-12/</a>                                           05-Jan-2018
+        23:24                   -\r\n<a href=\"2018-01/\">2018-01/</a>                                           02-Feb-2018
+        18:07                   -\r\n<a href=\"2018-02/\">2018-02/</a>                                           02-Mar-2018
+        19:54                   -\r\n<a href=\"last/\">last/</a>                                              01-Jun-2018
+        19:54                   -\r\n<a href=\"quotidien/\">quotidien/</a>                                         05-Jun-2018
+        14:06                   -\r\n<a href=\"LISEZMOI.txt\">LISEZMOI.txt</a>                                       02-May-2018
+        08:53                 895\r\n</pre><hr></body>\r\n</html>\r\n"
+    http_version: 
+  recorded_at: Sat, 31 Mar 2018 22:00:00 GMT
+- request:
+    method: head
+    uri: http://data.cquest.org/geo_sirene/2018-02/geo_sirene.csv.gz
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.13.12
+      Date:
+      - Wed, 06 Jun 2018 09:35:25 GMT
+      Content-Type:
+      - application/octet-stream
+      Content-Length:
+      - '1619565537'
+      Last-Modified:
+      - Fri, 01 Jun 2018 19:45:55 GMT
+      Connection:
+      - keep-alive
+      Etag:
+      - '"5b11a273-60889be1"'
+      Accept-Ranges:
+      - bytes
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Sat, 31 Mar 2018 22:00:00 GMT
+recorded_with: VCR 4.0.0
