@@ -13,23 +13,24 @@ class API::V1::SirenController < ApplicationController
   def render_payload_siren
     results_payload = {
       total_results: @results_sirets.size,
-      siege_social: the_siege_etablissement,
+      siege_social: siege_etablissement,
+      # siege_name: siege_name(results, siege_siret), TODO: implement later
       other_etablissements_sirets: not_siege_sirets,
       numero_tva_intra: numero_tva_for(params[:siren])
     }
     render json: results_payload, status: 200
   end
 
-  def the_siege_siret
-    the_siege_etablissement.where(is_siege: '1').pluck(:siret)
+  def siege_siret
+    siege_etablissement[:siret]
   end
 
-  def the_siege_etablissement
-    @results.where(is_siege: '1')
+  def siege_etablissement
+    @results.where(is_siege: '1').first
   end
 
   def not_siege_sirets
-    @results_sirets.reject { |siret| the_siege_siret.include?(siret) }
+    @results_sirets.reject { |siret| siege_siret.include?(siret) }
   end
 
   def numero_tva_for(siren)

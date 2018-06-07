@@ -42,7 +42,7 @@ describe API::V1::SirenController do
         other_etablissements_sirets: [siret_brother, siret_sister],
         numero_tva_intra: 'FR32123456789'
       )
-      expect(result_siege_social[:siege_social][0][:siret]).to eq(siret_father)
+      expect(result_siege_social[:siege_social][:siret]).to eq(siret_father)
     end
   end
 end
