@@ -41,18 +41,16 @@ describe API::V1::NearEtablissementGeojsonController do
       get '/v1/near_etablissement_geojson/123456'
 
       expect(body_as_json).to match(
-        {
-          "type": "FeatureCollection",
-          "total_results": 1,
-          "features": [{
-            "type": "Feature",
-            "geometry":{
-              "type": "Point",
-              "coordinates": [3.000002, 48.000002]
-            },
-            "properties": { "name": 'FindMe' }
-          }]
-        }
+        'type': 'FeatureCollection',
+        'total_results': 1,
+        'features': [{
+          'type': 'Feature',
+          'geometry': {
+            'type': 'Point',
+            'coordinates': [3.000002, 48.000002]
+          },
+          'properties': { 'name': 'FindMe' }
+        }]
       )
       expect(response).to have_http_status(200)
     end
@@ -141,7 +139,7 @@ describe API::V1::NearEtablissementGeojsonController do
 
       result_hash = body_as_json
       expect(response).to have_http_status(200)
-      number_results = result_hash[:"features"].size
+      number_results = result_hash[:features].size
       expect(number_results).to eq(2)
     end
   end
@@ -187,9 +185,9 @@ describe API::V1::NearEtablissementGeojsonController do
 
       result_hash = body_as_json
       expect(response).to have_http_status(200)
-      number_results = result_hash[:"features"].size
+      number_results = result_hash[:features].size
       expect(number_results).to eq(1)
-      expect(result_hash[:"features"].first[:"properties"][:"name"]).to eq('FindMe')
+      expect(result_hash[:features].first[:properties][:name]).to eq('FindMe')
     end
   end
 
@@ -234,9 +232,9 @@ describe API::V1::NearEtablissementGeojsonController do
 
       result_hash = body_as_json
       expect(response).to have_http_status(200)
-      number_results = result_hash[:"features"].size
+      number_results = result_hash[:features].size
       expect(number_results).to eq(1)
-      expect(result_hash[:"features"].first[:"properties"][:"name"]).to eq('FindMe')
+      expect(result_hash[:features].first[:properties][:name]).to eq('FindMe')
     end
   end
 
@@ -277,11 +275,11 @@ describe API::V1::NearEtablissementGeojsonController do
       get '/v1/near_etablissement_geojson/123456'
 
       result_hash = body_as_json
-      expect(result_hash[:"features"].size).to eq(1)
+      expect(result_hash[:features].size).to eq(1)
 
       get '/v1/near_etablissement_geojson/123456?radius=1000'
       result_hash = body_as_json
-      expect(result_hash[:"features"].size).to eq(2)
+      expect(result_hash[:features].size).to eq(2)
     end
   end
 end
