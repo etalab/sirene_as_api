@@ -19,6 +19,8 @@ class Etablissement < ApplicationRecord
     string :nature_entrepreneur_individuel
     string :statut_prospection
     string :tranche_effectif_salarie_entreprise
+    string :departement
+    string :commune
     latlon(:location) { Sunspot::Util::Coordinates.new(latitude, longitude) }
   end
 

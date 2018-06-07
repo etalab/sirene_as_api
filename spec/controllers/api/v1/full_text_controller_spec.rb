@@ -114,7 +114,7 @@ describe API::V1::FullTextController do
     end
   end
 
-   # Boosting works better on name, then commune, then other fields
+  # Boosting works better on name, then commune, then other fields
   context 'when fulltext searching an Etablissement name & a Commune name & adress & activite_principale', type: :request do
     let!(:etablissement1) { create(:etablissement, id: 1, nom_raison_sociale: 'TEST') }
     let!(:etablissement2) { create(:etablissement, id: 2, l4_normalisee: 'TEST') }
@@ -199,7 +199,7 @@ describe API::V1::FullTextController do
         per_page: 100,
         page: 1,
         spellcheck: nil,
-        suggestions: ["foobarcompany"]
+        suggestions: ['foobarcompany']
       )
     end
   end
@@ -221,7 +221,7 @@ describe API::V1::FullTextController do
         per_page: 10,
         page: 1,
         spellcheck: nil,
-        suggestions: ["foobarcompany"]
+        suggestions: ['foobarcompany']
       )
       name_result = result_etablissements[:etablissement][0][:nom_raison_sociale]
       expect(name_result).to match('foobarcompany')
@@ -246,7 +246,7 @@ describe API::V1::FullTextController do
         per_page: 10,
         page: 1,
         spellcheck: nil,
-        suggestions: ["foobarcompany"]
+        suggestions: ['foobarcompany']
       )
       name_result = result_etablissements[:etablissement][0][:nom_raison_sociale]
       expect(name_result).to match('foobarcompany')
@@ -385,6 +385,44 @@ describe API::V1::FullTextController do
       result_etablissements = result_hash.extract!(:etablissement)
       number_results = result_etablissements[:etablissement].size
       expect(number_results).to eq(1)
+    end
+  end
+
+  # Params filter departement
+  context 'when doing a search filtering by department', type: :request do
+    let!(:etablissement) { create(:etablissement, id: 1, nom_raison_sociale: 'foobarcompany', departement: '75') }
+    let!(:etablissement2) { create(:etablissement, id: 2, nom_raison_sociale: 'foobarcompany', departement: '06') }
+    let!(:etablissement3) { create(:etablissement, id: 3, nom_raison_sociale: 'foobarcompany', departement: '34') }
+    let!(:etablissement4) { create(:etablissement, id: 4, nom_raison_sociale: 'foobarcompany') }
+    it 'works' do
+      Etablissement.reindex
+
+      get '/v1/full_text/foobarcompany?departement=34'
+
+      result_hash = body_as_json
+      result_etablissements = result_hash.extract!(:etablissement)
+      number_results = result_etablissements[:etablissement].size
+      expect(number_results).to eq(1)
+      expect(result_etablissements[:etablissement].first[:id]).to eq(3)
+    end
+  end
+
+  # Params filter code_commune
+  context 'when doing a search filtering by code_commune', type: :request do
+    let!(:etablissement) { create(:etablissement, id: 1, nom_raison_sociale: 'foobarcompany', commune: '175', departement: '11') }
+    let!(:etablissement2) { create(:etablissement, id: 2, nom_raison_sociale: 'foobarcompany', commune: '186', departement: '11') }
+    let!(:etablissement3) { create(:etablissement, id: 3, nom_raison_sociale: 'foobarcompany', commune: '34', departement: '08') }
+    let!(:etablissement4) { create(:etablissement, id: 4, nom_raison_sociale: 'foobarcompany') }
+    it 'works' do
+      Etablissement.reindex
+
+      get '/v1/full_text/foobarcompany?code_commune=11186'
+
+      result_hash = body_as_json
+      result_etablissements = result_hash.extract!(:etablissement)
+      number_results = result_etablissements[:etablissement].size
+      expect(number_results).to eq(1)
+      expect(result_etablissements[:etablissement].first[:id]).to eq(2)
     end
   end
 
