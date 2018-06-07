@@ -26,7 +26,7 @@ class API::V1::NearEtablissementGeojsonController < API::V1::NearEtablissementCo
   def format_as_json(search, results)
     {
       "type": 'FeatureCollection',
-      "\"total_results\"": search.total - 1,
+      "total_results": search.total - 1,
       "features": json_results(results)
     }
   end
