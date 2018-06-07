@@ -26,14 +26,14 @@ if ARGV.grep(/spec\.rb/).empty?
   require 'simplecov-console'
   SimpleCov.formatter = SimpleCov.formatter = SimpleCov::Formatter::Console
   SimpleCov.start 'rails' do
-      add_filter '/app/channels/'
-      add_filter '/app/jobs/etablissement_attrs_from_line.rb'
-      add_filter '/app/interactors/set_automatic_context.rb'
-      add_filter '/app/jobs/application_job.rb'
-      add_filter '/app/mailers/'
-      add_filter '/lib/string.rb'
-      add_filter '/app/interactors/organizers/'
-      add_filter '/app/jobs/solr_reindex.rb'
+    add_filter '/app/channels/'
+    add_filter '/app/jobs/etablissement_attrs_from_line.rb'
+    add_filter '/app/interactors/set_automatic_context.rb'
+    add_filter '/app/jobs/application_job.rb'
+    add_filter '/app/mailers/'
+    add_filter '/lib/string.rb'
+    add_filter '/app/interactors/organizers/'
+    add_filter '/app/jobs/solr_reindex.rb'
   end
 end
 

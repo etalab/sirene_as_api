@@ -1,3 +1,5 @@
+require 'net/http'
+
 class UpdateDatabase < SireneAsAPIInteractor
   include Interactor
 
@@ -19,7 +21,7 @@ class UpdateDatabase < SireneAsAPIInteractor
     if last_saved_monthly_stock_name == last_published_stock_name
       stdout_success_log('Last monthly stock link have already been applied')
       SelectAndApplyPatches.call
-    elsif last_saved_monthly_stock_name > last_published_stock_name
+    elsif last_saved_monthly_stock_name > context.link
       stdout_error_log('An error occurred : it seems the database is more recent than the last published link.')
     else
       destroy_and_rebuild_database
@@ -27,7 +29,8 @@ class UpdateDatabase < SireneAsAPIInteractor
   end
 
   def last_published_stock_name
-    GetLastMonthlyStockLink.call.link
+    # Saving the link in context to not call GetLastMonthlyStockLink more than once
+    context.link = GetLastMonthlyStockLink.call.link
   end
 
   def last_saved_monthly_stock_name
@@ -35,7 +38,7 @@ class UpdateDatabase < SireneAsAPIInteractor
   end
 
   def destroy_and_rebuild_database
-    stdout_info_log 'New monthly stock available : dropping and rebuilding database from last monthly stock link...'
+    stdout_info_log 'Dropping and rebuilding database from last monthly stock link...'
     return unless user_accept_operation
     begin
       DeleteDatabase.call
