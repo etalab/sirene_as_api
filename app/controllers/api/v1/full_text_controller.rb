@@ -36,6 +36,7 @@ class API::V1::FullTextController < ApplicationController
       without_statut_prospection if FILTER_NATURE_PROSPECTION
       # Filter for entrepreneur individuel if asked
       with_filter_entrepreneur_individuel if params[:is_entrepreneur_individuel].present?
+      with_filter_code_commune if params[:code_commune].present?
       # Spellcheck / pagination
       spellcheck count: 2
       paginate page: page, per_page: per_page
@@ -82,6 +83,8 @@ def with_faceting_options
   with(:code_postal, params[:code_postal]) if params[:code_postal].present?
   facet :is_ess
   with(:is_ess, params[:is_ess]) if params[:is_ess].present?
+  facet :departement
+  with(:departement, params[:departement]) if params[:departement].present? 
 end
 
 def without_statut_prospection
@@ -95,6 +98,13 @@ def with_filter_entrepreneur_individuel
   elsif params[:is_entrepreneur_individuel] == 'no'
     without(:nature_entrepreneur_individuel, ('1'..'9').to_a)
   end
+end
+
+def with_filter_code_commune
+  facet :departement
+  with(:departement, params[:code_commune].slice(0, 2))
+  facet :commune
+  with(:commune, params[:code_commune].slice(2, 3))
 end
 
 def order_results_options
