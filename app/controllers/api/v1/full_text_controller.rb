@@ -6,7 +6,7 @@ class API::V1::FullTextController < ApplicationController
   def show
     page = params[:page] || 1
     per_page = per_page_default_10_max_100
-    fulltext_search(params[:text], page, per_page) # TODO use strong params
+    fulltext_search(params[:text], page, per_page)
   end
 
   private
@@ -50,15 +50,14 @@ end
 
 def run_search_with_main_options(keyword)
   fulltext keyword do
-
     # Matches on name scores x3, on commune name scores x2
     fields(
-      :nom_raison_sociale => 3.0,
-      :libelle_commune => 2.0,
-      :libelle_activite_principale_entreprise => 1.0,
-      :l4_normalisee => 1.0,
-      :l2_normalisee => 1.0,
-      :enseigne => 1.0
+      nom_raison_sociale: 3.0,
+      libelle_commune: 2.0,
+      libelle_activite_principale_entreprise: 1.0,
+      l4_normalisee: 1.0,
+      l2_normalisee: 1.0,
+      enseigne: 1.0
     )
 
     # Better scoring for phrases, with words separated up until 1 word.
@@ -125,7 +124,7 @@ def render_payload_not_found(query, search)
   render json: results_payload, status: 404
 end
 
-def request_suggestions(query) # REVIEW : Security problem ?...
+def request_suggestions(query)
   SolrRequests.new(query).get_suggestions
 end
 
