@@ -1,6 +1,6 @@
 class API::V1::SirenController < ApplicationController
   def show
-    @results = Etablissement.where(siren: params[:siren])
+    @results = Etablissement.where(siren: siren_params[:siren])
     @results_sirets = @results.pluck(:siret)
 
     if !@results.blank?
@@ -10,13 +10,15 @@ class API::V1::SirenController < ApplicationController
     end
   end
 
+  private
+
   def render_payload_siren
     results_payload = {
       total_results: @results_sirets.size,
       siege_social: siege_etablissement,
       # siege_name: siege_name(results, siege_siret), TODO: implement later
       other_etablissements_sirets: not_siege_sirets,
-      numero_tva_intra: numero_tva_for(params[:siren])
+      numero_tva_intra: numero_tva_for(siren_params[:siren])
     }
     render json: results_payload, status: 200
   end

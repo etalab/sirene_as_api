@@ -4,15 +4,15 @@ class API::V1::FullTextController < ApplicationController
   FILTER_NATURE_PROSPECTION = true
 
   def show
-    page = params[:page] || 1
+    page = fulltext_params[:page] || 1
     per_page = per_page_default_10_max_100
-    fulltext_search(params[:text], page, per_page)
+    fulltext_search(fulltext_params[:text], page, per_page)
   end
 
   private
 
   def per_page_default_10_max_100
-    per_page = params[:per_page] || 10
+    per_page = fulltext_params[:per_page] || 10
     per_page.to_i < 100 ? per_page : 100
   end
 
@@ -35,8 +35,8 @@ class API::V1::FullTextController < ApplicationController
       # Scoping
       without_statut_prospection if FILTER_NATURE_PROSPECTION
       # Filter for entrepreneur individuel if asked
-      with_filter_entrepreneur_individuel if params[:is_entrepreneur_individuel].present?
-      with_filter_code_commune if params[:code_commune].present?
+      with_filter_entrepreneur_individuel if fulltext_params[:is_entrepreneur_individuel].present?
+      with_filter_code_commune if fulltext_params[:code_commune].present?
       # Spellcheck / pagination
       spellcheck count: 2
       paginate page: page, per_page: per_page
@@ -78,13 +78,13 @@ end
 
 def with_faceting_options
   facet :activite_principale
-  with(:activite_principale, params[:activite_principale]) if params[:activite_principale].present?
+  with(:activite_principale, fulltext_params[:activite_principale]) if fulltext_params[:activite_principale].present?
   facet :code_postal
-  with(:code_postal, params[:code_postal]) if params[:code_postal].present?
+  with(:code_postal, fulltext_params[:code_postal]) if fulltext_params[:code_postal].present?
   facet :is_ess
-  with(:is_ess, params[:is_ess]) if params[:is_ess].present?
+  with(:is_ess, fulltext_params[:is_ess]) if fulltext_params[:is_ess].present?
   facet :departement
-  with(:departement, params[:departement]) if params[:departement].present? 
+  with(:departement, fulltext_params[:departement]) if fulltext_params[:departement].present? 
 end
 
 def without_statut_prospection
@@ -93,18 +93,18 @@ def without_statut_prospection
 end
 
 def with_filter_entrepreneur_individuel
-  if params[:is_entrepreneur_individuel] == 'yes'
+  if fulltext_params[:is_entrepreneur_individuel] == 'yes'
     with(:nature_entrepreneur_individuel, ('1'..'9').to_a)
-  elsif params[:is_entrepreneur_individuel] == 'no'
+  elsif fulltext_params[:is_entrepreneur_individuel] == 'no'
     without(:nature_entrepreneur_individuel, ('1'..'9').to_a)
   end
 end
 
 def with_filter_code_commune
   facet :departement
-  with(:departement, params[:code_commune].slice(0, 2))
+  with(:departement, fulltext_params[:code_commune].slice(0, 2))
   facet :commune
-  with(:commune, params[:code_commune].slice(2, 3))
+  with(:commune, fulltext_params[:code_commune].slice(2, 3))
 end
 
 def order_results_options
@@ -136,6 +136,20 @@ end
 
 def request_suggestions(query)
   SolrRequests.new(query).get_suggestions
+end
+
+def fulltext_params
+  params.permit(
+    :text,
+    :page,
+    :per_page,
+    :is_entrepreneur_individuel,
+    :code_commune,
+    :activite_principale,
+    :code_postal,
+    :is_ess,
+    :departement
+  )
 end
 
 # Code below used to debug Solr Spellchecking.
