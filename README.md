@@ -1,3 +1,4 @@
+
 [![Maintainability](https://api.codeclimate.com/v1/badges/cb7334374140808435c3/maintainability)](https://codeclimate.com/github/betagouv/sirene_as_api/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/cb7334374140808435c3/test_coverage)](https://codeclimate.com/github/betagouv/sirene_as_api/test_coverage)
 
 # SIRENE_as_api
@@ -10,8 +11,7 @@ la servant sous forme d'API.
 
 Le projet se découpe en trois sous-projets :
 
-- Une API Ruby on Rails qui importe les fichiers de données
-mis à disposition par l'INSEE : [sirene_as_api](https://github.com/sgmap/sirene_as_api)
+- Une API Ruby on Rails qui importe les fichiers de données mis à disposition par l'INSEE : [sirene_as_api](https://github.com/sgmap/sirene_as_api)
 
 - Un script capable de déployer l'API automatiquement : [sirene_as_api_ansible](https://github.com/sgmap/sirene_as_api_ansible)
 
@@ -51,7 +51,7 @@ réindexation automatique.
 
 # Requêtes
 
-Trois endpoints sont disponibles sur l'API :
+Trois endpoints principaux sont disponibles sur l'API :
 
 ## Recherche FullText
 
@@ -100,8 +100,10 @@ Les options suivantes de filtrage sont disponibles :
 
 | Filtrage désiré                                           | Requête GET               | Valeur                                              |
 |-----------------------------------------------------------|---------------------------|-----------------------------------------------------|
-| Activité principale de l'entreprise                       | activite_principale       | Le code `activité principale` désiré                |
+| Activité principale de l'entreprise (code NAF)                       | activite_principale       | Le code `activité principale` (code NAF)                |
 | Code postal                                               | code_postal               | Le code postal désiré                               |
+| Code commune INSEE                                             | code_commune              | Le code INSEE de la commune                     |
+| Departement                                               | departement               | Le departement désiré                               |
 | Appartenance au champs de l'économie sociale et solidaire | is_ess                    | `O` pour Oui, `N` pour Non, `I` pour Invalide       |
 | Entreprises individuelles                                 | is_entrepreneur_individuel| `yes` pour Oui, `no` pour Non                       |
 
@@ -129,10 +131,57 @@ La requête se fait par :
     curl 'localhost:3000/v1/siren/MON_SIREN'
 
 l'API renvoie :
-  - Le nombre total de sirets existants à partir de ce siren.
-  - Les données de l'établissement siège correspondant à ce siren.
-  - La liste des sirets enfants (sirets correspondants à ce siren & qui ne sont pas le siège de l'établissement)
-  - Le numéro de TVA intracommunautaire.
+
+- Le nombre total de sirets existants à partir de ce siren.
+- Les données de l'établissement siège correspondant à ce siren.
+- La liste des sirets enfants (sirets correspondants à ce siren & qui ne sont pas le siège de l'établissement)
+- Le numéro de TVA intracommunautaire.
+
+## Autres endpoints
+
+Un endpoint spécial "suggestions de recherche" est disponible :
+
+    curl 'localhost:3000/v1/suggest/MA_RECHERCHE'
+
+# Recherche par géolocalisation
+
+L'API intègre dorénavant la géolocalisation des établissements.
+
+## Établissements autour d'un point
+
+La requête se fait par :
+
+    curl 'localhost:3000/v1/near_point/?lat=LATITUDE&long=LONGITUDE'
+
+Oú LATITUDE et LONGITUDE sont un point autour duquel vous désirez chercher des établissements. Vous pouvez également préciser le radius de recherche jusqu'a 100 km (défaut: 5km). Les résultats sont paginés de la même façon que précedemment.
+
+## Établissements autour d'un autre établissement
+
+La requête se fait par :
+
+    curl 'localhost:3000/v1/near_etablissement/SIRET'
+
+avec SIRET le siret de l'établissement autour duquel chercher.
+
+| Filtrage désiré                                           | Requête GET               | Valeur                                              |
+|-----------------------------------------------------------|---------------------------|-----------------------------------------------------|
+| Seulement les établissements avec la même activité principale (code NAF) | only_same_activity               | true / false (défaut: false) |
+| Seulement les établissements avec une activité principale proche | approximate_activity               | true / false (défaut: false) |
+| Radius de recherche | radius               | Entier ou flottant |
+
+Le système de pagination étant toujours là, les paramètres `page` ou `per_page` sont disponibles.
+
+## Établissements autout d'un autre établissement, format GeoJSON
+
+Si vous désirez l'endpoint précedent au format GeoJSON, la requête se fait par :
+
+    curl 'localhost:3000/v1/near_etablissement_geojson/SIRET'
+
+Les résultats ne sont pas paginés.
+
+Afin d'éviter une surcharge du serveur, seuls les 500 établissements les plus proches sont retournés. Cette option est modifiable dans le controller /app/controllers/api/v1/near_etablissement_geojson_controller.rb si vous désirez installer votre propre version de l'API.
+
+Les mêmes filtres que /near_etablissement/ sont disponibles.
 
 # Installation et configuration
 
@@ -143,12 +192,13 @@ et utiliser les scripts de déploiement automatiques.
 ## Installation manuelle en environnement dev
 
 Pour une installation manuelle, vous aurez besoin de :
-* postgresql en version supérieure a 9.5, la dernière version stable de
+
+- postgresql en version supérieure a 9.5, la dernière version stable de
   préférence
-* ruby en version 2.4.2
-* git installé
-* bundler installé
-* un runtime java pour solr
+- ruby en version 2.4.2
+- git installé
+- bundler installé
+- un runtime java pour solr
 
  Pour vous simplifier la tâche, nous vous conseillons d'utiliser le script Ansible mis a disposition pour déployer votre
  architecture. Une tâche [Mina](https://github.com/mina-deploy/mina) est également disponible (fichier config/deploy.rb).
@@ -263,9 +313,11 @@ suppression / réimportation du fichier stock au début de chaque mois.
   si vous souhaiter effectuer des opérations en `development`.
 
 ### Demarrer le serveur
+
     bundle exec rake sunspot:solr:start
 
 ### Arreter le serveur
+
     bundle exec rake sunspot:solr:stop
 
 ### Réindexation
@@ -283,6 +335,8 @@ ou avec la commande suivante :
     bundle exec rake sirene_as_api:build_dictionary
 
 # Problèmes fréquents
+
+Si l'API ne renvoie aucun résultat sur la recherche `fulltext` mais que la recherche `siret` fonctionne, vous avez sans doute besoin de réindexer. Tentez `RAILS_ENV=MonEnvironnement bundle exec rake sunspot:solr:reindex` (le server solr doit être actif).
 
 En cas de problèmes avec le serveur solr, il peut être nécessaire de tuer les processus Solr en cours (obtenir le PID solr avec `ps aux | grep solr` puis les tuer avec la commande `kill MonPidSolr`). Relancer le serveur avec `RAILS_ENV=MonEnvironnement bundle exec rake sunspot:solr:start` suffit en général à corriger la situation.
 
