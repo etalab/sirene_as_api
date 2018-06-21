@@ -49,6 +49,10 @@ Une commande Rake est disponible pour mettre à jour la base de données
 (Cf. liste des tâches plus bas). Toute mise à jour est suivie par une
 réindexation automatique.
 
+### Limitations des fichiers Sirene
+
+L'INSEE ne délivre pour le moment pas les établissements refusant la prospection commerciale. Ces établissements sont donc manquants de la base Sirene.
+
 # Requêtes
 
 Trois endpoints principaux sont disponibles sur l'API :
