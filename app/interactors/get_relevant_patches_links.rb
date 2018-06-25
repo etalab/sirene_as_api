@@ -16,10 +16,10 @@ class GetRelevantPatchesLinks < SireneAsAPIInteractor
   end
 
   def call
-    # Long task here, we activate a loader but not during tests
-    Whirly.start spinner: "arrow3" if Rails.env != 'test'
+    # Long task here, we activate a loader if in development
+    Whirly.start spinner: 'arrow3' if Rails.env == 'development'
     relevant_patches_relative_links = select_all_patches_after_(padded_latest_etablissement_mise_a_jour_day_number)
-    Whirly.stop
+    Whirly.stop if Rails.env == 'development'
 
     unless context.rebuilding_database
       relevant_patches_relative_links =
@@ -86,7 +86,7 @@ class GetRelevantPatchesLinks < SireneAsAPIInteractor
 
   def padded_latest_etablissement_mise_a_jour_day_number
     @padded_latest_etablissement_mise_a_jour_day_number ||= begin
-      stdout_info_log 'Computing next patch that should be applied'
+      stdout_info_log 'Computing next patch that should be applied...'
       latest_etablissement_mise_a_jour = Etablissement.latest_mise_a_jour
       day_number = Date.parse(latest_etablissement_mise_a_jour).yday
       padded_day_number = day_number.to_s.rjust(3, '0')
