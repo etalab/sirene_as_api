@@ -157,7 +157,7 @@ La requête se fait par :
 
     curl 'localhost:3000/v1/near_point/?lat=LATITUDE&long=LONGITUDE'
 
-Oú LATITUDE et LONGITUDE sont un point autour duquel vous désirez chercher des établissements. Vous pouvez également préciser le radius de recherche jusqu'a 100 km (défaut: 5km). Les résultats sont paginés de la même façon que précedemment.
+Oú LATITUDE et LONGITUDE sont un point autour duquel vous désirez chercher des établissements. Vous pouvez également préciser le radius de recherche (défaut: 5km). Les résultats sont paginés de la même façon que précedemment.
 
 ## Établissements autour d'un autre établissement
 
