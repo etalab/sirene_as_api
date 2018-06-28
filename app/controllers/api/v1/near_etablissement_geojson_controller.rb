@@ -38,7 +38,11 @@ class API::V1::NearEtablissementGeojsonController < API::V1::NearEtablissementCo
       {
         "type": 'Feature',
         "geometry": { "type": 'Point', "coordinates": [result[:longitude].to_f, result[:latitude].to_f] },
-        "properties": { "name": result[:nom_raison_sociale] }
+        "properties": { 
+          "nom_raison_sociale": result[:nom_raison_sociale],
+          "siret": result[:siret],
+          "libelle_activite_principale": result[:libelle_activite_principale]
+        }
       }
     end
   end
