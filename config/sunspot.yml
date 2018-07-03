@@ -2,7 +2,7 @@ sandbox:
   solr:
     hostname: localhost
     port: 8984
-    log_level: INFO
+    log_level: OFF
     path: /solr/sandbox
     memory: 4G
 
@@ -10,7 +10,7 @@ development:
   solr:
     hostname: localhost
     port: 8982
-    log_level: INFO
+    log_level: OFF
     path: /solr/development
     memory: 4G # Use large memory usage (4G or more) when building the suggester dictionnary
 
@@ -18,13 +18,13 @@ test:
   solr:
     hostname: localhost
     port: 8981
-    log_level: WARNING
+    log_level: OFF
     path: /solr/test
 
 production:
   solr:
     hostname: localhost
     port: 8983
-    log_level: WARNING
+    log_level: OFF
     path: /solr/production
     memory: 8G
