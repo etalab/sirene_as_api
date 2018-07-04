@@ -1,5 +1,6 @@
 require 'sunspot'
 
+# Note that we return near etablissements by APET (etablissement) not by APEN (entreprise)
 class API::V1::NearEtablissementController < ApplicationController
   def show
     etablissement = search_from_siret || return

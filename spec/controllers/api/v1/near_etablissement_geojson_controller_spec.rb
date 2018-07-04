@@ -10,6 +10,7 @@ describe API::V1::NearEtablissementGeojsonController do
         latitude: '48.000001',
         longitude: '3.000001',
         activite_principale: '6201Z',
+        libelle_activite_principale: 'Programmation',
         nom_raison_sociale: 'SearchMe'
       )
     end
@@ -21,6 +22,7 @@ describe API::V1::NearEtablissementGeojsonController do
         latitude: '48.000002',
         longitude: '3.000002',
         activite_principale: '6201Z',
+        libelle_activite_principale: 'Programmation',
         nom_raison_sociale: 'FindMe'
       )
     end
@@ -32,6 +34,7 @@ describe API::V1::NearEtablissementGeojsonController do
         latitude: '50.000000', # Unnamed road in Kazakhstan
         longitude: '50.000000',
         activite_principale: '6201Z',
+        libelle_activite_principale: 'Programmation',
         nom_raison_sociale: 'DontFindMe'
       )
     end
@@ -49,7 +52,11 @@ describe API::V1::NearEtablissementGeojsonController do
             'type': 'Point',
             'coordinates': [3.000002, 48.000002]
           },
-          'properties': { 'name': 'FindMe' }
+          'properties': {
+            'nom_raison_sociale': 'FindMe',
+            'siret': '123457',
+            'libelle_activite_principale': 'Programmation'
+          }
         }]
       )
       expect(response).to have_http_status(200)
@@ -187,7 +194,7 @@ describe API::V1::NearEtablissementGeojsonController do
       expect(response).to have_http_status(200)
       number_results = result_hash[:features].size
       expect(number_results).to eq(1)
-      expect(result_hash[:features].first[:properties][:name]).to eq('FindMe')
+      expect(result_hash[:features].first[:properties][:nom_raison_sociale]).to eq('FindMe')
     end
   end
 
@@ -234,7 +241,7 @@ describe API::V1::NearEtablissementGeojsonController do
       expect(response).to have_http_status(200)
       number_results = result_hash[:features].size
       expect(number_results).to eq(1)
-      expect(result_hash[:features].first[:properties][:name]).to eq('FindMe')
+      expect(result_hash[:features].first[:properties][:nom_raison_sociale]).to eq('FindMe')
     end
   end
 
