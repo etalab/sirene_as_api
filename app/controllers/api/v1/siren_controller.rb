@@ -1,10 +1,10 @@
 class API::V1::SirenController < ApplicationController
   def show
-    @results = Etablissement.where(siren: siren_params[:siren])
-    @results_sirets = @results.pluck(:siret)
+    result_siege = Etablissement.where(siren: siren_params[:siren], is_siege: '1')
+    results_sirets = Etablissement.select('siret').where(siren: siren_params[:siren], is_siege: '0').pluck(:siret)
 
-    if !@results.blank?
-      render_payload_siren
+    if !result_siege.blank?
+      render_payload_siren(result_siege, results_sirets)
     else
       render json: { message: 'no results found' }, status: 404
     end
@@ -12,27 +12,14 @@ class API::V1::SirenController < ApplicationController
 
   private
 
-  def render_payload_siren
+  def render_payload_siren(result_siege, results_sirets)
     results_payload = {
-      total_results: @results_sirets.size,
-      siege_social: siege_etablissement,
-      # siege_name: siege_name(results, siege_siret), TODO: implement later
-      other_etablissements_sirets: not_siege_sirets,
+      total_results: results_sirets.size + 1,
+      siege_social: result_siege.first,
+      other_etablissements_sirets: results_sirets,
       numero_tva_intra: numero_tva_for(siren_params[:siren])
     }
     render json: results_payload, status: 200
-  end
-
-  def siege_siret
-    siege_etablissement[:siret]
-  end
-
-  def siege_etablissement
-    @results.where(is_siege: '1').first
-  end
-
-  def not_siege_sirets
-    @results_sirets.reject { |siret| siege_siret.include?(siret) }
   end
 
   def numero_tva_for(siren)
