@@ -587,6 +587,7 @@
     <lst name="suggester">
       <str name="name">suggest</str>
       <str name="lookupImpl">AnalyzingLookupFactory</str>
+      <str name="minPrefixChars">3</str> 
       <str name="storeDir">suggester_analyzinglookupfactory_dir</str>
       <str name="dictionaryImpl">DocumentDictionaryFactory</str>
       <str name="field">autocomplete</str>

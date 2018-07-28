@@ -120,7 +120,7 @@ describe API::V1::FullTextController do
     let!(:etablissement2) { create(:etablissement, id: 2, l4_normalisee: 'TEST') }
     let!(:etablissement3) { create(:etablissement, id: 3, libelle_commune: 'TEST') }
     let!(:etablissement4) { create(:etablissement, id: 4, libelle_activite_principale_entreprise: 'TEST') }
-    it 'score correctly the name before the commune & before other fields' do
+    it 'score in the right order' do
       Etablissement.reindex
 
       get '/v1/full_text/TEST'
@@ -131,7 +131,7 @@ describe API::V1::FullTextController do
       # We check that nom_raison_sociale and libelle_commune gets out first, the other 2 don't matter
       result_etablissements_ids = []
       result_etablissements[:etablissement].map { |x| result_etablissements_ids << x[:id] }
-      expect(result_etablissements_ids).to be_in([[1, 3, 2, 4], [1, 3, 4, 2]])
+      expect(result_etablissements_ids).to eq([1, 2, 3, 4])
     end
   end
 
