@@ -1,5 +1,6 @@
 require 'nokogiri'
 require 'open-uri'
+require 'net/http'
 
 class GetLastMonthlyStockLink < SireneAsAPIInteractor
   around do |interactor|
