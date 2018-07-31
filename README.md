@@ -205,7 +205,7 @@ Pour une installation manuelle, vous aurez besoin de :
 - un runtime java pour solr
 
  Pour vous simplifier la tâche, nous vous conseillons d'utiliser le script Ansible mis a disposition pour déployer votre
- architecture. Une tâche [Mina](https://github.com/mina-deploy/mina) est également disponible (fichier config/deploy.rb).
+ architecture. Une tâche [Mina](https://github.com/mina-deploy/mina) est également disponible (fichier config/deploy.rb). Vous pouvez la modifier pour entrer vos propres valeurs.
 
 Une fois cloné ce répertoire à l'aide de
 
@@ -291,11 +291,17 @@ Suppression database, en cas de problèmes :
 
 Il est conseillé de rajouter RAILS_ENV=production au début des commandes en environnement de production.
 
-### Mises à jour automatiques
+### Mises à jour automatique (Infrastructure à double server)
 
-La commande `bundle exec rake sirene_as_api:automatic_update_database` peut être lancée
-a chaque nouveau fichier.
-Le processus devrait être automatisé a l'installation du serveur.
+Pour assurer une continuité de service 24/7 et ce même pendant la reconstruction de la base de donnée, nous utilisons un système de double-server. Si vous désirez les réglages pour un seul server, reportez vous à la section suivante.
+
+Nous utilisons la commande `bundle exec rake sirene_as_api:dual_server_update` pour effectuer la mise à jour : le server va effectuer une mise à jour, tester si tout fonctionne, puis effectuer un switch d'IP fallback sur lui-même.
+
+Si vous avez 2 servers, vous pouvez modifier /config/switch_server.rb pour ajouter vos propres valeurs.
+
+### Mises à jour automatiques (1 seul server)
+
+La commande `bundle exec rake sirene_as_api:automatic_update_database` permet la mise à jour automatique de la base de donnée.
 Pour modifier la fréquence des mises à jour, modifiez config/schedule.rb
 puis exécutez la commande :
 
@@ -304,7 +310,7 @@ puis exécutez la commande :
 La gem [whenever](https://github.com/javan/whenever) s'occupe de mettre à jour
 vos tâches cron. Par défaut la mise à jour se fait à 4h30 du matin.
 
-L'API reste disponible sans interruptions pendant ce process, excepté ~ 3 heures lors de la
+L'API reste disponible sans interruptions pendant ce process, excepté ~ 3 à 4 heures lors de la
 suppression / réimportation du fichier stock au début de chaque mois.
 
 ## Sunspot / Solr
