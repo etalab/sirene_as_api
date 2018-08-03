@@ -9,6 +9,7 @@ class Etablissement < ApplicationRecord
     text :libelle_commune
     text :l4_normalisee
     text :l2_normalisee
+    text :sigle
     text :enseigne
     # Enseigne must be both string and text to use fulltext and faceting
     string :enseigne

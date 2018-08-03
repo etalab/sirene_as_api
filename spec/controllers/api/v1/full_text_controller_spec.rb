@@ -80,6 +80,23 @@ describe API::V1::FullTextController do
     end
   end
 
+  # Fulltext works on sigle
+  context 'when fulltext searching sigle', type: :request do
+    let!(:etablissement1) { create(:etablissement, id: 1, sigle: 'FOOBAR') }
+    let!(:etablissement2) { create(:etablissement, id: 2, sigle: nil) }
+    let!(:etablissement3) { create(:etablissement, id: 3, sigle: 'DONOTFIND') }
+    it 'finds correctly the Etablissement' do
+      Etablissement.reindex
+
+      get '/v1/full_text/foobar'
+
+      result_hash = body_as_json
+      result_etablissements = result_hash.extract!(:etablissement)
+      expect(result_etablissements[:etablissement].size).to equal(1)
+      expect(result_etablissements[:etablissement].first[:id]).to equal(1)
+    end
+  end
+
   # Fulltext works on nom commercial (l2_normalisee)
   context 'when fulltext searching an enseigne', type: :request do
     let!(:etablissement1) { create(:etablissement, id: 1, nom_raison_sociale: 'foobar company', l2_normalisee: 'Lol Market') }

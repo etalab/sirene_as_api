@@ -58,7 +58,8 @@ def run_search_with_main_options(keyword)
       libelle_activite_principale_entreprise: 1.0,
       l4_normalisee: 1.5,
       l2_normalisee: 1.0,
-      enseigne: 1.7
+      enseigne: 1.7,
+      sigle: 1.7
     )
 
     # This allows one word missing in phrase queries
