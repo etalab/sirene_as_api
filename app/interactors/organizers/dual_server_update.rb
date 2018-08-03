@@ -1,5 +1,5 @@
 class DualServerUpdate
   include Interactor::Organizer
 
-  organize AutomaticUpdateDatabase, TestSelfServer, SwitchServer
+  organize CheckCurrentService, AutomaticUpdateDatabase, TestSelfServer, SwitchServer
 end

@@ -19,6 +19,10 @@ module SireneAsAPI
 
     # Background tasks
     config.active_job.queue_adapter = :resque
+
+    # Custom config
+    config.switch_server = config_for(:switch_server)
+
     config.autoload_paths +=
       %W[#{config.root}/lib
          #{config.root}/app/interactors
