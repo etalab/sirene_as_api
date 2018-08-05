@@ -1,28 +1,19 @@
-# Use this file to easily define all of your cron jobs.
-#
-# It's helpful, but not entirely necessary to understand cron before proceeding.
-# http://en.wikipedia.org/wiki/Cron
+###### SANDBOX ######
 
-# Example:
-#
-# set :output, "/path/to/my/cron_log.log"
-#
-# every 2.hours do
-#   command "/usr/bin/some_great_command"
-#   runner "MyModel.some_method"
-#   rake "some:great:rake:task"
-# end
-#
-# every 4.days do
-#   runner "AnotherModel.prune_old_records"
-# end
-
-# Learn more: http://github.com/javan/whenever
-
-every 1.day, at: '5:00 am' do
-  rake 'sirene_as_api:automatic_update_database', :environment => 'production'
+every 1.day, at: '8:00 am' do
+  rake 'sirene_as_api:automatic_update_database', environment: 'sandbox'
 end
 
-every 1.day, at: '9:00 am' do
-  rake 'sirene_as_api:automatic_update_database', :environment => 'sandbox'
+###### PRODUCTION ######
+
+# CRON Job for single server update, uncomment if you have a single server
+
+# every 1.day, at: '4:30 am' do
+#   rake 'sirene_as_api:automatic_update_database', :environment => 'production'
+# end
+
+# CRON jobs for dual server update, comment out if you have a single server
+# The rake task is launched only if the server is not used, so each server will update every other day
+every 1.day, at: '4:30 am' do
+  rake 'sirene_as_api:dual_server_update', environment: 'production'
 end
