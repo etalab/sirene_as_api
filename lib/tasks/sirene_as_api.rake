@@ -14,6 +14,11 @@ namespace :sirene_as_api do
     AutomaticUpdateDatabase.call
   end
 
+  desc 'Update database automatically, switch server when done'
+  task dual_server_update: :environment do
+    DualServerUpdate.call
+  end
+
   desc 'Populate database with stock and apply relevant patches'
   task populate_database: :environment do
     PopulateDatabase.call

@@ -11,7 +11,8 @@ class OvhAPICall < SireneAsAPIInteractor
 
   def initialize(method, query, body)
     @method = method
-    @query = query
+    @query = ovh_api_version + query
+    @full_query = ovh_domain + ovh_api_version + query
     @body = body
   end
 
@@ -20,12 +21,14 @@ class OvhAPICall < SireneAsAPIInteractor
     uri = URI.parse(ovh_domain)
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = true
-    # http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
     request = build_request
     add_headers(request)
 
-    http.request(request)
+    response = http.request(request)
+    stdout_warn_log "Made call to API: #{response.body}"
+    stdout_error_log 'Error: Call to API failed' && context.fail! unless response.is_a? Net::HTTPSuccess
+    response
   end
 
   def build_request
@@ -53,10 +56,14 @@ class OvhAPICall < SireneAsAPIInteractor
   end
 
   def signature
-    '$1$' + Digest::SHA1.hexdigest(AS + '+' + CK + '+' + @method + '+' + @query + '+' + @body + '+' + TSTAMP)
+    '$1$' + Digest::SHA1.hexdigest(AS + '+' + CK + '+' + @method + '+' + @full_query + '+' + @body + '+' + TSTAMP)
   end
 
   def ovh_domain
-    'https://eu.api.ovh.com/1.0'
+    'https://api.ovh.com'
+  end
+
+  def ovh_api_version
+    '/1.0'
   end
 end
