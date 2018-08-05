@@ -14,7 +14,17 @@ set :user, 'deploy' # Username in the server to SSH to.
 set :application_name, 'sirene'
 
 # FOR CLIENT MINA DEPLOYMENT : Replace this domain adress with your own
-set :domain, 'sirene.entreprise.api.gouv.fr'
+# set :domain, 'sirene.entreprise.api.gouv.fr'
+
+# sirene_server1: 'ns372885.ip-178-33-234.eu'
+# sirene_server2: 'ns3107905.ip-54-37-87.eu'
+if ENV['server'] == '1'
+  set :domain, 'ns372885.ip-178-33-234.eu'
+elsif ENV['server'] == '2'
+  set :domain, 'ns3107905.ip-54-37-87.eu'
+else
+  abort 'Please choose server=1 or 2'
+end
 
 set :deploy_to, "/var/www/sirene_#{ENV['to']}"
 set :rails_env, ENV['to']
@@ -24,8 +34,10 @@ set :port, 22
 set :repository, 'https://github.com/sgmap/sirene_as_api.git'
 if ENV['to'] == 'production'
   set :branch, 'master'
-else
+elsif ENV['to'] == 'sandbox'
   set :branch, 'sandbox'
+else
+  abort 'Environment must be set to sandbox or production'
 end
 
 # shared dirs and files will be symlinked into the app-folder by the 'deploy:link_shared_paths' step.
