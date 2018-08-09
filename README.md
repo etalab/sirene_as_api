@@ -17,6 +17,8 @@ Le projet se découpe en trois sous-projets :
 
 - Une interface web de recherche exploitant l'API en Vue.js : [sirene_as_api_front](https://github.com/sgmap/sirene_as_api_front)
 
+Nouveau ! l'[API RNA](https://github.com/betagouv/rna_as_api) est disponible !
+
 ## ⚠️ Breaking changes ⚠️
 
 - **02/06/2018** Sur l'endpoint `/v1/siren/`, la propriété `siege_social` affichait jusque là le hash de l'établissement dans un array. Elle affiche dorénavant directement le hash.
