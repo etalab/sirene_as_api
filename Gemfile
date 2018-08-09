@@ -71,9 +71,6 @@ group :test do
   gem 'webmock'
   gem 'simplecov'
   gem 'simplecov-console'
-
-  # database_cleaner used for cleaning database before test
-  gem 'database_cleaner'
 end
 
 group :development do
