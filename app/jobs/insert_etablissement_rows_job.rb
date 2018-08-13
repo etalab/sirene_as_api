@@ -14,9 +14,9 @@ class InsertEtablissementRowsJob < EtablissementRowJobs
 
     ar_values_string = etablissements.map { |h| value_string_from_enterprise_hash(h) }.join(', ')
 
-    ar_query_string = " INSERT INTO etablissements (#{ar_keys.join(',')})
-                        VALUES
-                        #{ar_values_string}; "
+    ar_query_string = "INSERT INTO etablissements (#{ar_keys.join(',')})
+                      VALUES
+                      #{ar_values_string};"
     begin
       ActiveRecord::Base.connection.execute(ar_query_string)
     rescue StandardError => error

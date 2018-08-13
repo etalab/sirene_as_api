@@ -18,7 +18,8 @@ class DownloadFile < SireneAsAPIInteractor
   end
 
   def call
-    download = open(context.link)
+    uri = URI.parse(context.link)
+    download = open(uri.to_s)
     IO.copy_stream(download, context.filepath)
   end
 

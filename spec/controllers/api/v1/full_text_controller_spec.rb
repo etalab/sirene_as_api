@@ -333,50 +333,6 @@ describe API::V1::FullTextController do
     end
   end
 
-  # Filtration of Etablissements out of commercial prospection
-  context 'when there are only etablissements in commercial diffusion', type: :request do
-    it 'show them in the search results' do
-      populate_test_database_with_4_only_diffusion
-      Etablissement.reindex
-
-      get '/v1/full_text/foobarcompany'
-
-      result_hash = body_as_json
-      result_etablissements = result_hash.extract!(:etablissement)
-      number_results = result_etablissements[:etablissement].size
-
-      expect(number_results).to match(4)
-    end
-  end
-
-  context 'when there are only etablissements out of commercial diffusion', type: :request do
-    it 'show nothing' do
-      populate_test_database_with_3_no_diffusion
-      Etablissement.reindex
-
-      get '/v1/full_text/foobarcompany'
-
-      result_hash = body_as_json
-      result_etablissements = result_hash.extract!(:etablissement)
-      expect(result_etablissements).to be_empty
-    end
-  end
-
-  context 'when there is every kind of etablissements', type: :request do
-    it 'show no etablissements out of commercial diffusion' do
-      populate_test_database_with_4_only_diffusion
-      populate_test_database_with_3_no_diffusion
-      Etablissement.reindex
-
-      get '/v1/full_text/foobarcompany'
-
-      result_hash = body_as_json
-      result_etablissements = result_hash.extract!(:etablissement)
-      number_results = result_etablissements[:etablissement].size
-      expect(number_results).to eq(4)
-    end
-  end
-
   # Params filter is_entrepreneur_individuel
   context 'when doing a search for entrepreneur individuel', type: :request do
     let!(:etablissement) { create(:etablissement, nom_raison_sociale: 'foobarcompany', nature_entrepreneur_individuel: '1') }
