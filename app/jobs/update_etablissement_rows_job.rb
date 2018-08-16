@@ -8,7 +8,7 @@ class UpdateEtablissementRowsJob < EtablissementRowJobs
     etablissements = fill_etablissements
 
     begin
-      update_attrs(etablissements)   
+      update_attrs(etablissements)
     rescue StandardError => error
       stdout_error_log "Error: Could not update etablissement attributes:  #{error.class}
         Make sure Solr server is launched on the right environment and accessible."
