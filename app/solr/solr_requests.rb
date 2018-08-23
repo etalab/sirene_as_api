@@ -6,13 +6,18 @@ class SolrRequests < SireneAsAPIInteractor
 
   def initialize *keywords
     keyword = keywords[0].to_s.gsub(/[+<>'"=&,;\n]/, ' ') # Get first word in params & Prevent Solr injections
+    keyword.upcase! # Need to upcase request since LowerCaseFilterFactory doens't work on FST implementation for some reason
     @keyword = URI.decode(keyword)
   end
 
   def get_suggestions
     http_session = Net::HTTP.new('localhost', solr_port)
     solr_response = http_session.get(uri_solr)
-    extract_suggestions(solr_response.body)
+    begin
+      extract_suggestions(solr_response.body)
+    rescue StandardError => error
+      stdout_error_log "Suggestions not working correctly. Cause: #{error}. \n Solr response: #{solr_response.body}"
+    end
   end
 
   def build_dictionary
