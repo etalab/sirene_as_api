@@ -8,11 +8,28 @@ describe API::V1::FullTextController do
       expect(body_as_json).to match(
         message: 'no results found',
         spellcheck: nil,
-        suggestions: [])
+        suggestions: nil)
       expect(response).to have_http_status(404)
     end
   end
-  
+
+  # Fulltext works on nom_raison_sociale too
+  context 'when fulltext searching a Commune name', type: :request do
+    let!(:etablissement1) { create(:etablissement, id: 1, nom_raison_sociale: 'foobar company') }
+    let!(:etablissement2) { create(:etablissement, id: 2, nom_raison_sociale: 'another etablissement') }
+    let!(:etablissement3) { create(:etablissement, id: 3, nom_raison_sociale: 'etablissement to find') }
+    it 'finds correctly the Etablissement at the Commune searched' do
+      Etablissement.reindex
+
+      get '/v1/full_text/etablissement%20to%20find'
+
+      result_hash = body_as_json
+      result_etablissements = result_hash.extract!(:etablissement)
+      expect(result_etablissements[:etablissement].size).to equal(1)
+      expect(result_etablissements[:etablissement].first[:id]).to equal(3)
+    end
+  end
+
   # Fulltext works on commune names too
   context 'when fulltext searching a Commune name', type: :request do
     let!(:etablissement1) { create(:etablissement, id: 1, nom_raison_sociale: 'foobar company', libelle_commune: 'PARIS') }
@@ -34,7 +51,7 @@ describe API::V1::FullTextController do
   context 'when fulltext searching an adress', type: :request do
     let!(:etablissement1) { create(:etablissement, id: 1, nom_raison_sociale: 'foobar company', l4_normalisee: '12 avenue Ali Baba') }
     let!(:etablissement2) { create(:etablissement, id: 2, nom_raison_sociale: 'another etablissement', l4_normalisee: "42 rue de l'auto-stoppeur") }
-    let!(:etablissement3) { create(:etablissement, id: 3, nom_raison_sociale: 'etablissement to find', libelle_commune: '12 rue de la grenouille') }
+    let!(:etablissement3) { create(:etablissement, id: 3, nom_raison_sociale: 'etablissement to find', l4_normalisee: '12 rue de la grenouille') }
     it 'finds correctly the Etablissement at the adress searched' do
       Etablissement.reindex
 
@@ -175,7 +192,7 @@ describe API::V1::FullTextController do
     it 'return the right number of results per page' do
       per_page_custom = 15
       per_page_custom.times do
-        create(:etablissement, nom_raison_sociale: 'foobarcompany')
+        create(:etablissement, nom_raison_sociale: 'FOOBARCOMPANY')
       end
       Etablissement.reindex
 
@@ -183,14 +200,13 @@ describe API::V1::FullTextController do
 
       expect(response.body).to look_like_json
       result_hash = body_as_json
-      result_hash.extract!(:etablissement)
+      result_hash.extract!(:etablissement, :suggestions)
       expect(result_hash).to match(
         total_results: per_page_custom,
         total_pages: 1,
         per_page: per_page_custom,
         page: 1,
-        spellcheck: nil,
-        suggestions: ["foobarcompany"]
+        spellcheck: nil
       )
     end
   end
@@ -209,14 +225,13 @@ describe API::V1::FullTextController do
 
       expect(response.body).to look_like_json
       result_hash = body_as_json
-      result_hash.extract!(:etablissement)
+      result_hash.extract!(:etablissement, :suggestions)
       expect(result_hash).to match(
         total_results: number_etablissements,
         total_pages: 1,
         per_page: 100,
         page: 1,
-        spellcheck: nil,
-        suggestions: ['foobarcompany']
+        spellcheck: nil
       )
     end
   end
@@ -231,14 +246,13 @@ describe API::V1::FullTextController do
 
       expect(response.body).to look_like_json
       result_hash = body_as_json
-      result_etablissements = result_hash.extract!(:etablissement)
+      result_etablissements = result_hash.extract!(:etablissement, :suggestions)
       expect(result_hash).to match(
         total_results: 1,
         total_pages: 1,
         per_page: 10,
         page: 1,
-        spellcheck: nil,
-        suggestions: ['foobarcompany']
+        spellcheck: nil
       )
       name_result = result_etablissements[:etablissement][0][:nom_raison_sociale]
       expect(name_result).to match('foobarcompany')
@@ -256,14 +270,13 @@ describe API::V1::FullTextController do
 
       expect(response.body).to look_like_json
       result_hash = body_as_json
-      result_etablissements = result_hash.extract!(:etablissement)
+      result_etablissements = result_hash.extract!(:etablissement, :suggestions)
       expect(result_hash).to match(
         total_results: 1,
         total_pages: 1,
         per_page: 10,
         page: 1,
-        spellcheck: nil,
-        suggestions: ['foobarcompany']
+        spellcheck: nil
       )
       name_result = result_etablissements[:etablissement][0][:nom_raison_sociale]
       expect(name_result).to match('foobarcompany')
@@ -282,14 +295,13 @@ describe API::V1::FullTextController do
 
      expect(response.body).to look_like_json
      result_hash = body_as_json
-     result_etablissements = result_hash.extract!(:etablissement)
+     result_etablissements = result_hash.extract!(:etablissement, :suggestions)
      expect(result_hash).to match(
        total_results: 1,
        total_pages: 1,
        per_page: 10,
        page: 1,
-       spellcheck: nil,
-       suggestions: ["foobarcompany"]
+       spellcheck: nil
      )
      name_result = result_etablissements[:etablissement][0][:nom_raison_sociale]
      expect(name_result).to match('foobarcompany')
@@ -315,21 +327,44 @@ describe API::V1::FullTextController do
     end
   end
 
-  # Spellchecking collation
-  context 'when two close words both contains a typo', type: :request do
-    let!(:etablissement) { create(:etablissement, nom_raison_sociale: 'foobar company') }
-    let!(:etablissement2) { create(:etablissement, nom_raison_sociale: 'sample company') }
-    let!(:etablissement3) { create(:etablissement, nom_raison_sociale: 'another company') }
-    it 'spellcheck correctly and return the correct word' do
+  # Spellchecking collation - deactivated for now
+  # context 'when two close words both contains a typo', type: :request do
+  #   let!(:etablissement) { create(:etablissement, nom_raison_sociale: 'foobar company') }
+  #   let!(:etablissement2) { create(:etablissement, nom_raison_sociale: 'sample company') }
+  #   let!(:etablissement3) { create(:etablissement, nom_raison_sociale: 'another company') }
+  #   it 'spellcheck correctly and return the correct word' do
+  #     Etablissement.reindex
+
+  #     get '/v1/full_text/fo0bar%20compani' # Typos on purpose
+
+  #     expect(response.body).to look_like_json
+  #     result_hash = body_as_json
+  #     result_spellcheck = result_hash[:spellcheck]
+  #     expect(result_spellcheck).to match('foobar company')
+  #     expect(response).to have_http_status(404)
+  #   end
+  # end
+
+  # Suggestions : FST implementation works only from prefix, so we find etablissement3
+  context 'when a name can be suggested', type: :request do
+    let!(:etablissement1) { create(:etablissement, id: 1, nom_raison_sociale: 'FOOBAR COMPANY') }
+    let!(:etablissement2) { create(:etablissement, id: 2, nom_raison_sociale: 'ANOTHER ETABLISSEMENT') }
+    let!(:etablissement3) { create(:etablissement, id: 3, nom_raison_sociale: 'ETABLISSEMENT TO FIND') }
+    it 'suggests it' do
       Etablissement.reindex
+      SolrRequests.new.build_dictionary
 
-      get '/v1/full_text/fo0bar%20compani' # Typos on purpose
+      get '/v1/full_text/etablissement'
 
-      expect(response.body).to look_like_json
       result_hash = body_as_json
-      result_spellcheck = result_hash[:spellcheck]
-      expect(result_spellcheck).to match('foobar company')
-      expect(response).to have_http_status(404)
+      result_hash.extract!(:etablissement, :spellcheck)
+      expect(result_hash).to match(
+        total_results: 2,
+        total_pages: 1,
+        per_page: 10,
+        page: 1,
+        suggestions: ['ETABLISSEMENT TO FIND']
+      )
     end
   end
 

@@ -44,29 +44,28 @@ end
 
 def run_search_with_main_options(keyword)
   fulltext keyword do
-    # Matches on name scores x3, on commune name scores x2
     fields(
-      nom_raison_sociale: 1.8,
-      libelle_commune: 1.0,
-      libelle_activite_principale_entreprise: 1.0,
-      l4_normalisee: 1.5,
-      l2_normalisee: 1.0,
-      enseigne: 1.7,
-      sigle: 1.7
+      nom_raison_sociale: 2.5,
+      libelle_commune: 1,
+      libelle_activite_principale_entreprise: 1,
+      l4_normalisee: 2,
+      l2_normalisee: 1,
+      enseigne: 2,
+      sigle: 2
     )
 
     # This allows one word missing in phrase queries
     query_phrase_slop 1
     # Better scoring for phrases, with words separated up until 1 word.
-    phrase_fields nom_raison_sociale: 1.5
+    phrase_fields nom_raison_sociale: 4
     phrase_slop 1
 
     # Better scoring if someone search "rue mairie" for "rue de la mairie"
-    phrase_fields l4_normalisee: 3.0
+    phrase_fields l4_normalisee: 4
     phrase_slop 1
 
     # Boost results for Mairies, as they are main Etablissements of a city.
-    boost(1.9) { with(:enseigne).equal_to('MAIRIE') }
+    boost(3.5) { with(:enseigne).equal_to('MAIRIE') }
   end
 end
 
@@ -138,34 +137,3 @@ def fulltext_params
     :departement
   )
 end
-
-# Code below used to debug Solr Spellchecking.
-# rubocop:disable all
-# :nocov:
-module Sunspot::Search
-  class StandardSearch
-    def spellcheck_collation(*terms)
-      if solr_spellcheck['suggestions'] && solr_spellcheck['suggestions'].length > 0
-        collation = terms.join(" ").dup if terms
-
-        if terms.length > 0
-          terms.each do |term|
-            if (spellcheck_suggestions[term]||{})['origFreq'] == 0
-              collation[term] = spellcheck_suggestion_for(term)
-            end
-          end
-        end
-
-        if terms.length == 0
-          collation = solr_spellcheck['collations'][-1]
-        end
-
-        collation
-      else
-        nil
-      end
-    end
-  end
-end
-# :nocov:
-# rubocop:enable all
