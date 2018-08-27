@@ -7,5 +7,6 @@ Rails.application.routes.draw do
     get 'near_etablissement/:siret' => '/api/v1/near_etablissement#show'
     get 'near_etablissement_geojson/:siret' => '/api/v1/near_etablissement_geojson#show'
     get 'near_point/' => '/api/v1/near_point#show'
+    get 'rna/:rna' => '/api/v1/numero_rna#show'
   end
 end

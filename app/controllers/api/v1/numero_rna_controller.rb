@@ -1,6 +1,6 @@
-class API::V1::SiretController < ApplicationController
+class API::V1::NumeroRNAController < ApplicationController
   def show
-    r = Etablissement.find_by(siret: siret_params[:siret])
+    r = Etablissement.find_by(numero_rna: rna_params[:rna])
 
     if r.nil?
       render json: { message: 'no results found' }, status: 404
@@ -11,7 +11,7 @@ class API::V1::SiretController < ApplicationController
 
   private
 
-  def siret_params
-    params.permit(:siret)
+  def rna_params
+    params.permit(:rna)
   end
 end

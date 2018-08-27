@@ -7,12 +7,13 @@ class SolrRequests < SireneAsAPIInteractor
   def initialize *keywords
     keyword = keywords[0].to_s.gsub(/[+<>'"=&,;\n]/, ' ') # Get first word in params & Prevent Solr injections
     keyword.upcase! # Need to upcase request since LowerCaseFilterFactory doens't work on FST implementation for some reason
-    @keyword = URI.decode(keyword)
+    @keyword = CGI.unescape(keyword)
   end
 
   def get_suggestions
     http_session = Net::HTTP.new('localhost', solr_port)
     solr_response = http_session.get(uri_solr)
+    return nil unless solr_response.is_a? Net::HTTPSuccess
     begin
       extract_suggestions(solr_response.body)
     rescue StandardError => error
@@ -34,8 +35,7 @@ class SolrRequests < SireneAsAPIInteractor
   private
 
   def uri_solr
-    uri = "/solr/#{Rails.env}/suggesthandler?wt=json&suggest.q=#{@keyword}"
-    URI.encode(uri)
+    "/solr/#{Rails.env}/suggesthandler?wt=json&suggest.q=#{@keyword}"
   end
 
   def extract_suggestions(solr_response_body)
@@ -45,6 +45,7 @@ class SolrRequests < SireneAsAPIInteractor
     solr_response_hash['suggest']['suggest'][@keyword]['suggestions'].each do |hash|
       suggestions << hash['term']
     end
+    return nil if suggestions.empty?
     suggestions
   end
 
