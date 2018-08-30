@@ -28,6 +28,20 @@ CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
 
 
+--
+-- Name: pg_trgm; Type: EXTENSION; Schema: -; Owner: -
+--
+
+CREATE EXTENSION IF NOT EXISTS pg_trgm WITH SCHEMA public;
+
+
+--
+-- Name: EXTENSION pg_trgm; Type: COMMENT; Schema: -; Owner: -
+--
+
+COMMENT ON EXTENSION pg_trgm IS 'text similarity measurement and index searching based on trigrams';
+
+
 SET search_path = public, pg_catalog;
 
 SET default_tablespace = '';
@@ -278,6 +292,20 @@ CREATE INDEX entreprises_to_tsvector_idx4 ON etablissements USING gin (to_tsvect
 
 
 --
+-- Name: etablissements_to_tsvector_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX etablissements_to_tsvector_idx ON etablissements USING gin (to_tsvector('french'::regconfig, (numero_rna)::text));
+
+
+--
+-- Name: etablissements_to_tsvector_idx1; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX etablissements_to_tsvector_idx1 ON etablissements USING gin (to_tsvector('french'::regconfig, (numero_rna)::text));
+
+
+--
 -- Name: index_etablissements_on_activite_principale; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -296,6 +324,13 @@ CREATE INDEX index_etablissements_on_l6_normalisee ON etablissements USING btree
 --
 
 CREATE INDEX index_etablissements_on_nom_raison_sociale ON etablissements USING btree (nom_raison_sociale);
+
+
+--
+-- Name: index_etablissements_on_numero_rna; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_etablissements_on_numero_rna ON etablissements USING btree (numero_rna);
 
 
 --
@@ -324,6 +359,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170130100203'),
 ('20170922094826'),
 ('20170925105117'),
-('20180420104754');
+('20180420104754'),
+('20180827112250');
 
 

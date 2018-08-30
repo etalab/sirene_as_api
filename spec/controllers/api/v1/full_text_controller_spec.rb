@@ -8,7 +8,8 @@ describe API::V1::FullTextController do
       expect(body_as_json).to match(
         message: 'no results found',
         spellcheck: nil,
-        suggestions: nil)
+        suggestions: nil
+      )
       expect(response).to have_http_status(404)
     end
   end

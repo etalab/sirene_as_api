@@ -29,12 +29,5 @@ module SireneAsAPI
          #{config.root}/app/interactors/organizers
          #{config.root}/app/solr
          #{config.root}/db/checks_db]
-
-    config.middleware.insert_before 0, Rack::Cors do
-      allow do
-        origins '*'
-        resource '*', headers: :any, methods: [:get]
-      end
-    end
   end
 end
