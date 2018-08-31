@@ -6,13 +6,19 @@ class SolrRequests < SireneAsAPIInteractor
 
   def initialize *keywords
     keyword = keywords[0].to_s.gsub(/[+<>'"=&,;\n]/, ' ') # Get first word in params & Prevent Solr injections
-    @keyword = URI.decode(keyword)
+    keyword.upcase! # Need to upcase request since LowerCaseFilterFactory doens't work on FST implementation for some reason
+    @keyword = CGI.unescape(keyword)
   end
 
   def get_suggestions
     http_session = Net::HTTP.new('localhost', solr_port)
     solr_response = http_session.get(uri_solr)
-    extract_suggestions(solr_response.body)
+    return nil unless solr_response.is_a? Net::HTTPSuccess
+    begin
+      extract_suggestions(solr_response.body)
+    rescue StandardError => error
+      stdout_error_log "Suggestions not working correctly. Cause: #{error}. \n Solr response: #{solr_response.body}"
+    end
   end
 
   def build_dictionary
@@ -29,8 +35,7 @@ class SolrRequests < SireneAsAPIInteractor
   private
 
   def uri_solr
-    uri = "/solr/#{Rails.env}/suggesthandler?wt=json&suggest.q=#{@keyword}"
-    URI.encode(uri)
+    "/solr/#{Rails.env}/suggesthandler?wt=json&suggest.q=#{@keyword}"
   end
 
   def extract_suggestions(solr_response_body)
@@ -40,6 +45,7 @@ class SolrRequests < SireneAsAPIInteractor
     solr_response_hash['suggest']['suggest'][@keyword]['suggestions'].each do |hash|
       suggestions << hash['term']
     end
+    return nil if suggestions.empty?
     suggestions
   end
 

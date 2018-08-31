@@ -4,7 +4,7 @@ sandbox:
     port: 8984
     log_level: OFF
     path: /solr/sandbox
-    memory: 4G
+    memory: 2G
 
 development:
   solr:
@@ -12,7 +12,7 @@ development:
     port: 8982
     log_level: OFF
     path: /solr/development
-    memory: 4G # Use large memory usage (4G or more) when building the suggester dictionnary
+    memory: 1G
 
 test:
   solr:

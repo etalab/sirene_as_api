@@ -16,10 +16,10 @@ describe API::V1::SuggestController do
       request_instance = SolrRequests.new(keyword)
 
       expect(SolrRequests).to receive(:new).with(keyword).and_return(request_instance)
-      expect(request_instance).to receive(:get_suggestions).and_return('')
+      expect(request_instance).to receive(:get_suggestions).and_return(nil)
       get "/v1/suggest/#{keyword}"
       result_hash = body_as_json
-      expect(result_hash).to match( message: 'no suggestions found')
+      expect(result_hash).to match(message: 'no suggestions found')
       expect(response).to have_http_status(404)
     end
 

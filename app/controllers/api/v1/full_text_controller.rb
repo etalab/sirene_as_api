@@ -1,8 +1,6 @@
 require 'sunspot'
 
 class API::V1::FullTextController < ApplicationController
-  FILTER_NATURE_PROSPECTION = true
-
   def show
     page = fulltext_params[:page] || 1
     per_page = per_page_default_10_max_100
@@ -21,27 +19,22 @@ class API::V1::FullTextController < ApplicationController
     results = search.results
 
     if !results.blank?
-      render_payload_success(query, search, results, page)
+      render json: payload_success(query, search, results, page), status: 200
     else
-      render_payload_not_found(query, search)
+      render json: payload_not_found(query, search), status: 404
     end
   end
 
   def search_with_solr_options(keyword, page, per_page)
     search = Etablissement.search do
       run_search_with_main_options(keyword)
-      # Faceting / Filtering
+
       with_faceting_options
-      # Scoping
-      without_statut_prospection if FILTER_NATURE_PROSPECTION
-      # Filter for entrepreneur individuel if asked
       with_filter_entrepreneur_individuel if fulltext_params[:is_entrepreneur_individuel].present?
       with_filter_code_commune if fulltext_params[:code_commune].present?
       # Spellcheck / pagination
       spellcheck count: 2
       paginate page: page, per_page: per_page
-      # Suggestions
-      # autocomplete suggestions, using: :nom_raison_sociale
       # Ordering
       order_results_options
     end
@@ -51,31 +44,28 @@ end
 
 def run_search_with_main_options(keyword)
   fulltext keyword do
-    # Matches on name scores x3, on commune name scores x2
     fields(
-      nom_raison_sociale: 1.8,
-      libelle_commune: 1.0,
-      libelle_activite_principale_entreprise: 1.0,
-      l4_normalisee: 1.5,
-      l2_normalisee: 1.0,
-      enseigne: 1.7,
-      sigle: 1.7
+      nom_raison_sociale: 2.5,
+      libelle_commune: 1,
+      libelle_activite_principale_entreprise: 1,
+      l4_normalisee: 2,
+      l2_normalisee: 1,
+      enseigne: 2,
+      sigle: 2
     )
 
     # This allows one word missing in phrase queries
-    # query_phrase_slop 1
+    query_phrase_slop 1
     # Better scoring for phrases, with words separated up until 1 word.
-    # Search "Commune Montpellier" will be boosted for result "Commune de Montpellier"
-    # phrase_fields nom_raison_sociale: 2.0
-    # phrase_slop 1
+    phrase_fields nom_raison_sociale: 4
+    phrase_slop 1
 
     # Better scoring if someone search "rue mairie" for "rue de la mairie"
-    phrase_fields l4_normalisee: 3.0
-    # phrase_slop 1
+    phrase_fields l4_normalisee: 4
+    phrase_slop 1
 
-    # Boost results for Mairies, as it often searched.
-    # Search "Montpellier" will be boosted for the actual city Etablissement.
-    boost(1.9) { with(:enseigne).equal_to('MAIRIE') }
+    # Boost results for Mairies, as they are main Etablissements of a city.
+    boost(3.5) { with(:enseigne).equal_to('MAIRIE') }
   end
 end
 
@@ -87,12 +77,7 @@ def with_faceting_options
   facet :is_ess
   with(:is_ess, fulltext_params[:is_ess]) if fulltext_params[:is_ess].present?
   facet :departement
-  with(:departement, fulltext_params[:departement]) if fulltext_params[:departement].present? 
-end
-
-def without_statut_prospection
-  without(:nature_mise_a_jour).any_of(%w[O E])
-  without(:statut_prospection, 'N')
+  with(:departement, fulltext_params[:departement]) if fulltext_params[:departement].present?
 end
 
 def with_filter_entrepreneur_individuel
@@ -115,8 +100,8 @@ def order_results_options
   order_by(:tranche_effectif_salarie_entreprise, :desc)
 end
 
-def render_payload_success(query, search, results, page)
-  results_payload = {
+def payload_success(query, search, results, page)
+  {
     total_results: search.total,
     total_pages: results.total_pages,
     per_page: results.per_page,
@@ -125,16 +110,14 @@ def render_payload_success(query, search, results, page)
     spellcheck: search.spellcheck_collation,
     suggestions: request_suggestions(query)
   }
-  render json: results_payload, status: 200
 end
 
-def render_payload_not_found(query, search)
-  results_payload = {
+def payload_not_found(query, search)
+  {
     message: 'no results found',
     spellcheck: search.spellcheck_collation,
     suggestions: request_suggestions(query)
   }
-  render json: results_payload, status: 404
 end
 
 def request_suggestions(query)
@@ -153,42 +136,4 @@ def fulltext_params
     :is_ess,
     :departement
   )
-end
-
-# Code below used to debug Solr Spellchecking.
-# rubocop:disable all
-module Sunspot::Search
-  class StandardSearch
-    def spellcheck_collation(*terms)
-      # Uncomment the following line for console feedback
-      # puts 'SPELLCHECK FROM INSIDE SUNSPOT: ' + solr_spellcheck.to_s
-
-      # Following line changed since Sunspot doesn't allow collation on 1 term on this version.
-      # Length is usually > 2 on most sunspot versions, we put it at > 0 here.
-      # TODO: Check why we don't have last version of the code here.
-      if solr_spellcheck['suggestions'] && solr_spellcheck['suggestions'].length > 0
-        collation = terms.join(" ").dup if terms
-
-        # If we are given a query string, tokenize it and strictly replace
-        # the terms that aren't present in the index
-        if terms.length > 0
-          terms.each do |term|
-            if (spellcheck_suggestions[term]||{})['origFreq'] == 0
-              collation[term] = spellcheck_suggestion_for(term)
-            end
-          end
-        end
-
-        # If no query was given, or all terms are present in the index,
-        # return Solr's suggested collation.
-        if terms.length == 0
-          collation = solr_spellcheck['collations'][-1]
-        end
-
-        collation
-      else
-        nil
-      end
-    end
-  end
 end

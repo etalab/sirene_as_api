@@ -28,7 +28,6 @@ module SireneAsAPI
          #{config.root}/app/interactors
          #{config.root}/app/interactors/organizers
          #{config.root}/app/solr
-         #{config.root}/db/checks_db
-       ]
+         #{config.root}/db/checks_db]
   end
 end

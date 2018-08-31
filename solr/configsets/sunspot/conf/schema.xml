@@ -64,6 +64,8 @@
         <!-- Replacing StandardTokenizer by LetterTokenizer to make anything not a letter a separator -->
         <!-- <tokenizer class="solr.StandardTokenizerFactory"/> -->
         <tokenizer class="solr.LetterTokenizerFactory"/>
+
+        <!-- <tokenizer class="solr.KeywordTokenizerFactory"/> -->
         <!-- <filter class="solr.StandardFilterFactory"/> -->
         <filter class="solr.LowerCaseFilterFactory"/>
         <!-- <filter class="solr.PorterStemFilterFactory"/> -->
@@ -95,8 +97,8 @@
          cased words). -->
     <fieldType name="textSpell" class="solr.TextField" positionIncrementGap="100" omitNorms="true">
       <analyzer>
-        <tokenizer class="solr.StandardTokenizerFactory"/>
-        <!-- <filter class="solr.StandardFilterFactory"/> -->
+        <tokenizer class="solr.KeywordTokenizerFactory"/>
+        <!-- <tokenizer class="solr.LetterTokenizerFactory"/> -->
         <filter class="solr.LowerCaseFilterFactory"/>
       </analyzer>
     </fieldType>
@@ -106,7 +108,7 @@
       <analyzer type="index">
         <tokenizer class="solr.KeywordTokenizerFactory"/>
         <filter class="solr.LowerCaseFilterFactory"/>
-        <filter class="solr.EdgeNGramFilterFactory" minGramSize="3" maxGramSize="50" />
+        <filter class="solr.EdgeNGramFilterFactory" minGramSize="3" maxGramSize="100" />
       </analyzer>
       <analyzer type="query">
         <tokenizer class="solr.KeywordTokenizerFactory"/>
@@ -146,8 +148,8 @@
     <field name="type" stored="false" type="string" multiValued="true" indexed="true"/>
     <!-- *** This field is used by Sunspot! *** -->
     <field name="class_name" stored="false" type="string" multiValued="false" indexed="true"/>
-    <!-- *** This field is used by Sunspot! *** -->
-    <field name="text" stored="false" type="string" multiValued="true" indexed="true"/>
+    <!-- *** This field is used by Sunspot! *** MODIFIED -->
+    <field name="text" stored="true" type="string" multiValued="true" indexed="true"/>
 
     <!-- *** This field is used by Sunspot! *** -->
     <field name="lat" stored="true" type="tdouble" multiValued="false" indexed="true"/>
@@ -157,8 +159,9 @@
     <dynamicField name="random_*" stored="false" type="rand" multiValued="false" indexed="true"/>
     <!-- *** This dynamicField is used by Sunspot! *** -->
     <dynamicField name="_local*" stored="false" type="tdouble" multiValued="false" indexed="true"/>
-    <!-- *** This dynamicField is used by Sunspot! *** -->
-    <dynamicField name="*_text" stored="false" type="text" multiValued="true" indexed="true"/>
+    <!-- *** This dynamicField is used by Sunspot! **MODIFIED * -->
+    <!-- <dynamicField name="*_text" stored="false" type="text" multiValued="true" indexed="true"/> -->
+    <dynamicField name="*_text" stored="true" type="text" multiValued="true" indexed="true"/>
     <!-- *** This dynamicField is used by Sunspot! *** -->
     <dynamicField name="*_texts" stored="true" type="text" multiValued="true" indexed="true"/>
     <!-- *** This dynamicField is used by Sunspot! *** -->
@@ -209,8 +212,8 @@
     <dynamicField name="*_ls" stored="true" type="tlong" multiValued="false" indexed="true"/>
     <!-- *** This dynamicField is used by Sunspot! *** -->
     <dynamicField name="*_lms" stored="true" type="tlong" multiValued="true" indexed="true"/>
-    <!-- *** This dynamicField is used by Sunspot! *** -->
-    <dynamicField name="*_s" stored="false" type="string" multiValued="false" indexed="true"/>
+    <!-- *** This dynamicField is used by Sunspot! MODIFIED *** -->
+    <dynamicField name="*_s" stored="true" type="string" multiValued="false" indexed="true"/>
     <!-- *** This dynamicField is used by Sunspot! *** -->
     <dynamicField name="*_sm" stored="false" type="string" multiValued="true" indexed="true"/>
     <!-- *** This dynamicField is used by Sunspot! *** -->
@@ -270,8 +273,8 @@
     <dynamicField name="*_llm" stored="false" type="location" multiValued="true" indexed="true"/>
     <dynamicField name="*_lls" stored="true" type="location" multiValued="false" indexed="true"/>
     <dynamicField name="*_llms" stored="true" type="location" multiValued="true" indexed="true"/>
-    <!-- Putting stored to true so we can get autocomplete to work / deactivated for now-->
-    <field name="textSpell" stored="false" type="textSpell" multiValued="true" indexed="true"/>
+    <!-- Putting stored to true so we can get autocomplete to work -->
+    <field name="textSpell" stored="true" type="textSpell" multiValued="true" indexed="true"/>
     <field name="autocomplete" stored="true" type="autocomplete" multiValued="true" indexed="true"/>
 
     <!-- required by Solr 5 -->

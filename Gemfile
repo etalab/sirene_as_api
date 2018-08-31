@@ -62,18 +62,15 @@ group :development, :test do
   gem 'factory_bot_rails'
 
   gem 'growl'
-  gem 'timecop'
 end
 
 group :test do
   gem 'fuubar'
-  gem 'vcr'
-  gem 'webmock'
   gem 'simplecov'
   gem 'simplecov-console'
-
-  # database_cleaner used for cleaning database before test
-  gem 'database_cleaner'
+  gem 'timecop'
+  gem 'vcr'
+  gem 'webmock'
 end
 
 group :development do

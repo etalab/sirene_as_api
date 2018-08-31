@@ -389,41 +389,11 @@
 
   </requestDispatcher>
 
-  <!-- Request Handlers
-
-       http://wiki.apache.org/solr/SolrRequestHandler
-
-       Incoming queries will be dispatched to a specific handler by name
-       based on the path specified in the request.
-
-       Legacy behavior: If the request path uses "/select" but no Request
-       Handler has that name, and if handleSelect="true" has been specified in
-       the requestDispatcher, then the Request Handler is dispatched based on
-       the qt parameter.  Handlers without a leading '/' are accessed this way
-       like so: http://host/app/[core/]select?qt=name  If no qt is
-       given, then the requestHandler that declares default="true" will be
-       used or the one named "standard".
-
-       If a Request Handler is declared with startup="lazy", then it will
-       not be initialized until the first request that uses it.
-
-    -->
-  <!-- SearchHandler
-
-       http://wiki.apache.org/solr/SearchHandler
-
-       For processing Search Queries, the primary Request Handler
-       provided with Solr is "SearchHandler" It delegates to a sequent
-       of SearchComponents (see below) and supports distributed
-       queries across multiple shards
-    -->
   <requestHandler name="/select" class="solr.SearchHandler">
     <lst name="defaults">
       <str name="spellcheck.dictionary">default</str>
       <str name="spellcheck.extendedResults">true</str>
-      <str name="spellcheck.onlyMorePopular">true</str>
       <str name="spellcheck.collate">true</str>
-      <!-- <str name="spellcheck.maxCollationTries">50</str> -->
     </lst>
     <arr name="last-components">
       <str>spellcheck</str>
@@ -532,72 +502,48 @@
   </requestHandler>
 
   <searchComponent name="spellcheck" class="solr.SpellCheckComponent">
-
     <str name="queryAnalyzerFieldType">textSpell</str>
-
-    <!-- Multiple "Spell Checkers" can be declared and used by this
-         component
-      -->
-
-      <!-- change field to textSpell and use copyField in schema.xml
-      to spellcheck multiple fields -->
-    <!-- <lst name="spellchecker">
+    <lst name="spellchecker">
       <str name="name">default</str>
+      <str name="classname">solr.IndexBasedSpellChecker</str>
       <str name="field">textSpell</str>
+      <int name="maxEdits">2</int>
       <str name="buildOnCommit">true</str>
-    </lst> -->
+      <str name="spellcheckIndexDir">./spellchecker</str>
+    </lst>
+  </searchComponent>
 
+  <!-- <searchComponent name="spellcheck" class="solr.SpellCheckComponent">
+    <str name="queryAnalyzerFieldType">textSpell</str>
     <lst name="spellchecker">
       <str name="name">default</str>
       <str name="field">textSpell</str>
       <str name="buildOnCommit">true</str>
       <str name="classname">solr.DirectSolrSpellChecker</str>
-      <!-- the spellcheck distance measure used, the default is the internal levenshtein -->
       <str name="distanceMeasure">internal</str>
-      <!-- minimum accuracy needed to be considered a valid spellcheck suggestion -->
-      <float name="accuracy">0.8</float>
-      <!-- the maximum #edits we consider when enumerating terms: can be 1 or 2 -->
+      <float name="accuracy">0.6</float>
       <int name="maxEdits">1</int>
-      <!-- the minimum shared prefix when enumerating terms -->
       <int name="minPrefix">1</int>
-      <!-- maximum number of inspections per result. -->
       <int name="maxInspections">5</int>
-      <!-- minimum length of a query term to be considered for correction -->
       <int name="minQueryLength">3</int>
-      <!-- maximum threshold of documents a query term can appear to be considered for correction -->
       <float name="maxQueryFrequency">0.0001</float>
-      <!-- uncomment this to require suggestions to occur in 1% of the documents -->
-      <!-- <float name="thresholdTokenFrequency">.0001</float> -->
     </lst>
-
-    <!-- a spellchecker that can break or combine words.  See "/spell" handler below for usage -->
-    <!-- <lst name="spellchecker">
-      <str name="name">wordbreak</str>
-      <str name="classname">solr.WordBreakSolrSpellChecker</str>
-      <str name="field">name</str>
-      <str name="combineWords">true</str>
-      <str name="breakWords">true</str>
-      <int name="maxChanges">10</int>
-    </lst> -->
-
-  </searchComponent>
+  </searchComponent> -->
 
   <!-- Custom search component to configure suggestions -->
   <searchComponent name="suggest" class="solr.SuggestComponent">
     <lst name="suggester">
       <str name="name">suggest</str>
-      <str name="lookupImpl">AnalyzingLookupFactory</str>
-      <str name="minPrefixChars">3</str> 
-      <str name="storeDir">suggester_analyzinglookupfactory_dir</str>
+      <str name="lookupImpl">FSTLookupFactory</str>
+      <str name="minPrefixChars">3</str>
+      <str name="storeDir">suggester_FSTlookupfactory_dir</str>
       <str name="dictionaryImpl">DocumentDictionaryFactory</str>
       <str name="field">autocomplete</str>
-      <!-- <str name="weightField">price</str> TODO: Implement weight--> 
       <str name="suggestAnalyzerFieldType">autocomplete</str>
       <str name="exactMatchFirst">true</str>
       <str name="preserveSep">true</str>
       <str name="preservePositionIncrements">true</str>
-
-      <str name="buildOnOptimize">true</str>
+      <str name="buildOnOptimize">false</str>
       <str name="buildOnStartup">false</str>
       <str name="buildOnCommit">false</str>
     </lst>

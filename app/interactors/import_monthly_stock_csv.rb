@@ -9,7 +9,6 @@ class ImportMonthlyStockCsv < SireneAsAPIInteractor
     stdout_success_log "Found #{context.number_of_rows} rows to import"
 
     stdout_info_log 'Importing rows'
-
     quietly do
       stdout_etablissement_count_change do
         stdout_benchmark_stats do
@@ -28,7 +27,6 @@ class ImportMonthlyStockCsv < SireneAsAPIInteractor
       context.fail!(error: 'database should be empty before importing a stock file')
       return
     end
-
     progress_bar = create_progressbar(context)
 
     process_csv_job(context, progress_bar)
@@ -54,7 +52,7 @@ class ImportMonthlyStockCsv < SireneAsAPIInteractor
 
   def csv_options
     {
-      chunk_size: 10_000,
+      chunk_size: 2_000,
       col_sep: ',',
       row_sep: "\r\n",
       convert_values_to_numeric: false,

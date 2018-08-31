@@ -1,5 +1,5 @@
 
-[![Maintainability](https://api.codeclimate.com/v1/badges/cb7334374140808435c3/maintainability)](https://codeclimate.com/github/betagouv/sirene_as_api/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/cb7334374140808435c3/test_coverage)](https://codeclimate.com/github/betagouv/sirene_as_api/test_coverage)
+[![Maintainability](https://api.codeclimate.com/v1/badges/cb7334374140808435c3/maintainability)](https://codeclimate.com/github/etalab/sirene_as_api/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/cb7334374140808435c3/test_coverage)](https://codeclimate.com/github/etalab/sirene_as_api/test_coverage)
 
 # SIRENE_as_api
 
@@ -11,11 +11,13 @@ la servant sous forme d'API.
 
 Le projet se découpe en trois sous-projets :
 
-- Une API Ruby on Rails qui importe les fichiers de données mis à disposition par l'INSEE : [sirene_as_api](https://github.com/sgmap/sirene_as_api)
+- Une API Ruby on Rails qui importe les fichiers de données mis à disposition par l'INSEE : [sirene_as_api](https://github.com/etalab/sirene_as_api)
 
-- Un script capable de déployer l'API automatiquement : [sirene_as_api_ansible](https://github.com/sgmap/sirene_as_api_ansible)
+- Un script capable de déployer l'API automatiquement : [sirene_as_api_ansible](https://github.com/etalab/sirene_as_api_ansible)
 
-- Une interface web de recherche exploitant l'API en Vue.js : [sirene_as_api_front](https://github.com/sgmap/sirene_as_api_front)
+- Une interface web de recherche exploitant l'API en Vue.js : [entreprise.data.gouv.fr](https://github.com/etalab/entreprise.data.gouv.fr)
+
+Nouveau ! l'[API RNA](https://github.com/etalab/rna_as_api) est disponible !
 
 ## ⚠️ Breaking changes ⚠️
 
@@ -190,7 +192,7 @@ Les mêmes filtres que /near_etablissement/ sont disponibles.
 # Installation et configuration
 
 Pour installer rapidement & efficacement l'API en environnement de production,
-vous pouvez vous referer a la documentation sur [sirene_as_api_ansible](https://github.com/sgmap/sirene_as_api_ansible)
+vous pouvez vous referer a la documentation sur [sirene_as_api_ansible](https://github.com/etalab/sirene_as_api_ansible)
 et utiliser les scripts de déploiement automatiques.
 
 ## Installation manuelle en environnement dev
@@ -209,7 +211,7 @@ Pour une installation manuelle, vous aurez besoin de :
 
 Une fois cloné ce répertoire à l'aide de
 
-    git clone git@github.com:sgmap/sirene_as_api.git && cd sirene_as_api
+    git clone git@github.com:etalab/sirene_as_api.git && cd sirene_as_api
 
 Lancez bundle install pour récupérer les gems nécessaires, ceci peut prendre un
 peu de temps en fonction de votre installation. Vous pouvez omettre l'installation de

@@ -48,4 +48,4 @@ sunspot-solr.pid
 /.last_monthly_stock_applied/*
 
 # Ignore code coverage report
-coverage
+coverage/*
