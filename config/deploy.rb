@@ -31,7 +31,7 @@ set :rails_env, ENV['to']
 
 set :forward_agent, true
 set :port, 22
-set :repository, 'https://github.com/sgmap/sirene_as_api.git'
+set :repository, 'https://github.com/etalab/sirene_as_api.git'
 if ENV['to'] == 'production'
   set :branch, 'master'
 elsif ENV['to'] == 'sandbox'
