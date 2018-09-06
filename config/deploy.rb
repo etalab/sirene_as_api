@@ -5,33 +5,27 @@ require 'mina/rbenv'
 require 'mina/whenever'
 require 'colorize'
 
+ENV['domain'] || raise('no domain provided'.red)
+
 ENV['to'] ||= 'sandbox'
-%w[sandbox production].include?(ENV['to']) || raise("target environment (#{ENV['to']}) not in the list")
+unless %w[sandbox production].include?(ENV['to'])
+  raise("target environment (#{ENV['to']}) not in the list")
+end
 
 print "Deploy to #{ENV['to']}\n".green
 
+set :commit, ENV['commit']
 set :user, 'deploy' # Username in the server to SSH to.
-set :application_name, 'sirene'
+set :application_name, 'sirene_api'
+set :domain, ENV['domain']
 
-# FOR CLIENT MINA DEPLOYMENT : Replace this domain adress with your own
-# set :domain, 'sirene.entreprise.api.gouv.fr'
-
-# sirene_server1: 'ns372885.ip-178-33-234.eu'
-# sirene_server2: 'ns3107905.ip-54-37-87.eu'
-if ENV['server'] == '1'
-  set :domain, 'ns372885.ip-178-33-234.eu'
-elsif ENV['server'] == '2'
-  set :domain, 'ns3107905.ip-54-37-87.eu'
-else
-  abort 'Please choose server=1 or 2'
-end
-
-set :deploy_to, "/var/www/sirene_#{ENV['to']}"
+set :deploy_to, "/var/www/sirene_api_#{ENV['to']}"
 set :rails_env, ENV['to']
 
 set :forward_agent, true
 set :port, 22
 set :repository, 'https://github.com/etalab/sirene_as_api.git'
+
 if ENV['to'] == 'production'
   set :branch, 'master'
 elsif ENV['to'] == 'sandbox'
@@ -86,17 +80,35 @@ task deploy: :remote_environment do
     # instance of your project.
     invoke :'git:clone'
     invoke :'deploy:link_shared_paths'
+    set :bundle_options, fetch(:bundle_options) + ' --clean'
     invoke :'bundle:install'
     invoke :'rails:db_migrate'
-    # invoke :'rails:assets_precompile'
 
     on launch: :remote_environment do
-      command "touch #{fetch(:deploy_to)}/current/tmp/restart.txt"
-      invoke :passenger
-    end
+      in_path(fetch(:current_path)) do
+        command %{mkdir -p tmp/}
+        command %{touch tmp/restart.txt}
 
-    invoke :warning_info
+        invoke :whenever_update
+        invoke :solr
+      end
+
+      invoke :passenger
+      invoke :warning_info
+    end
   end
+end
+
+task whenever_update: :remote_environment do
+  set :whenever_name, "sirene_api_#{ENV['to']}" # default value is based on domain name, and it is used to match in crontab !
+  set :bundle_bin, '/usr/local/rbenv/shims/bundle' # with our rbenv config it cannot be found...
+
+  invoke :'whenever:update'
+end
+
+task solr: :remote_environment do
+  comment 'Restarting Solr service'.green
+  command "sudo systemctl restart solr_sirene_api_#{ENV['to']}"
 end
 
 task passenger: :remote_environment do
@@ -116,7 +128,6 @@ task warning_info: :remote_environment do
   comment %{#{warning_sign} #{warning_sign} #{warning_sign} #{warning_sign}}.yellow
   comment %{#{warning_sign} If it's the first install (or a reboot) run the folowing commands #{warning_sign}}.yellow
   comment %{#{warning_sign} in the following directory: #{fetch(:deploy_to)}/current #{warning_sign}}.yellow
-  comment %{bundle exec rake sunspot:solr:start RAILS_ENV=#{ENV['to']}}.green
   comment %{bundle exec rake sirene_as_api:populate_database RAILS_ENV=#{ENV['to']}}.green
   comment %{#{warning_sign} #{warning_sign} #{warning_sign} #{warning_sign}}.yellow
   comment %{#{warning_sign} WARNING : Automatic wheneverize deactivated for now, update crontab manually #{warning_sign}}.yellow
