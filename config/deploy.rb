@@ -84,7 +84,7 @@ task deploy: :remote_environment do
     invoke :'bundle:install'
     invoke :'rails:db_migrate'
 
-    on launch: :remote_environment do
+    on :launch do
       in_path(fetch(:current_path)) do
         command %{mkdir -p tmp/}
         command %{touch tmp/restart.txt}
