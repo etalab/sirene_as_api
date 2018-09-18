@@ -29,7 +29,7 @@ set :repository, 'https://github.com/etalab/sirene_as_api.git'
 if ENV['to'] == 'production'
   set :branch, 'master'
 elsif ENV['to'] == 'sandbox'
-  set :branch, 'sandbox'
+  set :branch, 'develop'
 else
   abort 'Environment must be set to sandbox or production'
 end
@@ -45,10 +45,8 @@ set :shared_dirs, fetch(:shared_dirs, []).push(
   'tmp/pids',
   'tmp/sockets',
   '.last_monthly_stock_applied',
-  'solr/default',
   'solr/production',
   'solr/sandbox',
-  'solr/development',
   'solr/pids',
   'solr/tests'
 )
@@ -103,6 +101,7 @@ task whenever_update: :remote_environment do
   set :whenever_name, "sirene_api_#{ENV['to']}" # default value is based on domain name, and it is used to match in crontab !
   set :bundle_bin, '/usr/local/rbenv/shims/bundle' # with our rbenv config it cannot be found...
 
+  # whenever environement comes from fetch(:rails_env)
   invoke :'whenever:update'
 end
 
