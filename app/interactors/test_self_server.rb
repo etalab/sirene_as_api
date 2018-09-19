@@ -23,7 +23,7 @@ class TestSelfServer < SireneAsAPIInteractor
   private
 
   def execute_test
-    `curl --resolve sirene.entreprise.api.gouv.fr:443:127.0.0.1 https://sirene.entreprise.api.gouv.fr/v1/full_text/montpellier`
+    `curl --resolve entreprise.data.gouv.fr:443:127.0.0.1 https://entreprise.data.gouv.fr/api/sirene/v1/full_text/montpellier`
   rescue StandardError => error
     stdout_error_log "Couldn't reach the API on this server : #{error}"
     context.fail!

@@ -19,9 +19,11 @@ Le projet se découpe en trois sous-projets :
 
 Nouveau ! l'[API RNA](https://github.com/etalab/rna_as_api) est disponible !
 
-## ⚠️ Breaking changes ⚠️
+## Essayez l'API
 
-- **02/06/2018** Sur l'endpoint `/v1/siren/`, la propriété `siege_social` affichait jusque là le hash de l'établissement dans un array. Elle affiche dorénavant directement le hash.
+Vous pouvez interroger l'API en ligne: https://entreprise.data.gouv.fr/api/sirene/v1/full_text/ + Nom de l'entreprise recherchée (cf. plus bas pour d'autres usages).
+
+Ou bien par le site front-end : https://entreprise.data.gouv.fr/
 
 ## Qualification des fichiers mis à disposition par l'INSEE
 
@@ -89,11 +91,11 @@ Vous pouvez n'obtenir que les suggestions par la commande suivante :
 
     curl 'localhost:3000/v1/suggest/MA_RECHERCHE'
 
-**Attention : La construction du dictionnaire de suggestions est une tache lourde.**  
-Une allocation de memoire vive de minimum 4G est actuellement conseillée. L'opération prend environ 30 minutes.  
+**Attention : La construction du dictionnaire de suggestions est une tache lourde.**
+Une allocation de memoire vive de minimum 4G est actuellement conseillée. L'opération prend environ 30 minutes.
 Une fois le dictionnaire construit, une allocation de 2G est suffisante pour utiliser les suggestions. En dessous, les suggestions seront desactivées, mais vous pourrez toujours utiliser toutes les autres fonctionnalités de l'API.
 
-L'allocation de mémoire de la Machine Virtuelle Java peut être modifié dans le fichier config/sunspot.yml.  
+L'allocation de mémoire de la Machine Virtuelle Java peut être modifié dans le fichier config/sunspot.yml.
 
 ### Pagination
 
