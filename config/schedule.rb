@@ -1,5 +1,5 @@
 # Learn more: http://github.com/javan/whenever
-set :output, File.join(Whenever.path, 'log', 'rna_api_cron.log')
+set :output, File.join(Whenever.path, 'log', 'sirene_api_cron.log')
 
 # environment var is set with
 # whenever --set 'environment=VALUE'
