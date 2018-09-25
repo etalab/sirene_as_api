@@ -8,7 +8,7 @@ describe API::V1::FullTextController do
       expect(body_as_json).to match(
         message: 'no results found',
         spellcheck: nil,
-        suggestions: nil
+        suggestions: []
       )
       expect(response).to have_http_status(404)
     end
@@ -201,7 +201,7 @@ describe API::V1::FullTextController do
 
       expect(response.body).to look_like_json
       result_hash = body_as_json
-      result_hash.extract!(:etablissement, :suggestions)
+      etablissements = result_hash.extract!(:etablissement, :suggestions)
       expect(result_hash).to match(
         total_results: per_page_custom,
         total_pages: 1,
@@ -209,6 +209,7 @@ describe API::V1::FullTextController do
         page: 1,
         spellcheck: nil
       )
+      expect(etablissements.size).to eq(15)
     end
   end
 

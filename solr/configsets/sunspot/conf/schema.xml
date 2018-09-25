@@ -104,15 +104,26 @@
     </fieldType>
 
     <!-- Custom implementations for autocomplete suggestions -->
-    <fieldType name="autocomplete" class="solr.TextField" positionIncrementGap="100">
-      <analyzer type="index">
-        <tokenizer class="solr.KeywordTokenizerFactory"/>
+    <!-- add positionIncrementGap="100" to fieldType ? -->
+    <fieldType name="autocomplete" class="solr.TextField">
+      <!-- <analyzer type="index">
+        <tokenizer class="solr.StandardTokenizerFactory"/>
         <filter class="solr.LowerCaseFilterFactory"/>
-        <filter class="solr.EdgeNGramFilterFactory" minGramSize="3" maxGramSize="100" />
       </analyzer>
       <analyzer type="query">
+        <tokenizer class="solr.LetterTokenizerFactory"/>
+        <filter class="solr.LowerCaseFilterFactory"/>
+      </analyzer> -->
+      <!-- <analyzer>
         <tokenizer class="solr.KeywordTokenizerFactory"/>
         <filter class="solr.LowerCaseFilterFactory"/>
+        <filter class="solr.TrimFilterFactory"/>
+      </analyzer> -->
+
+      <analyzer>
+        <tokenizer class="solr.KeywordTokenizerFactory"/>
+        <filter class="solr.LowerCaseFilterFactory"/>
+        <filter class="solr.TrimFilterFactory"/>
       </analyzer>
     </fieldType>
   </types>

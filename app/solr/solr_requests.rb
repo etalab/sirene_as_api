@@ -13,7 +13,7 @@ class SolrRequests < SireneAsAPIInteractor
   def get_suggestions
     http_session = Net::HTTP.new('localhost', solr_port)
     solr_response = http_session.get(uri_solr)
-    return nil unless solr_response.is_a? Net::HTTPSuccess
+    return [] unless solr_response.is_a? Net::HTTPSuccess
     begin
       extract_suggestions(solr_response.body)
     rescue StandardError => error
@@ -41,11 +41,10 @@ class SolrRequests < SireneAsAPIInteractor
   def extract_suggestions(solr_response_body)
     suggestions = []
     solr_response_hash = JSON.parse(solr_response_body)
-
-    solr_response_hash['suggest']['suggest'][@keyword]['suggestions'].each do |hash|
+    suggestions_parsed = solr_response_hash['suggest']['suggest'].to_a[0][1]['suggestions']
+    suggestions_parsed.each do |hash|
       suggestions << hash['term']
     end
-    return nil if suggestions.empty?
     suggestions
   end
 

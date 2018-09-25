@@ -534,15 +534,15 @@
   <searchComponent name="suggest" class="solr.SuggestComponent">
     <lst name="suggester">
       <str name="name">suggest</str>
-      <str name="lookupImpl">FSTLookupFactory</str>
+      <str name="lookupImpl">AnalyzingLookupFactory</str>
       <str name="minPrefixChars">3</str>
-      <str name="storeDir">suggester_FSTlookupfactory_dir</str>
+      <str name="storeDir">suggester_analyzinglookupfactory_dir</str>
       <str name="dictionaryImpl">DocumentDictionaryFactory</str>
       <str name="field">autocomplete</str>
       <str name="suggestAnalyzerFieldType">autocomplete</str>
       <str name="exactMatchFirst">true</str>
-      <str name="preserveSep">true</str>
-      <str name="preservePositionIncrements">true</str>
+      <str name="preserveSep">false</str>
+      <str name="preservePositionIncrements">false</str>
       <str name="buildOnOptimize">false</str>
       <str name="buildOnStartup">false</str>
       <str name="buildOnCommit">false</str>
