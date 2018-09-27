@@ -513,39 +513,20 @@
     </lst>
   </searchComponent>
 
-  <!-- <searchComponent name="spellcheck" class="solr.SpellCheckComponent">
-    <str name="queryAnalyzerFieldType">textSpell</str>
-    <lst name="spellchecker">
-      <str name="name">default</str>
-      <str name="field">textSpell</str>
-      <str name="buildOnCommit">true</str>
-      <str name="classname">solr.DirectSolrSpellChecker</str>
-      <str name="distanceMeasure">internal</str>
-      <float name="accuracy">0.6</float>
-      <int name="maxEdits">1</int>
-      <int name="minPrefix">1</int>
-      <int name="maxInspections">5</int>
-      <int name="minQueryLength">3</int>
-      <float name="maxQueryFrequency">0.0001</float>
-    </lst>
-  </searchComponent> -->
-
   <!-- Custom search component to configure suggestions -->
   <searchComponent name="suggest" class="solr.SuggestComponent">
     <lst name="suggester">
       <str name="name">suggest</str>
-      <str name="lookupImpl">AnalyzingLookupFactory</str>
+      <str name="lookupImpl">AnalyzingInfixLookupFactory</str>
       <str name="minPrefixChars">3</str>
-      <str name="storeDir">suggester_analyzinglookupfactory_dir</str>
-      <str name="dictionaryImpl">DocumentDictionaryFactory</str>
+      <str name="storeDir">suggester_analyzinginfixlookupfactory_dir</str>
+      <!-- <str name="dictionaryImpl">DocumentDictionaryFactory</str> -->
       <str name="field">autocomplete</str>
       <str name="suggestAnalyzerFieldType">autocomplete</str>
-      <str name="exactMatchFirst">true</str>
-      <str name="preserveSep">false</str>
-      <str name="preservePositionIncrements">false</str>
       <str name="buildOnOptimize">false</str>
       <str name="buildOnStartup">false</str>
       <str name="buildOnCommit">false</str>
+      <str name="highlight">false</str>
     </lst>
   </searchComponent>
 

@@ -209,7 +209,7 @@ describe API::V1::FullTextController do
         page: 1,
         spellcheck: nil
       )
-      expect(etablissements.size).to eq(15)
+      expect(etablissements[:etablissement].size).to eq(15)
     end
   end
 

@@ -98,7 +98,6 @@
     <fieldType name="textSpell" class="solr.TextField" positionIncrementGap="100" omitNorms="true">
       <analyzer>
         <tokenizer class="solr.KeywordTokenizerFactory"/>
-        <!-- <tokenizer class="solr.LetterTokenizerFactory"/> -->
         <filter class="solr.LowerCaseFilterFactory"/>
       </analyzer>
     </fieldType>
@@ -106,24 +105,9 @@
     <!-- Custom implementations for autocomplete suggestions -->
     <!-- add positionIncrementGap="100" to fieldType ? -->
     <fieldType name="autocomplete" class="solr.TextField">
-      <!-- <analyzer type="index">
-        <tokenizer class="solr.StandardTokenizerFactory"/>
-        <filter class="solr.LowerCaseFilterFactory"/>
-      </analyzer>
-      <analyzer type="query">
-        <tokenizer class="solr.LetterTokenizerFactory"/>
-        <filter class="solr.LowerCaseFilterFactory"/>
-      </analyzer> -->
-      <!-- <analyzer>
-        <tokenizer class="solr.KeywordTokenizerFactory"/>
-        <filter class="solr.LowerCaseFilterFactory"/>
-        <filter class="solr.TrimFilterFactory"/>
-      </analyzer> -->
-
       <analyzer>
         <tokenizer class="solr.KeywordTokenizerFactory"/>
-        <filter class="solr.LowerCaseFilterFactory"/>
-        <filter class="solr.TrimFilterFactory"/>
+        <filter class="solr.UpperCaseFilterFactory"/>
       </analyzer>
     </fieldType>
   </types>

@@ -1,28 +1,22 @@
 require 'net/http'
 require 'uri'
+require 'json'
 
 class SolrRequests < SireneAsAPIInteractor
   attr_accessor :keyword
 
   def initialize *keywords
     keyword = keywords[0].to_s.gsub(/[+<>'"=&,;\n]/, ' ') # Get first word in params & Prevent Solr injections
-    keyword.upcase! # Need to upcase request since LowerCaseFilterFactory doens't work on FST implementation for some reason
-    @keyword = CGI.unescape(keyword)
+    @keyword = URI.encode_www_form_component(keyword)
   end
 
-  def get_suggestions
+  def request_suggestions
     http_session = Net::HTTP.new('localhost', solr_port)
-    solr_response = http_session.get(uri_solr)
-    return [] unless solr_response.is_a? Net::HTTPSuccess
-    begin
-      extract_suggestions(solr_response.body)
-    rescue StandardError => error
-      stdout_error_log "Suggestions not working correctly. Cause: #{error}. \n Solr response: #{solr_response.body}"
-    end
+    http_session.get(uri_solr)
   end
 
   def build_dictionary
-    stdout_info_log 'Building suggester dictionary... This might take a while (~3 hours)'
+    stdout_info_log 'Building suggester dictionary... This might take a while (~30 mins)'
     begin
       request_build_dictionary
     rescue StandardError => error
@@ -36,16 +30,6 @@ class SolrRequests < SireneAsAPIInteractor
 
   def uri_solr
     "/solr/#{Rails.env}/suggesthandler?wt=json&suggest.q=#{@keyword}"
-  end
-
-  def extract_suggestions(solr_response_body)
-    suggestions = []
-    solr_response_hash = JSON.parse(solr_response_body)
-    suggestions_parsed = solr_response_hash['suggest']['suggest'].to_a[0][1]['suggestions']
-    suggestions_parsed.each do |hash|
-      suggestions << hash['term']
-    end
-    suggestions
   end
 
   def request_build_dictionary
