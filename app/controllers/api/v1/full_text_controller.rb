@@ -141,3 +141,12 @@ def fulltext_params
     :departement
   )
 end
+
+def spellcheck_custom(search, query)
+  collation = []
+  query.split(' ').each do |word|
+    collation << search.spellcheck_suggestion_for(word)
+  end
+  return nil if collation.empty?
+  collation.join(' ')
+end

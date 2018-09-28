@@ -62,6 +62,7 @@
     <fieldType name="text" class="solr.TextField" omitNorms="false">
       <analyzer>
         <!-- Replacing StandardTokenizer by LetterTokenizer to make anything not a letter a separator -->
+        <!-- replacing again with StandardTokenizer for tests -->
         <!-- <tokenizer class="solr.StandardTokenizerFactory"/> -->
         <tokenizer class="solr.LetterTokenizerFactory"/>
 
@@ -97,7 +98,8 @@
          cased words). -->
     <fieldType name="textSpell" class="solr.TextField" positionIncrementGap="100" omitNorms="true">
       <analyzer>
-        <tokenizer class="solr.KeywordTokenizerFactory"/>
+        <tokenizer class="solr.StandardTokenizerFactory"/>
+        <filter class="solr.StandardFilterFactory"/>
         <filter class="solr.LowerCaseFilterFactory"/>
       </analyzer>
     </fieldType>
@@ -107,7 +109,7 @@
     <fieldType name="autocomplete" class="solr.TextField">
       <analyzer>
         <tokenizer class="solr.KeywordTokenizerFactory"/>
-        <filter class="solr.UpperCaseFilterFactory"/>
+        <filter class="solr.LowerCaseFilterFactory"/>
       </analyzer>
     </fieldType>
   </types>
