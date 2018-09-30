@@ -4,7 +4,7 @@ sandbox:
     port: 8984
     log_level: OFF
     path: /solr/sandbox
-    memory: 2G
+    memory: 1G
 
 development:
   solr:

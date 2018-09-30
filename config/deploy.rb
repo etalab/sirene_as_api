@@ -46,12 +46,12 @@ set :shared_dirs, fetch(:shared_dirs, []).push(
   'tmp/sockets',
   '.last_monthly_stock_applied',
   "solr/#{ENV['to']}",
-  'solr/pids',
+  'solr/pids'
 )
 
 set :shared_files, fetch(:shared_files, []).push(
   'config/database.yml',
-  'config/environments/production.rb',
+  "config/environments/#{ENV['to']}.rb",
   'config/secrets.yml'
 )
 
@@ -111,9 +111,9 @@ end
 task passenger: :remote_environment do
   comment %{Attempting to start Passenger app}.green
   command %{
-    if (sudo passenger-status | grep sirene_#{ENV['to']}) >/dev/null
+    if (sudo passenger-status | grep sirene_api_#{ENV['to']}) >/dev/null
     then
-      passenger-config restart-app /var/www/sirene_#{ENV['to']}/current
+      passenger-config restart-app /var/www/sirene_api_#{ENV['to']}/current
     else
       echo 'Skipping: no passenger app found (will be automatically loaded)'
     fi
