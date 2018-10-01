@@ -329,7 +329,7 @@ describe API::V1::FullTextController do
     end
   end
 
-  # Spellchecking collation - deactivated for now
+  # Spellchecking collation
   context 'when two close words both contains a typo', type: :request do
     let!(:etablissement) { create(:etablissement, nom_raison_sociale: 'foobar company') }
     let!(:etablissement2) { create(:etablissement, nom_raison_sociale: 'sample company') }
