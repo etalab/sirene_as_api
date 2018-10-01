@@ -1,13 +1,13 @@
 class API::V1::SuggestController < ApplicationController
+  include Suggestions
+
   def show
     keyword = suggest_params[:suggest_query]
     return if keyword.empty?
-    suggestions = SolrRequests.new(keyword).get_suggestions
-    if suggestions.nil?
-      render json: { message: 'no suggestions found' }, status: 404
-    else
-      render json: { suggestions: suggestions }, status: 200
-    end
+    response = SolrRequests.new(keyword).request_suggestions
+    render json: [], status: response.code && return unless response.is_a? Net::HTTPSuccess
+    suggestions = extract_suggestions(response.body)
+    render json: { suggestions: suggestions }, status: 200
   end
 
   private

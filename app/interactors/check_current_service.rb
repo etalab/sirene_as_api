@@ -6,7 +6,7 @@ class CheckCurrentService < SireneAsAPIInteractor
 
     interactor.call
 
-    stdout_success_log 'Other machine is currently in use. Update will start.'
+    stdout_success_log 'Other machine is currently in use.'
   end
 
   def call
