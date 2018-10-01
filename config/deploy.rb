@@ -85,7 +85,8 @@ task deploy: :remote_environment do
         command %{mkdir -p tmp/}
         command %{touch tmp/restart.txt}
 
-        invoke :whenever_update
+        # Deactivating auto wheneverize until sirene2 is available
+        # invoke :whenever_update
         invoke :solr
       end
 
