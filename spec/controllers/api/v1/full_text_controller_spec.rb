@@ -8,7 +8,7 @@ describe API::V1::FullTextController do
       expect(body_as_json).to match(
         message: 'no results found',
         spellcheck: nil,
-        suggestions: nil
+        suggestions: []
       )
       expect(response).to have_http_status(404)
     end
@@ -201,7 +201,7 @@ describe API::V1::FullTextController do
 
       expect(response.body).to look_like_json
       result_hash = body_as_json
-      result_hash.extract!(:etablissement, :suggestions)
+      etablissements = result_hash.extract!(:etablissement, :suggestions)
       expect(result_hash).to match(
         total_results: per_page_custom,
         total_pages: 1,
@@ -209,6 +209,7 @@ describe API::V1::FullTextController do
         page: 1,
         spellcheck: nil
       )
+      expect(etablissements[:etablissement].size).to eq(15)
     end
   end
 
@@ -329,22 +330,22 @@ describe API::V1::FullTextController do
   end
 
   # Spellchecking collation - deactivated for now
-  # context 'when two close words both contains a typo', type: :request do
-  #   let!(:etablissement) { create(:etablissement, nom_raison_sociale: 'foobar company') }
-  #   let!(:etablissement2) { create(:etablissement, nom_raison_sociale: 'sample company') }
-  #   let!(:etablissement3) { create(:etablissement, nom_raison_sociale: 'another company') }
-  #   it 'spellcheck correctly and return the correct word' do
-  #     Etablissement.reindex
+  context 'when two close words both contains a typo', type: :request do
+    let!(:etablissement) { create(:etablissement, nom_raison_sociale: 'foobar company') }
+    let!(:etablissement2) { create(:etablissement, nom_raison_sociale: 'sample company') }
+    let!(:etablissement3) { create(:etablissement, nom_raison_sociale: 'another company') }
+    it 'spellcheck correctly and return the correct word' do
+      Etablissement.reindex
 
-  #     get '/v1/full_text/fo0bar%20compani' # Typos on purpose
+      get '/v1/full_text/fo0bar%20compani' # Typos on purpose
 
-  #     expect(response.body).to look_like_json
-  #     result_hash = body_as_json
-  #     result_spellcheck = result_hash[:spellcheck]
-  #     expect(result_spellcheck).to match('foobar company')
-  #     expect(response).to have_http_status(404)
-  #   end
-  # end
+      expect(response.body).to look_like_json
+      result_hash = body_as_json
+      result_spellcheck = result_hash[:spellcheck]
+      expect(result_spellcheck).to match('foobar company')
+      expect(response).to have_http_status(404)
+    end
+  end
 
   # Suggestions : FST implementation works only from prefix, so we find etablissement3
   context 'when a name can be suggested', type: :request do
@@ -364,7 +365,7 @@ describe API::V1::FullTextController do
         total_pages: 1,
         per_page: 10,
         page: 1,
-        suggestions: ['ETABLISSEMENT TO FIND']
+        suggestions: ['etablissement to find']
       )
     end
   end

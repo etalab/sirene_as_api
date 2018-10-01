@@ -1,6 +1,8 @@
 require 'sunspot'
 
 class API::V1::FullTextController < ApplicationController
+  include Suggestions
+
   def show
     page = fulltext_params[:page] || 1
     per_page = per_page_default_10_max_100
@@ -121,7 +123,9 @@ def payload_not_found(query, search)
 end
 
 def request_suggestions(query)
-  SolrRequests.new(query).get_suggestions
+  response = SolrRequests.new(query).request_suggestions
+  return [] unless response.is_a? Net::HTTPSuccess
+  extract_suggestions(response.body)
 end
 
 def fulltext_params
@@ -136,4 +140,13 @@ def fulltext_params
     :is_ess,
     :departement
   )
+end
+
+def spellcheck_custom(search, query)
+  collation = []
+  query.split(' ').each do |word|
+    collation << search.spellcheck_suggestion_for(word)
+  end
+  return nil if collation.empty?
+  collation.join(' ')
 end
