@@ -1,0 +1,16 @@
+
+[1mFrom:[0m /home/zerh/projects/project_sirene/sirene_as_api/app/controllers/api/v2/siren_controller.rb @ line 6 API::V2::SirenController#show:
+
+     [1;34m2[0m: [32mdef[0m [1;34mshow[0m
+     [1;34m3[0m:   result_siege = [1;34;4mEtablissement[0m.where([35msiren[0m: siren_params[[33m:siren[0m], [35mis_siege[0m: [31m[1;31m'[0m[31m1[1;31m'[0m[31m[0m)
+     [1;34m4[0m:   results_sirets = [1;34;4mEtablissement[0m.select([31m[1;31m'[0m[31msiret[1;31m'[0m[31m[0m).where([35msiren[0m: siren_params[[33m:siren[0m], [35mis_siege[0m: [31m[1;31m'[0m[31m0[1;31m'[0m[31m[0m).pluck([33m:siret[0m)
+     [1;34m5[0m:   binding.pry
+ =>  [1;34m6[0m:   results_rnm = [1;34;4mRnmAPICall[0m.new([35msiren[0m: siren_params[[33m:siren[0m]).call
+     [1;34m7[0m: 
+     [1;34m8[0m:   [32mif[0m !result_siege.blank?
+     [1;34m9[0m:     render_payload_siren(result_siege, results_sirets, results_rnm)
+    [1;34m10[0m:   [32melse[0m
+    [1;34m11[0m:     render [35mjson[0m: { [35mmessage[0m: [31m[1;31m'[0m[31mno results found[1;31m'[0m[31m[0m }, [35mstatus[0m: [1;34m404[0m
+    [1;34m12[0m:   [32mend[0m
+    [1;34m13[0m: [32mend[0m
+
