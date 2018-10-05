@@ -3,17 +3,13 @@ module PayloadFormatter
     def initialize(siren, result_siege, results_sirets, results_rnm)
       @siren = siren
       @result_siege = result_siege.to_a.map(&:serializable_hash)[0]
-      @result_siege_geo = @result_siege.extract!(
-        'longitude',
-        'latitude',
-        'geo_score',
-        'geo_type',
-        'geo_adresse',
-        'geo_id',
-        'geo_ligne',
-      )
+      @result_siege_geo = @result_siege.extract!(*geo_params) unless @result_siege.nil?
       @results_sirets = results_sirets
       @results_rnm = results_rnm
+    end
+
+    def geo_params
+      %w[longitude latitude geo_score geo_type geo_adresse geo_id geo_ligne]
     end
 
     # rubocop:disable Metrics/MethodLength
@@ -33,7 +29,7 @@ module PayloadFormatter
         repertoire_national_metiers: {
           # TODO : change status / results when it will effectively return 404
           data: formatted_results_rnm,
-          status: '200',
+          status: 200,
           metadata: {
             id: 'Répertoire National des Métiers',
             producteur: "Chambre de Métiers et de l'Artisanat",
@@ -77,9 +73,12 @@ module PayloadFormatter
       404
     end
 
+    # Rescuing here since if there is the slightest issue with the file the controller would break
     def date_sirene_stock
       name_stock = File.read(SaveLastMonthlyStockName.new.full_path)
       name_stock.split('/')[4]
+    rescue
+      nil
     end
 
     # Complexify here when results_rnm will be returning other than empty hashes, so we dont get a JSON.parse error
