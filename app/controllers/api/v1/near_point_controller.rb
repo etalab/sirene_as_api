@@ -18,10 +18,11 @@ class API::V1::NearPointController < ApplicationController
   def search_nearby_etablissements
     radius = latlong_params[:radius] || 5
 
-    Etablissement.search do
-      with(:location).in_radius(latlong_params[:lat], latlong_params[:long], radius, bbox: true)
+    Etablissement.search do |s|
+      s.with(:location).in_radius(latlong_params[:lat], latlong_params[:long], radius, bbox: true)
+      with_faceting(s)
 
-      paginate page: page_param_as_integer, per_page: per_page_default_10_max_100
+      s.paginate page: page_param_as_integer, per_page: per_page_default_10_max_100
     end
   end
 
@@ -55,7 +56,22 @@ class API::V1::NearPointController < ApplicationController
     render json: results_payload, status: 200
   end
 
+  def with_faceting(search)
+    search.facet :activite_principale
+    search.with(:activite_principale, latlong_params[:activite_principale]) if latlong_params[:activite_principale]
+    search.adjust_solr_params { |p| add_similar_activities(p) } if latlong_params[:approximate_activity]
+  end
+
+  def add_similar_activities(solr_params)
+    solr_params[:fq].push("activite_principale_s: #{approximated_activity}")
+  end
+
+  def approximated_activity
+    # 6204Z will become 62*
+    latlong_params[:approximate_activity].slice(0, 2) + '*'
+  end
+
   def latlong_params
-    params.permit(:lat, :long, :radius, :page, :per_page)
+    params.permit(:lat, :long, :radius, :page, :per_page, :approximate_activity, :activite_principale)
   end
 end
