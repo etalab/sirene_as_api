@@ -163,6 +163,14 @@ La requête se fait par :
 
 Oú LATITUDE et LONGITUDE sont un point autour duquel vous désirez chercher des établissements. Vous pouvez également préciser le radius de recherche (défaut: 5km). Les résultats sont paginés de la même façon que précedemment.
 
+Les options de filtrage suivantes sont disponibles :
+
+| Filtrage désiré                                           | Requête GET               | Valeur                                              |
+|-----------------------------------------------------------|---------------------------|-----------------------------------------------------|
+| Filtrage par activité principale (code NAF) | activite_principale               | Code NAF desiré |
+| Filtrage par code NAF approximé | approximate_activity               | 2 premiers chars du code NAF (Ex: 62 pour 620Z) |
+| Radius de recherche | radius               | Entier ou flottant |
+
 ## Établissements autour d'un autre établissement
 
 La requête se fait par :
