@@ -1,4 +1,4 @@
-module PayloadFormatter
+module PayloadSerializer
   class SirenPayload
     def initialize(siren, result_siege, results_sirets, results_rnm)
       @siren = siren
