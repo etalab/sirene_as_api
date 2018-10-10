@@ -65,7 +65,7 @@ describe API::V1::SirenController do
           # status
           expect(response).to have_http_status(200)
           expect(subject[:sirene][:status]).to eq(200)
-          expect(subject[:repertoire_national_metiers][:status]).to eq(200) # TODO replace with 404 when API RNM is ready
+          expect(subject[:repertoire_national_metiers][:status]).to eq(404)
 
           # Sirene data
           expect(subject[:sirene][:data][:siege_social][:nom_raison_sociale]).to eq('foobarcompany')
@@ -82,7 +82,11 @@ describe API::V1::SirenController do
 
       context 'SIRENE 404' do
         let!(:etablissement) { create(:etablissement, nom_raison_sociale: 'foobarcompany', siren: '111111', is_siege: '1') }
-        it 'returns 404'
+        it 'returns 404' do
+          get "/v2/siren/#{siren_rnm_ko}"
+
+          expect(response).to have_http_status(404)
+        end
       end
     end
   end

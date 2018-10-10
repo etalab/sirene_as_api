@@ -5,7 +5,7 @@ module PayloadFormatter
       @result_siege = result_siege.to_a.map(&:serializable_hash)[0]
       @result_siege_geo = @result_siege.extract!(*geo_params) unless @result_siege.nil?
       @results_sirets = results_sirets
-      @results_rnm = results_rnm
+      @results_rnm = format_rnm(results_rnm)
     end
 
     def geo_params
@@ -13,7 +13,7 @@ module PayloadFormatter
     end
 
     # rubocop:disable Metrics/MethodLength
-    def payload
+    def body
       {
         sirene: {
           data: data_from_sirene,
@@ -27,9 +27,8 @@ module PayloadFormatter
           }
         },
         repertoire_national_metiers: {
-          # TODO : change status / results when it will effectively return 404
-          data: formatted_results_rnm,
-          status: 200,
+          data: @formatted_results_rnm[:body],
+          status: @formatted_results_rnm[:status],
           metadata: {
             id: 'Répertoire National des Métiers',
             producteur: "Chambre de Métiers et de l'Artisanat",
@@ -56,6 +55,11 @@ module PayloadFormatter
     end
     # rubocop:enable Metrics/MethodLength
 
+    def status
+      return 404 if status_sirene == 404 && @formatted_results_rnm[:status] == 404
+      200
+    end
+
     def data_from_sirene
       if !@result_siege.nil?
         {
@@ -81,9 +85,18 @@ module PayloadFormatter
       nil
     end
 
-    # Complexify here when results_rnm will be returning other than empty hashes, so we dont get a JSON.parse error
-    def formatted_results_rnm
-      JSON.parse(@results_rnm)
+    # Simplify here when rnm will returns 404 correctly
+    def format_rnm(results)
+      @formatted_results_rnm = {}
+
+      parsed_results = JSON.parse(results)
+      if parsed_results.values.none?
+        @formatted_results_rnm[:body] = JSON.parse('{"message": "no results found"}')
+        @formatted_results_rnm[:status] = 404
+      else
+        @formatted_results_rnm[:body] = parsed_results
+        @formatted_results_rnm[:status] = 200
+      end
     end
 
     def numero_tva_for(siren)
