@@ -2,7 +2,7 @@ require 'digest'
 require 'net/http'
 require 'openssl'
 
-class OvhAPICall < SireneAsAPIInteractor
+class OvhAPI < SireneAsAPIInteractor
   AK = Rails.application.secrets.OVH_APPLICATION_KEY
   AS = Rails.application.secrets.OVH_APPLICATION_SECRET
   CK = Rails.application.secrets.OVH_CONSUMER_KEY

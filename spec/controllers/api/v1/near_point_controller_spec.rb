@@ -120,4 +120,66 @@ describe API::V1::NearPointController do
       )
     end
   end
+
+  context 'when using param filter activite_principale', type: :request do
+    let!(:etablissement_to_not_find) do
+      create(
+        :etablissement,
+        id: 1,
+        latitude: '48.000001',
+        longitude: '3.000001',
+        activite_principale: '6201Z',
+        nom_raison_sociale: 'DontFindMe'
+      )
+    end
+    let!(:etablissement_to_find) do
+      create(
+        :etablissement,
+        id: 2,
+        latitude: '48.000001',
+        longitude: '3.000001',
+        activite_principale: '3410E',
+        nom_raison_sociale: 'FindMe'
+      )
+    end
+    it 'works' do
+      Etablissement.reindex
+
+      get '/v1/near_point/?lat=48.000&long=3.000&activite_principale=3410E'
+      result_hash = body_as_json
+      expect(result_hash[:etablissements].size).to eq(1)
+      expect(result_hash[:etablissements].first[:nom_raison_sociale]).to eq('FindMe')
+    end
+  end
+
+  context 'when using param filter approximate_activity', type: :request do
+    let!(:etablissement_to_not_find) do
+      create(
+        :etablissement,
+        id: 1,
+        latitude: '48.000001',
+        longitude: '3.000001',
+        activite_principale: '6201Z',
+        nom_raison_sociale: 'DontFindMe'
+      )
+    end
+    let!(:etablissement_to_find) do
+      create(
+        :etablissement,
+        id: 2,
+        latitude: '48.000001',
+        longitude: '3.000001',
+        activite_principale: '3410E',
+        nom_raison_sociale: 'FindMe'
+      )
+    end
+    it 'works' do
+      Etablissement.reindex
+
+      get '/v1/near_point/?lat=48.000&long=3.000&approximate_activity=34'
+      result_hash = body_as_json
+      expect(result_hash[:etablissements].size).to eq(1)
+      expect(result_hash[:etablissements].first[:nom_raison_sociale]).to eq('FindMe')
+    end
+  end
 end

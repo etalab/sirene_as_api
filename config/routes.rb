@@ -9,4 +9,8 @@ Rails.application.routes.draw do
     get 'near_point/' => '/api/v1/near_point#show'
     get 'rna/:rna' => '/api/v1/numero_rna#show'
   end
+
+  namespace :v2 do
+    get 'siren/:siren' => '/api/v2/siren#show'
+  end
 end
