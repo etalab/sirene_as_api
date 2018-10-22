@@ -4,9 +4,8 @@ class API::V2::SirenController < ApplicationController
   def show
     result_siege = Etablissement.where(siren: siren_params[:siren], is_siege: '1')
     result_sirets = Etablissement.select('siret').where(siren: siren_params[:siren], is_siege: '0').pluck(:siret)
-    result_rnm = RnmAPI.new(siren_params[:siren]).call
 
-    payload = SirenPayload.new(siren_params[:siren], result_siege, result_sirets, result_rnm)
+    payload = SirenPayload.new(siren_params[:siren], result_siege, result_sirets)
 
     render json: payload.body, status: payload.status
   end
