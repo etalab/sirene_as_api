@@ -25,6 +25,15 @@ module PayloadSerializer
             date_creation_stock: date_sirene_stock
           }
         },
+        repertoire_national_metiers: {
+          api_http_link: "https://api-rnm.artisanat.fr/api/entreprise/#{@siren}",
+          metadata: {
+            id: 'Répertoire National des Métiers',
+            producteur: "Chambre de Métiers et de l'Artisanat",
+            nature: 'API',
+            adress: 'https://api-rnm.artisanat.fr/'
+          }
+        },
         computed: {
           data: {
             numero_tva_intra: numero_tva_for(@siren),
