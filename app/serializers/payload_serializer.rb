@@ -1,11 +1,10 @@
 module PayloadSerializer
   class SirenPayload
-    def initialize(siren, result_siege, results_sirets, results_rnm)
+    def initialize(siren, result_siege, results_sirets)
       @siren = siren
       @result_siege = result_siege.to_a.map(&:serializable_hash)[0]
       @result_siege_geo = @result_siege.extract!(*geo_params) unless @result_siege.nil?
       @results_sirets = results_sirets
-      @results_rnm = format_rnm(results_rnm)
     end
 
     def geo_params
@@ -17,7 +16,7 @@ module PayloadSerializer
       {
         sirene: {
           data: data_from_sirene,
-          status: status_sirene,
+          status: status,
           metadata: {
             id: 'SIRENE',
             producteur: 'INSEE',
@@ -27,8 +26,7 @@ module PayloadSerializer
           }
         },
         repertoire_national_metiers: {
-          data: @formatted_results_rnm[:body],
-          status: @formatted_results_rnm[:status],
+          api_http_link: "https://api-rnm.artisanat.fr/api/entreprise/#{@siren}",
           metadata: {
             id: 'Répertoire National des Métiers',
             producteur: "Chambre de Métiers et de l'Artisanat",
@@ -55,11 +53,6 @@ module PayloadSerializer
     end
     # rubocop:enable Metrics/MethodLength
 
-    def status
-      return 404 if status_sirene == 404 && @formatted_results_rnm[:status] == 404
-      200
-    end
-
     def data_from_sirene
       if !@result_siege.nil?
         {
@@ -72,7 +65,7 @@ module PayloadSerializer
       end
     end
 
-    def status_sirene
+    def status
       return 200 unless @result_siege.nil?
       404
     end
@@ -83,20 +76,6 @@ module PayloadSerializer
       name_stock.split('/')[4]
     rescue
       nil
-    end
-
-    # Simplify here when rnm will returns 404 correctly
-    def format_rnm(results)
-      @formatted_results_rnm = {}
-
-      parsed_results = JSON.parse(results)
-      if parsed_results.values.none?
-        @formatted_results_rnm[:body] = JSON.parse('{"message": "no results found"}')
-        @formatted_results_rnm[:status] = 404
-      else
-        @formatted_results_rnm[:body] = parsed_results
-        @formatted_results_rnm[:status] = 200
-      end
     end
 
     def numero_tva_for(siren)
