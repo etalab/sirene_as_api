@@ -1,16 +1,29 @@
 class API::V2::SirenChildrenController < ApplicationController
   def show
-    result_siege = Etablissement.where(siren: children_params[:siren], is_siege: '1').select(*essential_infos).first
-    results_children = Etablissement.where(siren: children_params[:siren], is_siege: '0').select(*essential_infos)
+    @results = Etablissement.where(siren: children_params[:siren]).pluck(*essential_infos)
 
-    if !result_siege.blank?
-      render_payload_siren_children(result_siege, results_children)
+    @result_siege = []
+    @results_children = []
+    rebuild_hash_results
+
+    if !@result_siege.blank?
+      render_payload_siren_children(@result_siege.first, @results_children)
     else
       render json: { message: 'no results found' }, status: 404
     end
   end
 
   private
+
+  def rebuild_hash_results
+    @results.each do |result|
+      if result[0] == '0'
+        @results_children << Hash[essential_infos.zip result]
+      else
+        @result_siege << Hash[essential_infos.zip result]
+      end
+    end
+  end
 
   def render_payload_siren_children(result_siege, results_children)
     results_payload = {
@@ -23,6 +36,7 @@ class API::V2::SirenChildrenController < ApplicationController
 
   def essential_infos
     %i[
+      is_siege
       siren
       siret
       enseigne

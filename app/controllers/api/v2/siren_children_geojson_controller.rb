@@ -20,7 +20,7 @@ class API::V2::SirenChildrenGeojsonController < API::V2::SirenChildrenController
       "type": 'Feature',
       "geometry": { "type": 'Point', "coordinates": [result[:longitude].to_f, result[:latitude].to_f] },
       "properties": {
-        "siren": result[:siren],
+        "enseigne": result[:enseigne],
         "siret": result[:siret],
         "address": result[:geo_adresse]
       }
@@ -28,16 +28,6 @@ class API::V2::SirenChildrenGeojsonController < API::V2::SirenChildrenController
   end
 
   def json_results(results)
-    results.map do |result|
-      {
-        "type": 'Feature',
-        "geometry": { "type": 'Point', "coordinates": [result[:longitude].to_f, result[:latitude].to_f] },
-        "properties": {
-          "siren": result[:siren],
-          "siret": result[:siret],
-          "address": result[:geo_adresse]
-        }
-      }
-    end
+    results.map { |result| json_result(result) }
   end
 end
