@@ -109,7 +109,7 @@ GEM
       activesupport (>= 4.0)
       logstash-event (~> 1.2.0)
       request_store
-    loofah (2.2.2)
+    loofah (2.2.3)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     lumberjack (1.0.13)
@@ -130,7 +130,7 @@ GEM
     mustermann (1.0.2)
     nenv (0.3.0)
     nio4r (2.3.0)
-    nokogiri (1.8.2)
+    nokogiri (1.8.5)
       mini_portile2 (~> 2.3.0)
     notiffany (0.1.1)
       nenv (~> 0.1)
