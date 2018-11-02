@@ -12,5 +12,7 @@ Rails.application.routes.draw do
 
   namespace :v2 do
     get 'siren/:siren' => '/api/v2/siren#show'
+    get 'siren/:siren/etablissements' => '/api/v2/siren_children#show'
+    get 'siren/:siren/etablissements_geojson' => '/api/v2/siren_children_geojson#show'
   end
 end
