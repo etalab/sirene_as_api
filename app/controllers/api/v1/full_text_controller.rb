@@ -47,27 +47,30 @@ end
 def run_search_with_main_options(keyword)
   fulltext keyword do
     fields(
-      nom_raison_sociale: 2.5,
-      libelle_commune: 1,
-      libelle_activite_principale_entreprise: 1,
+      nom_raison_sociale: 30,
+      libelle_commune: 2,
+      libelle_activite_principale_entreprise: 5,
       l4_normalisee: 2,
-      l2_normalisee: 1,
+      l2_normalisee: 2,
       enseigne: 2,
-      sigle: 2
+      sigle: 5
     )
 
     # This allows one word missing in phrase queries
     query_phrase_slop 1
     # Better scoring for phrases, with words separated up until 1 word.
-    phrase_fields nom_raison_sociale: 4
+    phrase_fields nom_raison_sociale: 5
     phrase_slop 1
 
     # Better scoring if someone search "rue mairie" for "rue de la mairie"
-    phrase_fields l4_normalisee: 4
+    phrase_fields l4_normalisee: 5
     phrase_slop 1
 
     # Boost results for Mairies, as they are main Etablissements of a city.
-    boost(3.5) { with(:enseigne).equal_to('MAIRIE') }
+    boost(34) { with(:enseigne).equal_to('MAIRIE') }
+
+    # Boost Sieges sociaux, as they are usually the ones looked for.
+    boost(100) { with(:is_siege).equal_to('1') }
   end
 end
 
