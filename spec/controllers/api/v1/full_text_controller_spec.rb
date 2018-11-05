@@ -149,27 +149,6 @@ describe API::V1::FullTextController do
     end
   end
 
-  # Boosting works better on name, then commune, then other fields
-  context 'when fulltext searching an Etablissement name & a Commune name & adress & activite_principale', type: :request do
-    let!(:etablissement1) { create(:etablissement, id: 1, nom_raison_sociale: 'TEST') }
-    let!(:etablissement2) { create(:etablissement, id: 2, l4_normalisee: 'TEST') }
-    let!(:etablissement3) { create(:etablissement, id: 3, libelle_commune: 'TEST') }
-    let!(:etablissement4) { create(:etablissement, id: 4, libelle_activite_principale_entreprise: 'TEST') }
-    it 'score in the right order' do
-      Etablissement.reindex
-
-      get '/v1/full_text/TEST'
-
-      result_hash = body_as_json
-      result_etablissements = result_hash.extract!(:etablissement)
-      expect(result_etablissements[:etablissement].size).to eq(4)
-      # We check that nom_raison_sociale and libelle_commune gets out first, the other 2 don't matter
-      result_etablissements_ids = []
-      result_etablissements[:etablissement].map { |x| result_etablissements_ids << x[:id] }
-      expect(result_etablissements_ids).to eq([1, 2, 3, 4])
-    end
-  end
-
   # Prioritize Etablissements which are Mairies
   context 'when looking for an Etablissement which have a Mairie (commune)', type: :request do
     let!(:etablissement1) { create(:etablissement, id: 1, nom_raison_sociale: 'Commune de Montpellier', enseigne: 'MAIRIE') }
