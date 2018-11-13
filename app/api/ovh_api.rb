@@ -6,14 +6,13 @@ class OvhAPI < SireneAsAPIInteractor
   AK = Rails.application.secrets.OVH_APPLICATION_KEY
   AS = Rails.application.secrets.OVH_APPLICATION_SECRET
   CK = Rails.application.secrets.OVH_CONSUMER_KEY
-  # Timestamp as a constant since we need the same on request and signature
-  TSTAMP = Time.now.to_i.to_s
 
   def initialize(method, query, body)
     @method = method
     @query = ovh_api_version + query
     @full_query = ovh_domain + ovh_api_version + query
     @body = body
+    @tstamp = Time.now.to_i.to_s
   end
 
   # Currently only works for Get and Post, will update for more methods when needed
@@ -50,13 +49,13 @@ class OvhAPI < SireneAsAPIInteractor
 
   def add_headers(request)
     request['X-Ovh-Application'] = AK
-    request['X-Ovh-Timestamp'] = TSTAMP
+    request['X-Ovh-Timestamp'] = @tstamp
     request['X-Ovh-Signature'] = signature
     request['X-Ovh-Consumer'] = CK
   end
 
   def signature
-    '$1$' + Digest::SHA1.hexdigest(AS + '+' + CK + '+' + @method + '+' + @full_query + '+' + @body + '+' + TSTAMP)
+    '$1$' + Digest::SHA1.hexdigest(AS + '+' + CK + '+' + @method + '+' + @full_query + '+' + @body + '+' + @tstamp)
   end
 
   def ovh_domain
