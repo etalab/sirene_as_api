@@ -4,7 +4,7 @@
 ## ⚠ Breaking Changes ⚠
 Notre API se basant sur les fichiers SIRENE de l'INSEE, ceux-ci changent fin 2018. Ceci entrainera malheureusement la disparition de certains champs, désormais non disponibles.
 
-La migration de notre API se fera courant décembre 2018. Pour toutes questions technique ou concernant la migration, n'hésitez pas à ouvrir une issue sur ce répertoire GitHub.
+La migration de notre API se fera courant décembre 2018. Pour toutes questions techniques ou concernant la migration, n'hésitez pas à ouvrir une issue sur ce répertoire GitHub.
 
 # SIRENE_as_api
 
