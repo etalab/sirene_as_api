@@ -1,6 +1,11 @@
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/cb7334374140808435c3/maintainability)](https://codeclimate.com/github/etalab/sirene_as_api/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/cb7334374140808435c3/test_coverage)](https://codeclimate.com/github/etalab/sirene_as_api/test_coverage)
 
+## ⚠ Breaking Changes ⚠
+Notre API se basant sur les fichiers SIRENE de l'INSEE, ceux-ci changent fin 2018. Ceci entrainera malheureusement la disparition de certains champs, désormais non disponibles.
+
+La migration de notre API se fera courant décembre 2018. Pour toutes questions technique ou concernant la migration, n'hésitez pas à ouvrir une issue sur ce répertoire GitHub.
+
 # SIRENE_as_api
 
 Dans le cadre du SPD, (Service Public de la Donnée), certains jeux de données
