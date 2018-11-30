@@ -1,4 +1,3 @@
-# rubocop:disable Metrics/ClassLength
 # rubocop:disable Metrics/AbcSize
 # rubocop:disable Metrics/MethodLength
 
@@ -6,11 +5,9 @@ class EtablissementAttrsFromLine
   include Singleton
 
   def call(line)
-    siret = line[:siren] + line[:nic]
-
     etablissement_attrs = {
       siren: line[:siren],
-      siret: siret,
+      siret: line[:siret],
       nic: line[:nic],
       l1_normalisee: line[:l1_normalisee],
       l2_normalisee: line[:l2_normalisee],
@@ -126,6 +123,5 @@ class EtablissementAttrsFromLine
   end
 end
 
-# rubocop:enable Metrics/ClassLength
 # rubocop:enable Metrics/AbcSize
 # rubocop:enable Metrics/MethodLength
