@@ -153,7 +153,7 @@ GEM
       byebug (~> 10.0)
       pry (~> 0.10)
     public_suffix (3.0.2)
-    rack (2.0.5)
+    rack (2.0.6)
     rack-cors (1.0.2)
     rack-protection (2.0.2)
       rack
