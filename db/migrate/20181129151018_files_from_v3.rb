@@ -3,6 +3,8 @@ class FilesFromV3 < ActiveRecord::Migration[5.0]
       remove_column :etablissements, :type_creation, :string
       remove_column :etablissements, :date_reactivation_etablissement, :string
       remove_column :etablissements, :date_reactivation_entreprise, :string
+      remove_column :etablissements, :type_evenement, :string
+      remove_column :etablissements, :date_evenement, :string
       remove_column :etablissements, :indicateur_mise_a_jour_enseigne_entreprise, :string
       remove_column :etablissements, :indicateur_mise_a_jour_activite_principale_etablissement, :string
       remove_column :etablissements, :indicateur_mise_a_jour_adresse_etablissement, :string

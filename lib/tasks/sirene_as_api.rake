@@ -35,7 +35,7 @@ namespace :sirene_as_api do
   end
 
   desc 'Reindex database then build suggester dictionary'
-  task build_dictionary: :environment do
+  task post_update_tasks: :environment do
     PostUpdateTasks.call
   end
 

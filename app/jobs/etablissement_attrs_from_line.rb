@@ -1,13 +1,16 @@
 # rubocop:disable Metrics/AbcSize
 # rubocop:disable Metrics/MethodLength
+# rubocop:disable Metrics/ClassLength
 
 class EtablissementAttrsFromLine
   include Singleton
 
   def call(line)
+    siret = line[:siren] + line[:nic]
+
     etablissement_attrs = {
       siren: line[:siren],
-      siret: line[:siret],
+      siret: siret,
       nic: line[:nic],
       l1_normalisee: line[:l1_normalisee],
       l2_normalisee: line[:l2_normalisee],
@@ -107,8 +110,6 @@ class EtablissementAttrsFromLine
       indicateur_mise_a_jour_2: line[:vmaj2],
       indicateur_mise_a_jour_3: line[:vmaj3],
       date_mise_a_jour: line[:datemaj],
-      type_evenement: line[:eve],
-      date_evenement: line[:dateve],
       longitude: line[:longitude],
       latitude: line[:latitude],
       geo_score: line[:geo_score],
@@ -123,5 +124,6 @@ class EtablissementAttrsFromLine
   end
 end
 
-# rubocop:enable Metrics/AbcSize
+# rubocop:enable Metrics/ClassLength
 # rubocop:enable Metrics/MethodLength
+# rubocop:enable Metrics/AbcSize
