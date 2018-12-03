@@ -1,5 +1,7 @@
 class PopulateDatabase
   include Interactor::Organizer
 
-  organize ImportLastMonthlyStock, SaveLastMonthlyStockName, SelectAndApplyPatches
+  # Deactivating SelectAndApplyPatches until we get v3 daily updates
+  # organize ImportLastMonthlyStock, SaveLastMonthlyStockName, SelectAndApplyPatches, PostUpdateTasks
+  organize ImportLastMonthlyStock, SaveLastMonthlyStockName, PostUpdateTasks
 end
