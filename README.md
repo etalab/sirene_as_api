@@ -63,7 +63,7 @@ réindexation automatique.
 
 L'INSEE ne délivre pour le moment pas les établissements refusant la prospection commerciale. Ces établissements sont donc manquants de la base Sirene.
 
-# Requêtes
+# Requêtes V1
 
 Trois endpoints principaux sont disponibles sur l'API :
 
@@ -204,6 +204,32 @@ Les résultats ne sont pas paginés.
 Afin d'éviter une surcharge du serveur, seuls les 500 établissements les plus proches sont retournés. Cette option est modifiable dans le controller /app/controllers/api/v1/near_etablissement_geojson_controller.rb si vous désirez installer votre propre version de l'API.
 
 Les mêmes filtres que /near_etablissement/ sont disponibles.
+
+# Requêtes V2
+
+Des endpoints sont en reconstruction en V2 ajoutant des informations supplémentaires. Les endpoints V1 ne sont pas discontinués.
+
+## Endpoint SIREN V2
+
+L'endpoint SIREN V2 ajoute des métadonnées, et un lien vers la requête RNM (Répertoire National des Métiers) correspondante pour ce SIREN.
+
+La requête se fait par :
+
+    curl 'localhost:3000/v2/siren/:SIREN'
+
+Le format de réponse se divise entre :
+
+- Sirene : Données et métadonnées
+- Repertoire National des Métiers : Lien vers la requête et métadonnées
+- Computed : Informations calculées automatiquement (Numéro TVA introcommunautaire, Géocodage...). Les métadonnées précisent les calculs. ⚠ Attention ⚠ De par leur nature, les données calculées peuvent être érronnées.
+
+On peut également requêter des informations supplémentaires sur les établissements liés à un SIREN :
+
+    curl 'localhost:3000/v2/siren/:SIREN/etablissements'
+
+On peut également demander ce retour au format GeoJSON :
+
+    curl 'localhost:3000/v2/siren/:SIREN/etablissements_geojson'
 
 # Installation et configuration
 
