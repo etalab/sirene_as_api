@@ -5,7 +5,45 @@
 
 Notre API se basant sur les fichiers SIRENE de l'INSEE, ceux-ci changent fin 2018. Ceci entrainera malheureusement la disparition de certains champs, désormais non disponibles.
 
-La migration de notre API se fera courant décembre 2018. Pour toutes questions techniques ou concernant la migration, n'hésitez pas à ouvrir une issue sur ce répertoire GitHub.
+La liste des changements à venir est la suivante :
+
+### Suppression des champs suivants
+
+      :type_creation
+      :date_reactivation_etablissement
+      :date_reactivation_entreprise
+      :type_evenement
+      :date_evenement
+      :indicateur_mise_a_jour_enseigne_entreprise
+      :indicateur_mise_a_jour_activite_principale_etablissement
+      :indicateur_mise_a_jour_adresse_etablissement
+      :indicateur_mise_a_jour_caractere_productif_etablissement
+      :indicateur_mise_a_jour_caractere_auxiliaire_etablissement
+      :indicateur_mise_a_jour_nom_raison_sociale
+      :indicateur_mise_a_jour_sigle
+      :indicateur_mise_a_jour_nature_juridique
+      :indicateur_mise_a_jour_activite_principale_entreprise
+      :indicateur_mise_a_jour_caractere_productif_entreprise
+      :indicateur_mise_a_jour_nic_siege
+      :siret_predecesseur_successeur
+      :telephone
+
+### Ajout des champs suivants
+
+    :geo_l4, :string
+    :geo_l5, :string
+    
+### Pourquoi ces changements ?
+
+Afin de rendre la transition la plus facile possible pour nos utilisateurs, nous avons converti les fichiers v3 en fichiers v2. Le remapping fonctionne mais certains champs ne peuvent plus être remplis. Les adresses l1 à l7 normalisée notamment ont été reconstituées avec d'autres informations. Nous avons ajouté les champs `geo_l4` et `geo_l5` pour remplacer les champs normalisés qui perdent en qualité avec cette mise à jour.
+
+### Comment me tenir au courant des prochains changements ?
+
+Notre site frontend présente dorénavant la possibilité de s'inscrire sur [une mailing-list](https://entreprise.data.gouv.fr/api_doc). Si vous utilisez notre API régulièrement, nous vous conseillons de vous inscrire.
+
+Vous pouvez également nous contacter au travers des issues de ce repo GitHub.
+
+
 
 # SIRENE_as_api
 
