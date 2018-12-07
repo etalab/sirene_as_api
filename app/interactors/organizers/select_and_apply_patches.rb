@@ -1,5 +1,5 @@
 class SelectAndApplyPatches
   include Interactor::Organizer
 
-  organize GetRelevantPatchesLinks, ApplyPatches, SolrReindex, SolrBuildDictionary
+  organize GetRelevantPatchesLinks, ApplyPatches
 end

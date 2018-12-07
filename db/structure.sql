@@ -167,24 +167,6 @@ CREATE TABLE etablissements (
     indicateur_mise_a_jour_2 character varying,
     indicateur_mise_a_jour_3 character varying,
     date_mise_a_jour character varying,
-    type_evenement character varying,
-    date_evenement character varying,
-    type_creation character varying,
-    date_reactivation_etablissement character varying,
-    date_reactivation_entreprise character varying,
-    indicateur_mise_a_jour_enseigne_entreprise character varying,
-    indicateur_mise_a_jour_activite_principale_etablissement character varying,
-    indicateur_mise_a_jour_adresse_etablissement character varying,
-    indicateur_mise_a_jour_caractere_productif_etablissement character varying,
-    indicateur_mise_a_jour_caractere_auxiliaire_etablissement character varying,
-    indicateur_mise_a_jour_nom_raison_sociale character varying,
-    indicateur_mise_a_jour_sigle character varying,
-    indicateur_mise_a_jour_nature_juridique character varying,
-    indicateur_mise_a_jour_activite_principale_entreprise character varying,
-    indicateur_mise_a_jour_caractere_productif_entreprise character varying,
-    indicateur_mise_a_jour_nic_siege character varying,
-    siret_predecesseur_successeur character varying,
-    telephone character varying,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     longitude character varying,
@@ -193,7 +175,9 @@ CREATE TABLE etablissements (
     geo_type character varying,
     geo_adresse character varying,
     geo_id character varying,
-    geo_ligne character varying
+    geo_ligne character varying,
+    geo_l4 character varying,
+    geo_l5 character varying
 );
 
 
@@ -299,13 +283,6 @@ CREATE INDEX etablissements_to_tsvector_idx ON etablissements USING gin (to_tsve
 
 
 --
--- Name: etablissements_to_tsvector_idx1; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX etablissements_to_tsvector_idx1 ON etablissements USING gin (to_tsvector('french'::regconfig, (numero_rna)::text));
-
-
---
 -- Name: index_etablissements_on_activite_principale; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -360,6 +337,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170922094826'),
 ('20170925105117'),
 ('20180420104754'),
-('20180827112250');
+('20180827112250'),
+('20181129151018');
 
 

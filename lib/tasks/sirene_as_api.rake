@@ -34,6 +34,11 @@ namespace :sirene_as_api do
     DeleteTemporaryFiles.call
   end
 
+  desc 'Reindex database then build suggester dictionary'
+  task post_update_tasks: :environment do
+    PostUpdateTasks.call
+  end
+
   desc 'Build the suggester dictionary for getting suggestions'
   task build_dictionary: :environment do
     SolrRequests.new.build_dictionary

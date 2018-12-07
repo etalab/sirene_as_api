@@ -20,7 +20,9 @@ class UpdateDatabase < SireneAsAPIInteractor
   def update_database_if_needed
     if last_saved_monthly_stock_name == last_published_stock_name
       stdout_success_log('Last monthly stock link have already been applied')
-      SelectAndApplyPatches.call
+      # Deactivationg SelectAndApplyPatches until we get v3 daily updates
+      daily_update = SelectAndApplyPatches.call
+      PostUpdateTasks.call unless daily_update.links.empty?
     elsif last_saved_monthly_stock_name > context.link
       stdout_error_log('An error occurred : it seems the database is more recent than the last published link.')
     else
