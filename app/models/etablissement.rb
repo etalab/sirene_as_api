@@ -23,6 +23,7 @@ class Etablissement < ApplicationRecord
     string :departement
     string :commune
     string :is_siege
+    string :tranche_effectif_salarie_entreprise
     latlon(:location) { Sunspot::Util::Coordinates.new(latitude, longitude) }
   end
 

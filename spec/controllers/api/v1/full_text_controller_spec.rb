@@ -415,6 +415,25 @@ describe API::V1::FullTextController do
     end
   end
 
+    # Params filter tranche_effectif_salarie_entreprise
+  context 'when doing a search filtering by tranche_effectif_salarie_entreprise', type: :request do
+    let!(:etablissement) { create(:etablissement, id: 1, nom_raison_sociale: 'foobarcompany', tranche_effectif_salarie_entreprise: '00' ) }
+    let!(:etablissement2) { create(:etablissement, id: 2, nom_raison_sociale: 'foobarcompany', tranche_effectif_salarie_entreprise: 'NN' ) }
+    let!(:etablissement3) { create(:etablissement, id: 3, nom_raison_sociale: 'foobarcompany', tranche_effectif_salarie_entreprise: '03' ) }
+    let!(:etablissement4) { create(:etablissement, id: 4, nom_raison_sociale: 'foobarcompany') }
+    it 'works' do
+      Etablissement.reindex
+
+      get '/v1/full_text/foobarcompany?tranche_effectif_salarie_entreprise=03'
+
+      result_hash = body_as_json
+      result_etablissements = result_hash.extract!(:etablissement)
+      number_results = result_etablissements[:etablissement].size
+      expect(number_results).to eq(1)
+      expect(result_etablissements[:etablissement].first[:id]).to eq(3)
+    end
+  end
+
   # Order results by score then Etablissement size
   context 'when doing a search for entrepreneur individuel', type: :request do
     let!(:etablissement1) { create(:etablissement, id: 1, nom_raison_sociale: 'foobarcompany', tranche_effectif_salarie_entreprise: '0') }
