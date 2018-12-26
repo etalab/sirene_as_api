@@ -83,6 +83,8 @@ def with_faceting_options
   with(:is_ess, fulltext_params[:is_ess]) if fulltext_params[:is_ess].present?
   facet :departement
   with(:departement, fulltext_params[:departement]) if fulltext_params[:departement].present?
+  facet :tranche_effectif_salarie_entreprise
+  with(:tranche_effectif_salarie_entreprise, fulltext_params[:tranche_effectif_salarie_entreprise]) if fulltext_params[:tranche_effectif_salarie_entreprise].present?
 end
 
 def with_filter_entrepreneur_individuel
@@ -141,7 +143,8 @@ def fulltext_params
     :activite_principale,
     :code_postal,
     :is_ess,
-    :departement
+    :departement,
+    :tranche_effectif_salarie_entreprise
   )
 end
 
