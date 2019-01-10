@@ -5,7 +5,6 @@ class DownloadFile < SireneAsAPIInteractor
     stdout_info_log "Attempting to download #{filename}"
 
     context.filepath = "./tmp/files/#{filename}"
-    context.filename = filename
 
     if File.exist?(context.filepath)
       stdout_warn_log "#{filename} already exists ! Skipping download"
