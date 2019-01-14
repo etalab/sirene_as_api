@@ -1,3 +1,5 @@
+require 'open3'
+
 class UnzipFile < SireneAsAPIInteractor
   around do |interactor|
     interactor.call
@@ -6,25 +8,34 @@ class UnzipFile < SireneAsAPIInteractor
   end
 
   def call
-    destination = 'tmp/files/'
-
     context.unzipped_files = []
 
-    Zlib::GzipReader::open(context.filepath) do |input_stream|
-      unzipped_file_path = File.join(destination, context.filename.chomp('.gz'))
-      stdout_info_log "Started unzipping #{context.filepath} into #{unzipped_file_path}"
+    stdout_info_log "Started unzipping #{filepath} into #{unzipped_file_path}"
 
-      if File.exist?(unzipped_file_path)
-        context.unzipped_files << unzipped_file_path
-        stdout_warn_log "Skipping unzip of file #{context.filename} already a file at destination #{unzipped_file_path}"
-      else
-        File.open(unzipped_file_path, "w+") do |output_stream|
-          IO.copy_stream(input_stream, output_stream)
-          output_stream.close
-        end
-        context.unzipped_files << unzipped_file_path
-        stdout_success_log "Unzipped file #{unzipped_file_path} successfully"
-      end
+    if unzipped_file_path.exist?
+      context.unzipped_files << unzipped_file_path.to_s
+      stdout_warn_log "Skipping unzip of file #{filepath.basename} already a file at destination #{unzipped_file_path}"
+    else
+      unzip
     end
+  end
+
+  def unzip
+    _stdout, stderr, status = Open3.capture3 "gunzip -k #{filepath}"
+
+    if status.success?
+      context.unzipped_files << unzipped_file_path.to_s
+      stdout_success_log "Unzipped file #{unzipped_file_path} successfully"
+    else
+      stdout_error_log "Failed to unzip file (error: #{stderr})"
+    end
+  end
+
+  def filepath
+    @filepath ||= Pathname.new(context.filepath)
+  end
+
+  def unzipped_file_path
+    @unzipped_file_path ||= Pathname.new(filepath.dirname + filepath.basename('.gz'))
   end
 end
