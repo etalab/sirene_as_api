@@ -56,4 +56,18 @@ describe GetRelevantPatchesLinks do
       expect(described_class.call(rebuilding_database: true).links.size).to eq right_number_of_patches
     end
   end
+
+  context 'when in january and it is the first patches of the new year',
+    vcr: { cassette_name: 'geo-sirene_file_index_20190102', allow_playback_repeats: true } do
+
+    let!(:etablissement) { create :etablissement, date_mise_a_jour: '2018-12-31T20:02:32' }
+
+    it 'retrieves only one patch' do
+      allow(File).to receive(:read) { 'http://data.cquest.org/geo_sirene/2018-12/geo_sirene.csv.gz' }
+      Timecop.freeze Time.new(2019, 1, 2)
+
+      right_number_of_patches = 1
+      expect(described_class.call.links.size).to eq right_number_of_patches
+    end
+  end
 end

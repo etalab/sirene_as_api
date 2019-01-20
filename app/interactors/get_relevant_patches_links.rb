@@ -45,8 +45,12 @@ class GetRelevantPatchesLinks < SireneAsAPIInteractor
     sirene_update_and_stock_links.select do |l|
       l[:href].match(sirene_daily_update_filename_pattern)
       padded_day_number = Regexp.last_match[1] if Regexp.last_match
-      padded_day_number && (padded_day_number > this_day)
+      padded_day_number && (padded_day_number > this_day || new_year?)
     end
+  end
+
+  def new_year?
+    current_year.to_i > latest_etablissement_mise_a_jour.year
   end
 
   def get_minimum_5_patches(links)
