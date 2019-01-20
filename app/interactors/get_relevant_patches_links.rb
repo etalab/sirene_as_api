@@ -87,8 +87,8 @@ class GetRelevantPatchesLinks < SireneAsAPIInteractor
   def padded_latest_etablissement_mise_a_jour_day_number
     @padded_latest_etablissement_mise_a_jour_day_number ||= begin
       stdout_info_log 'Computing next patch that should be applied...'
-      latest_etablissement_mise_a_jour = Etablissement.latest_mise_a_jour
-      day_number = Date.parse(latest_etablissement_mise_a_jour).yday
+      stdout_info_log "Last update was #{days_count_since_last_update.to_s.yellow} day(s) ago (#{latest_etablissement_mise_a_jour})"
+      day_number = latest_etablissement_mise_a_jour.yday
       padded_day_number = day_number.to_s.rjust(3, '0')
       stdout_info_log "Latest Etablissement update in database is from patch #{padded_day_number}"
       padded_day_number
@@ -105,5 +105,13 @@ class GetRelevantPatchesLinks < SireneAsAPIInteractor
 
   def sirene_daily_update_filename_pattern
     /.*geo-sirene_#{current_year}([0-9]{3})_E_Q\.csv.gz/
+  end
+
+  def latest_etablissement_mise_a_jour
+    @latest_etablissement_mise_a_jour ||= Date.parse Etablissement.latest_mise_a_jour
+  end
+
+  def days_count_since_last_update
+    (DateTime.now - latest_etablissement_mise_a_jour).to_i
   end
 end
