@@ -36,6 +36,9 @@ gem 'progress_bar'
 # Loader in terminal for heavy tasks
 gem 'whirly'
 
+# use `ap var` for awesome print
+gem 'awesome_print'
+
 # Generate logs for elasticsearch
 gem 'logstasher'
 
