@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe GetRelevantPatchesLinks do
   context 'when in march & there are LESS than 5 patches since last monthly update,',
-    vcr: { cassette_name: 'geo-sirene_file_index_3_links_since_LM', allow_playback_repeats: true } do
+    vcr: { cassette_name: 'geo-sirene_file_index_4_links_since_LM', allow_playback_repeats: true } do
 
     let!(:etablissement) { create(:etablissement, date_mise_a_jour: '2017-03-02T10:55:43') }
 
@@ -10,7 +10,7 @@ describe GetRelevantPatchesLinks do
       allow(File).to receive(:read) { 'http://data.cquest.org/geo_sirene/2017-02/geo-sirene.csv.gz' }
       allow(Time).to receive(:now) { Time.new(2017, 3, 5) }
 
-      right_number_of_patches = 3
+      right_number_of_patches = 4
       expect(described_class.call.links.size).to eq(right_number_of_patches)
     end
   end

@@ -64,9 +64,9 @@ class GetRelevantPatchesLinks < SireneAsAPIInteractor
 
   def patches_since_last_monthly_stock
     yday_beginning_current_month = Date.new(current_year.to_i, current_month.to_i, 1).yday
-    beginning_current_month = yday_beginning_current_month.to_s.rjust(3, '0')
+    end_of_last_month = (yday_beginning_current_month - 1).to_s.rjust(3, '0')
 
-    select_all_patches_after_(beginning_current_month)
+    select_all_patches_after_(end_of_last_month)
   end
 
   def change_into_absolute_links(relative_links)
