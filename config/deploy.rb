@@ -85,8 +85,7 @@ task deploy: :remote_environment do
         command %{mkdir -p tmp/}
         command %{touch tmp/restart.txt}
 
-        # Deactivating auto wheneverize until sirene2 is available
-        # invoke :whenever_update
+        invoke :whenever_update
         invoke :solr
       end
 
@@ -128,5 +127,4 @@ task warning_info: :remote_environment do
   comment %{#{warning_sign} in the following directory: #{fetch(:deploy_to)}/current #{warning_sign}}.yellow
   comment %{bundle exec rake sirene_as_api:populate_database RAILS_ENV=#{ENV['to']}}.green
   comment %{#{warning_sign} #{warning_sign} #{warning_sign} #{warning_sign}}.yellow
-  comment %{#{warning_sign} WARNING : Automatic wheneverize deactivated for now, update crontab manually #{warning_sign}}.yellow
 end

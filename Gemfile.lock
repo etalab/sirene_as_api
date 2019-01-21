@@ -43,6 +43,7 @@ GEM
     ansi (1.5.0)
     arel (7.1.4)
     ast (2.4.0)
+    awesome_print (1.8.0)
     brakeman (4.2.1)
     builder (3.2.3)
     byebug (10.0.2)
@@ -311,6 +312,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  awesome_print
   brakeman
   byebug
   colorize
