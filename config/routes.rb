@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  namespace :v1 do
+
+  concern :v1_routes do
     get 'siret/:siret' => '/api/v1/siret#show'
     get 'siren/:siren' => '/api/v1/siren#show'
     get 'full_text/:text' => '/api/v1/full_text#show'
@@ -10,9 +11,29 @@ Rails.application.routes.draw do
     get 'rna/:rna' => '/api/v1/numero_rna#show'
   end
 
-  namespace :v2 do
+  concern :v2_routes do
     get 'siren/:siren' => '/api/v2/siren#show'
     get 'siren/:siren/etablissements' => '/api/v2/siren_children#show'
     get 'siren/:siren/etablissements_geojson' => '/api/v2/siren_children_geojson#show'
   end
+
+  namespace :v1 do
+    concerns :v1_routes
+  end
+
+  namespace :v2 do
+    concerns :v2_routes
+  end
+
+  # DIRTY FIX (nginx configuration and url prefixing do not work)
+  scope '/api/sirene/' do
+    namespace :v1 do
+      concerns :v1_routes
+    end
+
+    namespace :v2 do
+      concerns :v2_routes
+    end
+  end
+
 end
