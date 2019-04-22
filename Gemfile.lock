@@ -264,6 +264,8 @@ GEM
       rack (~> 2.0)
       rack-protection (= 2.0.2)
       tilt (~> 2.0)
+    sitemap_generator (6.0.2)
+      builder (~> 3.0)
     smarter_csv (1.2.3)
     spring (2.0.2)
       activesupport (>= 4.2)
@@ -348,6 +350,7 @@ DEPENDENCIES
   simplecov
   simplecov-console
   sinatra (~> 2.0.2)
+  sitemap_generator
   smarter_csv
   spring
   spring-commands-rspec
