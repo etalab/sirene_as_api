@@ -49,6 +49,8 @@ gem 'interactor-rails', '~> 2.0'
 # Gem for deploying cron jobs
 gem 'whenever', require: false
 
+gem 'sitemap_generator'
+
 group :development, :test do
   gem 'byebug', platform: :mri
   gem 'colorize'
