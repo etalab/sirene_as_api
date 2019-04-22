@@ -25,4 +25,8 @@ if environment == 'production'
   every 1.day, at: '4:30 am' do
     rake 'sirene_as_api:dual_server_update'
   end
+
+  every :weekend, at: '1:00 am' do
+    rake "-s sitemap:refresh:no_ping"
+  end
 end
