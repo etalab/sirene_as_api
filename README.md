@@ -456,6 +456,8 @@ En cas de problèmes avec le serveur solr, il peut être nécessaire de tuer les
 
 Si Solr renvoie toujours des erreurs, c'est peut-être un problème causé par une allocation de mémoire trop importante. Commenter les lignes `memory` dans `config/sunspot.yml` et recommencer. Il peut être nécessaire de re-tuer les processus Solr.
 
+En cas d'erreur 500, et si redemarrer le serveur après l'avoir tué ne suffit pas (echec à l'initialisation du core solr), la suppression du contenu du dossier 'data' de l'environnement cible peut résoudre le problème (il sera alors nécessaire de réindexer).
+
 Dans certains cas, le déploiement par Mina ne copie pas correctement les fichiers solr.
 En cas d'erreur 404 - Solr not found, assurez vous que le fichier /solr/MonEnvironnement/core.properties est bien présent. Sinon, vous pouvez l'ajouter manuellement.
 
