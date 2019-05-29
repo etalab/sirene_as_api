@@ -46,6 +46,9 @@ gem 'logstasher'
 gem 'interactor', '~> 3.0'
 gem 'interactor-rails', '~> 2.0'
 
+# Trailblazer
+gem 'trailblazer-rails'
+
 # Gem for deploying cron jobs
 gem 'whenever', require: false
 
@@ -58,6 +61,7 @@ group :development, :test do
   gem 'pry-byebug'
 
   gem 'rspec-rails', '~> 3.5'
+  gem 'rspec-its'
 
   gem 'guard'
   gem 'guard-rails', require: false
