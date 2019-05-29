@@ -52,6 +52,7 @@ VCR.configure do |config|
 end
 
 RSpec.configure do |config|
+  # TODO: still useful ?
   # Silence output during tests
   original_stderr = $stderr
   original_stdout = $stdout
