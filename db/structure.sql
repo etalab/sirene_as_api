@@ -299,6 +299,42 @@ CREATE TABLE public.schema_migrations (
 
 
 --
+-- Name: stocks; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.stocks (
+    id integer NOT NULL,
+    type character varying,
+    year character varying,
+    month character varying,
+    status character varying,
+    uri character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: stocks_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.stocks_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: stocks_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.stocks_id_seq OWNED BY public.stocks.id;
+
+
+--
 -- Name: unites_legales; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -376,6 +412,13 @@ ALTER TABLE ONLY public.etablissements_v2 ALTER COLUMN id SET DEFAULT nextval('p
 
 
 --
+-- Name: stocks id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.stocks ALTER COLUMN id SET DEFAULT nextval('public.stocks_id_seq'::regclass);
+
+
+--
 -- Name: unites_legales id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -412,6 +455,14 @@ ALTER TABLE ONLY public.etablissements_v2
 
 ALTER TABLE ONLY public.schema_migrations
     ADD CONSTRAINT schema_migrations_pkey PRIMARY KEY (version);
+
+
+--
+-- Name: stocks stocks_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.stocks
+    ADD CONSTRAINT stocks_pkey PRIMARY KEY (id);
 
 
 --
@@ -536,6 +587,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180827112250'),
 ('20181129151018'),
 ('20190602130719'),
+('20190603115019'),
 ('20190606142656'),
 ('20190619121622');
 
