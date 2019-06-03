@@ -1,0 +1,3 @@
+class StockEtablissement < Stock
+
+end

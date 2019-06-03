@@ -1,0 +1,3 @@
+class StockUniteLegale < Stock
+
+end
