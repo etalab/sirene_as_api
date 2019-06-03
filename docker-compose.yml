@@ -1,0 +1,26 @@
+version: '3'
+services:
+  db:
+    image: postgres:9.6.13
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=sirene_as_api_docker
+    volumes:
+      - /config/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - /var/lib/postgresql/data:/var/lib/postgresql/data
+  sirene:
+    build: .
+    command: bin/rails server --port 3000 --binding 0.0.0.0
+    ports:
+      - "3000:3000"
+    environment:
+      - RAILS_ENV=development
+      - PGHOST=db
+      - PGUSER=postgres
+    links:
+      - db:db
+    volumes:
+      - /docker_build_rails
