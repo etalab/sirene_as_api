@@ -62,6 +62,7 @@ group :development, :test do
 
   gem 'rspec-rails', '~> 3.5'
   gem 'rspec-its'
+  gem 'shoulda-matchers'
 
   gem 'guard'
   gem 'guard-rails', require: false
