@@ -23,5 +23,3 @@ services:
       - PGUSER=postgres
     links:
       - db
-    volumes:
-      - .:/docker_build

@@ -19,8 +19,9 @@ WORKDIR $APP_HOME
 ADD Gemfile* $APP_HOME/
 RUN bundle install
 
-ADD . $APP_HOME
-RUN cp $APP_HOME/config/docker/database.yml $APP_HOME/config/database.yml
+ADD . $APP_HOME/
+
+COPY config/docker/database.yml config/
 
 COPY ./config/docker/docker-entrypoint.sh /
 RUN chmod +x /docker-entrypoint.sh
