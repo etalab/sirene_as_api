@@ -20,7 +20,6 @@ ADD Gemfile* $APP_HOME/
 RUN bundle install
 
 ADD . $APP_HOME
-# WHY U NO WORK
 RUN cp $APP_HOME/config/docker/database.yml $APP_HOME/config/database.yml
 
 COPY ./config/docker/docker-entrypoint.sh /

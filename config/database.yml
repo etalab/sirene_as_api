@@ -1,11 +1,19 @@
 defaults: &defaults
   adapter: postgresql
   encoding: unicode
-  host: db
-  pool: 5
-  username: postgres
+  host: localhost
+  pool: 15
+  username: sirene_as_api
   password: password
 
 development:
-  database: sirene_as_api_docker
+  database: sirene_as_api_development
   <<: *defaults
+
+test:
+  database: sirene_as_api_test
+  <<: *defaults
+
+production:
+  database: sirene_as_api_production
+<<: *defaults
