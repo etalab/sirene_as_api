@@ -8,8 +8,9 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=password
       - POSTGRES_DB=sirene_as_api_docker
+      - PGDATA=/var/lib/postgresql/data
     volumes:
-      - /config/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./config/init.sql:/docker-entrypoint-initdb.d/init.sql
       - /var/lib/postgresql/data:/var/lib/postgresql/data
   sirene:
     build: .
@@ -21,6 +22,6 @@ services:
       - PGHOST=db
       - PGUSER=postgres
     links:
-      - db:db
+      - db
     volumes:
-      - /docker_build_rails
+      - .:/docker_build

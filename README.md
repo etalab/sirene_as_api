@@ -32,7 +32,7 @@ La liste des changements à venir est la suivante :
 
     :geo_l4, :string
     :geo_l5, :string
-    
+
 ### Pourquoi ces changements ?
 
 Afin de rendre la transition la plus facile possible pour nos utilisateurs, nous avons converti les fichiers v3 en fichiers v2. Le remapping fonctionne mais certains champs ne peuvent plus être remplis. Les adresses l1 à l7 normalisée notamment ont été reconstituées avec d'autres informations. Nous avons ajouté les champs `geo_l4` et `geo_l5` pour remplacer les champs normalisés qui perdent en qualité avec cette mise à jour.
@@ -297,6 +297,43 @@ Pour installer rapidement & efficacement l'API en environnement de production,
 vous pouvez vous referer a la documentation sur [sirene_as_api_ansible](https://github.com/etalab/sirene_as_api_ansible)
 et utiliser les scripts de déploiement automatiques.
 
+## Nouveau : Installation avec Docker
+
+Si vous disposez de docker et de docker-compose, vous pouvez lancer le serveur en local avec les commandes suivantes :
+
+Une fois cloné ce répertoire à l'aide de
+
+    git clone git@github.com:etalab/sirene_as_api.git && cd sirene_as_api
+
+Construisez le container avec `docker-compose build` et lancez le avec `docker-compose up`.
+
+Vous pouvez effectuer les migrations (nécessaire seulement au premier lancement) à l'aide de :
+
+    docker-compose run sirene db:create
+    docker-compose run sirene db:migrate
+
+La base de donnée sera persistée sur `/var/lib/postgresql/data`.
+
+Lancez les imports à l'aide des commandes rake (Cf plus bas, partie Mises à jour / Administration) précédées par `docker-compose run sirene`. Par exemple :
+
+    docker-compose run sirene rake sirene_as_api:import_last_monthly_stock
+
+Vous pouvez d'ors et déjà interroger l'API sur `http://localhost:3000/v1/siren/552032534`.
+
+La recherche fulltext devrait fonctionner après avoir executé `docker-compose run sirene rake sunspot:solr:reindex`. Les index solr sont persistés egalement.
+
+Attention : pour faciliter les modifications par nos utilisateurs, le docker est lancé en environnement de développement. N'oubliez pas de changer le mot de passe postgres dans /config/docker/init.sql, /config/docker/database.yml et docker-compose.yml.
+
+Si votre machine comprend déjà une base installée sur /var/lib/postgresql avec une version différente de postgres, vous aurez peut-être besoin de modifier les lignes suivantes du fichier dockerfile-compose.yml :
+
+```yml
+environment:
+  - PGDATA=/var/lib/postgresql_docker/data
+
+volumes :
+  - /var/lib/postgresql/data:/var/lib/postgresql_docker/data
+```
+
 ## Installation manuelle en environnement dev
 
 Pour une installation manuelle, vous aurez besoin de :
@@ -321,7 +358,7 @@ bundler s'il est déjà présent sur la machine
 
     gem install bundler && bundle install
 
-## Preparation de la base de donnée
+### Preparation de la base de donnée
 
 Il faut maintenant préparer la base de données postgres :
 
