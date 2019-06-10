@@ -61,6 +61,94 @@ CREATE TABLE public.ar_internal_metadata (
 
 
 --
+-- Name: etablissements; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.etablissements (
+    id integer NOT NULL,
+    siren character varying,
+    nic character varying,
+    siret character varying,
+    statut_diffusion character varying,
+    date_creation character varying,
+    tranche_effectifs character varying,
+    annee_effectifs character varying,
+    activite_principale_registre_metiers character varying,
+    date_dernier_traitement character varying,
+    etablissement_siege character varying,
+    nombre_periodes character varying,
+    complement_adresse character varying,
+    numero_voie character varying,
+    indice_repetition character varying,
+    type_voie character varying,
+    libelle_voie character varying,
+    code_postal character varying,
+    libelle_commune character varying,
+    libelle_commune_etranger character varying,
+    distribution_speciale character varying,
+    code_commune character varying,
+    code_cedex character varying,
+    libelle_cedex character varying,
+    code_pays_etranger character varying,
+    libelle_pays_etranger character varying,
+    complement_adresse2 character varying,
+    numero_voie2 character varying,
+    indice_repetition2 character varying,
+    type_voie2 character varying,
+    libelle_voie2 character varying,
+    code_postal2 character varying,
+    libelle_commune2 character varying,
+    libelle_commune_etranger2 character varying,
+    distribution_speciale2 character varying,
+    code_commune2 character varying,
+    code_cedex2 character varying,
+    libelle_cedex2 character varying,
+    code_pays_etranger2 character varying,
+    libelle_pays_etranger2 character varying,
+    date_debut character varying,
+    etat_administratif character varying,
+    enseigne1 character varying,
+    enseigne2 character varying,
+    enseigne3 character varying,
+    denomination_usuelle character varying,
+    activite_principale character varying,
+    nomenclature_activite_principale character varying,
+    caractere_employeur character varying,
+    longitude character varying,
+    latitude character varying,
+    geo_score character varying,
+    geo_type character varying,
+    geo_adresse character varying,
+    geo_id character varying,
+    geo_ligne character varying,
+    geo_l4 character varying,
+    geo_l5 character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: etablissements_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.etablissements_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: etablissements_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.etablissements_id_seq OWNED BY public.etablissements.id;
+
+
+--
 -- Name: etablissements_v2; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -211,6 +299,13 @@ CREATE TABLE public.schema_migrations (
 
 
 --
+-- Name: etablissements id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.etablissements ALTER COLUMN id SET DEFAULT nextval('public.etablissements_id_seq'::regclass);
+
+
+--
 -- Name: etablissements_v2 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -223,6 +318,14 @@ ALTER TABLE ONLY public.etablissements_v2 ALTER COLUMN id SET DEFAULT nextval('p
 
 ALTER TABLE ONLY public.ar_internal_metadata
     ADD CONSTRAINT ar_internal_metadata_pkey PRIMARY KEY (key);
+
+
+--
+-- Name: etablissements etablissements_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.etablissements
+    ADD CONSTRAINT etablissements_pkey PRIMARY KEY (id);
 
 
 --
@@ -284,6 +387,20 @@ CREATE INDEX etablissements_to_tsvector_idx ON public.etablissements_v2 USING gi
 
 
 --
+-- Name: index_etablissements_on_siren; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_etablissements_on_siren ON public.etablissements USING btree (siren);
+
+
+--
+-- Name: index_etablissements_on_siret; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_etablissements_on_siret ON public.etablissements USING btree (siret);
+
+
+--
 -- Name: index_etablissements_v2_on_activite_principale; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -340,6 +457,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180420104754'),
 ('20180827112250'),
 ('20181129151018'),
-('20190602130719');
+('20190602130719'),
+('20190606142656');
 
 
