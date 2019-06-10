@@ -288,7 +288,7 @@ GEM
       tilt (~> 2.0)
     sitemap_generator (6.0.2)
       builder (~> 3.0)
-    smarter_csv (1.2.3)
+    smarter_csv (1.2.6)
     spring (2.0.2)
       activesupport (>= 4.2)
     spring-commands-rspec (1.0.4)
@@ -410,4 +410,4 @@ DEPENDENCIES
   whirly
 
 BUNDLED WITH
-   1.16.1
+   2.0.1
