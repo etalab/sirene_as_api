@@ -26,7 +26,11 @@ gem 'sinatra', '~> 2.0.2'
 gem 'sunspot_rails'
 gem 'sunspot_solr'
 
+# Unzip of files
 gem 'rubyzip'
+
+# Import of data files
+gem 'activerecord-import'
 gem 'smarter_csv'
 
 gem 'ruby-progressbar'
