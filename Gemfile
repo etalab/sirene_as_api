@@ -56,6 +56,9 @@ gem 'trailblazer-rails'
 # Gem for deploying cron jobs
 gem 'whenever', require: false
 
+# Easy ping our servers for checks
+gem 'net-ping'
+
 gem 'sitemap_generator'
 
 group :development, :test do

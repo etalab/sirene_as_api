@@ -142,6 +142,7 @@ GEM
     multipart-post (2.0.0)
     mustermann (1.0.2)
     nenv (0.3.0)
+    net-ping (2.0.6)
     nio4r (2.3.0)
     nokogiri (1.8.5)
       mini_portile2 (~> 2.3.0)
@@ -377,6 +378,7 @@ DEPENDENCIES
   logstasher
   mina
   mina-whenever
+  net-ping
   pg (~> 0.20)
   progress_bar
   pry
