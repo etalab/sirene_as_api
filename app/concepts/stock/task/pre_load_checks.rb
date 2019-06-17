@@ -25,7 +25,7 @@ class Stock
         end
       end
 
-      def log_database_empty(ctx, logger:, **)
+      def log_database_empty(_, logger:, **)
         logger.info 'Database empty, will import...'
       end
     end

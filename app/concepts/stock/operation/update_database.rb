@@ -1,16 +1,16 @@
 class Stock
   module Operation
     class UpdateDatabase < Trailblazer::Operation
-      step Nested Task::PreLoadChecks
-      step Nested Task::RetrieveLatestRemoteStock
-      step :remote_stock_newer?
-        fail :log_database_up_to_date, Output(:success) => 'End.success'
-      step :set_remote_uri
-      step :persist_stock
-      step Nested ::Files::Operation::Download
-      step Nested ::Files::Operation::Extract
+      # step Nested Task::PreLoadChecks
+      # step Nested Task::RetrieveLatestRemoteStock
+      # step :remote_stock_newer?
+      #   fail :log_database_up_to_date, Output(:success) => 'End.success'
+      # step :set_remote_uri
+      # step :persist_stock
+      # step Nested ::Files::Operation::Download
+      # step Nested ::Files::Operation::Extract
 #      step Nested Task::DropDatabase
-      step Nested Import
+      # step Nested Import
 #      step Nested UpdateIndexes
 #      step :delete_tmp_files
 #      fail :delete_tmp_files
