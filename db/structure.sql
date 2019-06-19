@@ -299,6 +299,69 @@ CREATE TABLE public.schema_migrations (
 
 
 --
+-- Name: unites_legales; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.unites_legales (
+    id integer NOT NULL,
+    siren character varying,
+    statut_diffusion character varying,
+    unite_purgee character varying,
+    date_creation character varying,
+    sigle character varying,
+    sexe character varying,
+    prenom_1 character varying,
+    prenom_2 character varying,
+    prenom_3 character varying,
+    prenom_4 character varying,
+    prenom_usuel character varying,
+    pseudonyme character varying,
+    identifiant_association character varying,
+    tranche_effectifs character varying,
+    annee_effectifs character varying,
+    date_dernier_traitement character varying,
+    nombre_periodes character varying,
+    categorie_entreprise character varying,
+    annee_categorie_entreprise character varying,
+    date_fin character varying,
+    date_debut character varying,
+    etat_administratif character varying,
+    nom character varying,
+    nom_usage character varying,
+    denomination character varying,
+    denomination_usuelle_1 character varying,
+    denomination_usuelle_2 character varying,
+    denomination_usuelle_3 character varying,
+    categorie_juridique character varying,
+    activite_principale character varying,
+    nomenclature_activite_principale character varying,
+    nic_siege character varying,
+    economie_sociale_solidaire character varying,
+    caractere_employeur character varying
+);
+
+
+--
+-- Name: unites_legales_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.unites_legales_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: unites_legales_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.unites_legales_id_seq OWNED BY public.unites_legales.id;
+
+
+--
 -- Name: etablissements id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -310,6 +373,13 @@ ALTER TABLE ONLY public.etablissements ALTER COLUMN id SET DEFAULT nextval('publ
 --
 
 ALTER TABLE ONLY public.etablissements_v2 ALTER COLUMN id SET DEFAULT nextval('public.etablissements_v2_id_seq'::regclass);
+
+
+--
+-- Name: unites_legales id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.unites_legales ALTER COLUMN id SET DEFAULT nextval('public.unites_legales_id_seq'::regclass);
 
 
 --
@@ -342,6 +412,14 @@ ALTER TABLE ONLY public.etablissements_v2
 
 ALTER TABLE ONLY public.schema_migrations
     ADD CONSTRAINT schema_migrations_pkey PRIMARY KEY (version);
+
+
+--
+-- Name: unites_legales unites_legales_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.unites_legales
+    ADD CONSTRAINT unites_legales_pkey PRIMARY KEY (id);
 
 
 --
@@ -458,6 +536,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180827112250'),
 ('20181129151018'),
 ('20190602130719'),
-('20190606142656');
+('20190606142656'),
+('20190619121622');
 
 
