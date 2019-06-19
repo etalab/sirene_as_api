@@ -1,0 +1,11 @@
+defaults: &defaults
+  adapter: postgresql
+  encoding: unicode
+  host: db
+  pool: 5
+  username: postgres
+  password: password
+
+development:
+  database: sirene_as_api_docker
+  <<: *defaults
