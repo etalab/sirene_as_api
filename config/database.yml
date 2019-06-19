@@ -16,4 +16,4 @@ test:
 
 production:
   database: sirene_as_api_production
-<<: *defaults
+  <<: *defaults
