@@ -15,4 +15,7 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
   inflect.acronym 'RESTful'
   inflect.acronym 'API'
   inflect.acronym 'RNA'
+
+  inflect.plural 'etablissement_v2', 'etablissements_v2'
+  inflect.plural 'unite_legale', 'unites_legales'
 end

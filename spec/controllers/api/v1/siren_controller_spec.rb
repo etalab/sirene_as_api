@@ -18,13 +18,13 @@ describe API::V1::SirenController do
     siret_sister = '12345678900003'
     unrelated_siren = '111111111'
     unrelated_siret = '11111111100001'
-    let!(:etablissement_father) { create(:etablissement, nom_raison_sociale: 'foobarcompany_father', siren: siren_found, siret: siret_father, is_siege: '1') }
-    let!(:etablissement_brother) { create(:etablissement, nom_raison_sociale: 'foobarcompany_brother', siren: siren_found, siret: siret_brother, is_siege: '0') }
-    let!(:etablissement_sister) { create(:etablissement, nom_raison_sociale: 'foobarcompany_sister', siren: siren_found, siret: siret_sister, is_siege: '0') }
-    let!(:etablissement_unrelated) { create(:etablissement, nom_raison_sociale: 'unrelated_company', siren: unrelated_siren, siret: unrelated_siret, is_siege: '1') }
+    let!(:etablissement_father) { create(:etablissement_v2, nom_raison_sociale: 'foobarcompany_father', siren: siren_found, siret: siret_father, is_siege: '1') }
+    let!(:etablissement_brother) { create(:etablissement_v2, nom_raison_sociale: 'foobarcompany_brother', siren: siren_found, siret: siret_brother, is_siege: '0') }
+    let!(:etablissement_sister) { create(:etablissement_v2, nom_raison_sociale: 'foobarcompany_sister', siren: siren_found, siret: siret_sister, is_siege: '0') }
+    let!(:etablissement_unrelated) { create(:etablissement_v2, nom_raison_sociale: 'unrelated_company', siren: unrelated_siren, siret: unrelated_siret, is_siege: '1') }
 
     it 'return the correct etablissements' do
-      Etablissement.reindex
+      EtablissementV2.reindex
 
       get "/v1/siren/#{siren_found}"
 

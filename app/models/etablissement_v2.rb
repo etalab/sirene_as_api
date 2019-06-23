@@ -1,6 +1,6 @@
 # ADD constants about nature_mise_a_jour out of commercial diffusion for better simplicity
 
-class Etablissement < ApplicationRecord
+class EtablissementV2 < ApplicationRecord
   attr_accessor :csv_path
 
   searchable do

@@ -1,6 +1,6 @@
 class API::V2::SirenChildrenController < ApplicationController
   def show
-    @results = Etablissement.where(siren: children_params[:siren]).pluck(*essential_infos)
+    @results = EtablissementV2.where(siren: children_params[:siren]).pluck(*essential_infos)
 
     @result_siege = []
     @results_children = []

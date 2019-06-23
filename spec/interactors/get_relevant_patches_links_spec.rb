@@ -4,7 +4,7 @@ describe GetRelevantPatchesLinks do
   context 'when in march & there are LESS than 5 patches since last monthly update,',
     vcr: { cassette_name: 'geo-sirene_file_index_4_links_since_LM' } do
 
-    let!(:etablissement) { create(:etablissement, date_mise_a_jour: '2017-03-02T10:55:43') }
+    let!(:etablissement) { create(:etablissement_v2, date_mise_a_jour: '2017-03-02T10:55:43') }
 
     it 'retrieves the right number of patches' do
       allow(File).to receive(:read) { 'http://data.cquest.org/geo_sirene/2017-02/geo-sirene.csv.gz' }
@@ -19,7 +19,7 @@ describe GetRelevantPatchesLinks do
     & there are LESS than 5 patches since last update,',
     vcr: { cassette_name: 'geo-sirene_file_index_20170330_22_links_since_LM' } do
 
-    let!(:etablissement) { create(:etablissement, date_mise_a_jour: '2017-03-28T10:55:43') }
+    let!(:etablissement) { create(:etablissement_v2, date_mise_a_jour: '2017-03-28T10:55:43') }
 
     it 'retrieves 5 patches' do
       allow(File).to receive(:read) { 'http://data.cquest.org/geo_sirene/2017-02/geo-sirene.csv.gz' }
@@ -34,7 +34,7 @@ describe GetRelevantPatchesLinks do
     & MORE than 5 since last daily update,',
     vcr: { cassette_name: 'geo-sirene_file_index_20170330_22_links_since_LM' } do
 
-    let!(:etablissement) { create(:etablissement, date_mise_a_jour: '2017-03-15T10:55:43') }
+    let!(:etablissement) { create(:etablissement_v2, date_mise_a_jour: '2017-03-15T10:55:43') }
 
     it 'retrieves the right number of patches' do
       allow(File).to receive(:read) { 'http://data.cquest.org/geo_sirene/2017-02/geo-sirene.csv.gz' }
@@ -46,7 +46,7 @@ describe GetRelevantPatchesLinks do
   end
 
   context 'when rebuilding database in the middle of month', vcr: { cassette_name: 'geo-sirene_20181215' } do
-    let!(:etablissement) { create :etablissement, date_mise_a_jour: '2018-11-30T20:02:32' }
+    let!(:etablissement) { create :etablissement_v2, date_mise_a_jour: '2018-11-30T20:02:32' }
 
     it 'retrieves all the patches since the begining of the month' do
       allow(File).to receive(:read) { 'http://data.cquest.org/geo_sirene/2018-11/geo_sirene.csv.gz' }
@@ -60,7 +60,7 @@ describe GetRelevantPatchesLinks do
   context 'when in january and it is the first patches of the new year',
     vcr: { cassette_name: 'geo-sirene_file_index_20190102' } do
 
-    let!(:etablissement) { create :etablissement, date_mise_a_jour: '2018-12-31T20:02:32' }
+    let!(:etablissement) { create :etablissement_v2, date_mise_a_jour: '2018-12-31T20:02:32' }
 
     it 'retrieves only one patch' do
       allow(File).to receive(:read) { 'http://data.cquest.org/geo_sirene/2018-12/geo_sirene.csv.gz' }
