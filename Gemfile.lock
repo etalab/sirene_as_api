@@ -266,7 +266,6 @@ GEM
     rubocop-rspec (1.25.1)
       rubocop (>= 0.53.0)
     ruby-progressbar (1.9.0)
-    rubyzip (1.2.2)
     safe_yaml (1.0.4)
     sexp_processor (4.11.0)
     shellany (0.0.1)
@@ -390,7 +389,6 @@ DEPENDENCIES
   rubocop-checkstyle_formatter
   rubocop-rspec
   ruby-progressbar
-  rubyzip
   shoulda-matchers
   simplecov
   simplecov-console
@@ -410,4 +408,4 @@ DEPENDENCIES
   whirly
 
 BUNDLED WITH
-   1.16.1
+   2.0.1
