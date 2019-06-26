@@ -6,7 +6,7 @@ class API::V1::NearEtablissementGeojsonController < API::V1::NearEtablissementCo
   private
 
   def search_around_etablissement(etablissement, options)
-    Etablissement.search do |s|
+    EtablissementV2.search do |s|
       # Less precise but faster search with bbox
       s.with(:location).in_radius(etablissement[:latitude], etablissement[:longitude], options[:radius], bbox: true)
 
@@ -38,7 +38,7 @@ class API::V1::NearEtablissementGeojsonController < API::V1::NearEtablissementCo
       {
         "type": 'Feature',
         "geometry": { "type": 'Point', "coordinates": [result[:longitude].to_f, result[:latitude].to_f] },
-        "properties": { 
+        "properties": {
           "nom_raison_sociale": result[:nom_raison_sociale],
           "siret": result[:siret],
           "libelle_activite_principale": result[:libelle_activite_principale]

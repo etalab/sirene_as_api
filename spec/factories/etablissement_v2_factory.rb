@@ -4,7 +4,7 @@
 # Suppression : E, Sortie diffusion : O
 
 FactoryBot.define do
-  factory :etablissement do
+  factory :etablissement_v2 do
     sequence(:nom) { |n| "entreprise#{n}" }
     sequence(:siren) { |n| "11111#{n}" }
     sequence(:date_mise_a_jour, ('00'..'59').cycle) { |n| "2017-01-01T10:25:#{n}" }
