@@ -26,25 +26,25 @@ class CreateEtablissementsV3 < ActiveRecord::Migration[5.0]
       t.string :libelle_cedex
       t.string :code_pays_etranger
       t.string :libelle_pays_etranger
-      t.string :complement_adresse2
-      t.string :numero_voie2
-      t.string :indice_repetition2
-      t.string :type_voie2
-      t.string :libelle_voie2
-      t.string :code_postal2
-      t.string :libelle_commune2
-      t.string :libelle_commune_etranger2
-      t.string :distribution_speciale2
-      t.string :code_commune2
-      t.string :code_cedex2
-      t.string :libelle_cedex2
-      t.string :code_pays_etranger2
-      t.string :libelle_pays_etranger2
+      t.string :complement_adresse_2
+      t.string :numero_voie_2
+      t.string :indice_repetition_2
+      t.string :type_voie_2
+      t.string :libelle_voie_2
+      t.string :code_postal_2
+      t.string :libelle_commune_2
+      t.string :libelle_commune_etranger_2
+      t.string :distribution_speciale_2
+      t.string :code_commune_2
+      t.string :code_cedex_2
+      t.string :libelle_cedex_2
+      t.string :code_pays_etranger_2
+      t.string :libelle_pays_etranger_2
       t.string :date_debut
       t.string :etat_administratif
-      t.string :enseigne1
-      t.string :enseigne2
-      t.string :enseigne3
+      t.string :enseigne_1
+      t.string :enseigne_2
+      t.string :enseigne_3
       t.string :denomination_usuelle
       t.string :activite_principale
       t.string :nomenclature_activite_principale

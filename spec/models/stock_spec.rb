@@ -44,7 +44,7 @@ describe Stock do
       expect(subject.newer?(last_month_stock)).to be true
     end
 
-    specify 'same stock is not newer' do
+    specify 'same stock is newer' do
       expect(subject.newer?(subject)).to be true
     end
   end
