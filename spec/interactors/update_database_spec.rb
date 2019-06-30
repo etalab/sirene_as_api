@@ -1,7 +1,9 @@
 require 'rails_helper'
 
 describe UpdateDatabase do
-  context 'when there is no monthly stock link saved in a file' do    
+  include_context 'mute interactors'
+
+  context 'when there is no monthly stock link saved in a file' do
     it 'destroy and rebuild the database if user accepts it' do
       allow(File).to receive(:exist?).and_return(false)
       allow(STDIN).to receive(:gets).and_return('y')
@@ -61,7 +63,7 @@ describe UpdateDatabase do
       allow(File).to receive(:exist?).and_return(true)
       allow(File).to receive(:read).and_return('mock-link-201802')
       allow(GetLastMonthlyStockLink).to receive_message_chain(:call, :link => 'mock-link-201802')
-      
+
       expect(DeleteDatabase).not_to receive(:call)
       expect(PopulateDatabase).not_to receive(:call)
       expect(SelectAndApplyPatches).to receive(:call).and_return(empty_context)

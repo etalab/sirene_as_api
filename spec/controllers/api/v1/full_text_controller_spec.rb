@@ -328,6 +328,8 @@ describe API::V1::FullTextController do
 
   # Suggestions : FST implementation works only from prefix, so we find etablissement3
   context 'when a name can be suggested', type: :request do
+    include_context 'mute interactors'
+
     let!(:etablissement1) { create(:etablissement_v2, id: 1, nom_raison_sociale: 'FOOBAR COMPANY') }
     let!(:etablissement2) { create(:etablissement_v2, id: 2, nom_raison_sociale: 'ANOTHER ETABLISSEMENT') }
     let!(:etablissement3) { create(:etablissement_v2, id: 3, nom_raison_sociale: 'ETABLISSEMENT TO FIND') }

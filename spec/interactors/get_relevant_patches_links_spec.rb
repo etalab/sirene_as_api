@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 describe GetRelevantPatchesLinks do
+  include_context 'mute interactors'
+
   context 'when in march & there are LESS than 5 patches since last monthly update,',
     vcr: { cassette_name: 'geo-sirene_file_index_4_links_since_LM' } do
 

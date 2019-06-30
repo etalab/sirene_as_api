@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 describe ApplyPatches do
+  include_context 'mute interactors'
+
   context 'when there are 1 patch to apply' do
     it 'call ApplyPatch 1 times' do
       expect_any_instance_of(ApplyPatch).to receive(:call).once

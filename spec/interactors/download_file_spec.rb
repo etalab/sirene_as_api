@@ -2,6 +2,8 @@ require 'rails_helper'
 require 'open-uri'
 
 describe DownloadFile do
+  include_context 'mute interactors'
+
   context 'When downloading file' do
     before(:all) do
       Timecop.freeze(Time.utc(2018, 9, 1, 10, 5, 0))
