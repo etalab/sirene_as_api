@@ -43,8 +43,7 @@ VCR.configure do |config|
   config.hook_into :webmock
   config.configure_rspec_metadata!
   config.default_cassette_options[:allow_playback_repeats] = true
-  # Config allow http connections without cassettes for requests on Solr server
-  config.allow_http_connections_when_no_cassette = true
+  config.allow_http_connections_when_no_cassette = false
   # Config ignore_request to stop VCR from managing Solr server requests
   config.ignore_request do |request|
     URI(request.uri).port == 8981
