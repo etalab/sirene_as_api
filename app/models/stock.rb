@@ -14,4 +14,12 @@ class Stock < ApplicationRecord
   def date
     Date.new(year.to_i, month.to_i)
   end
+
+  def logger_for_import
+    Logger.new logger_file_path
+    end
+
+  def logger_file_path
+    Rails.root.join 'log', "#{self.class.to_s.underscore}.log"
+  end
 end

@@ -48,4 +48,20 @@ describe Stock do
       expect(subject.newer?(subject)).to be false
     end
   end
+
+  describe '#logger_for_import' do
+    specify 'StockUniteLegale' do
+      expect(Logger).to receive(:new)
+        .with(Rails.root.join('log', 'stock_unite_legale.log'))
+
+      StockUniteLegale.new.logger_for_import
+    end
+
+    specify 'StockEtablissement' do
+      expect(Logger).to receive(:new)
+        .with(Rails.root.join('log', 'stock_etablissement.log'))
+
+      StockEtablissement.new.logger_for_import
+    end
+  end
 end
