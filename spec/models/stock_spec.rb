@@ -45,7 +45,7 @@ describe Stock do
     end
 
     specify 'same stock is newer' do
-      expect(subject.newer?(subject)).to be true
+      expect(subject.newer?(subject)).to be false
     end
   end
 end

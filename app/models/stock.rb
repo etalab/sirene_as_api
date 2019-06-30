@@ -8,7 +8,7 @@ class Stock < ApplicationRecord
   end
 
   def newer?(old_stock)
-    date >= old_stock.date
+    date > old_stock.date
   end
 
   def date
