@@ -8,7 +8,7 @@ describe Files::Operation::Download do
   context 'downloads success', vcr: { cassette_name: 'download_success' } do
 
     after do
-      File.delete Rails.root.join 'tmp', 'files', filename
+      File.delete local_file_path
     end
 
     let(:url) { 'http://www.ovh.net/files/' }

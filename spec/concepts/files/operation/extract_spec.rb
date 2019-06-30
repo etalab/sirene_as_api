@@ -1,29 +1,41 @@
 require 'rails_helper'
 
 describe Files::Operation::Extract do
-  # Archive manually created for tests.
-  let(:gzip_file) { Rails.root.join('spec', 'concepts', 'files', 'example.csv.gz').to_s }
-  let(:unzipped_file) { Rails.root.join('tmp', 'files', 'example.csv').to_s }
+  subject { described_class.call file_path: compressed_file }
 
-  subject { described_class.call(path: gzip_file) }
+  let(:expected_unzipped_file) { Rails.root.join('tmp', 'files', 'example.csv').to_s }
 
-  after { FileUtils.rm_rf(unzipped_file) } # clean extracted file
+  after { FileUtils.rm_rf(expected_unzipped_file) } # clean extracted file
 
-  it 'is successful' do
-    expect(subject).to be_success
+  shared_examples 'extracting file' do
+      it 'is successful' do
+        expect(subject).to be_success
+      end
+
+      it 'extracts into a file named from the zip' do
+        subject
+        expect(File.file?(expected_unzipped_file)).to eq(true)
+      end
+
+      it 'returns the extracted file path' do
+        expect(subject[:extracted_file]).to eq(expected_unzipped_file)
+      end
+    end
+
+  describe 'gz file' do
+    let(:compressed_file) { Rails.root.join('spec', 'fixtures', 'example.csv.gz').to_s }
+
+    it_behaves_like 'extracting file'
   end
 
-  it 'extracts into a file named from the zip' do
-    subject
-    expect(File.file?(unzipped_file)).to eq(true)
-  end
+  describe 'zip file' do
+    let(:compressed_file) { Rails.root.join('spec', 'fixtures', 'example.csv.zip').to_s }
 
-  it 'returns the extracted file path' do
-    expect(subject[:unzipped_file]).to eq(unzipped_file)
+    it_behaves_like 'extracting file'
   end
 
   context 'when file is not found' do
-    let(:gzip_file) { Rails.root.join('tmp', 'files', 'you_will_never_find_me.gz').to_s }
+    let(:compressed_file) { Rails.root.join('tmp', 'files', 'you_will_never_find_me.gz').to_s }
 
     it { is_expected.to be_failure }
 
