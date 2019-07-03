@@ -124,7 +124,8 @@ CREATE TABLE public.etablissements (
     geo_l4 character varying,
     geo_l5 character varying,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    unite_legale_id integer
 );
 
 
@@ -589,6 +590,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190602130719'),
 ('20190603115019'),
 ('20190606142656'),
-('20190619121622');
+('20190619121622'),
+('20190703100825');
 
 

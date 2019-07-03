@@ -1,4 +1,5 @@
 class UniteLegale < ApplicationRecord
+  has_many :etablissements
 
   def self.header_mapping
     {

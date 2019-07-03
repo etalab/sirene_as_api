@@ -1,5 +1,5 @@
 require 'rails_helper'
 
 describe Etablissement do
-
+  it { is_expected.to belong_to(:unite_legale).optional }
 end
