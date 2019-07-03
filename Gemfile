@@ -26,7 +26,6 @@ gem 'sinatra', '~> 2.0.2'
 gem 'sunspot_rails'
 gem 'sunspot_solr'
 
-gem 'rubyzip'
 gem 'smarter_csv'
 
 gem 'ruby-progressbar'
