@@ -1,0 +1,126 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://data.cquest.org/geo_sirene/v2019
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 301
+      message: Moved Permanently
+    headers:
+      Server:
+      - nginx/1.17.0
+      Date:
+      - Mon, 03 Jun 2019 12:56:03 GMT
+      Content-Type:
+      - text/html
+      Content-Length:
+      - '169'
+      Location:
+      - http://data.cquest.org/geo_sirene/v2019/
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: "<html>\r\n<head><title>301 Moved Permanently</title></head>\r\n<body>\r\n<center><h1>301
+        Moved Permanently</h1></center>\r\n<hr><center>nginx/1.17.0</center>\r\n</body>\r\n</html>\r\n"
+    http_version: 
+  recorded_at: Mon, 03 Jun 2019 12:56:03 GMT
+- request:
+    method: get
+    uri: http://data.cquest.org/geo_sirene/v2019/
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.17.0
+      Date:
+      - Mon, 03 Jun 2019 12:56:04 GMT
+      Content-Type:
+      - text/html; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+    body:
+      encoding: ASCII-8BIT
+      string: "<html>\r\n<head><title>Index of /geo_sirene/v2019/</title></head>\r\n<body>\r\n<h1>Index
+        of /geo_sirene/v2019/</h1><hr><pre><a href=\"../\">../</a>\r\n<a href=\"2018-10/\">2018-10/</a>
+        \                                          28-Apr-2019 23:50                   -\r\n<a
+        href=\"2018-11/\">2018-11/</a>                                           28-Apr-2019
+        23:50                   -\r\n<a href=\"2018-12/\">2018-12/</a>                                           28-Apr-2019
+        23:50                   -\r\n<a href=\"2019-01/\">2019-01/</a>                                           28-Apr-2019
+        23:50                   -\r\n<a href=\"2019-02/\">2019-02/</a>                                           03-May-2019
+        03:27                   -\r\n<a href=\"2019-03/\">2019-03/</a>                                           03-May-2019
+        03:27                   -\r\n<a href=\"2019-04/\">2019-04/</a>                                           03-May-2019
+        03:27                   -\r\n<a href=\"2019-05/\">2019-05/</a>                                           26-May-2019
+        14:38                   -\r\n<a href=\"archives/\">archives/</a>                                          02-May-2019
+        05:34                   -\r\n<a href=\"last/\">last/</a>                                              26-May-2019
+        14:38                   -\r\n<a href=\"quotidien/\">quotidien/</a>                                         03-Jun-2019
+        06:12                   -\r\n<a href=\"quotidien_csv_bruts/\">quotidien_csv_bruts/</a>
+        \                              03-Jun-2019 06:12                   -\r\n<a
+        href=\"2018-10-01-StockEtablissementHistorique_utf8.zip\">2018-10-01-StockEtablissementHistorique_utf8.zip</a>
+        \  06-Nov-2018 02:25           813659911\r\n<a href=\"2018-10-01-StockEtablissement_utf8.zip\">2018-10-01-StockEtablissement_utf8.zip</a>
+        \            06-Nov-2018 02:23          1185071868\r\n<a href=\"2018-10-01-StockUniteLegaleHistorique_utf8.zip\">2018-10-01-StockUniteLegaleHistorique_utf8.zip</a>
+        \    06-Nov-2018 02:28           940496051\r\n<a href=\"2018-10-01-StockUniteLegale_utf8.zip\">2018-10-01-StockUniteLegale_utf8.zip</a>
+        \              06-Nov-2018 02:27           588615121\r\n<a href=\"2018-11-01-StockEtablissementHistorique_utf8.zip\">2018-11-01-StockEtablissementHistorique_utf8.zip</a>
+        \  06-Nov-2018 04:06           818860003\r\n<a href=\"2018-11-01-StockEtablissement_utf8.zip\">2018-11-01-StockEtablissement_utf8.zip</a>
+        \            06-Nov-2018 03:42          1189939199\r\n<a href=\"2018-11-01-StockUniteLegaleHistorique_utf8.zip\">2018-11-01-StockUniteLegaleHistorique_utf8.zip</a>
+        \    06-Nov-2018 03:31           943642797\r\n<a href=\"2018-11-01-StockUniteLegale_utf8.zip\">2018-11-01-StockUniteLegale_utf8.zip</a>
+        \              06-Nov-2018 04:13           590939060\r\n<a href=\"2018-12-01-StockEtablissementHistorique_utf8.zip\">2018-12-01-StockEtablissementHistorique_utf8.zip</a>
+        \  03-Dec-2018 11:14           821477083\r\n<a href=\"2018-12-01-StockEtablissement_utf8.zip\">2018-12-01-StockEtablissement_utf8.zip</a>
+        \            03-Dec-2018 10:55          1194448536\r\n<a href=\"2018-12-01-StockUniteLegaleHistorique_utf8.zip\">2018-12-01-StockUniteLegaleHistorique_utf8.zip</a>
+        \    03-Dec-2018 10:28           947073427\r\n<a href=\"2018-12-01-StockUniteLegale_utf8.zip\">2018-12-01-StockUniteLegale_utf8.zip</a>
+        \              03-Dec-2018 11:28           593159763\r\n<a href=\"2019-01-01-StockEtablissementHistorique_utf8.zip\">2019-01-01-StockEtablissementHistorique_utf8.zip</a>
+        \  02-Jan-2019 10:13           823930868\r\n<a href=\"2019-01-01-StockEtablissement_utf8.zip\">2019-01-01-StockEtablissement_utf8.zip</a>
+        \            02-Jan-2019 10:03          1265640866\r\n<a href=\"2019-01-01-StockUniteLegaleHistorique_utf8.zip\">2019-01-01-StockUniteLegaleHistorique_utf8.zip</a>
+        \    02-Jan-2019 09:39           950575146\r\n<a href=\"2019-01-01-StockUniteLegale_utf8.zip\">2019-01-01-StockUniteLegale_utf8.zip</a>
+        \              02-Jan-2019 10:26           632288808\r\n<a href=\"2019-02-01-StockEtablissementHistorique_utf8.zip\">2019-02-01-StockEtablissementHistorique_utf8.zip</a>
+        \  01-Feb-2019 18:45           827034956\r\n<a href=\"2019-02-01-StockEtablissement_utf8.zip\">2019-02-01-StockEtablissement_utf8.zip</a>
+        \            01-Feb-2019 04:45          1272868336\r\n<a href=\"2019-02-01-StockUniteLegaleHistorique_utf8.zip\">2019-02-01-StockUniteLegaleHistorique_utf8.zip</a>
+        \    01-Feb-2019 08:04           954302783\r\n<a href=\"2019-02-01-StockUniteLegale_utf8.zip\">2019-02-01-StockUniteLegale_utf8.zip</a>
+        \              01-Feb-2019 05:09           635588160\r\n<a href=\"2019-03-01-StockEtablissementHistorique_utf8.zip\">2019-03-01-StockEtablissementHistorique_utf8.zip</a>
+        \  01-Mar-2019 04:49           829806475\r\n<a href=\"2019-03-01-StockEtablissement_utf8.zip\">2019-03-01-StockEtablissement_utf8.zip</a>
+        \            01-Mar-2019 04:39          1278858079\r\n<a href=\"2019-03-01-StockUniteLegaleHistorique_utf8.zip\">2019-03-01-StockUniteLegaleHistorique_utf8.zip</a>
+        \    01-Mar-2019 04:29           957704224\r\n<a href=\"2019-03-01-StockUniteLegale_utf8.zip\">2019-03-01-StockUniteLegale_utf8.zip</a>
+        \              01-Mar-2019 04:55           638561533\r\n<a href=\"2019-04-01-StockEtablissementHistorique_utf8.zip\">2019-04-01-StockEtablissementHistorique_utf8.zip</a>
+        \  03-Apr-2019 16:40           833011134\r\n<a href=\"2019-04-01-StockEtablissementLiensSuccession_utf8.zip\">2019-04-01-StockEtablissementLiensSuccession_ut..&gt;</a>
+        03-Apr-2019 16:42           119223709\r\n<a href=\"2019-04-01-StockEtablissement_utf8.zip\">2019-04-01-StockEtablissement_utf8.zip</a>
+        \            01-Apr-2019 14:37          1284812207\r\n<a href=\"2019-04-01-StockUniteLegaleHistorique_utf8.zip\">2019-04-01-StockUniteLegaleHistorique_utf8.zip</a>
+        \    03-Apr-2019 16:45           962133525\r\n<a href=\"2019-04-01-StockUniteLegale_utf8.zip\">2019-04-01-StockUniteLegale_utf8.zip</a>
+        \              03-Apr-2019 16:43           641531228\r\n<a href=\"2019-05-01-StockEtablissementHistorique_utf8.zip\">2019-05-01-StockEtablissementHistorique_utf8.zip</a>
+        \  02-May-2019 04:00           835863268\r\n<a href=\"2019-05-01-StockEtablissementLiensSuccession_utf8.zip\">2019-05-01-StockEtablissementLiensSuccession_ut..&gt;</a>
+        01-May-2019 04:11           119777911\r\n<a href=\"2019-05-01-StockEtablissement_utf8.zip\">2019-05-01-StockEtablissement_utf8.zip</a>
+        \            02-May-2019 03:42          1290927558\r\n<a href=\"2019-05-01-StockUniteLegaleHistorique_utf8.zip\">2019-05-01-StockUniteLegaleHistorique_utf8.zip</a>
+        \    02-May-2019 03:31           965567101\r\n<a href=\"2019-05-01-StockUniteLegale_utf8.zip\">2019-05-01-StockUniteLegale_utf8.zip</a>
+        \              02-May-2019 04:07           644624952\r\n<a href=\"2019-06-01-StockEtablissementHistorique_utf8.zip\">2019-06-01-StockEtablissementHistorique_utf8.zip</a>
+        \  01-Jun-2019 03:53           838610667\r\n<a href=\"2019-06-01-StockEtablissementLiensSuccession_utf8.zip\">2019-06-01-StockEtablissementLiensSuccession_ut..&gt;</a>
+        01-Jun-2019 04:03           120281077\r\n<a href=\"2019-06-01-StockEtablissement_utf8.zip\">2019-06-01-StockEtablissement_utf8.zip</a>
+        \            01-Jun-2019 03:43          1296465127\r\n<a href=\"2019-06-01-StockUniteLegaleHistorique_utf8.zip\">2019-06-01-StockUniteLegaleHistorique_utf8.zip</a>
+        \    01-Jun-2019 03:19           968848409\r\n<a href=\"2019-06-01-StockUniteLegale_utf8.zip\">2019-06-01-StockUniteLegale_utf8.zip</a>
+        \              01-Jun-2019 04:00           647534235\r\n</pre><hr></body>\r\n</html>\r\n"
+    http_version: 
+  recorded_at: Mon, 03 Jun 2019 12:56:05 GMT
+recorded_with: VCR 4.0.0
