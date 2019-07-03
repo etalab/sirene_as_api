@@ -3,10 +3,9 @@ require 'rails_helper'
 describe Files::Operation::Download do
   subject { described_class.call uri: uri, logger: logger }
 
-  let(:logger) { instance_double(Logger).as_null_object }
+  let(:logger) { instance_spy Logger }
 
   context 'downloads success', vcr: { cassette_name: 'download_success' } do
-
     after do
       File.delete local_file_path
     end
