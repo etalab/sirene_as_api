@@ -3,3 +3,4 @@
 /solr/sandbox/data/*
 /solr/production/data/*
 /solr/test/data/*
+/tmp/

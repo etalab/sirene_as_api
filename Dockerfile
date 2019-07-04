@@ -10,7 +10,8 @@ RUN apt-get install -y \
   openjdk-8-jre \
 # for nokogiri
   libxml2-dev \
-  libxslt1-dev
+  libxslt1-dev \
+  vim
 
 ENV APP_HOME /docker_build
 RUN mkdir $APP_HOME
