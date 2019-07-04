@@ -49,3 +49,6 @@ sunspot-solr.pid
 
 # Ignore code coverage report
 coverage/*
+
+#ignore ide configs
+.idea/
