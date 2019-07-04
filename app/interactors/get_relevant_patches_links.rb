@@ -19,16 +19,8 @@ class GetRelevantPatchesLinks < SireneAsAPIInteractor
     # Long task here, we activate a loader if in development
     Whirly.start spinner: 'arrow3' if Rails.env != 'test'
     relevant_patches_relative_links = select_all_patches_after_(padded_latest_etablissement_mise_a_jour_day_number)
-    Whirly.stop if Rails.env != 'test'
 
-    unless context.rebuilding_database
-      relevant_patches_relative_links =
-        if there_are_less_than_5_patches_since_last_monthly_stock
-          patches_since_last_monthly_stock
-        else
-          get_minimum_5_patches(relevant_patches_relative_links)
-        end
-    end
+    Whirly.stop if Rails.env != 'test'
 
     context.links = change_into_absolute_links(relevant_patches_relative_links)
   end
@@ -62,14 +54,15 @@ class GetRelevantPatchesLinks < SireneAsAPIInteractor
     end
   end
 
-  def there_are_less_than_5_patches_since_last_monthly_stock
-    patches_since_last_monthly_stock.size < 5
+  def there_are_less_than_5_patches_since_last_monthly_stock(relevant_patches)
+    # patches_since_last_monthly_stock.size < 5
+    relevant_patches.size < 5
   end
 
   def patches_since_last_monthly_stock
     yday_beginning_current_month = Date.new(current_year.to_i, current_month.to_i, 1).yday
     end_of_last_month = (yday_beginning_current_month - 1).to_s.rjust(3, '0')
-
+    stdout_info_log(end_of_last_month)
     select_all_patches_after_(end_of_last_month)
   end
 

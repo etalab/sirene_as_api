@@ -12,6 +12,7 @@ class UpdateDatabase < SireneAsAPIInteractor
       return
     end
 
+    stdout_info_log('Last monthly stock link saved : ' + last_saved_monthly_stock_name)
     update_database_if_needed
   end
 
@@ -24,10 +25,11 @@ class UpdateDatabase < SireneAsAPIInteractor
       daily_update = SelectAndApplyPatches.call
       PostUpdateTasks.call unless daily_update.links.empty?
     elsif last_saved_monthly_stock_name > context.link
-      stdout_error_log('An error occurred : it seems the database is more recent than the last published link.')
+      stdout_error_log('An error occurred : last monthly stock applied is more recent than the last published link.')
     else
       destroy_and_rebuild_database
     end
+
   end
 
   def last_published_stock_name
