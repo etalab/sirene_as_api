@@ -47,6 +47,9 @@ sunspot-solr.pid
 # Ignore last_monthly_stock_link storage
 /.last_monthly_stock_applied/*
 
+# Ignore custom environment variables files for docker
+*.env
+
 # Ignore code coverage report
 coverage/*
 
