@@ -27,9 +27,21 @@ class ImportMonthlyStockCsv < SireneAsAPIInteractor
       context.fail!(error: 'database should be empty before importing a stock file')
       return
     end
+
+    stdout_warn_log("Dropping indexes for optimizing monthly stock import")
+    DropAllIndexes.call
+    stdout_success_log("All indexes have been dropped")
+
     progress_bar = create_progressbar(context)
 
     process_csv_job(context, progress_bar)
+
+    stdout_success_log("Successfully imported last monthly stock")
+    unless context.apply_patches
+      stdout_warn_log("Not applying patches.")
+      AfterApplyingUpdateIndexJob.call
+    end
+
   end
 
   def clean_database?
