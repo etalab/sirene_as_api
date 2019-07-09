@@ -17,12 +17,21 @@ Rails.application.routes.draw do
     get 'siren/:siren/etablissements_geojson' => '/api/v2/siren_children_geojson#show'
   end
 
+  concern :v3_routes do
+    get 'unites_legales/' => '/api/v3/unites_legales#index'
+    get 'etablissements/' => '/api/v3/etablissements#index'
+  end
+
   namespace :v1 do
     concerns :v1_routes
   end
 
   namespace :v2 do
     concerns :v2_routes
+  end
+
+  namespace :v3 do
+    concerns :v3_routes
   end
 
   # DIRTY FIX (nginx configuration and url prefixing do not work)
@@ -33,6 +42,10 @@ Rails.application.routes.draw do
 
     namespace :v2 do
       concerns :v2_routes
+    end
+
+    namespace :v3 do
+      concerns :v3_routes
     end
   end
 
