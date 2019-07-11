@@ -11,6 +11,8 @@ RUN apt-get install -y \
 # for nokogiri
   libxml2-dev \
   libxslt1-dev \
+  # for cron scheduler job
+  cron \
   vim
 
 ENV APP_HOME /docker_build
