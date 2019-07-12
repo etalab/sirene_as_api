@@ -1,9 +1,6 @@
 FROM ruby:2.4
 
-RUN apt-get update -qq && apt-get install -y build-essential
-
-# for postgres
-RUN apt-get install -y \
+RUN apt-get update -qq && apt-get install -y build-essential \
   libpq-dev \
   postgresql-client \
 # for Solr
