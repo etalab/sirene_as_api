@@ -5,6 +5,9 @@ set :output, File.join(Whenever.path, 'log', 'sirene_api_cron.log')
 # whenever --set 'environment=VALUE'
 # which is set by Mina/whenver with RAILS_ENV
 
+# till finding a better fix to crontab not using the right version of rake
+ENV.each { |k, v| env(k, v) }
+
 ###### SANDBOX ######
 if environment == 'sandbox'
   every 2.days, at: '8:00 am' do
@@ -16,9 +19,10 @@ end
 if environment == 'production'
   # CRON Job for single server update, uncomment if you have a single server
 
-  # every 1.day, at: '4:30 am' do
-  #   rake 'sirene_as_api:automatic_update_database'
-  # end
+  every 1.day, at: '9:45 pm' do
+    command "date"
+    rake 'sirene_as_api:automatic_update_database'
+  end
 
   # CRON jobs for dual server update, comment out if you have a single server
   # The rake task is launched only if the server is not used, so each server will update every other day
