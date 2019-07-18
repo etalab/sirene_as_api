@@ -305,18 +305,29 @@ Une fois cloné ce répertoire à l'aide de
 
     git clone git@github.com:etalab/sirene_as_api.git && cd sirene_as_api
 
-Construisez le container avec `docker-compose build` et lancez le avec `docker-compose up`.
+Construisez le container avec `docker-compose build` et lancez-le avec `docker-compose up`.
+
+Pour faciliter l'intéraction avec le container du serveur, il est conseillé d'utiliser le mode intéractif (à partir d'un autre terminal) :
+
+    docker exec -it <nom_container> bash
+
+Vous pourrez ainsi exécuter, de manière transparente, toutes les tâches d'administration et de mises à jour présentées dans les sections suivantes. Sinon vous pouvez prendre exemple sur les commandes ci-dessous dans cette même section. 
 
 Vous pouvez effectuer les migrations (nécessaire seulement au premier lancement) à l'aide de :
 
-    docker-compose run sirene db:create
-    docker-compose run sirene db:migrate
+    docker-compose run sirene bundle exec rails db:create
+    docker-compose run sirene bundle exec rails db:migrate
 
-La base de donnée sera persistée sur `/var/lib/postgresql/data`.
+La base de donnée sera persistée dans le dossier `/var/lib/postgresql` par défaut. Il est possible  de changer l'emplacement d'installation des données ou d'indiquer un emplacement d'installation existante en modifiant la variable d'environnement `POSTGRES_DATA` dans le fichier `.env`.
+
+Si votre machine comprend déjà une base installée sur `/var/lib/postgresql`, libre à vous de modifier le fichier `.env` :
+```yml
+POSTGRES_DATA=/path/to/other/data_folder
+```
 
 Lancez les imports à l'aide des commandes rake (Cf plus bas, partie Mises à jour / Administration) précédées par `docker-compose run sirene`. Par exemple :
 
-    docker-compose run sirene rake sirene_as_api:import_last_monthly_stock
+    docker-compose run sirene rake sirene_as_api:populate_database
 
 Vous pouvez d'ors et déjà interroger l'API sur `http://localhost:3000/v1/siren/552032534`.
 
@@ -324,15 +335,6 @@ La recherche fulltext devrait fonctionner après avoir executé `docker-compose 
 
 Attention : pour faciliter les modifications par nos utilisateurs, le docker est lancé en environnement de développement. N'oubliez pas de changer le mot de passe postgres dans /config/docker/init.sql, /config/docker/database.yml et docker-compose.yml.
 
-Si votre machine comprend déjà une base installée sur /var/lib/postgresql avec une version différente de postgres, vous aurez peut-être besoin de modifier les lignes suivantes du fichier dockerfile-compose.yml :
-
-```yml
-environment:
-  - PGDATA=/var/lib/postgresql_docker/data
-
-volumes :
-  - /var/lib/postgresql/data:/var/lib/postgresql_docker/data
-```
 
 ## Installation manuelle en environnement dev
 
