@@ -26,5 +26,10 @@ services:
       - ${HOST_APP_FOLDER}/.last_monthly_stock_applied/:/docker_build/.last_monthly_stock_applied/
       - ${HOST_APP_FOLDER}/tmp/:/docker_build/tmp/
       - ${HOST_APP_FOLDER}/log/:/docker_build/log/
+      - ${HOST_APP_FOLDER}/solr/default/data/:/docker_build/solr/default/data/
+      - ${HOST_APP_FOLDER}/solr/development/data/:/docker_build/solr/development/data/
+      - ${HOST_APP_FOLDER}/solr/sandbox/data/:/docker_build/solr/sandbox/data/
+      - ${HOST_APP_FOLDER}/solr/production/data/:/docker_build/solr/production/data/
+      - ${HOST_APP_FOLDER}/solr/test/data/:/docker_build/solr/test/data/
     links:
       - db
