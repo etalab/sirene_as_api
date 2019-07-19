@@ -35,7 +35,8 @@ class ApplyFrequentUpdateCsvPatch < SireneAsAPIInteractor
       chunk_size: 500,
       col_sep: ',',
       row_sep: "\r\n",
-      convert_values_to_numeric: false,
+      # deprecated option in v2. This code will not be used anymore
+      # convert_values_to_numeric: false,
       key_mapping: {},
       file_encoding: 'UTF-8'
     }

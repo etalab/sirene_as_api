@@ -1,3 +1,10 @@
+GIT
+  remote: https://github.com/tilo/smarter_csv.git
+  revision: 2b71026ede14040b8d5868f66d69d7d9b4d93492
+  ref: 2b71026
+  specs:
+    smarter_csv (2.0.0.pre1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -236,6 +243,9 @@ GEM
       rspec-core (~> 3.7.0)
       rspec-expectations (~> 3.7.0)
       rspec-mocks (~> 3.7.0)
+    rspec-activejob (0.6.1)
+      activejob (>= 4.2)
+      rspec-mocks
     rspec-core (3.7.1)
       rspec-support (~> 3.7.0)
     rspec-expectations (3.7.0)
@@ -294,7 +304,6 @@ GEM
       tilt (~> 2.0)
     sitemap_generator (6.0.2)
       builder (~> 3.0)
-    smarter_csv (1.2.6)
     spring (2.0.2)
       activesupport (>= 4.2)
     spring-commands-rspec (1.0.4)
@@ -392,6 +401,7 @@ DEPENDENCIES
   redis-namespace
   redis-objects
   resque
+  rspec-activejob
   rspec-its
   rspec-rails (~> 3.5)
   rubocop-checkstyle_formatter
@@ -403,7 +413,7 @@ DEPENDENCIES
   simplecov-console
   sinatra (~> 2.0.2)
   sitemap_generator
-  smarter_csv
+  smarter_csv!
   spring
   spring-commands-rspec
   spring-watcher-listen (~> 2.0.0)

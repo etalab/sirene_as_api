@@ -29,7 +29,7 @@ gem 'sunspot_solr'
 
 # Import of data files
 gem 'activerecord-import'
-gem 'smarter_csv'
+gem 'smarter_csv', git: 'https://github.com/tilo/smarter_csv.git', ref: '2b71026'
 
 gem 'ruby-progressbar'
 # Gem progress_bar required for displaying progress in rake sunspot:reindex
@@ -62,6 +62,7 @@ group :development, :test do
   gem 'pry'
   gem 'pry-byebug'
 
+  gem 'rspec-activejob'
   gem 'rspec-rails', '~> 3.5'
   gem 'rspec-its'
   gem 'shoulda-matchers'

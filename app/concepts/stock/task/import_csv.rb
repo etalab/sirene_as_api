@@ -3,9 +3,10 @@ class Stock
     class ImportCSV < Trailblazer::Operation
       pass :log_import_start
       step :file_exists?
-      step :create_progressbar
-      step :import_csv
       fail :log_file_not_found
+      step :create_progressbar
+      step :file_importer
+      step :import_csv
       pass :log_import_completed
 
       def file_exists?(_, csv:, **)
@@ -19,16 +20,15 @@ class Stock
         )
       end
 
-      def import_csv(_, csv:, model:, progress_bar:, logger:, **)
-        options = basic_options.merge(key_mapping: model.header_mapping)
+      def file_importer(ctx, logger:, **)
+        ctx[:file_importer] = Files::Helper::FileImporter.new(logger)
+      end
 
-        SmarterCSV.process(csv, options) do |chunk|
-          model.import model.header_mapping.values, chunk, validate: false
-          chunk.size.times { progress_bar.increment }
+      def import_csv(_, csv:, model:, progress_bar:, file_importer:, **)
+        file_importer.bulk_import(file: csv, model: model) do |imported_row_count|
+          break unless imported_row_count
+          imported_row_count.times { progress_bar.increment }
         end
-      rescue SmarterCSV::SmarterCSVException, ArgumentError
-        logger.error "Import failed, #{$ERROR_INFO.class}: #{$ERROR_INFO.message}"
-        false
       end
 
       def log_import_start(_, csv:, logger:, **)
