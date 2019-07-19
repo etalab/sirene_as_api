@@ -5,7 +5,7 @@ class Etablissement
   module Task
     class FetchLatestRemoteStock < Trailblazer::Operation
       step :fetch_latest_link
-      step :create_stock_from_link
+      step :build_stock_from_link
 
       def fetch_latest_link(ctx, logger:, **)
         ctx[:stock_link] = geo_sirene_url
@@ -14,7 +14,7 @@ class Etablissement
         false
       end
 
-      def create_stock_from_link(ctx, stock_link:, **)
+      def build_stock_from_link(ctx, stock_link:, **)
         year, month = stock_link.match(/(\d{4})-(\d{2})\//).captures
         ctx[:remote_stock] = StockEtablissement.new(
           year: year,

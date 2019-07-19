@@ -5,13 +5,13 @@ class UniteLegale
   module Task
     class FetchLatestRemoteStock < Trailblazer::Operation
       step :fetch_latest_link
-      step :create_stock_from_link
+      step :build_stock_from_link
 
       def fetch_latest_link(ctx,**)
         ctx[:stock_link] = unite_legale_url
       end
 
-      def create_stock_from_link(ctx, stock_link:, logger:, **)
+      def build_stock_from_link(ctx, stock_link:, logger:, **)
         ctx[:remote_stock] = StockUniteLegale.new(
           year: year,
           month: month,

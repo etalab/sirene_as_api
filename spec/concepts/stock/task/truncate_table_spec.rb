@@ -18,7 +18,7 @@ describe Stock::Task::TruncateTable do
       expect { subject }.not_to change(UniteLegale, :count)
     end
 
-    it 'has deleted Etablissment' do
+    it 'has deleted Etablissement' do
       expect { subject }.to change(Etablissement, :count).by -1
     end
   end

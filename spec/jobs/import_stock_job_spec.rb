@@ -50,10 +50,10 @@ describe ImportStockJob, :trb do
       it 'rollbacks database' do
         allow(Stock::Operation::Import)
           .to receive(:call)
-          .and_wrap_original {
-          create :stock, status: 'GHOST'
-          trb_result_failure
-        }
+          .and_wrap_original do
+            create :stock, status: 'GHOST'
+            trb_result_failure
+        end
 
         subject
 

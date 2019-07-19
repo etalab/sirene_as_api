@@ -52,7 +52,7 @@ describe Stock::Operation::PostImport do
       expect(etablissement.unite_legale).to eq unite_legale
     end
 
-    context 'whe association failed' do
+    context 'when association failed' do
       before do
         allow_any_instance_of(described_class)
           .to receive(:sql)
