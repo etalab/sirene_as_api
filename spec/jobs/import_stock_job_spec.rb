@@ -6,7 +6,7 @@ describe ImportStockJob, :trb do
   let(:logger) { instance_spy(Logger) }
 
   context 'when stock unite legale exists' do
-    let(:stock) { create :stock_unite_legale, status: 'PENDING' }
+    let(:stock) { create :stock_unite_legale, :pending }
     let(:stock_id) { stock.id }
 
     context 'when import is a success' do

@@ -7,11 +7,11 @@ class Stock
       step :create_associations
 
       def stock_unite_legale_imported?(ctx, **)
-        StockUniteLegale.current.imported?
+        StockUniteLegale.current&.imported?
       end
 
       def stock_etablissement_imported?(ctx, **)
-        StockEtablissement.current.imported?
+        StockEtablissement.current&.imported?
       end
 
       def create_associations(ctx, logger:, **)

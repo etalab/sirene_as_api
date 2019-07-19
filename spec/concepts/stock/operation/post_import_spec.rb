@@ -8,11 +8,6 @@ describe Stock::Operation::PostImport do
   let!(:unite_legale) { create :unite_legale, siren: siren }
   let!(:etablissement) { create :etablissement, siren: siren }
 
-  before do
-    create :stock_etablissement, year: '2019', month: '01', status: 'COMPLETED'
-    create :stock_unite_legale,  year: '2019', month: '01', status: 'COMPLETED'
-  end
-
   shared_examples 'not doing anything' do
     it { is_expected.to be_success }
 
@@ -25,8 +20,8 @@ describe Stock::Operation::PostImport do
 
   context 'when StockEtablissement is not COMPLETED' do
     before do
-      create :stock_etablissement, year: '2019', month: '02', status: 'PENDING'
-      create :stock_unite_legale,  year: '2019', month: '02', status: 'COMPLETED'
+      create :stock_etablissement, :pending
+      create :stock_unite_legale, :completed
     end
 
     it_behaves_like 'not doing anything'
@@ -34,14 +29,30 @@ describe Stock::Operation::PostImport do
 
   context 'when StockUniteLegale is not completed' do
     before do
-      create :stock_etablissement, year: '2019', month: '02', status: 'COMPLETED'
-      create :stock_unite_legale,  year: '2019', month: '02', status: 'PENDING'
+      create :stock_etablissement, :completed
+      create :stock_unite_legale, :loading
     end
 
     it_behaves_like 'not doing anything'
   end
 
+  context 'when StockUniteLegale does not exists' do
+    it_behaves_like 'not doing anything'
+  end
+
+  context 'when StockEtablissement does not exists' do
+    before { create :stock_unite_legale, :completed }
+
+    it_behaves_like 'not doing anything'
+  end
+
   context 'when both imports are COMPLETED' do
+
+    before do
+      create :stock_etablissement, :completed
+      create :stock_unite_legale, :completed
+    end
+
     it { is_expected.to be_success }
 
     it 'created the association' do

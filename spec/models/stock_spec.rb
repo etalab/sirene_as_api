@@ -11,41 +11,42 @@ describe Stock do
 
   describe '#imported?' do
     it 'returns true when stock COMPLETED' do
-      stock = create :stock, status: 'COMPLETED'
+      stock = create :stock, :completed
       expect(stock).to be_imported
     end
 
     it 'returns false when stock not COMPLETED' do
-      stock = create :stock, status: 'ERROR'
+      stock = create :stock, :errored
       expect(stock).not_to be_imported
     end
   end
 
   describe '#current' do
     it 'returns the latest stock' do
-      current = create :stock, year: '2019', month: '05'
-      create :stock, year: '2019', month: '01'
-      create :stock, year: '2018', month: '10'
+      current = create :stock, :of_july, :completed
+      create :stock, :of_last_year, :completed
+      create :stock, :of_june, :completed
       expect(described_class.current).to eq current
     end
   end
 
   describe '#newer?' do
-    subject { build :stock, year: '2019', month: '06' }
+    subject { build :stock, :of_july }
 
-    let(:last_year_stock) { build :stock, year: '2018', month: '10' }
-    let(:last_month_stock) { build :stock, year: '2019', month: '01' }
-
-    specify 'previous year stock is older' do
-      expect(subject.newer?(last_year_stock)).to be true
+    it 'is newer than previous year stock' do
+      expect(subject.newer?(build :stock, :of_last_year)).to be true
     end
 
-    specify 'previous month stock is older' do
-      expect(subject.newer?(last_month_stock)).to be true
+    it 'is newer than previous month stock' do
+      expect(subject.newer?(build :stock, :of_june)).to be true
     end
 
-    specify 'same stock is newer' do
-      expect(subject.newer?(subject)).to be false
+    it 'is older than same stock' do
+      expect(subject.newer?(build :stock, :of_july)).to be false
+    end
+
+    it 'is older than next month stock' do
+      expect(subject.newer?(build :stock, :of_august)).to be false
     end
   end
 end
