@@ -4,7 +4,6 @@ class UniteLegale
       step :stock_model
       step :table_name
       step Nested Stock::Task::TruncateTable
-      step Nested Stock::Task::PreLoadChecks
       step Nested Task::FetchLatestRemoteStock
       step Nested Stock::Task::Load
 

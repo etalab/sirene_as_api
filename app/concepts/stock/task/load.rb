@@ -1,20 +1,14 @@
 class Stock
   module Task
     class Load < Trailblazer::Operation
-      step :stock_exist?, Output(:failure) => Track(:empty_database)
-      step :newer?
-      fail :log_database_up_to_date
-      pass :log_database_empty, magnetic_to: [:empty_database]
+      step :remote_stock_importable?
+      fail :log_not_importable
       step :persist_new_stock
       step :import
       pass :log_import_starts
 
-      def stock_exist?(ctx, **)
-        !ctx[:current_stock].nil?
-      end
-
-      def newer?(_, remote_stock:, current_stock:, **)
-        remote_stock.newer? current_stock
+      def remote_stock_importable?(_, remote_stock:, **)
+        remote_stock.importable?
       end
 
       def persist_new_stock(_, remote_stock:, **)
@@ -25,12 +19,9 @@ class Stock
         ImportStockJob.perform_later remote_stock.id
       end
 
-      def log_database_empty(_, logger:, **)
-        logger.info 'Database empty'
-      end
-
-      def log_database_up_to_date(_, remote_stock:, current_stock:, logger:, **)
-        logger.warn "Database up to date (found #{remote_stock.month}, current #{current_stock.month})"
+      def log_not_importable(_, remote_stock:, logger:, **)
+        current_stock = remote_stock.class.current
+        logger.warn "Remote stock not importable (remote month: #{remote_stock.month}, current (#{current_stock.status}) month: #{current_stock.month})"
       end
 
       def log_import_starts(_, remote_stock:, logger:, **)

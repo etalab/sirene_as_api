@@ -1,14 +1,24 @@
 class Stock < ApplicationRecord
   def self.current
-    self.order(year: :desc, month: :desc).first
+    order(year: :desc, month: :desc, created_at: :desc).first
+  end
+
+  def database_empty?
+    self.class.current.nil?
   end
 
   def imported?
     status == 'COMPLETED'
   end
 
-  def newer?(old_stock)
-    date > old_stock.date
+  def importable?
+    database_empty? ||
+      newer_than_current_completed_stock? ||
+      same_as_current_stock_errored?
+  end
+
+  def newer?(other)
+    date > other.date
   end
 
   def date
@@ -21,5 +31,15 @@ class Stock < ApplicationRecord
 
   def logger_file_path
     Rails.root.join 'log', "#{self.class.to_s.underscore}.log"
+  end
+
+  private
+
+  def newer_than_current_completed_stock?
+    newer?(self.class.current) && self.class.current.imported?
+  end
+
+  def same_as_current_stock_errored?
+    date == self.class.current.date && self.class.current.status == 'ERROR'
   end
 end

@@ -5,7 +5,7 @@ describe UniteLegale::Task::FetchLatestRemoteStock do
 
   let(:logger) { instance_spy Logger }
 
-  describe 'valid HTTP interaction', vcr: { cassette_name: 'data_gouv_sirene_june_OK' } do
+  describe 'valid HTTP interaction', vcr: { cassette_name: 'data_gouv_sirene_july_OK' } do
     let(:latest_remote_stock_file) { 'http://files.data.gouv.fr/insee-sirene/StockUniteLegale_utf8.zip' }
 
     it { is_expected.to be_success }
@@ -22,7 +22,7 @@ describe UniteLegale::Task::FetchLatestRemoteStock do
     end
   end
 
-  context 'when HTTP interaction fails', vcr: { cassette_name: 'data_gouv_sirene_june_KO' } do
+  context 'when HTTP interaction fails', vcr: { cassette_name: 'data_gouv_sirene_july_KO' } do
     before do
       allow_any_instance_of(described_class)
         .to receive(:base_uri)

@@ -28,6 +28,57 @@ describe Stock do
       create :stock, :of_june, :completed
       expect(described_class.current).to eq current
     end
+
+    it 'returns the latest stock which is in ERROR' do
+      create :stock, :of_june, :completed
+      current = create :stock, :of_july, :errored
+      expect(described_class.current).to eq current
+    end
+
+    it 'returns the latest COMPLETED stock' do
+      create :stock, :of_july, :errored
+      current = create :stock, :of_july, :completed
+      create :stock, :of_june, :completed
+      expect(described_class.current).to eq current
+    end
+  end
+
+  describe '#importable?' do
+    subject { build :stock, :of_july }
+
+    it 'is true with empty database' do
+      expect(subject).to be_importable
+    end
+
+    it 'is true with a stock newer than the current one' do
+      create :stock, :of_june, :completed
+      expect(subject).to be_importable
+    end
+
+    it 'is false with a stock older than the current one' do
+      create :stock, :of_august, :completed
+      expect(subject).not_to be_importable
+    end
+
+    it 'is true when same stock is ERRORED' do
+      create :stock, :of_july, :errored
+      expect(subject).to be_importable
+    end
+
+    it 'is false when same stock is PENDING' do
+      create :stock, :of_july, :pending
+      expect(subject).not_to be_importable
+    end
+
+    it 'is false when same stock is LOADING' do
+      create :stock, :of_july, :loading
+      expect(subject).not_to be_importable
+    end
+
+    it 'is false when same stock already COMPLETED' do
+      create :stock, :of_july, :completed
+      expect(subject).not_to be_importable
+    end
   end
 
   describe '#newer?' do
