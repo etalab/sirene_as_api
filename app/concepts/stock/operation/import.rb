@@ -3,9 +3,11 @@ class Stock
     class Import < Trailblazer::Operation
       step :uri
       step :model
+      step :table_name
       step Nested Files::Operation::Download
       step Nested Files::Operation::Extract
       step :csv
+      step Nested Stock::Task::TruncateTable
       step Nested Stock::Task::ImportCSV
 
       step :delete_tmp_files
@@ -17,6 +19,10 @@ class Stock
 
       def model(ctx, stock:, **)
         ctx[:model] = stock.class::RELATED_MODEL
+      end
+
+      def table_name(ctx, model:, **)
+        ctx[:table_name] = model.table_name
       end
 
       def csv(ctx, extracted_file:, **)
