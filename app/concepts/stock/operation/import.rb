@@ -7,8 +7,8 @@ class Stock
       step Nested Files::Operation::Download
       step Nested Files::Operation::Extract
       step :csv
-      step Nested Stock::Task::TruncateTable
-      step Nested Stock::Task::ImportCSV
+      step Nested Task::TruncateTable
+      step Nested Task::ImportCSV
 
       step :delete_tmp_files
       fail :delete_tmp_files

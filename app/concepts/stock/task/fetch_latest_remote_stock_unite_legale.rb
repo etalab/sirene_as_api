@@ -1,9 +1,9 @@
 require 'nokogiri'
 require 'open-uri'
 
-class UniteLegale
+class Stock
   module Task
-    class FetchLatestRemoteStock < Trailblazer::Operation
+    class FetchLatestRemoteStockUniteLegale < Trailblazer::Operation
       step :fetch_latest_link
       step :build_stock_from_link
 

@@ -1,13 +1,13 @@
 require 'rails_helper'
 
-describe Etablissement::Operation::Load, vcr: { cassette_name: 'cquest_geo_sirene_may_OK' } do
+describe Stock::Operation::LoadUniteLegale, vcr: { cassette_name: 'data_gouv_sirene_july_OK' } do
   subject { described_class.call logger: logger }
 
   let(:logger) { instance_spy Logger }
-  let(:expected_uri) { 'http://data.cquest.org/geo_sirene/v2019/2019-05/StockEtablissement_utf8_geo.csv.gz' }
+  let(:expected_uri) { 'http://files.data.gouv.fr/insee-sirene/StockUniteLegale_utf8.zip' }
 
   context 'when remote stock is importable (newer)' do
-    before { create :stock_etablissement, :completed, month: '04' }
+    before { create :stock_unite_legale, :of_june, :completed }
 
     it { is_expected.to be_success }
 
@@ -15,7 +15,7 @@ describe Etablissement::Operation::Load, vcr: { cassette_name: 'cquest_geo_siren
       subject
       expect(logger)
         .to have_received(:info)
-        .with("New stock found 05, will import...")
+        .with("New stock found 07, will import...")
     end
 
     it 'shedule a new ImportStockJob' do
@@ -25,15 +25,15 @@ describe Etablissement::Operation::Load, vcr: { cassette_name: 'cquest_geo_siren
     end
 
     it 'persist a new stock to import' do
-      expect { subject }.to change(StockEtablissement, :count).by(1)
+      expect { subject }.to change(StockUniteLegale, :count).by(1)
     end
 
     its([:remote_stock]) { is_expected.to be_persisted }
-    its([:remote_stock]) { is_expected.to have_attributes(uri: expected_uri, status: 'PENDING', month: '05', year: '2019') }
+    its([:remote_stock]) { is_expected.to have_attributes(uri: expected_uri, status: 'PENDING', month: '07', year: '2019') }
   end
 
   context 'when remote stock is not importable (same)' do
-    before { create :stock_etablissement, :completed, month: '05' }
+    before { create :stock_unite_legale, :of_july, :completed }
 
     it { is_expected.to be_failure }
 
@@ -41,7 +41,7 @@ describe Etablissement::Operation::Load, vcr: { cassette_name: 'cquest_geo_siren
       subject
       expect(logger)
         .to have_received(:warn)
-        .with('Remote stock not importable (remote month: 05, current (COMPLETED) month: 05)')
+        .with('Remote stock not importable (remote month: 07, current (COMPLETED) month: 07)')
     end
 
     its([:remote_stock]) { is_expected.not_to be_persisted }
@@ -55,16 +55,16 @@ describe Etablissement::Operation::Load, vcr: { cassette_name: 'cquest_geo_siren
   describe 'Integration: from download to import', :perform_enqueued_jobs do
     include_context 'mute progress bar'
 
-    let(:stock_model) { StockEtablissement }
-    let(:imported_month) { '05' }
-    let(:expected_sirens) { ['005880034', '006003560', '006004659'] }
+    let(:stock_model) { StockUniteLegale }
+    let(:imported_month) { '07' }
+    let(:expected_sirens) { ['000325175', '001807254', '005410220'] }
 
     let(:expected_tmp_file) do
-      Rails.root.join 'tmp', 'files', 'sample_etablissements.csv'
+      Rails.root.join 'tmp', 'files', 'sample_unites_legales.csv'
     end
 
     let(:mocked_downloaded_file) do
-      Rails.root.join('spec', 'fixtures', 'sample_etablissements.csv.gz').to_s
+      Rails.root.join('spec', 'fixtures', 'sample_unites_legales.csv.zip').to_s
     end
 
     it_behaves_like 'importing csv'

@@ -1,8 +1,8 @@
 class Stock
   module Operation
     class UpdateDatabase < Trailblazer::Operation
-      step Nested UniteLegale::Operation::Load
-      step Nested Etablissement::Operation::Load
+      step Nested LoadUniteLegale
+      step Nested LoadEtablissement
     end
   end
 end
