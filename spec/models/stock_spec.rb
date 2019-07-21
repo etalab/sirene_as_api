@@ -29,7 +29,7 @@ describe Stock do
       expect(described_class.current).to eq current
     end
 
-    it 'returns the latest stock which is in ERROR' do
+    it 'returns the latest stock even in ERROR state' do
       create :stock, :of_june, :completed
       current = create :stock, :of_july, :errored
       expect(described_class.current).to eq current

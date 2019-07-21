@@ -3,10 +3,6 @@ class Stock < ApplicationRecord
     order(year: :desc, month: :desc, created_at: :desc).first
   end
 
-  def database_empty?
-    self.class.current.nil?
-  end
-
   def imported?
     status == 'COMPLETED'
   end
@@ -34,6 +30,10 @@ class Stock < ApplicationRecord
   end
 
   private
+
+  def database_empty?
+    !self.class.any?
+  end
 
   def newer_than_current_completed_stock?
     newer?(self.class.current) && self.class.current.imported?

@@ -5,14 +5,15 @@ describe Stock::Task::ImportCSV do
 
   subject { described_class.call csv: csv, model: model, logger: logger }
 
-  class RandomModel
-    def self.header_mapping
-      { test: :hello_world }
+  let(:model) do
+    Class.new do
+      def self.header_mapping
+        { test: :hello_world }
+      end
     end
   end
 
   let(:logger) { instance_spy Logger }
-  let(:model) { RandomModel }
   let(:csv) { Rails.root.join 'spec', 'fixtures', 'sample_etablissements_OK.csv' }
 
   describe 'when file exists' do
