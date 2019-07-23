@@ -4,7 +4,7 @@
 ## ⚠ Breaking Changes ⚠
 
 #### Mise à jour au 23/07/19 :
-L'API renvoie pour le moment les données de Mars 2019. Nous travaillons à la prochaine version qui nous permettra de renvoyer les données à jour.
+L'API renvoie pour le moment les données de mi-avril 2019. Nous travaillons à la prochaine version qui nous permettra de renvoyer les données à jour.
 Attention, la nouvelle version nécessite de drop puis réinstaller la base de donnée.
 
 ### Comment me tenir au courant des prochains changements ?
@@ -277,7 +277,7 @@ Une fois cloné ce répertoire à l'aide de
 
 Construisez le container avec `docker-compose build` et lancez-le avec `docker-compose up`.
 
-Pour faciliter l'intéraction avec le container du serveur, il est conseillé d'utiliser le mode intéractif (à partir d'un autre terminal) :
+Pour faciliter l'interaction avec le container du serveur, il est conseillé d'utiliser le mode interactif (à partir d'un autre terminal) :
 
     docker exec -it <nom_container> bash
 
@@ -289,6 +289,8 @@ Vous pouvez effectuer les migrations (nécessaire seulement au premier lancement
     docker-compose run sirene bundle exec rails db:migrate
 
 La base de donnée sera persistée dans le dossier `/var/lib/postgresql` par défaut. Il est possible  de changer l'emplacement d'installation des données ou d'indiquer un emplacement d'installation existante en modifiant la variable d'environnement `POSTGRES_DATA` dans le fichier `.env`.
+
+La base de donnée Postgres de docker se link sur le port 5432, donc assurez vous de ne pas avoir postgres qui tourne déjà sur ce port, ou bien modifiez `docker-compose.yml`
 
 Si votre machine comprend déjà une base installée sur `/var/lib/postgresql`, libre à vous de modifier le fichier `.env` :
 ```yml
@@ -305,6 +307,7 @@ La recherche fulltext devrait fonctionner après avoir executé `docker-compose 
 
 Attention : pour faciliter les modifications par nos utilisateurs, le docker est lancé en environnement de développement. N'oubliez pas de changer le mot de passe postgres dans /config/docker/init.sql, /config/docker/database.yml et docker-compose.yml.
 
+Il peut y avoir une erreur 500 Solr au premier lancement, dans ce cas un simple `docker-compose down` puis `docker-compose up` peut suffir à relancer le server correctement.
 
 ## Installation manuelle en environnement dev
 

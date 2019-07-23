@@ -1,0 +1,69 @@
+---
+http_interactions:
+- request:
+    method: head
+    uri: http://data.cquest.org/
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.17.1
+      Date:
+      - Tue, 23 Jul 2019 11:57:51 GMT
+      Content-Type:
+      - text/html; charset=utf-8
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Fri, 30 Mar 2018 22:00:00 GMT
+- request:
+    method: head
+    uri: http://data.cquest.org/geo_sirene/2019-03/geo_sirene.csv.gz
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.17.1
+      Date:
+      - Tue, 23 Jul 2019 11:57:51 GMT
+      Content-Type:
+      - application/octet-stream
+      Content-Length:
+      - '1620225499'
+      Last-Modified:
+      - Wed, 03 Apr 2019 08:52:47 GMT
+      Connection:
+      - keep-alive
+      Etag:
+      - '"5ca4745f-6092addb"'
+      Accept-Ranges:
+      - bytes
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Fri, 30 Mar 2018 22:00:00 GMT
+recorded_with: VCR 4.0.0

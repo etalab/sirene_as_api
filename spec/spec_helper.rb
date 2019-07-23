@@ -20,9 +20,6 @@ ENV['RAILS_ENV'] ||= 'test'
 
 require 'vcr'
 
-# Require shared examples and support files
-Dir[Rails.root.join('spec', 'support', '**', '*.rb')].sort.each { |f| require f }
-
 # Test coverage options (activated only if rspec is run without arguments)
 if ARGV.grep(/spec\.rb/).empty?
   require 'simplecov'
