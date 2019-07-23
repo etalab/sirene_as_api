@@ -5,6 +5,9 @@ set :output, File.join(Whenever.path, 'log', 'sirene_api_cron.log')
 # whenever --set 'environment=VALUE'
 # which is set by Mina/whenver with RAILS_ENV
 
+# till finding a better way to fix crontab not using the right version of rake
+ENV.each { |k, v| env(k, v) }
+
 ###### SANDBOX ######
 if environment == 'sandbox'
   every 2.days, at: '8:00 am' do
