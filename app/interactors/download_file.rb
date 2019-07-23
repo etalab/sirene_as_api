@@ -26,8 +26,9 @@ class DownloadFile < SireneAsAPIInteractor
 
   def filename
     # We add the date before .csv.gz on the file so monthly stocks have different names
-    return URI(context.link).path.split('/').last.insert(-8, '_' + last_year + '_12') if current_month == '01'
+    # HOTFIX JULY : always mars
+    # return URI(context.link).path.split('/').last.insert(-8, '_' + last_year + '_12') if current_month == '01'
 
-    URI(context.link).path.split('/').last.insert(-8, '_' + current_year + '_' + last_month)
+    URI(context.link).path.split('/').last.insert(-8, '_' + current_year + '_03')
   end
 end
