@@ -11,6 +11,11 @@ describe Stock::Operation::PostImport do
   shared_examples 'not doing anything' do
     it { is_expected.to be_success }
 
+    it 'logs other import not finished' do
+      subject
+      expect(logger).to have_received(:info).with('Other import not finished')
+    end
+
     it 'does not create relationship' do
       subject
       expect(unite_legale.etablissements).to be_empty
@@ -47,13 +52,22 @@ describe Stock::Operation::PostImport do
   end
 
   context 'when both imports are COMPLETED' do
-
     before do
       create :stock_etablissement, :completed
       create :stock_unite_legale, :completed
     end
 
     it { is_expected.to be_success }
+
+    it 'logs association starts' do
+      subject
+      expect(logger).to have_received(:info).with('Models associations starts')
+    end
+
+    it 'logs associations done' do
+      subject
+      expect(logger).to have_received(:info).with('Models associations completed')
+    end
 
     it 'created the association' do
       subject
@@ -71,6 +85,11 @@ describe Stock::Operation::PostImport do
       end
 
       it { is_expected.to be_failure }
+
+      it 'logs import starts' do
+        subject
+        expect(logger).to have_received(:info).with('Models associations starts')
+      end
 
       it 'logs an error' do
         subject

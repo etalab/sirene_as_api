@@ -6,7 +6,9 @@ module Files
       step :pathname
       step :extname
       step :extracted_file
+      pass :log_extract_starts
       step :gunzip
+      pass :log_extract_completed
       fail :log_gunzip_failed
 
       def pathname(ctx, file_path:, **)
@@ -28,8 +30,16 @@ module Files
         status.success?
       end
 
-      def log_gunzip_failed(ctx, gzip_stderr:, **)
-        ctx[:error] = gzip_stderr
+      def log_extract_starts(_, logger:, **)
+        logger.info 'Extract starts'
+      end
+
+      def log_extract_completed(_, logger:, **)
+        logger.info 'Extract completed'
+      end
+
+      def log_gunzip_failed(ctx, logger:, gzip_stderr:, **)
+        logger.error gzip_stderr
       end
     end
   end

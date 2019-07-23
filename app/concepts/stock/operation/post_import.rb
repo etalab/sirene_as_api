@@ -4,7 +4,9 @@ class Stock
       step :stock_unite_legale_imported?
       step :stock_etablissement_imported?
       fail :log_stock_not_imported, Output(:success) => 'End.success'
+      pass :log_associations_starts
       step :create_associations
+      pass :log_associations_completed
 
       def stock_unite_legale_imported?(ctx, **)
         StockUniteLegale.current&.imported?
@@ -19,6 +21,14 @@ class Stock
       rescue ActiveRecord::ActiveRecordError
         logger.error "Association failed: #{$ERROR_INFO.message}"
         false
+      end
+
+      def log_associations_starts(_, logger:, **)
+        logger.info 'Models associations starts'
+      end
+
+      def log_associations_completed(_, logger:, **)
+        logger.info 'Models associations completed'
       end
 
       def log_stock_not_imported(ctx, logger:, **)
