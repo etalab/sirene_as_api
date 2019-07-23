@@ -53,6 +53,7 @@ GEM
     arel (7.1.4)
     ast (2.4.0)
     awesome_print (1.8.0)
+    blueprinter (0.18.0)
     brakeman (4.2.1)
     builder (3.2.3)
     byebug (10.0.2)
@@ -111,6 +112,9 @@ GEM
       guard (~> 2.1)
       guard-compat (~> 1.1)
       rspec (>= 2.99.0, < 4.0)
+    has_scope (0.7.2)
+      actionpack (>= 4.1)
+      activesupport (>= 4.1)
     hashdiff (0.3.7)
     highline (1.7.10)
     hirb (0.7.3)
@@ -374,6 +378,7 @@ PLATFORMS
 DEPENDENCIES
   activerecord-import
   awesome_print
+  blueprinter
   brakeman
   byebug
   colorize
@@ -384,6 +389,7 @@ DEPENDENCIES
   guard
   guard-rails
   guard-rspec
+  has_scope
   interactor (~> 3.0)
   interactor-rails (~> 2.0)
   listen (~> 3.0.5)

@@ -18,4 +18,6 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
 
   inflect.plural 'etablissement_v2', 'etablissements_v2'
   inflect.plural 'unite_legale', 'unites_legales'
+
+  inflect.singular 'unites_legales', 'unite_legale'
 end

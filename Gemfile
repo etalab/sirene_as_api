@@ -51,6 +51,12 @@ gem 'interactor-rails', '~> 2.0'
 # Trailblazer
 gem 'trailblazer-rails'
 
+# Map incoming requests to scopes
+gem 'has_scope'
+
+# JSON serialization
+gem 'blueprinter'
+
 # Gem for deploying cron jobs
 gem 'whenever', require: false
 

@@ -1,4 +1,6 @@
 class UniteLegale < ApplicationRecord
+  include Scopable::Model
+
   has_many :etablissements
 
   def self.header_mapping
