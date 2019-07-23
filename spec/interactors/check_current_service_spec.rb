@@ -2,6 +2,8 @@ require 'rails_helper'
 require 'net/http'
 
 describe CheckCurrentService do
+  include_context 'mute interactors'
+
   context 'When this machine is in service',
           vcr: { cassette_name: 'OvhAPI_check_current_service' } do
     subject(:context) { described_class.call }

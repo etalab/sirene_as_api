@@ -2,6 +2,8 @@ require 'rails_helper'
 require 'timecop'
 
 describe ImportMonthlyStockCsv do
+  include_context 'mute interactors'
+
   before(:all) do
     Timecop.freeze(Time.utc(2018, 9, 1, 10, 5, 0))
   end

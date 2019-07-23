@@ -1,3 +1,10 @@
+GIT
+  remote: https://github.com/tilo/smarter_csv.git
+  revision: 2b71026ede14040b8d5868f66d69d7d9b4d93492
+  ref: 2b71026
+  specs:
+    smarter_csv (2.0.0.pre1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -33,6 +40,8 @@ GEM
       activemodel (= 5.0.7)
       activesupport (= 5.0.7)
       arel (~> 7.0)
+    activerecord-import (1.0.2)
+      activerecord (>= 3.2)
     activesupport (5.0.7)
       concurrent-ruby (~> 1.0, >= 1.0.2)
       i18n (>= 0.7, < 2)
@@ -53,7 +62,7 @@ GEM
       sexp_processor
     coderay (1.1.2)
     colorize (0.8.1)
-    concurrent-ruby (1.0.5)
+    concurrent-ruby (1.1.5)
     connection_pool (2.2.1)
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
@@ -109,7 +118,7 @@ GEM
     hashdiff (0.3.7)
     highline (1.7.10)
     hirb (0.7.3)
-    i18n (1.0.1)
+    i18n (1.6.0)
       concurrent-ruby (~> 1.0)
     interactor (3.1.0)
     interactor-rails (2.2.0)
@@ -238,6 +247,9 @@ GEM
       rspec-core (~> 3.7.0)
       rspec-expectations (~> 3.7.0)
       rspec-mocks (~> 3.7.0)
+    rspec-activejob (0.6.1)
+      activejob (>= 4.2)
+      rspec-mocks
     rspec-core (3.7.1)
       rspec-support (~> 3.7.0)
     rspec-expectations (3.7.0)
@@ -273,8 +285,13 @@ GEM
     safe_yaml (1.0.4)
     sexp_processor (4.11.0)
     shellany (0.0.1)
-    shoulda-matchers (3.1.1)
-      activesupport (>= 4.0.0)
+    shoulda-matchers (4.1.0)
+      activesupport (>= 4.2.0)
+    sidekiq (5.1.1)
+      concurrent-ruby (~> 1.0)
+      connection_pool (~> 2.2, >= 2.2.0)
+      rack-protection (>= 1.5.0)
+      redis (>= 3.3.5, < 5)
     simplecov (0.16.1)
       docile (~> 1.1)
       json (>= 1.8, < 3)
@@ -291,7 +308,6 @@ GEM
       tilt (~> 2.0)
     sitemap_generator (6.0.2)
       builder (~> 3.0)
-    smarter_csv (1.2.3)
     spring (2.0.2)
       activesupport (>= 4.2)
     spring-commands-rspec (1.0.4)
@@ -360,6 +376,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  activerecord-import
   awesome_print
   blueprinter
   brakeman
@@ -390,17 +407,19 @@ DEPENDENCIES
   redis-namespace
   redis-objects
   resque
+  rspec-activejob
   rspec-its
   rspec-rails (~> 3.5)
   rubocop-checkstyle_formatter
   rubocop-rspec
   ruby-progressbar
   shoulda-matchers
+  sidekiq
   simplecov
   simplecov-console
   sinatra (~> 2.0.2)
   sitemap_generator
-  smarter_csv
+  smarter_csv!
   spring
   spring-commands-rspec
   spring-watcher-listen (~> 2.0.0)

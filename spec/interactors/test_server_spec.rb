@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 describe TestSelfServer do
+  include_context 'mute interactors'
+
   context 'when a success' do
     subject(:context) { described_class.call }
     it 'succeed the context' do

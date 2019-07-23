@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 describe UnzipFile do
+  include_context 'mute interactors'
+
   let(:patch_filename) { 'geo-sirene_2017024_E_Q.csv' }
   let(:patch_filepath) { "spec/fixtures/sample_patches/#{patch_filename}.gz" }
   let(:expected_unzipped_file_path) { "spec/fixtures/sample_patches/#{patch_filename}" }
