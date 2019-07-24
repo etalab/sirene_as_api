@@ -6,7 +6,7 @@ git_source(:github) do |repo_name|
 end
 
 gem 'rack-cors'
-gem 'rails', '~> 5.0.1'
+gem 'rails', '~> 5.0.7.2'
 
 gem 'listen', '~> 3.0.5'
 
