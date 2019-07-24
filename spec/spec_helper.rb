@@ -42,6 +42,7 @@ VCR.configure do |config|
   config.cassette_library_dir = 'spec/fixtures/vcr_cassettes'
   config.hook_into :webmock
   config.configure_rspec_metadata!
+  config.default_cassette_options[:allow_playback_repeats] = true
   # Config allow http connections without cassettes for requests on Solr server
   config.allow_http_connections_when_no_cassette = true
   # Config ignore_request to stop VCR from managing Solr server requests
@@ -51,6 +52,7 @@ VCR.configure do |config|
 end
 
 RSpec.configure do |config|
+  # TODO: still useful ?
   # Silence output during tests
   original_stderr = $stderr
   original_stdout = $stdout

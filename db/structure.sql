@@ -2,31 +2,19 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.6.4
--- Dumped by pg_dump version 9.6.4
+-- Dumped from database version 11.4
+-- Dumped by pg_dump version 11.4
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
 SET idle_in_transaction_session_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
 SET check_function_bodies = false;
+SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
-
---
--- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: -
---
-
-CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
-
-
---
--- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: -
---
-
-COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
-
 
 --
 -- Name: pg_trgm; Type: EXTENSION; Schema: -; Owner: -
@@ -42,8 +30,6 @@ CREATE EXTENSION IF NOT EXISTS pg_trgm WITH SCHEMA public;
 COMMENT ON EXTENSION pg_trgm IS 'text similarity measurement and index searching based on trigrams';
 
 
-SET search_path = public, pg_catalog;
-
 SET default_tablespace = '';
 
 SET default_with_oids = false;
@@ -52,7 +38,7 @@ SET default_with_oids = false;
 -- Name: ar_internal_metadata; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE ar_internal_metadata (
+CREATE TABLE public.ar_internal_metadata (
     key character varying NOT NULL,
     value character varying,
     created_at timestamp without time zone NOT NULL,
@@ -64,7 +50,7 @@ CREATE TABLE ar_internal_metadata (
 -- Name: etablissements; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE etablissements (
+CREATE TABLE public.etablissements (
     id integer NOT NULL,
     siren character varying,
     siret character varying,
@@ -185,7 +171,8 @@ CREATE TABLE etablissements (
 -- Name: etablissements_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE etablissements_id_seq
+CREATE SEQUENCE public.etablissements_id_seq
+    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -197,30 +184,72 @@ CREATE SEQUENCE etablissements_id_seq
 -- Name: etablissements_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE etablissements_id_seq OWNED BY etablissements.id;
+ALTER SEQUENCE public.etablissements_id_seq OWNED BY public.etablissements.id;
 
 
 --
 -- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE schema_migrations (
+CREATE TABLE public.schema_migrations (
     version character varying NOT NULL
 );
+
+
+--
+-- Name: stocks; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.stocks (
+    id integer NOT NULL,
+    year character varying,
+    month character varying,
+    status character varying,
+    uri character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: stocks_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.stocks_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: stocks_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.stocks_id_seq OWNED BY public.stocks.id;
 
 
 --
 -- Name: etablissements id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY etablissements ALTER COLUMN id SET DEFAULT nextval('etablissements_id_seq'::regclass);
+ALTER TABLE ONLY public.etablissements ALTER COLUMN id SET DEFAULT nextval('public.etablissements_id_seq'::regclass);
+
+
+--
+-- Name: stocks id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.stocks ALTER COLUMN id SET DEFAULT nextval('public.stocks_id_seq'::regclass);
 
 
 --
 -- Name: ar_internal_metadata ar_internal_metadata_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY ar_internal_metadata
+ALTER TABLE ONLY public.ar_internal_metadata
     ADD CONSTRAINT ar_internal_metadata_pkey PRIMARY KEY (key);
 
 
@@ -228,7 +257,7 @@ ALTER TABLE ONLY ar_internal_metadata
 -- Name: etablissements etablissements_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY etablissements
+ALTER TABLE ONLY public.etablissements
     ADD CONSTRAINT etablissements_pkey PRIMARY KEY (id);
 
 
@@ -236,92 +265,100 @@ ALTER TABLE ONLY etablissements
 -- Name: schema_migrations schema_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY schema_migrations
+ALTER TABLE ONLY public.schema_migrations
     ADD CONSTRAINT schema_migrations_pkey PRIMARY KEY (version);
+
+
+--
+-- Name: stocks stocks_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.stocks
+    ADD CONSTRAINT stocks_pkey PRIMARY KEY (id);
 
 
 --
 -- Name: entreprises_to_tsvector_idx; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX entreprises_to_tsvector_idx ON etablissements USING gin (to_tsvector('french'::regconfig, (siren)::text));
+CREATE INDEX entreprises_to_tsvector_idx ON public.etablissements USING gin (to_tsvector('french'::regconfig, (siren)::text));
 
 
 --
 -- Name: entreprises_to_tsvector_idx1; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX entreprises_to_tsvector_idx1 ON etablissements USING gin (to_tsvector('french'::regconfig, (siret)::text));
+CREATE INDEX entreprises_to_tsvector_idx1 ON public.etablissements USING gin (to_tsvector('french'::regconfig, (siret)::text));
 
 
 --
 -- Name: entreprises_to_tsvector_idx2; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX entreprises_to_tsvector_idx2 ON etablissements USING gin (to_tsvector('french'::regconfig, (activite_principale)::text));
+CREATE INDEX entreprises_to_tsvector_idx2 ON public.etablissements USING gin (to_tsvector('french'::regconfig, (activite_principale)::text));
 
 
 --
 -- Name: entreprises_to_tsvector_idx3; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX entreprises_to_tsvector_idx3 ON etablissements USING gin (to_tsvector('french'::regconfig, (l6_normalisee)::text));
+CREATE INDEX entreprises_to_tsvector_idx3 ON public.etablissements USING gin (to_tsvector('french'::regconfig, (l6_normalisee)::text));
 
 
 --
 -- Name: entreprises_to_tsvector_idx4; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX entreprises_to_tsvector_idx4 ON etablissements USING gin (to_tsvector('french'::regconfig, (nom_raison_sociale)::text));
+CREATE INDEX entreprises_to_tsvector_idx4 ON public.etablissements USING gin (to_tsvector('french'::regconfig, (nom_raison_sociale)::text));
 
 
 --
 -- Name: etablissements_to_tsvector_idx; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX etablissements_to_tsvector_idx ON etablissements USING gin (to_tsvector('french'::regconfig, (numero_rna)::text));
+CREATE INDEX etablissements_to_tsvector_idx ON public.etablissements USING gin (to_tsvector('french'::regconfig, (numero_rna)::text));
 
 
 --
 -- Name: index_etablissements_on_activite_principale; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_etablissements_on_activite_principale ON etablissements USING btree (activite_principale);
+CREATE INDEX index_etablissements_on_activite_principale ON public.etablissements USING btree (activite_principale);
 
 
 --
 -- Name: index_etablissements_on_l6_normalisee; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_etablissements_on_l6_normalisee ON etablissements USING btree (l6_normalisee);
+CREATE INDEX index_etablissements_on_l6_normalisee ON public.etablissements USING btree (l6_normalisee);
 
 
 --
 -- Name: index_etablissements_on_nom_raison_sociale; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_etablissements_on_nom_raison_sociale ON etablissements USING btree (nom_raison_sociale);
+CREATE INDEX index_etablissements_on_nom_raison_sociale ON public.etablissements USING btree (nom_raison_sociale);
 
 
 --
 -- Name: index_etablissements_on_numero_rna; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_etablissements_on_numero_rna ON etablissements USING btree (numero_rna);
+CREATE INDEX index_etablissements_on_numero_rna ON public.etablissements USING btree (numero_rna);
 
 
 --
 -- Name: index_etablissements_on_siren; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_etablissements_on_siren ON etablissements USING btree (siren);
+CREATE INDEX index_etablissements_on_siren ON public.etablissements USING btree (siren);
 
 
 --
 -- Name: index_etablissements_on_siret; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_etablissements_on_siret ON etablissements USING btree (siret);
+CREATE INDEX index_etablissements_on_siret ON public.etablissements USING btree (siret);
 
 
 --
@@ -338,6 +375,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170925105117'),
 ('20180420104754'),
 ('20180827112250'),
-('20181129151018');
+('20181129151018'),
+('20190603115019');
 
 

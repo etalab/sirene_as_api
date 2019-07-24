@@ -3,7 +3,7 @@ require 'net/http'
 
 describe CheckCurrentService do
   context 'When this machine is in service',
-          vcr: { cassette_name: 'OvhAPI_check_current_service', allow_playback_repeats: true } do
+          vcr: { cassette_name: 'OvhAPI_check_current_service' } do
     subject(:context) { described_class.call }
     it 'fails the context' do
       allow_any_instance_of(described_class).to receive(:current_machine_name).and_return('address1')
@@ -15,7 +15,7 @@ describe CheckCurrentService do
   end
 
   context 'When this machine is not in service',
-          vcr: { cassette_name: 'OvhAPI_check_current_service', allow_playback_repeats: true } do
+          vcr: { cassette_name: 'OvhAPI_check_current_service' } do
     subject(:context) { described_class.call }
     it 'succeed the context' do
       allow_any_instance_of(described_class).to receive(:current_machine_name).and_return('address2')

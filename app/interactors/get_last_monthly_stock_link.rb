@@ -16,8 +16,10 @@ class GetLastMonthlyStockLink < SireneAsAPIInteractor
 
   # Current adress : http://data.cquest.org/geo_sirene/year-month/geo-sirene.csv.gz
   def call
-    last_stock_month_folder = available_stocks_month_folders.last[:href]
-    context.link = "#{files_repository}/#{last_stock_month_folder}geo_sirene.csv.gz"
+    # HOTFIX july 2019 : only get mars file
+    # last_stock_month_folder = available_stocks_month_folders.last[:href]
+    # context.link = "#{files_repository}/#{last_stock_month_folder}geo_sirene.csv.gz"
+    context.link = 'http://data.cquest.org/geo_sirene/2019-03/geo_sirene.csv.gz'
   end
 
   private

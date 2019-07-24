@@ -4,12 +4,15 @@ rbenv:
 cache: bundler
 jdk:
 - openjdk8
+services:
+  - postgresql
 env:
   matrix:
   - DB=postgresql
   - secure: symtwtFAhzoi2x0G/77b2lUB2ev32VsiSTH30mFAjJ20bGtupIDh8ymyA/vgrj65rXZo9PkZy3LyhB0k80fdYDJmmw0tRQLF8Rkwt9ELwXXEsXlBShgGhpzphdp2h2L2HLO06PVODzNYkY0IoNpViyBErz7ndSV/IO/SZFt91uN9F9TrgWowb+3VqgFAh5NWwgLNOlXNLqFxnm1j/Ownuz+bnklZgvL0h3WxUXWj3BQoQbUpM/yJSbos9uGV3H/ITwUoHdUN6yKycmdsAxRW1Hv9RuwiMvBKjr75lVF+yM0ojH8F+VwXeSLdQTiywQG86aKk0uQDvQuJJ269z61UOuE/4NY0NJzoKPG7IhApH4A/hgdOGjAhVCix2DyWePp1mRnkrtPLsL1vbmtFj5cTTSLllUva46SQB2OLRWJRXkyCLjoKlnoWIzsn8vtr7jD/2N0Njsr35KPq9ILAKykXmss2tESuDUOTm2Ic5yBuw0AXQCdvkb/Zyb5MxdtQjOAZze9HzyJdPoX3mmFjJCZrXD9lnu3FgmxGarerBo8TDUBNIKpZ6qfMFw3MQtWBod+nZeYhl4yU0LA/b6v07ZPshIkI0ikVgJWVn3eAD3Y02hLIsACMm0G3qkHvdjoU5PfTynCO6zk1ajhiSdmHHYz7Nf/uy4dpMMvEQi06kyxV8q8=
 script:
 - bundle exec rspec
+- bundle exec rspec --tag real_tcp_requests
 before_script:
 - psql -U postgres -f postgresql_setup.txt
 - RAILS_ENV=test bundle exec rails db:migrate

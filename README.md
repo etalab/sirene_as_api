@@ -3,39 +3,9 @@
 
 ## ⚠ Breaking Changes ⚠
 
-Notre API se basant sur les fichiers SIRENE de l'INSEE, ceux-ci changent fin 2018. Ceci entrainera malheureusement la disparition de certains champs, désormais non disponibles.
-
-La liste des changements à venir est la suivante :
-
-### Suppression des champs suivants
-
-      :type_creation
-      :date_reactivation_etablissement
-      :date_reactivation_entreprise
-      :type_evenement
-      :date_evenement
-      :indicateur_mise_a_jour_enseigne_entreprise
-      :indicateur_mise_a_jour_activite_principale_etablissement
-      :indicateur_mise_a_jour_adresse_etablissement
-      :indicateur_mise_a_jour_caractere_productif_etablissement
-      :indicateur_mise_a_jour_caractere_auxiliaire_etablissement
-      :indicateur_mise_a_jour_nom_raison_sociale
-      :indicateur_mise_a_jour_sigle
-      :indicateur_mise_a_jour_nature_juridique
-      :indicateur_mise_a_jour_activite_principale_entreprise
-      :indicateur_mise_a_jour_caractere_productif_entreprise
-      :indicateur_mise_a_jour_nic_siege
-      :siret_predecesseur_successeur
-      :telephone
-
-### Ajout des champs suivants
-
-    :geo_l4, :string
-    :geo_l5, :string
-    
-### Pourquoi ces changements ?
-
-Afin de rendre la transition la plus facile possible pour nos utilisateurs, nous avons converti les fichiers v3 en fichiers v2. Le remapping fonctionne mais certains champs ne peuvent plus être remplis. Les adresses l1 à l7 normalisée notamment ont été reconstituées avec d'autres informations. Nous avons ajouté les champs `geo_l4` et `geo_l5` pour remplacer les champs normalisés qui perdent en qualité avec cette mise à jour.
+#### Mise à jour au 23/07/19 :
+L'API renvoie pour le moment les données de mi-avril 2019. Nous travaillons à la prochaine version qui nous permettra de renvoyer les données à jour.
+Attention, la nouvelle version nécessite de drop puis réinstaller la base de donnée.
 
 ### Comment me tenir au courant des prochains changements ?
 
@@ -297,6 +267,48 @@ Pour installer rapidement & efficacement l'API en environnement de production,
 vous pouvez vous referer a la documentation sur [sirene_as_api_ansible](https://github.com/etalab/sirene_as_api_ansible)
 et utiliser les scripts de déploiement automatiques.
 
+## Nouveau : Installation avec Docker
+
+Si vous disposez de docker et de docker-compose, vous pouvez lancer le serveur en local avec les commandes suivantes :
+
+Une fois cloné ce répertoire à l'aide de
+
+    git clone git@github.com:etalab/sirene_as_api.git && cd sirene_as_api
+
+Construisez le container avec `docker-compose build` et lancez-le avec `docker-compose up`.
+
+Pour faciliter l'interaction avec le container du serveur, il est conseillé d'utiliser le mode interactif (à partir d'un autre terminal) :
+
+    docker exec -it <nom_container> bash
+
+Vous pourrez ainsi exécuter, de manière transparente, toutes les tâches d'administration et de mises à jour présentées dans les sections suivantes. Sinon vous pouvez prendre exemple sur les commandes ci-dessous dans cette même section.
+
+Vous pouvez effectuer les migrations (nécessaire seulement au premier lancement) à l'aide de :
+
+    docker-compose run sirene bundle exec rails db:create
+    docker-compose run sirene bundle exec rails db:migrate
+
+La base de donnée sera persistée dans le dossier `/var/lib/postgresql` par défaut. Il est possible  de changer l'emplacement d'installation des données ou d'indiquer un emplacement d'installation existante en modifiant la variable d'environnement `POSTGRES_DATA` dans le fichier `.env`.
+
+La base de donnée Postgres de docker se link sur le port 5432, donc assurez vous de ne pas avoir postgres qui tourne déjà sur ce port, ou bien modifiez `docker-compose.yml`
+
+Si votre machine comprend déjà une base installée sur `/var/lib/postgresql`, libre à vous de modifier le fichier `.env` :
+```yml
+POSTGRES_DATA=/path/to/other/data_folder
+```
+
+Lancez les imports à l'aide des commandes rake (Cf plus bas, partie Mises à jour / Administration) précédées par `docker-compose run sirene`. Par exemple :
+
+    docker-compose run sirene rake sirene_as_api:populate_database
+
+Vous pouvez d'ors et déjà interroger l'API sur `http://localhost:3000/v1/siren/552032534`.
+
+La recherche fulltext devrait fonctionner après avoir executé `docker-compose run sirene rake sunspot:solr:reindex`. Les index solr sont persistés egalement.
+
+Attention : pour faciliter les modifications par nos utilisateurs, le docker est lancé en environnement de développement. N'oubliez pas de changer le mot de passe postgres dans /config/docker/init.sql, /config/docker/database.yml et docker-compose.yml.
+
+Il peut y avoir une erreur 500 Solr au premier lancement, dans ce cas un simple `docker-compose down` puis `docker-compose up` peut suffir à relancer le server correctement.
+
 ## Installation manuelle en environnement dev
 
 Pour une installation manuelle, vous aurez besoin de :
@@ -321,7 +333,7 @@ bundler s'il est déjà présent sur la machine
 
     gem install bundler && bundle install
 
-## Preparation de la base de donnée
+### Preparation de la base de donnée
 
 Il faut maintenant préparer la base de données postgres :
 
@@ -455,6 +467,8 @@ Si l'API ne renvoie aucun résultat sur la recherche `fulltext` mais que la rech
 En cas de problèmes avec le serveur solr, il peut être nécessaire de tuer les processus Solr en cours (obtenir le PID solr avec `ps aux | grep solr` puis les tuer avec la commande `kill MonPidSolr`). Relancer le serveur avec `RAILS_ENV=MonEnvironnement bundle exec rake sunspot:solr:start` suffit en général à corriger la situation.
 
 Si Solr renvoie toujours des erreurs, c'est peut-être un problème causé par une allocation de mémoire trop importante. Commenter les lignes `memory` dans `config/sunspot.yml` et recommencer. Il peut être nécessaire de re-tuer les processus Solr.
+
+En cas d'erreur 500, et si redemarrer le serveur après l'avoir tué ne suffit pas (echec à l'initialisation du core solr), la suppression du contenu du dossier 'data' de l'environnement cible peut résoudre le problème (il sera alors nécessaire de réindexer).
 
 Dans certains cas, le déploiement par Mina ne copie pas correctement les fichiers solr.
 En cas d'erreur 404 - Solr not found, assurez vous que le fichier /solr/MonEnvironnement/core.properties est bien présent. Sinon, vous pouvez l'ajouter manuellement.
