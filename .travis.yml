@@ -4,6 +4,8 @@ rbenv:
 cache: bundler
 jdk:
 - openjdk8
+services:
+  - postgresql
 env:
   matrix:
   - DB=postgresql
