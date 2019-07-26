@@ -36,7 +36,7 @@ class CreateUniteLegale < ActiveRecord::Migration[5.0]
       t.string :economie_sociale_solidaire
       t.string :caractere_employeur
 
-      t.timestamp
+      t.timestamps
     end
   end
 end

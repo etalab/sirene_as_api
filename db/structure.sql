@@ -16,6 +16,20 @@ SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
 
+--
+-- Name: pg_trgm; Type: EXTENSION; Schema: -; Owner: -
+--
+
+CREATE EXTENSION IF NOT EXISTS pg_trgm WITH SCHEMA public;
+
+
+--
+-- Name: EXTENSION pg_trgm; Type: COMMENT; Schema: -; Owner: -
+--
+
+COMMENT ON EXTENSION pg_trgm IS 'text similarity measurement and index searching based on trigrams';
+
+
 SET default_tablespace = '';
 
 SET default_with_oids = false;
@@ -277,7 +291,6 @@ CREATE TABLE public.schema_migrations (
 
 CREATE TABLE public.stocks (
     id integer NOT NULL,
-    type character varying,
     year character varying,
     month character varying,
     status character varying,
@@ -346,7 +359,9 @@ CREATE TABLE public.unites_legales (
     nomenclature_activite_principale character varying,
     nic_siege character varying,
     economie_sociale_solidaire character varying,
-    caractere_employeur character varying
+    caractere_employeur character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 
