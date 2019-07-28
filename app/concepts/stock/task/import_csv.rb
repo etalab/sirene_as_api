@@ -4,7 +4,6 @@ class Stock
       pass :log_import_start
       step :file_exists?
       fail :log_file_not_found
-      step :create_progressbar
       step :file_importer
       step :import_csv
       pass :log_import_completed
@@ -13,21 +12,14 @@ class Stock
         File.exist? csv
       end
 
-      def create_progressbar(ctx, csv:, **)
-        ctx[:progress_bar] = ProgressBar.create(
-          total: number_of_rows(csv),
-          format: 'Progress %c/%C (%P %%) |%b>%i| %a %e'
-        )
-      end
-
       def file_importer(ctx, logger:, **)
         ctx[:file_importer] = Files::Helper::FileImporter.new(logger)
       end
 
-      def import_csv(_, csv:, model:, progress_bar:, file_importer:, **)
+      def import_csv(_, csv:, model:, file_importer:, logger:, **)
         file_importer.bulk_import(file: csv, model: model) do |imported_row_count|
           break unless imported_row_count
-          imported_row_count.times { progress_bar.increment }
+          logger.info "#{imported_row_count} rows imported"
         end
       end
 
