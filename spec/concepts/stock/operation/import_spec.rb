@@ -3,7 +3,6 @@ require 'rails_helper'
 describe Stock::Operation::Import do
   subject { described_class.call stock: stock, logger: logger }
 
-  include_context 'mute progress bar'
   include_context 'stubbed download'
 
   let(:stock) { create :stock_etablissement }

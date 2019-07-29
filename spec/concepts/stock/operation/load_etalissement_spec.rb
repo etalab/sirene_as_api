@@ -53,8 +53,6 @@ describe Stock::Operation::LoadEtablissement, vcr: { cassette_name: 'cquest_geo_
   end
 
   describe 'Integration: from download to import', :perform_enqueued_jobs do
-    include_context 'mute progress bar'
-
     let(:stock_model) { StockEtablissement }
     let(:imported_month) { '05' }
     let(:expected_sirens) { ['005880034', '006003560', '006004659'] }
