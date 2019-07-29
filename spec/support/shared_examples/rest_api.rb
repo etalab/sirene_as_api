@@ -1,15 +1,29 @@
 require 'rails_helper'
 
 shared_examples 'a REST API' do |model, field_1, field_2|
+  let!(:instance_1) { create(model, field_1 => '001', field_2 => 'Foo' ) }
+  let!(:instance_2) { create(model, field_1 => '002', field_2 => 'Foo' ) }
+  let!(:instance_3) { create(model, field_1 => '003', field_2 => 'Bar' ) }
+
+  subject { response }
+
   describe '#index', type: :request do
     context 'found' do
       before(:each) { get route }
 
-      it 'returns the right data' do
-        expect(first_result[field_2.to_s]).to eq('Foo')
-        expect(third_result[field_2.to_s]).to eq('Bar')
-      end
-      its(:status) { is_expected.to eq(200) }
+      let(:expected_format) {
+        {
+          records => a_collection_containing_exactly(
+            a_hash_including(field_1.to_s => "001", field_2.to_s => "Foo"),
+            a_hash_including(field_1.to_s => "002", field_2.to_s => "Foo"),
+            a_hash_including(field_1.to_s => "003", field_2.to_s => "Bar")
+          ),
+          "meta" => kind_of(Hash)
+        }
+      }
+
+      it { is_expected.to have_http_status(:ok) }
+      its(:parsed_body) { is_expected.to match(expected_format) }
     end
 
     context 'not found' do
@@ -18,8 +32,8 @@ shared_examples 'a REST API' do |model, field_1, field_2|
         get route
       end
 
-      its(:status) { is_expected.to eq(404) }
-      its(:parsed_body) { is_expected.to eq(body_404) }
+      it { is_expected.to have_http_status(:not_found) }
+      its(:parsed_body) { is_expected.to eq(body_message_not_found) }
     end
   end
 
@@ -27,19 +41,17 @@ shared_examples 'a REST API' do |model, field_1, field_2|
     context 'found' do
       before(:each) { get "#{route}/003" }
 
-      it 'returns one right result' do
-        expect(first_result[field_2.to_s]).to eq('Bar')
-        expect(second_result).to be_nil
-      end
+      let(:expected_format) {{ record => a_hash_including(field_1.to_s => "003") }}
 
-      its(:status) { is_expected.to eq(200) }
+      it { is_expected.to have_http_status(:ok) }
+      its(:parsed_body) { is_expected.to match(expected_format) }
     end
 
     context 'not found' do
       before { get "#{route}/99999" }
 
-      its(:status) { is_expected.to eq(404) }
-      its(:parsed_body) { is_expected.to eq(body_404) }
+      it { is_expected.to have_http_status(:not_found) }
+      its(:parsed_body) { is_expected.to eq(body_message_not_found) }
     end
   end
 end
