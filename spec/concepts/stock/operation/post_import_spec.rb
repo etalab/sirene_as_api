@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Stock::Operation::PostImport do
+describe Stock::Operation::PostImport, :trb do
   subject { described_class.call logger: logger }
 
   let(:logger) { instance_spy Logger }
@@ -20,6 +20,11 @@ describe Stock::Operation::PostImport do
       subject
       expect(unite_legale.etablissements).to be_empty
       expect(etablissement.unite_legale).to be_nil
+    end
+
+    it 'does not create database indexes' do
+      expect_not_to_call_nested_operation(Stock::Task::CreateIndexes)
+      subject
     end
   end
 
@@ -77,6 +82,11 @@ describe Stock::Operation::PostImport do
       expect(etablissement.unite_legale).to eq unite_legale
     end
 
+    it 'creates database indexes' do
+      expect_to_call_nested_operation(Stock::Task::CreateIndexes)
+      subject
+    end
+
     context 'when association failed' do
       before do
         allow_any_instance_of(described_class)
@@ -94,6 +104,11 @@ describe Stock::Operation::PostImport do
       it 'logs an error' do
         subject
         expect(logger).to have_received(:error).with(/Association failed:/)
+      end
+
+      it 'does not create database indexes' do
+        expect_not_to_call_nested_operation(Stock::Task::CreateIndexes)
+        subject
       end
     end
   end

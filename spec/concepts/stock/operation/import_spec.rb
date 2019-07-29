@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Stock::Operation::Import do
+describe Stock::Operation::Import, :trb do
   subject { described_class.call stock: stock, logger: logger }
 
   include_context 'mute progress bar'
@@ -14,9 +14,13 @@ describe Stock::Operation::Import do
   end
 
   it 'truncates the table' do
-    expect { Etablissement.find(existing_etab.id) }.not_to raise_error
+    expect_to_call_nested_operation(Stock::Task::TruncateTable)
     subject
-    expect { Etablissement.find(existing_etab.id) }.to raise_error(ActiveRecord::RecordNotFound)
+  end
+
+  it 'drops the indexes' do
+    expect_to_call_nested_operation(Stock::Task::DropIndexes)
+    subject
   end
 
   it 'imports data successfully' do

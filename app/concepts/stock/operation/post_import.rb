@@ -7,6 +7,7 @@ class Stock
       pass :log_associations_starts
       step :create_associations
       pass :log_associations_completed
+      step Nested Task::CreateIndexes
 
       def stock_unite_legale_imported?(ctx, **)
         StockUniteLegale.current&.imported?
