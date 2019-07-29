@@ -291,6 +291,7 @@ CREATE TABLE public.schema_migrations (
 
 CREATE TABLE public.stocks (
     id integer NOT NULL,
+    type character varying,
     year character varying,
     month character varying,
     status character varying,

@@ -3,13 +3,9 @@ FactoryBot.define do
     sequence(:nom) { |n| "unite_legale_#{n}" }
     sequence(:siren) { |n| "00000000#{n}" }
 
-    factory :unite_legale_with_etablissements do
-      transient do
-        etablissements_count { 3 }
-      end
-
-      after(:create) do |unite_legale, evaluator|
-        create_list(:etablissement, evaluator.etablissements_count, unite_legale: unite_legale)
+    factory :unite_legale_with_2_etablissements do
+      after(:create) do |unite_legale|
+        create_list(:etablissement, 2, unite_legale: unite_legale)
       end
     end
   end

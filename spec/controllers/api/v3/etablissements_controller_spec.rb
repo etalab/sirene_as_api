@@ -8,7 +8,7 @@ describe API::V3::EtablissementsController do
   it_behaves_like 'a REST API',            :etablissement, :siret, :enseigne_1
 
   describe 'associations', type: :request do
-    let!(:unite_legale) { create(:unite_legale_with_etablissements, etablissements_count: 3) }
+    let!(:unite_legale) { create(:unite_legale_with_2_etablissements) }
     let(:results) { response.parsed_body['etablissements']}
 
     subject { response }
@@ -16,9 +16,8 @@ describe API::V3::EtablissementsController do
     before { get "/v3/etablissements" }
 
     it 'returns his parent unite_legale' do
-      # Factorybot returns timestamps as Date format whereas ActiveSerializer returns as json
-      expected = adapt_timestamps unite_legale.serializable_hash
-      expect(results[0]['unite_legale']).to eq(expected)
+      # Parsing as json to replicate serializer formatting for timestamps
+      expect(results[0]['unite_legale']).to eq(JSON.parse unite_legale.to_json)
     end
   end
 end
