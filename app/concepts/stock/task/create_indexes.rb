@@ -24,7 +24,7 @@ class Stock
       end
 
       def log_indexes_created(ctx, logger:, **)
-        logger.info 'Indexes created'
+        logger.info 'All indexes created'
       end
     end
   end
