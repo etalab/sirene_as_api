@@ -1,0 +1,5 @@
+---
+concurrency: 1
+queues:
+  - sirene_api_development_stock
+  - sirene_api_development_auto_updates
