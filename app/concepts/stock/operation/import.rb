@@ -8,6 +8,7 @@ class Stock
       step Nested Files::Operation::Extract
       step :csv
       step Nested Task::TruncateTable
+      step Nested Task::DropIndexes
       step Nested Task::ImportCSV
 
       step :delete_tmp_files
