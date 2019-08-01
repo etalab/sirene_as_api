@@ -1,0 +1,22 @@
+default: &default
+  unites_legales:
+    - columns: siren
+      options:
+        unique: true
+  etablissements:
+    - columns: siren
+    - columns: siret
+      options:
+        unique: true
+
+development:
+  <<: *default
+
+test:
+  <<: *default
+
+sandbox:
+  <<: *default
+
+production:
+  <<: *default

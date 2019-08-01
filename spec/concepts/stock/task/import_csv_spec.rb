@@ -1,8 +1,6 @@
 require 'rails_helper'
 
 describe Stock::Task::ImportCSV do
-  include_context 'mute progress bar'
-
   subject { described_class.call csv: csv, model: model, logger: logger }
 
   let(:model) do

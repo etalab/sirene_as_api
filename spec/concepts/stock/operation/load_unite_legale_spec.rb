@@ -53,8 +53,6 @@ describe Stock::Operation::LoadUniteLegale, vcr: { cassette_name: 'data_gouv_sir
   end
 
   describe 'Integration: from download to import', :perform_enqueued_jobs do
-    include_context 'mute progress bar'
-
     let(:stock_model) { StockUniteLegale }
     let(:imported_month) { '07' }
     let(:expected_sirens) { ['000325175', '001807254', '005410220'] }
