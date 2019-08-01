@@ -374,7 +374,9 @@ CREATE TABLE public.unites_legales (
     nomenclature_activite_principale character varying,
     nic_siege character varying,
     economie_sociale_solidaire character varying,
-    caractere_employeur character varying
+    caractere_employeur character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 

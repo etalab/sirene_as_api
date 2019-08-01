@@ -19,7 +19,10 @@ Rails.application.routes.draw do
 
   concern :v3_routes do
     get 'unites_legales/' => '/api/v3/unites_legales#index'
+    get 'unites_legales/:siren' => '/api/v3/unites_legales#show'
+
     get 'etablissements/' => '/api/v3/etablissements#index'
+    get 'etablissements/:siret' => '/api/v3/etablissements#show'
   end
 
   namespace :v1 do

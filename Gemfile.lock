@@ -31,6 +31,11 @@ GEM
       erubis (~> 2.7.0)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.0, >= 1.0.3)
+    active_model_serializers (0.10.10)
+      actionpack (>= 4.1, < 6.1)
+      activemodel (>= 4.1, < 6.1)
+      case_transform (>= 0.2)
+      jsonapi-renderer (>= 0.1.1.beta1, < 0.3)
     activejob (5.0.7)
       activesupport (= 5.0.7)
       globalid (>= 0.3.6)
@@ -53,10 +58,11 @@ GEM
     arel (7.1.4)
     ast (2.4.0)
     awesome_print (1.8.0)
-    blueprinter (0.18.0)
     brakeman (4.2.1)
     builder (3.2.3)
     byebug (10.0.2)
+    case_transform (0.2)
+      activesupport
     chronic (0.10.2)
     code_analyzer (0.4.8)
       sexp_processor
@@ -125,6 +131,7 @@ GEM
       interactor (~> 3.0)
       rails (>= 4.2, < 5.3)
     json (2.1.0)
+    jsonapi-renderer (0.2.2)
     listen (3.0.8)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -161,6 +168,7 @@ GEM
       shellany (~> 0.0)
     open4 (1.3.4)
     options (2.3.2)
+    pagy (3.3.2)
     parallel (1.12.1)
     parser (2.5.1.0)
       ast (~> 2.4.0)
@@ -376,9 +384,9 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  active_model_serializers (~> 0.10.0)
   activerecord-import
   awesome_print
-  blueprinter
   brakeman
   byebug
   colorize
@@ -396,6 +404,7 @@ DEPENDENCIES
   logstasher
   mina
   mina-whenever
+  pagy
   pg (~> 0.20)
   progress_bar
   pry

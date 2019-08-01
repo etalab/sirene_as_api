@@ -27,6 +27,9 @@ gem 'sinatra', '~> 2.0.2'
 gem 'sunspot_rails'
 gem 'sunspot_solr'
 
+# Serializer
+gem 'active_model_serializers', '~> 0.10.0'
+
 # Import of data files
 gem 'activerecord-import'
 gem 'smarter_csv', git: 'https://github.com/tilo/smarter_csv.git', ref: '2b71026'
@@ -54,8 +57,8 @@ gem 'trailblazer-rails'
 # Map incoming requests to scopes
 gem 'has_scope'
 
-# JSON serialization
-gem 'blueprinter'
+# Pagination
+gem 'pagy'
 
 # Gem for deploying cron jobs
 gem 'whenever', require: false

@@ -14,7 +14,7 @@ module Scopable
       end
 
       def add_has_scope_for_attribute(attr)
-        has_scope(attr.to_sym, ->(value) { where(Hash[attr, value]) }, only: :index)
+        has_scope(attr.to_sym, ->(value) { where(Hash[attr, value]) })
       end
     end
   end
