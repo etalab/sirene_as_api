@@ -2,6 +2,8 @@ require 'rails_helper'
 
 # We delete temporary files only if they start with 'geo-sirene' AND finish with .csv or .csv.gz
 describe DeleteTemporaryFiles do
+  include_context 'mute interactors'
+
   before(:each) do
     @test_folder = 'spec/fixtures/files_for_deletion_test'
     @files_to_delete = [

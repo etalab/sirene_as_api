@@ -18,7 +18,7 @@ class API::V1::NearPointController < ApplicationController
   def search_nearby_etablissements
     radius = latlong_params[:radius] || 5
 
-    Etablissement.search do |s|
+    EtablissementV2.search do |s|
       s.with(:location).in_radius(latlong_params[:lat], latlong_params[:long], radius, bbox: true)
       with_faceting(s)
 

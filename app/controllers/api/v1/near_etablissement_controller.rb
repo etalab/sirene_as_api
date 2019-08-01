@@ -19,7 +19,7 @@ class API::V1::NearEtablissementController < ApplicationController
   def search_from_siret
     siret = near_etablissement_params[:siret]
 
-    etablissement = Etablissement.find_by(siret: siret)
+    etablissement = EtablissementV2.find_by(siret: siret)
     render json: { message: 'invalid SIRET' }, status: 400 if etablissement.nil?
     etablissement
   end
@@ -44,7 +44,7 @@ class API::V1::NearEtablissementController < ApplicationController
   end
 
   def search_around_etablissement(etablissement, options)
-    Etablissement.search do |s|
+    EtablissementV2.search do |s|
       # Less precise but faster search with bbox
       s.with(:location).in_radius(etablissement[:latitude], etablissement[:longitude], options[:radius], bbox: true)
 

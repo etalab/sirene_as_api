@@ -7,7 +7,7 @@ describe API::V2::SirenChildrenController do
     context 'SIRENE 404' do
       let!(:etablissement) {
         create(
-          :etablissement,
+          :etablissement_v2,
           nom_raison_sociale: 'foobarcompany',
           siren: siren,
           siret: '123456',
@@ -29,7 +29,7 @@ describe API::V2::SirenChildrenController do
     context 'SIRENE 200' do
       let!(:etablissement) {
         create(
-          :etablissement,
+          :etablissement_v2,
           nom_raison_sociale: 'foobarcompany',
           siren: siren,
           siret: '123456',
@@ -42,7 +42,7 @@ describe API::V2::SirenChildrenController do
       }
       let!(:etablissement2) {
         create(
-          :etablissement,
+          :etablissement_v2,
           nom_raison_sociale: 'foobarcompany',
           siren: siren,
           siret: '123457',
@@ -55,7 +55,7 @@ describe API::V2::SirenChildrenController do
       }
       let!(:etablissement3) {
         create(
-          :etablissement,
+          :etablissement_v2,
           nom_raison_sociale: 'foobarcompany',
           siren: siren,
           siret: '123458',

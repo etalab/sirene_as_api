@@ -1,4 +1,4 @@
-require 'open3'
+require 'open-uri'
 
 module Files
   module Operation
@@ -10,7 +10,6 @@ module Files
       pass :log_download_starts
       step :extract_filename
       step :download_file
-      fail :log_error
       pass :log_download_completed
 
       def extract_filename(ctx, uri:, destination_directory:, **)
@@ -18,15 +17,12 @@ module Files
         ctx[:file_path] = "#{destination_directory}/#{filename}"
       end
 
-      def download_file(ctx, uri:, file_path:, **)
-        _stdout, stderr, status = ::Open3.capture3 "curl #{uri} --location --fail --silent --show-error -o #{file_path}"
-
-        ctx[:wget_error] = stderr
-        status.success?
-      end
-
-      def log_error(_, logger:, wget_error:, **)
-        logger.error "Download failed: #{wget_error}"
+      def download_file(ctx, uri:, file_path:, logger:, **)
+        uri = URI(uri)
+        File.write file_path, uri.open.read, mode: 'wb'
+      rescue OpenURI::HTTPError
+        logger.error "Download failed: #{$ERROR_INFO.message}"
+        false
       end
 
       def log_download_starts(_, uri:, logger:, **)
