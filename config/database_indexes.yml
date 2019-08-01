@@ -5,6 +5,7 @@ default: &default
         unique: true
   etablissements:
     - columns: siren
+    - columns: unite_legale_id
     - columns: siret
       options:
         unique: true

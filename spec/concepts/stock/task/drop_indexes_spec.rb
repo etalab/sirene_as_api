@@ -17,9 +17,11 @@ describe Stock::Task::DropIndexes do
 
   it 'drop database indexes on Etablissement' do
     expect(:etablissements).to have_index_on(:siren)
+      expect(:etablissements).to have_index_on(:unite_legale_id)
     expect(:etablissements).to have_unique_index_on(:siret)
     subject
     expect(:etablissements).not_to have_index_on(:siren)
+      expect(:etablissements).not_to have_index_on(:unite_legale_id)
     expect(:etablissements).not_to have_unique_index_on(:siret)
   end
 end

@@ -11,6 +11,7 @@ describe Stock::Helper::DatabaseIndexes do
     end.to yield_successive_args(
       [:unites_legales, 'siren', { unique: true }],
       [:etablissements, 'siren', {}],
+      [:etablissements, 'unite_legale_id', {}],
       [:etablissements, 'siret', { unique: true }]
     )
   end
