@@ -4,10 +4,10 @@ class Stock
       step :stock_unite_legale_imported?
       step :stock_etablissement_imported?
       fail :log_stock_not_imported, Output(:success) => 'End.success'
+      step Nested Task::CreateIndexes
       pass :log_associations_starts
       step :create_associations
       pass :log_associations_completed
-      step Nested Task::CreateIndexes
 
       def stock_unite_legale_imported?(ctx, **)
         StockUniteLegale.current&.imported?
