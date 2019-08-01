@@ -112,7 +112,7 @@ class GetRelevantPatchesLinks < SireneAsAPIInteractor
   end
 
   def latest_etablissement_mise_a_jour
-    @latest_etablissement_mise_a_jour ||= Date.parse Etablissement.latest_mise_a_jour
+    @latest_etablissement_mise_a_jour ||= Date.parse EtablissementV2.latest_mise_a_jour
   end
 
   def days_count_since_last_update

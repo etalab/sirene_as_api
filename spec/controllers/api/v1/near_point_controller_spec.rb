@@ -4,7 +4,7 @@ describe API::V1::NearPointController do
   context 'when there are results', type: :request do
     let!(:etablissement_to_find) do
       create(
-        :etablissement,
+        :etablissement_v2,
         id: 1,
         siret: '123457',
         latitude: '48.000002',
@@ -14,7 +14,7 @@ describe API::V1::NearPointController do
     end
     let!(:etablissement_to_not_find) do
       create(
-        :etablissement,
+        :etablissement_v2,
         id: 2,
         siret: '123458',
         latitude: '50.000000',
@@ -23,7 +23,7 @@ describe API::V1::NearPointController do
       )
     end
     it 'return results in 200 payload' do
-      Etablissement.reindex
+      EtablissementV2.reindex
 
       get '/v1/near_point/?lat=48.000&long=3.000'
 
@@ -43,7 +43,7 @@ describe API::V1::NearPointController do
   context 'when there are no results', type: :request do
     let!(:etablissement_to_not_find) do
       create(
-        :etablissement,
+        :etablissement_v2,
         id: 3,
         siret: '123458',
         latitude: '50.000000',
@@ -52,7 +52,7 @@ describe API::V1::NearPointController do
       )
     end
     it 'returns 404 payload' do
-      Etablissement.reindex
+      EtablissementV2.reindex
 
       get '/v1/near_point/?lat=20.000&long=20.000'
 
@@ -65,7 +65,7 @@ describe API::V1::NearPointController do
   context 'when the request is bad', type: :request do
     let!(:etablissement_to_not_find) do
       create(
-        :etablissement,
+        :etablissement_v2,
         id: 3,
         siret: '123458',
         latitude: '50.000000',
@@ -74,7 +74,7 @@ describe API::V1::NearPointController do
       )
     end
     it 'returns 400 payload' do
-      Etablissement.reindex
+      EtablissementV2.reindex
 
       get '/v1/near_point/?long=20.000'
 
@@ -87,7 +87,7 @@ describe API::V1::NearPointController do
   context 'when using param per_page', type: :request do
     it 'works' do
       populate_with_11_local_companies('48.000001', '3.000001')
-      Etablissement.reindex
+      EtablissementV2.reindex
 
       get '/v1/near_point/?lat=48.000&long=3.000'
       result_hash = body_as_json
@@ -124,7 +124,7 @@ describe API::V1::NearPointController do
   context 'when using param filter activite_principale', type: :request do
     let!(:etablissement_to_not_find) do
       create(
-        :etablissement,
+        :etablissement_v2,
         id: 1,
         latitude: '48.000001',
         longitude: '3.000001',
@@ -134,7 +134,7 @@ describe API::V1::NearPointController do
     end
     let!(:etablissement_to_find) do
       create(
-        :etablissement,
+        :etablissement_v2,
         id: 2,
         latitude: '48.000001',
         longitude: '3.000001',
@@ -143,7 +143,7 @@ describe API::V1::NearPointController do
       )
     end
     it 'works' do
-      Etablissement.reindex
+      EtablissementV2.reindex
 
       get '/v1/near_point/?lat=48.000&long=3.000&activite_principale=3410E'
       result_hash = body_as_json
@@ -155,7 +155,7 @@ describe API::V1::NearPointController do
   context 'when using param filter approximate_activity', type: :request do
     let!(:etablissement_to_not_find) do
       create(
-        :etablissement,
+        :etablissement_v2,
         id: 1,
         latitude: '48.000001',
         longitude: '3.000001',
@@ -165,7 +165,7 @@ describe API::V1::NearPointController do
     end
     let!(:etablissement_to_find) do
       create(
-        :etablissement,
+        :etablissement_v2,
         id: 2,
         latitude: '48.000001',
         longitude: '3.000001',
@@ -174,7 +174,7 @@ describe API::V1::NearPointController do
       )
     end
     it 'works' do
-      Etablissement.reindex
+      EtablissementV2.reindex
 
       get '/v1/near_point/?lat=48.000&long=3.000&approximate_activity=34'
       result_hash = body_as_json

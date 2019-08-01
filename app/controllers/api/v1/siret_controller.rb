@@ -1,6 +1,6 @@
 class API::V1::SiretController < ApplicationController
   def show
-    r = Etablissement.find_by(siret: siret_params[:siret])
+    r = EtablissementV2.find_by(siret: siret_params[:siret])
 
     if r.nil?
       render json: { message: 'no results found' }, status: 404

@@ -1,6 +1,6 @@
 class API::V1::NumeroRNAController < ApplicationController
   def show
-    r = Etablissement.find_by(numero_rna: rna_params[:rna])
+    r = EtablissementV2.find_by(numero_rna: rna_params[:rna])
 
     if r.nil?
       render json: { message: 'no results found' }, status: 404

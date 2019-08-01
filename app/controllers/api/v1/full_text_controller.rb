@@ -28,7 +28,7 @@ class API::V1::FullTextController < ApplicationController
   end
 
   def search_with_solr_options(keyword, page, per_page)
-    search = Etablissement.search do
+    search = EtablissementV2.search do
       run_search_with_main_options(keyword)
 
       with_faceting_options

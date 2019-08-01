@@ -4,7 +4,7 @@ describe API::V1::NearEtablissementGeojsonController do
   context 'when there are results', type: :request do
     let!(:etablissement_to_search) do
       create(
-        :etablissement,
+        :etablissement_v2,
         id: 1,
         siret: '123456',
         latitude: '48.000001',
@@ -16,7 +16,7 @@ describe API::V1::NearEtablissementGeojsonController do
     end
     let!(:etablissement_to_find) do
       create(
-        :etablissement,
+        :etablissement_v2,
         id: 2,
         siret: '123457',
         latitude: '48.000002',
@@ -28,7 +28,7 @@ describe API::V1::NearEtablissementGeojsonController do
     end
     let!(:etablissement_to_not_find) do
       create(
-        :etablissement,
+        :etablissement_v2,
         id: 3,
         siret: '123458',
         latitude: '50.000000', # Unnamed road in Kazakhstan
@@ -39,7 +39,7 @@ describe API::V1::NearEtablissementGeojsonController do
       )
     end
     it 'return results in 200 payload' do
-      Etablissement.reindex
+      EtablissementV2.reindex
 
       get '/v1/near_etablissement_geojson/123456'
 
@@ -66,7 +66,7 @@ describe API::V1::NearEtablissementGeojsonController do
   context 'when no results', type: :request do
     let!(:etablissement_to_search) do
       create(
-        :etablissement,
+        :etablissement_v2,
         id: 1,
         siret: '123456',
         latitude: '48.000001',
@@ -76,7 +76,7 @@ describe API::V1::NearEtablissementGeojsonController do
     end
     let!(:etablissement_to_not_find) do
       create(
-        :etablissement,
+        :etablissement_v2,
         id: 3,
         siret: '123458',
         latitude: '50.000000',
@@ -85,7 +85,7 @@ describe API::V1::NearEtablissementGeojsonController do
       )
     end
     it 'returns 404 payload' do
-      Etablissement.reindex
+      EtablissementV2.reindex
 
       get '/v1/near_etablissement_geojson/123456'
 
@@ -96,9 +96,9 @@ describe API::V1::NearEtablissementGeojsonController do
   end
 
   context 'when SIRET isnt found', type: :request do
-    let!(:etablissement_to_not_find) { create(:etablissement, id: 1, siret: '123456') }
+    let!(:etablissement_to_not_find) { create(:etablissement_v2, id: 1, siret: '123456') }
     it 'returns 400 payload' do
-      Etablissement.reindex
+      EtablissementV2.reindex
 
       get '/v1/near_etablissement_geojson/999999'
 
@@ -111,7 +111,7 @@ describe API::V1::NearEtablissementGeojsonController do
   context 'when there are etablissements with other activity', type: :request do
     let!(:etablissement_to_search) do
       create(
-        :etablissement,
+        :etablissement_v2,
         id: 1,
         siret: '123456',
         latitude: '48.000001',
@@ -121,7 +121,7 @@ describe API::V1::NearEtablissementGeojsonController do
     end
     let!(:etablissement_to_find) do
       create(
-        :etablissement,
+        :etablissement_v2,
         id: 2,
         siret: '123457',
         latitude: '48.000002',
@@ -131,7 +131,7 @@ describe API::V1::NearEtablissementGeojsonController do
     end
     let!(:etablissement_to_find2) do
       create(
-        :etablissement,
+        :etablissement_v2,
         id: 3,
         siret: '123458',
         latitude: '48.000001',
@@ -140,7 +140,7 @@ describe API::V1::NearEtablissementGeojsonController do
       )
     end
     it 'find them' do
-      Etablissement.reindex
+      EtablissementV2.reindex
 
       get '/v1/near_etablissement_geojson/123456'
 
@@ -154,7 +154,7 @@ describe API::V1::NearEtablissementGeojsonController do
   context 'when there are etablissements with other activity', type: :request do
     let!(:etablissement_to_search) do
       create(
-        :etablissement,
+        :etablissement_v2,
         id: 1,
         siret: '123456',
         latitude: '48.000001',
@@ -165,7 +165,7 @@ describe API::V1::NearEtablissementGeojsonController do
     end
     let!(:etablissement_to_find) do
       create(
-        :etablissement,
+        :etablissement_v2,
         id: 2,
         siret: '123457',
         latitude: '48.000001',
@@ -176,7 +176,7 @@ describe API::V1::NearEtablissementGeojsonController do
     end
     let!(:etablissement_to_not_find) do
       create(
-        :etablissement,
+        :etablissement_v2,
         id: 3,
         siret: '123458',
         latitude: '48.000001',
@@ -186,7 +186,7 @@ describe API::V1::NearEtablissementGeojsonController do
       )
     end
     it 'doesnt find them if user doesnt want to' do
-      Etablissement.reindex
+      EtablissementV2.reindex
 
       get '/v1/near_etablissement_geojson/123456?only_same_activity=true'
 
@@ -201,7 +201,7 @@ describe API::V1::NearEtablissementGeojsonController do
   context 'when there are etablissements with other approximate activity', type: :request do
     let!(:etablissement_to_search) do
       create(
-        :etablissement,
+        :etablissement_v2,
         id: 1,
         siret: '123456',
         latitude: '48.000001',
@@ -212,7 +212,7 @@ describe API::V1::NearEtablissementGeojsonController do
     end
     let!(:etablissement_to_find) do
       create(
-        :etablissement,
+        :etablissement_v2,
         id: 2,
         siret: '123457',
         latitude: '48.000001',
@@ -223,7 +223,7 @@ describe API::V1::NearEtablissementGeojsonController do
     end
     let!(:etablissement_to_not_find) do
       create(
-        :etablissement,
+        :etablissement_v2,
         id: 3,
         siret: '123458',
         latitude: '48.000001',
@@ -233,7 +233,7 @@ describe API::V1::NearEtablissementGeojsonController do
       )
     end
     it 'find only them if user want to' do
-      Etablissement.reindex
+      EtablissementV2.reindex
 
       get '/v1/near_etablissement_geojson/123456?approximate_activity=true'
 
@@ -248,7 +248,7 @@ describe API::V1::NearEtablissementGeojsonController do
   context 'when specifying the radius', type: :request do
     let!(:etablissement_to_search) do
       create(
-        :etablissement,
+        :etablissement_v2,
         id: 1,
         siret: '123456',
         latitude: '48.000001',
@@ -258,7 +258,7 @@ describe API::V1::NearEtablissementGeojsonController do
     end
     let!(:etablissement_to_find) do
       create(
-        :etablissement,
+        :etablissement_v2,
         id: 2,
         siret: '123457',
         latitude: '48.000009',
@@ -268,7 +268,7 @@ describe API::V1::NearEtablissementGeojsonController do
     end
     let!(:etablissement_to_find_after) do
       create(
-        :etablissement,
+        :etablissement_v2,
         id: 3,
         siret: '123458',
         latitude: '49.00000', # Unnamed road in Kazakhstan
@@ -277,7 +277,7 @@ describe API::V1::NearEtablissementGeojsonController do
       )
     end
     it 'correctly find the results' do
-      Etablissement.reindex
+      EtablissementV2.reindex
 
       get '/v1/near_etablissement_geojson/123456'
 

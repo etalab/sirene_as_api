@@ -18,7 +18,8 @@ module SireneAsAPI
     config.active_record.schema_format = :sql
 
     # Background tasks
-    config.active_job.queue_adapter = :resque
+    config.active_job.queue_adapter = :sidekiq
+    config.active_job.queue_name_prefix = "sirene_#{Rails.env}"
 
     # Custom config
     config.switch_server = config_for(:switch_server)

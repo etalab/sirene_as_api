@@ -13,9 +13,9 @@ describe API::V1::SiretController do
 
   context 'when doing a simple search', type: :request do
     siret_found = '123456789'
-    let!(:etablissement) { create(:etablissement, nom_raison_sociale: 'foobarcompany', siret: siret_found) }
+    let!(:etablissement) { create(:etablissement_v2, nom_raison_sociale: 'foobarcompany', siret: siret_found) }
     it 'return the correct results' do
-      Etablissement.reindex
+      EtablissementV2.reindex
 
       get "/v1/siret/#{siret_found}"
 
