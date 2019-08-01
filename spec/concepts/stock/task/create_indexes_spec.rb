@@ -8,10 +8,12 @@ describe Stock::Task::CreateIndexes do
   # indexes keep existing through RSpec transaction
   # so they need to be deleted
   before do
-    Stock::Task::DropIndexes.call logger: logger
+    Stock::Task::DropIndexes.call table_name: UniteLegale.table_name, logger: logger
+    Stock::Task::DropIndexes.call table_name: Etablissement.table_name, logger: logger
   end
   after do
-    Stock::Task::DropIndexes.call logger: logger
+    Stock::Task::DropIndexes.call table_name: UniteLegale.table_name, logger: logger
+    Stock::Task::DropIndexes.call table_name: Etablissement.table_name, logger: logger
   end
 
   it 'creates database indexes on UniteLegale' do
