@@ -15,7 +15,7 @@ describe GetLastMonthlyStockLink do
     it 'retrieves february stock link' do
       allow(Time).to receive(:now) { Time.new(2018, 3, 31) }
 
-      last_montly_link = 'http://data.cquest.org/geo_sirene/2018-02/geo_sirene.csv.gz'
+      last_montly_link = 'http://data.cquest.org/geo_sirene/2018-02/etablissements_actifs.csv.gz'
       expect(described_class.call.link).to eq(last_montly_link)
     end
   end
@@ -32,7 +32,7 @@ describe GetLastMonthlyStockLink do
     it 'retrieves february stock link' do
       allow(Time).to receive(:now) { Time.new(2018, 4, 1) }
 
-      last_montly_link = 'http://data.cquest.org/geo_sirene/2018-02/geo_sirene.csv.gz'
+      last_montly_link = 'http://data.cquest.org/geo_sirene/2018-02/etablissements_actifs.csv.gz'
       expect(described_class.call.link).to eq(last_montly_link)
     end
   end
@@ -41,7 +41,7 @@ describe GetLastMonthlyStockLink do
     it 'retrieves the monthly stock from december the previous year' do
       allow(Time).to receive(:now) { Time.new(2018, 1, 5) }
 
-      last_montly_link = 'http://data.cquest.org/geo_sirene/2017-12/geo_sirene.csv.gz'
+      last_montly_link = 'http://data.cquest.org/geo_sirene/2017-12/etablissements_actifs.csv.gz'
       expect(described_class.call.link).to eq(last_montly_link)
     end
   end
