@@ -161,7 +161,7 @@ GEM
     mustermann (1.0.2)
     nenv (0.3.0)
     nio4r (2.4.0)
-    nokogiri (1.10.3)
+    nokogiri (1.10.4)
       mini_portile2 (~> 2.4.0)
     notiffany (0.1.1)
       nenv (~> 0.1)
@@ -404,6 +404,7 @@ DEPENDENCIES
   logstasher
   mina
   mina-whenever
+  nokogiri (>= 1.10.4)
   pagy
   pg (~> 0.20)
   progress_bar
