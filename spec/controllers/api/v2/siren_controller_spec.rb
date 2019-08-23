@@ -6,8 +6,8 @@ describe API::V2::SirenController do
     subject { body_as_json }
 
     context 'SIRENE 200' do
-      let!(:etablissement) { create(:etablissement, nom_raison_sociale: 'foobarcompany', siren: siren, is_siege: '1', geo_score: '0.7') }
-      let!(:etablissement_child) { create(:etablissement, nom_raison_sociale: 'foobar_child', siren: siren, siret: '31415', is_siege: '0') }
+      let!(:etablissement) { create(:etablissement_v2, nom_raison_sociale: 'foobarcompany', siren: siren, is_siege: '1', geo_score: '0.7') }
+      let!(:etablissement_child) { create(:etablissement_v2, nom_raison_sociale: 'foobar_child', siren: siren, siret: '31415', is_siege: '0') }
 
       it 'works' do
         get "/v2/siren/#{siren}"
@@ -30,7 +30,7 @@ describe API::V2::SirenController do
     end
 
     context 'SIRENE 404' do
-      let!(:etablissement) { create(:etablissement, nom_raison_sociale: 'foobar_not_found', siren: '1111111', is_siege: '1') }
+      let!(:etablissement) { create(:etablissement_v2, nom_raison_sociale: 'foobar_not_found', siren: '1111111', is_siege: '1') }
 
       it 'works' do
         get "/v2/siren/#{siren}"

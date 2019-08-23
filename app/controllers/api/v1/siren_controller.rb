@@ -1,7 +1,7 @@
 class API::V1::SirenController < ApplicationController
   def show
-    result_siege = Etablissement.where(siren: siren_params[:siren], is_siege: '1')
-    results_sirets = Etablissement.select('siret').where(siren: siren_params[:siren], is_siege: '0').pluck(:siret)
+    result_siege = EtablissementV2.where(siren: siren_params[:siren], is_siege: '1')
+    results_sirets = EtablissementV2.select('siret').where(siren: siren_params[:siren], is_siege: '0').pluck(:siret)
 
     if !result_siege.blank?
       render_payload_siren(result_siege, results_sirets)

@@ -8,7 +8,7 @@ class CheckIfOnlyOneSiege < SireneAsAPIInteractor
   def call
     create_log_file
     stdout_info_log 'Getting all SIRENs from Database...'
-    all_sirens = Etablissement.pluck(:siren)
+    all_sirens = EtablissementV2.pluck(:siren)
     @number_errors = 0
 
     progress_bar = create_progressbar(all_sirens)
@@ -28,8 +28,8 @@ class CheckIfOnlyOneSiege < SireneAsAPIInteractor
 
   def perform_check_on(all_sirens, progress_bar)
     all_sirens.each do |siren|
-      number_sirets = Etablissement.where(siren: siren).pluck(:siret)
-      number_sieges = Etablissement.where(siren: siren, is_siege: '1').count
+      number_sirets = EtablissementV2.where(siren: siren).pluck(:siret)
+      number_sieges = EtablissementV2.where(siren: siren, is_siege: '1').count
 
       stdout_warn_log "BUG : Etablissement #{siren} have #{number_sirets.size}" if number_sirets.empty?
       validate_single_etablissement(siren, number_sieges) if number_sirets.size == 1

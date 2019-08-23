@@ -33,7 +33,7 @@ class ImportMonthlyStockCsv < SireneAsAPIInteractor
   end
 
   def clean_database?
-    Etablissement.first.nil?
+    EtablissementV2.first.nil?
   end
 
   def create_progressbar(context)
@@ -73,9 +73,9 @@ class ImportMonthlyStockCsv < SireneAsAPIInteractor
   end
 
   def stdout_etablissement_count_change
-    etablissement_count_before = Etablissement.count
+    etablissement_count_before = EtablissementV2.count
     yield
-    etablissement_count_after = Etablissement.count
+    etablissement_count_after = EtablissementV2.count
 
     entries_added = etablissement_count_after - etablissement_count_before
 

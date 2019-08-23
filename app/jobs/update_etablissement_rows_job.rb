@@ -18,7 +18,7 @@ class UpdateEtablissementRowsJob < EtablissementRowJobs
 
   def update_attrs(etablissements)
     etablissements.each do |etablissement_attrs|
-      etablissement = Etablissement.find_or_initialize_by(siret: etablissement_attrs[:siret])
+      etablissement = EtablissementV2.find_or_initialize_by(siret: etablissement_attrs[:siret])
 
       nature_mise_a_jour = etablissement_attrs[:nature_mise_a_jour]
       # Il y a une paire I/F, I etant l'etat initial

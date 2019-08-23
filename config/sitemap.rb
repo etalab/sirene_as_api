@@ -23,7 +23,7 @@ SitemapGenerator::Sitemap.create do
   #     add article_path(article), :lastmod => article.updated_at
   #   end
 
-  Etablissement.find_each do |etab|
+  EtablissementV2.find_each do |etab|
     add "/etablissement/#{etab.siret}",
       lastmod: etab.updated_at,
       changefreq: 'monthly'
