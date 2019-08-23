@@ -17,7 +17,7 @@ describe API::V3::EtablissementsController do
 
     it 'returns his parent unite_legale' do
       # Parsing as json to replicate serializer formatting for timestamps
-      expect(results[0]['unite_legale']).to eq(JSON.parse unite_legale.to_json)
+      expect(results[0]['unite_legale']).to include(JSON.parse unite_legale.to_json)
     end
   end
 end

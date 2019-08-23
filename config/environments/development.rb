@@ -49,4 +49,7 @@ Rails.application.configure do
   config.logstasher.suppress_app_logs = false
   config.logstasher.log_controller_parameters = true
   config.logstasher.backtrace = true
+
+  # Redis database URL
+  config.redis_database = 'redis://localhost:6379/0'
 end

@@ -52,7 +52,8 @@ set :shared_dirs, fetch(:shared_dirs, []).push(
 set :shared_files, fetch(:shared_files, []).push(
   'config/database.yml',
   "config/environments/#{ENV['to']}.rb",
-  'config/secrets.yml'
+  'config/secrets.yml',
+  'config/sidekiq.yml'
 )
 
 # This task is the environment that is loaded for all remote run commands, such as
@@ -89,6 +90,7 @@ task deploy: :remote_environment do
         invoke :solr
       end
 
+      invoke :sidekiq
       invoke :passenger
       invoke :warning_info
     end
@@ -107,6 +109,12 @@ task solr: :remote_environment do
   comment 'Restarting Solr service'.green
   command "sudo systemctl restart solr_sirene_api_#{ENV['to']}"
 end
+
+task :sidekiq do
+  comment 'Restarting Sidekiq (reloads code)'.green
+  command %(sudo systemctl restart sidekiq_sirene_api_#{ENV['to']}_1)
+end
+
 
 task passenger: :remote_environment do
   comment %{Attempting to start Passenger app}.green

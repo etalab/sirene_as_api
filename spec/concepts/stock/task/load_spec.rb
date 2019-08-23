@@ -27,7 +27,7 @@ describe Stock::Task::Load do
     it 'shedule a new ImportStockJob' do
       expect { subject }
         .to have_enqueued_job(ImportStockJob)
-        .on_queue('sirene_test_stock')
+        .on_queue('sirene_api_test_stock')
     end
 
     it 'persist a new stock to import' do

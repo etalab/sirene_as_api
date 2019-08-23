@@ -37,10 +37,6 @@ class Stock
 
       private
 
-      def number_of_rows(csv)
-        `wc -l #{csv}`.split.first.to_i - 1
-      end
-
       def basic_options
         {
           chunk_size: 2_000,

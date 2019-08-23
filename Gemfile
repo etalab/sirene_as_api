@@ -21,6 +21,7 @@ gem 'redis-namespace'
 gem 'redis-objects'
 gem 'resque'
 gem 'sidekiq'
+gem 'sidekiq-cron'
 gem 'sinatra', '~> 2.0.2'
 
 # Sunspot / Solr friends

@@ -19,7 +19,7 @@ module SireneAsAPI
 
     # Background tasks
     config.active_job.queue_adapter = :sidekiq
-    config.active_job.queue_name_prefix = "sirene_#{Rails.env}"
+    config.active_job.queue_name_prefix = "sirene_api_#{Rails.env}"
 
     # Custom config
     config.switch_server = config_for(:switch_server)
