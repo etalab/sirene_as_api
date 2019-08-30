@@ -42,4 +42,7 @@ Rails.application.configure do
   # config.action_view.raise_on_missing_translations = true
 
   config.logstasher.enabled = true
+
+  # Redis database URL
+  config.redis_database = 'redis://localhost:6379/0'
 end

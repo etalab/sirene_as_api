@@ -5,7 +5,8 @@ FactoryBot.define do
 
     factory :unite_legale_with_2_etablissements do
       after(:create) do |unite_legale|
-        create_list(:etablissement, 2, unite_legale: unite_legale)
+        create(:etablissement, unite_legale: unite_legale, etablissement_siege: 'true')
+        create(:etablissement, unite_legale: unite_legale, etablissement_siege: 'false')
       end
     end
   end

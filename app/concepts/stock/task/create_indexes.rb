@@ -7,7 +7,7 @@ class Stock
       step :create_indexes
       pass :log_indexes_created
 
-      def create_indexes(ctx, logger:, **)
+      def create_indexes(_, logger:, **)
         each_index_configuration do |table_name, columns, options|
           next if ActiveRecord::Base.connection.index_exists?(table_name, columns, options)
 

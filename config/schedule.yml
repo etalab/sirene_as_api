@@ -1,0 +1,11 @@
+sandbox:
+  update_database_job:
+    cron: '0 8 * * *'
+    class: 'UpdateDatabaseJob'
+    queue: 'auto_updates'
+
+production:
+  update_database_job:
+    cron: '0 2 * * *'
+    class: 'UpdateDatabaseJob'
+    queue: 'auto_updates'

@@ -105,9 +105,20 @@ describe Stock::Operation::PostImport, :trb do
         subject
         expect(logger).to have_received(:error).with(/Association failed:/)
       end
+    end
 
-      it 'does not create database indexes' do
-        expect_not_to_call_nested_operation(Stock::Task::CreateIndexes)
+    context 'when Index creation failed' do
+      before do
+        allow_any_instance_of(Stock::Task::CreateIndexes)
+          .to receive(:create_indexes)
+          .and_return false
+      end
+
+      it { is_expected.to be_failure }
+
+      it 'does not create associations' do
+        expect_any_instance_of(described_class)
+          .not_to receive(:sql)
         subject
       end
     end
