@@ -25,9 +25,9 @@ if environment == 'production'
 
   # CRON jobs for dual server update, comment out if you have a single server
   # The rake task is launched only if the server is not used, so each server will update every other day
-  every 1.day, at: '4:30 am' do
-    rake 'sirene_as_api:dual_server_update'
-  end
+  # every 1.day, at: '4:30 am' do
+  #   rake 'sirene_as_api:dual_server_update'
+  # end
 
   every :weekend, at: '1:00 am' do
     rake "-s sitemap:refresh:no_ping"
