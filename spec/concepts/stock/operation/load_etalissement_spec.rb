@@ -29,7 +29,9 @@ describe Stock::Operation::LoadEtablissement, vcr: { cassette_name: 'cquest_geo_
     end
 
     its([:remote_stock]) { is_expected.to be_persisted }
-    its([:remote_stock]) { is_expected.to have_attributes(uri: expected_uri, status: 'PENDING', month: '05', year: '2019') }
+    its([:remote_stock]) do
+      is_expected.to have_attributes(uri: expected_uri, status: 'PENDING', month: '05', year: '2019')
+    end
   end
 
   context 'when remote stock is not importable (same)' do

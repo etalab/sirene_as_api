@@ -16,9 +16,18 @@ describe API::V1::FullTextController do
 
   # Fulltext works on nom_raison_sociale too
   context 'when fulltext searching a Commune name', type: :request do
-    let!(:etablissement1) { create(:etablissement_v2, id: 1, nom_raison_sociale: 'foobar company') }
-    let!(:etablissement2) { create(:etablissement_v2, id: 2, nom_raison_sociale: 'another etablissement') }
-    let!(:etablissement3) { create(:etablissement_v2, id: 3, nom_raison_sociale: 'etablissement to find') }
+    let!(:etablissement1) do
+      create(:etablissement_v2, id: 1, nom_raison_sociale: 'foobar company')
+    end
+
+    let!(:etablissement2) do
+      create(:etablissement_v2, id: 2, nom_raison_sociale: 'another etablissement')
+    end
+
+    let!(:etablissement3) do
+      create(:etablissement_v2, id: 3, nom_raison_sociale: 'etablissement to find')
+    end
+
     it 'finds correctly the Etablissement at the Commune searched' do
       EtablissementV2.reindex
 
@@ -33,9 +42,17 @@ describe API::V1::FullTextController do
 
   # Fulltext works on commune names too
   context 'when fulltext searching a Commune name', type: :request do
-    let!(:etablissement1) { create(:etablissement_v2, id: 1, nom_raison_sociale: 'foobar company', libelle_commune: 'PARIS') }
-    let!(:etablissement2) { create(:etablissement_v2, id: 2, nom_raison_sociale: 'another etablissement', libelle_commune: 'MARSEILLE') }
-    let!(:etablissement3) { create(:etablissement_v2, id: 3, nom_raison_sociale: 'etablissement to find', libelle_commune: 'MONTPELLIER') }
+    let!(:etablissement1) do
+      create(:etablissement_v2, id: 1, nom_raison_sociale: 'foobar company', libelle_commune: 'PARIS')
+    end
+
+    let!(:etablissement2) do
+      create(:etablissement_v2, id: 2, nom_raison_sociale: 'another etablissement', libelle_commune: 'MARSEILLE')
+    end
+    let!(:etablissement3) do
+      create(:etablissement_v2, id: 3, nom_raison_sociale: 'etablissement to find', libelle_commune: 'MONTPELLIER')
+    end
+
     it 'finds correctly the Etablissement at the Commune searched' do
       EtablissementV2.reindex
 
@@ -50,9 +67,17 @@ describe API::V1::FullTextController do
 
   # Fulltext works on adress (l4_normalisee)
   context 'when fulltext searching an adress', type: :request do
-    let!(:etablissement1) { create(:etablissement_v2, id: 1, nom_raison_sociale: 'foobar company', l4_normalisee: '12 avenue Ali Baba') }
-    let!(:etablissement2) { create(:etablissement_v2, id: 2, nom_raison_sociale: 'another etablissement', l4_normalisee: "42 rue de l'auto-stoppeur") }
-    let!(:etablissement3) { create(:etablissement_v2, id: 3, nom_raison_sociale: 'etablissement to find', l4_normalisee: '12 rue de la grenouille') }
+    let!(:etablissement1) do
+      create(:etablissement_v2, id: 1, nom_raison_sociale: 'foobar company', l4_normalisee: '12 avenue Ali Baba')
+    end
+    let!(:etablissement2) do
+      create(:etablissement_v2, id: 2, nom_raison_sociale: 'another etablissement', l4_normalisee: "42 rue de l'auto-stoppeur")
+    end
+
+    let!(:etablissement3) do
+      create(:etablissement_v2, id: 3, nom_raison_sociale: 'etablissement to find', l4_normalisee: '12 rue de la grenouille')
+    end
+
     it 'finds correctly the Etablissement at the adress searched' do
       EtablissementV2.reindex
 
@@ -66,9 +91,18 @@ describe API::V1::FullTextController do
 
   # Fulltext works on libelle_activite_principale_entreprise
   context 'when fulltext searching an adress', type: :request do
-    let!(:etablissement1) { create(:etablissement_v2, id: 1, nom_raison_sociale: 'foobar company', libelle_activite_principale_entreprise: 'Programmation') }
-    let!(:etablissement2) { create(:etablissement_v2, id: 2, nom_raison_sociale: 'another etablissement', libelle_activite_principale_entreprise: 'Location de pédalos') }
-    let!(:etablissement3) { create(:etablissement_v2, id: 3, nom_raison_sociale: 'etablissement to find', libelle_activite_principale_entreprise: 'Activités du spectacle') }
+    let!(:etablissement1) do
+      create(:etablissement_v2, id: 1, nom_raison_sociale: 'foobar company', libelle_activite_principale_entreprise: 'Programmation')
+    end
+
+    let!(:etablissement2) do
+      create(:etablissement_v2, id: 2, nom_raison_sociale: 'another etablissement', libelle_activite_principale_entreprise: 'Location de pédalos')
+    end
+
+    let!(:etablissement3) do
+      create(:etablissement_v2, id: 3, nom_raison_sociale: 'etablissement to find', libelle_activite_principale_entreprise: 'Activités du spectacle')
+    end
+
     it 'finds correctly the Etablissement at the adress searched' do
       EtablissementV2.reindex
 
@@ -83,9 +117,18 @@ describe API::V1::FullTextController do
 
   # Fulltext works on enseigne
   context 'when fulltext searching an enseigne', type: :request do
-    let!(:etablissement1) { create(:etablissement_v2, id: 1, nom_raison_sociale: 'foobar company', enseigne: 'Lol Market') }
-    let!(:etablissement2) { create(:etablissement_v2, id: 2, nom_raison_sociale: 'another etablissement', enseigne: 'The Prancing Poney Inn') }
-    let!(:etablissement3) { create(:etablissement_v2, id: 3, nom_raison_sociale: 'etablissement to find', enseigne: 'Secretariat General') }
+    let!(:etablissement1) do
+      create(:etablissement_v2, id: 1, nom_raison_sociale: 'foobar company', enseigne: 'Lol Market')
+    end
+
+    let!(:etablissement2) do
+      create(:etablissement_v2, id: 2, nom_raison_sociale: 'another etablissement', enseigne: 'The Prancing Poney Inn')
+    end
+
+    let!(:etablissement3) do
+      create(:etablissement_v2, id: 3, nom_raison_sociale: 'etablissement to find', enseigne: 'Secretariat General')
+    end
+
     it 'finds correctly the Etablissement' do
       EtablissementV2.reindex
 
@@ -117,9 +160,18 @@ describe API::V1::FullTextController do
 
   # Fulltext works on nom commercial (l2_normalisee)
   context 'when fulltext searching an enseigne', type: :request do
-    let!(:etablissement1) { create(:etablissement_v2, id: 1, nom_raison_sociale: 'foobar company', l2_normalisee: 'Lol Market') }
-    let!(:etablissement2) { create(:etablissement_v2, id: 2, nom_raison_sociale: 'another etablissement', l2_normalisee: 'The Prancing Poney Inn') }
-    let!(:etablissement3) { create(:etablissement_v2, id: 3, nom_raison_sociale: 'etablissement to find', l2_normalisee: 'Secretariat General') }
+    let!(:etablissement1) do
+      create(:etablissement_v2, id: 1, nom_raison_sociale: 'foobar company', l2_normalisee: 'Lol Market')
+    end
+
+    let!(:etablissement2) do
+      create(:etablissement_v2, id: 2, nom_raison_sociale: 'another etablissement', l2_normalisee: 'The Prancing Poney Inn')
+    end
+
+    let!(:etablissement3) do
+      create(:etablissement_v2, id: 3, nom_raison_sociale: 'etablissement to find', l2_normalisee: 'Secretariat General')
+    end
+
     it 'finds correctly the Etablissement' do
       EtablissementV2.reindex
 
@@ -134,9 +186,18 @@ describe API::V1::FullTextController do
 
   # Fulltext works on a combination of Etablissement name and commune
   context 'when fulltext searching an Etablissement name & a Commune name', type: :request do
-    let!(:etablissement1) { create(:etablissement_v2, id: 1, nom_raison_sociale: 'foobar company', libelle_commune: 'PARIS') }
-    let!(:etablissement2) { create(:etablissement_v2, id: 2, nom_raison_sociale: 'ThisEtablissement to not find', libelle_commune: 'MARSEILLE') }
-    let!(:etablissement3) { create(:etablissement_v2, id: 3, nom_raison_sociale: 'ThisEtablissement to find', libelle_commune: 'MONTPELLIER') }
+    let!(:etablissement1) do
+      create(:etablissement_v2, id: 1, nom_raison_sociale: 'foobar company', libelle_commune: 'PARIS')
+    end
+
+    let!(:etablissement2) do
+      create(:etablissement_v2, id: 2, nom_raison_sociale: 'ThisEtablissement to not find', libelle_commune: 'MARSEILLE')
+    end
+
+    let!(:etablissement3) do
+      create(:etablissement_v2, id: 3, nom_raison_sociale: 'ThisEtablissement to find', libelle_commune: 'MONTPELLIER')
+    end
+
     it 'finds correctly the Etablissement at the commune searched' do
       EtablissementV2.reindex
 
@@ -151,10 +212,22 @@ describe API::V1::FullTextController do
 
   # Prioritize Etablissements which are Mairies
   context 'when looking for an Etablissement which have a Mairie (commune)', type: :request do
-    let!(:etablissement1) { create(:etablissement_v2, id: 1, nom_raison_sociale: 'Commune de Montpellier', enseigne: 'MAIRIE') }
-    let!(:etablissement2) { create(:etablissement_v2, id: 2, nom_raison_sociale: 'Commune de Montpellier', enseigne: 'null') }
-    let!(:etablissement3) { create(:etablissement_v2, id: 3, nom_raison_sociale: 'Montpellier', enseigne: 'others') }
-    let!(:etablissement4) { create(:etablissement_v2, id: 4, nom_raison_sociale: 'Unrelated', enseigne: 'null') }
+    let!(:etablissement1) do
+      create(:etablissement_v2, id: 1, nom_raison_sociale: 'Commune de Montpellier', enseigne: 'MAIRIE')
+    end
+
+    let!(:etablissement2) do
+      create(:etablissement_v2, id: 2, nom_raison_sociale: 'Commune de Montpellier', enseigne: 'null')
+    end
+
+    let!(:etablissement3) do
+      create(:etablissement_v2, id: 3, nom_raison_sociale: 'Montpellier', enseigne: 'others')
+    end
+
+    let!(:etablissement4) do
+      create(:etablissement_v2, id: 4, nom_raison_sociale: 'Unrelated', enseigne: 'null')
+    end
+
     it 'prioritize the Mairie Etablissement result' do
       EtablissementV2.reindex
 

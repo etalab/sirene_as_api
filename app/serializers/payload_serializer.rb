@@ -1,3 +1,4 @@
+# rubocop:disable Style/ClassAndModuleChildren
 module PayloadSerializer
   class SirenPayload
     def initialize(siren, result_siege, results_sirets)
@@ -12,6 +13,7 @@ module PayloadSerializer
     end
 
     # rubocop:disable Metrics/MethodLength
+    # rubocop:disable Metrics/LineLength
     def body
       {
         sirene: {
@@ -52,6 +54,7 @@ module PayloadSerializer
       }
     end
     # rubocop:enable Metrics/MethodLength
+    # rubocop:enable Metrics/LineLength
 
     def data_from_sirene
       if !@result_siege.nil?
@@ -86,3 +89,4 @@ module PayloadSerializer
     end
   end
 end
+# rubocop:enable Style/ClassAndModuleChildren

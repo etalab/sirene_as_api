@@ -39,7 +39,11 @@ class Stock
       end
 
       def html
-        Nokogiri::HTML open "#{base_uri}/#{geo_sirene_folder}"
+        Nokogiri::HTML full_uri.open
+      end
+
+      def full_uri
+        URI.parse("#{base_uri}/#{geo_sirene_folder}")
       end
 
       def base_uri

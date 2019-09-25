@@ -9,6 +9,7 @@ class Stock
         ctx[:current_stock] = Stock.current
       end
 
+      # rubocop:disable Metrics/MethodLength
       def check_current_stock_status(ctx, current_stock:, logger:, **)
         case current_stock.status
         when 'LOADING', 'PENDING'
@@ -24,6 +25,7 @@ class Stock
           true
         end
       end
+      # rubocop:enable Metrics/MethodLength
 
       def log_database_empty(_ctx, logger:, **)
         logger.info 'Database empty, will import...'

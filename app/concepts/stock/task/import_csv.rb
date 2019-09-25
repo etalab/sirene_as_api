@@ -16,6 +16,7 @@ class Stock
         ctx[:file_importer] = Files::Helper::FileImporter.new(logger)
       end
 
+      # rubocop:disable Metrics/ParameterLists
       def import_csv(_, csv:, model:, file_importer:, logger:, **)
         file_importer.bulk_import(file: csv, model: model) do |imported_row_count|
           break unless imported_row_count
@@ -23,6 +24,7 @@ class Stock
           logger.info "#{imported_row_count} rows imported"
         end
       end
+      # rubocop:enable Metrics/ParameterLists
 
       def log_import_start(_, csv:, logger:, **)
         logger.info "Import starting for file #{csv}"

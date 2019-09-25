@@ -23,7 +23,7 @@ class Stock < ApplicationRecord
 
   def logger_for_import
     Logger.new logger_file_path
-    end
+  end
 
   def logger_file_path
     Rails.root.join 'log', "#{self.class.to_s.underscore}.log"

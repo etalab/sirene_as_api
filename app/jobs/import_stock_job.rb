@@ -18,12 +18,10 @@ class ImportStockJob < ApplicationJob
     ActiveRecord::Base.transaction do
       operation = Stock::Operation::Import.call(stock: @stock, logger: @logger)
 
-      if operation.success?
-        @stock.update status: 'COMPLETED'
-        Stock::Operation::PostImport.call logger: @logger
-      else
-        raise ActiveRecord::Rollback
-      end
+      raise ActiveRecord::Rollback unless operation.success?
+
+      @stock.update status: 'COMPLETED'
+      Stock::Operation::PostImport.call logger: @logger
     end
 
     @stock.update(status: 'ERROR') if operation.failure?
