@@ -19,6 +19,7 @@ class Stock
       def import_csv(_, csv:, model:, file_importer:, logger:, **)
         file_importer.bulk_import(file: csv, model: model) do |imported_row_count|
           break unless imported_row_count
+
           logger.info "#{imported_row_count} rows imported"
         end
       end

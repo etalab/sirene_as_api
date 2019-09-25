@@ -40,8 +40,7 @@ shared_examples 'importing csv' do
           a_hash_including(siren: expected_sirens[1]),
           a_hash_including(siren: expected_sirens[2])
         ],
-        validate: false)
-          .and_call_original
+        validate: false).and_call_original
 
       subject
     end

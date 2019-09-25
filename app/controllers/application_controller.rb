@@ -12,6 +12,5 @@ class ApplicationController < ActionController::API
     { message: 'no results found' }
   end
 
-  def pagination_solr(collection)
-  end
+  def pagination_solr(collection); end
 end

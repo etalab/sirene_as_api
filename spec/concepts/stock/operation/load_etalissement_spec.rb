@@ -15,7 +15,7 @@ describe Stock::Operation::LoadEtablissement, vcr: { cassette_name: 'cquest_geo_
       subject
       expect(logger)
         .to have_received(:info)
-        .with("New stock found 05, will import...")
+        .with('New stock found 05, will import...')
     end
 
     it 'shedule a new ImportStockJob' do
@@ -55,7 +55,7 @@ describe Stock::Operation::LoadEtablissement, vcr: { cassette_name: 'cquest_geo_
   describe 'Integration: from download to import', :perform_enqueued_jobs do
     let(:stock_model) { StockEtablissement }
     let(:imported_month) { '05' }
-    let(:expected_sirens) { ['005880034', '006003560', '006004659'] }
+    let(:expected_sirens) { %w[005880034 006003560 006004659] }
 
     let(:expected_tmp_file) do
       Rails.root.join 'tmp', 'files', 'sample_etablissements.csv'

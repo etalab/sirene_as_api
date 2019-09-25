@@ -4,7 +4,7 @@ class Stock
       step :truncate
       pass :log_truncate_completed
 
-      def truncate(ctx, table_name:, logger:, **)
+      def truncate(_ctx, table_name:, logger:, **)
         ActiveRecord::Base.connection.execute sql(table_name)
       rescue ActiveRecord::ActiveRecordError
         logger.error "Truncate failed: #{$ERROR_INFO.message}"

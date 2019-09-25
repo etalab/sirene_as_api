@@ -51,8 +51,8 @@ describe ImportStockJob, :trb do
         allow(Stock::Operation::Import)
           .to receive(:call)
           .and_wrap_original do
-            create :stock, status: 'GHOST'
-            trb_result_failure
+          create :stock, status: 'GHOST'
+          trb_result_failure
         end
 
         subject

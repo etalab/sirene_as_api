@@ -85,19 +85,19 @@ describe Stock do
     subject { build :stock, :of_july }
 
     it 'is newer than previous year stock' do
-      expect(subject.newer?(build :stock, :of_last_year)).to be true
+      expect(subject.newer?(build(:stock, :of_last_year))).to be true
     end
 
     it 'is newer than previous month stock' do
-      expect(subject.newer?(build :stock, :of_june)).to be true
+      expect(subject.newer?(build(:stock, :of_june))).to be true
     end
 
     it 'is older than same stock' do
-      expect(subject.newer?(build :stock, :of_july)).to be false
+      expect(subject.newer?(build(:stock, :of_july))).to be false
     end
 
     it 'is older than next month stock' do
-      expect(subject.newer?(build :stock, :of_august)).to be false
+      expect(subject.newer?(build(:stock, :of_august))).to be false
     end
   end
 end

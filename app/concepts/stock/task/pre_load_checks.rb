@@ -2,7 +2,7 @@ class Stock
   module Task
     class PreLoadChecks < Trailblazer::Operation
       step :fetch_current_stock
-        fail :log_database_empty, Output(:success) => 'End.success'
+      fail :log_database_empty, Output(:success) => 'End.success'
       step :check_current_stock_status
 
       def fetch_current_stock(ctx, **)
@@ -25,7 +25,7 @@ class Stock
         end
       end
 
-      def log_database_empty(ctx, logger:, **)
+      def log_database_empty(_ctx, logger:, **)
         logger.info 'Database empty, will import...'
       end
     end

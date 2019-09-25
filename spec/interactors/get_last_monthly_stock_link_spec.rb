@@ -3,7 +3,7 @@ require 'rails_helper'
 describe GetLastMonthlyStockLink do
   include_context 'mute interactors'
 
-  subject(:context) { described_class.call}
+  subject(:context) { described_class.call }
 
   context 'when file server is down', vcr: { cassette_name: 'geo-sirene_server_KO' } do
     it 'fails' do

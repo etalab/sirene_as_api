@@ -5,7 +5,7 @@ require 'json'
 class SolrRequests < SireneAsAPIInteractor
   attr_accessor :keyword
 
-  def initialize *keywords
+  def initialize(*keywords)
     keyword = keywords[0].to_s.gsub(/[+<>'"=&,;\n]/, ' ') # Get first word in params & Prevent Solr injections
     @keyword = URI.encode_www_form_component(keyword)
   end
@@ -19,8 +19,8 @@ class SolrRequests < SireneAsAPIInteractor
     stdout_info_log 'Building suggester dictionary... This might take a while (~30 mins)'
     begin
       request_build_dictionary
-    rescue StandardError => error
-      stdout_error_log "Error while building dictionary : #{error}"
+    rescue StandardError => e
+      stdout_error_log "Error while building dictionary : #{e}"
     else
       stdout_success_log('Dictionary was correctly built !')
     end

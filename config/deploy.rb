@@ -8,9 +8,7 @@ require 'colorize'
 ENV['domain'] || raise('no domain provided'.red)
 
 ENV['to'] ||= 'sandbox'
-unless %w[sandbox production].include?(ENV['to'])
-  raise("target environment (#{ENV['to']}) not in the list")
-end
+raise("target environment (#{ENV['to']}) not in the list") unless %w[sandbox production].include?(ENV['to'])
 
 print "Deploy to #{ENV['to']}\n".green
 
@@ -112,9 +110,8 @@ end
 
 task :sidekiq do
   comment 'Restarting Sidekiq (reloads code)'.green
-  command %(sudo systemctl restart sidekiq_sirene_api_#{ENV['to']}_1)
+  command %{sudo systemctl restart sidekiq_sirene_api_#{ENV['to']}_1}
 end
-
 
 task passenger: :remote_environment do
   comment %{Attempting to start Passenger app}.green

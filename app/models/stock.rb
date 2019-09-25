@@ -32,7 +32,7 @@ class Stock < ApplicationRecord
   private
 
   def database_empty?
-    !self.class.any?
+    self.class.none?
   end
 
   def newer_than_current_completed_stock?

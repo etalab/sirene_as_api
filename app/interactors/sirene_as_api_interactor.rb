@@ -71,6 +71,7 @@ class SireneAsAPIInteractor
 
   def last_month
     return format('%02d', (time_now.month - 1).to_s) if current_month != '01'
-    return '12'
+
+    '12'
   end
 end

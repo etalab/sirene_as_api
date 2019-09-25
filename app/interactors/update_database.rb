@@ -42,16 +42,18 @@ class UpdateDatabase < SireneAsAPIInteractor
   def destroy_and_rebuild_database
     stdout_info_log 'Dropping and rebuilding database from last monthly stock link...'
     return unless user_accept_operation
+
     begin
       DeleteDatabase.call
       PopulateDatabase.call
-    rescue StandardError => error
-      context.fail!(message: error)
+    rescue StandardError => e
+      context.fail!(message: e)
     end
   end
 
   def user_accept_operation
     return true if context.automatic_update
+
     stdout_warn_log 'WARNING! This operation will delete and reimport your database
       to make it exactly like the last monthly stock.'
     stdout_warn_log "This will take a few hours. Type 'y' to continue.)"

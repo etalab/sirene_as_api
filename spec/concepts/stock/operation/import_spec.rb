@@ -23,6 +23,6 @@ describe Stock::Operation::Import, :trb do
   end
 
   it 'imports data successfully' do
-    expect { subject }.to change(Etablissement, :count).by(3-1)
+    expect { subject }.to change(Etablissement, :count).by(3 - 1)
   end
 end

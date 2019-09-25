@@ -9,15 +9,15 @@ class Stock
       step :create_associations
       pass :log_associations_completed
 
-      def stock_unite_legale_imported?(ctx, **)
+      def stock_unite_legale_imported?(_ctx, **)
         StockUniteLegale.current&.imported?
       end
 
-      def stock_etablissement_imported?(ctx, **)
+      def stock_etablissement_imported?(_ctx, **)
         StockEtablissement.current&.imported?
       end
 
-      def create_associations(ctx, logger:, **)
+      def create_associations(_ctx, logger:, **)
         ActiveRecord::Base.connection.execute(sql)
       rescue ActiveRecord::ActiveRecordError
         logger.error "Association failed: #{$ERROR_INFO.message}"
@@ -32,7 +32,7 @@ class Stock
         logger.info 'Models associations completed'
       end
 
-      def log_stock_not_imported(ctx, logger:, **)
+      def log_stock_not_imported(_ctx, logger:, **)
         logger.info 'Other import not finished'
       end
 

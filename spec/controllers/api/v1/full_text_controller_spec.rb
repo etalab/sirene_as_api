@@ -266,28 +266,28 @@ describe API::V1::FullTextController do
   end
 
   context 'when doing a 2 facet search', type: :request do
-   let!(:etablissement) { create(:etablissement_v2, nom_raison_sociale: 'foobarcompany', activite_principale: 'ACTIVITY1', code_postal: '92000') }
-   let!(:etablissement2) { create(:etablissement_v2, nom_raison_sociale: 'foobarcompany', activite_principale: 'ACTIVITY2', code_postal: '75000') }
-   let!(:etablissement3) { create(:etablissement_v2, nom_raison_sociale: 'foobarcompany', activite_principale: 'ACTIVITY2', code_postal: '34070') }
-   it 'return the correct results' do
-     EtablissementV2.reindex
+    let!(:etablissement) { create(:etablissement_v2, nom_raison_sociale: 'foobarcompany', activite_principale: 'ACTIVITY1', code_postal: '92000') }
+    let!(:etablissement2) { create(:etablissement_v2, nom_raison_sociale: 'foobarcompany', activite_principale: 'ACTIVITY2', code_postal: '75000') }
+    let!(:etablissement3) { create(:etablissement_v2, nom_raison_sociale: 'foobarcompany', activite_principale: 'ACTIVITY2', code_postal: '34070') }
+    it 'return the correct results' do
+      EtablissementV2.reindex
 
-     get '/v1/full_text/foobarcompany?activite_principale=ACTIVITY2&code_postal=34070'
+      get '/v1/full_text/foobarcompany?activite_principale=ACTIVITY2&code_postal=34070'
 
-     expect(response.body).to look_like_json
-     result_hash = body_as_json
-     result_etablissements = result_hash.extract!(:etablissement, :suggestions)
-     expect(result_hash).to match(
-       total_results: 1,
-       total_pages: 1,
-       per_page: 10,
-       page: 1,
-       spellcheck: nil
-     )
-     name_result = result_etablissements[:etablissement][0][:nom_raison_sociale]
-     expect(name_result).to match('foobarcompany')
-     expect(response).to have_http_status(200)
-   end
+      expect(response.body).to look_like_json
+      result_hash = body_as_json
+      result_etablissements = result_hash.extract!(:etablissement, :suggestions)
+      expect(result_hash).to match(
+        total_results: 1,
+        total_pages: 1,
+        per_page: 10,
+        page: 1,
+        spellcheck: nil
+      )
+      name_result = result_etablissements[:etablissement][0][:nom_raison_sociale]
+      expect(name_result).to match('foobarcompany')
+      expect(response).to have_http_status(200)
+    end
   end
 
   # Spellchecking
@@ -417,11 +417,11 @@ describe API::V1::FullTextController do
     end
   end
 
-    # Params filter tranche_effectif_salarie_entreprise
+  # Params filter tranche_effectif_salarie_entreprise
   context 'when doing a search filtering by tranche_effectif_salarie_entreprise', type: :request do
-    let!(:etablissement) { create(:etablissement_v2, id: 1, nom_raison_sociale: 'foobarcompany', tranche_effectif_salarie_entreprise: '00' ) }
-    let!(:etablissement2) { create(:etablissement_v2, id: 2, nom_raison_sociale: 'foobarcompany', tranche_effectif_salarie_entreprise: 'NN' ) }
-    let!(:etablissement3) { create(:etablissement_v2, id: 3, nom_raison_sociale: 'foobarcompany', tranche_effectif_salarie_entreprise: '03' ) }
+    let!(:etablissement) { create(:etablissement_v2, id: 1, nom_raison_sociale: 'foobarcompany', tranche_effectif_salarie_entreprise: '00') }
+    let!(:etablissement2) { create(:etablissement_v2, id: 2, nom_raison_sociale: 'foobarcompany', tranche_effectif_salarie_entreprise: 'NN') }
+    let!(:etablissement3) { create(:etablissement_v2, id: 3, nom_raison_sociale: 'foobarcompany', tranche_effectif_salarie_entreprise: '03') }
     let!(:etablissement4) { create(:etablissement_v2, id: 4, nom_raison_sociale: 'foobarcompany') }
     it 'works' do
       EtablissementV2.reindex
@@ -439,7 +439,7 @@ describe API::V1::FullTextController do
   # Order results by score then Etablissement size
   context 'when doing a search for entrepreneur individuel', type: :request do
     let!(:etablissement1) { create(:etablissement_v2, id: 1, nom_raison_sociale: 'foobarcompany', tranche_effectif_salarie_entreprise: '0') }
-    let!(:etablissement2) { create(:etablissement_v2, id: 2,nom_raison_sociale: 'foobarcompany', tranche_effectif_salarie_entreprise: '11') }
+    let!(:etablissement2) { create(:etablissement_v2, id: 2, nom_raison_sociale: 'foobarcompany', tranche_effectif_salarie_entreprise: '11') }
     let!(:etablissement3) { create(:etablissement_v2, id: 3, nom_raison_sociale: 'foobarcompany2', tranche_effectif_salarie_entreprise: '0') }
     let!(:etablissement4) { create(:etablissement_v2, id: 4, nom_raison_sociale: 'foobarcompany2', tranche_effectif_salarie_entreprise: '11') }
     let!(:etablissement5) { create(:etablissement_v2, id: 5, nom_raison_sociale: 'randomcompany', tranche_effectif_salarie_entreprise: '53') }

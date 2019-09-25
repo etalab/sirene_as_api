@@ -9,29 +9,29 @@ describe Files::Operation::Extract do
   after { FileUtils.rm_rf(expected_unzipped_file) } # clean extracted file
 
   shared_examples 'extracting file' do
-      it 'is successful' do
-        expect(subject).to be_success
-      end
-
-      it 'logs extract starts' do
-        subject
-        expect(logger).to have_received(:info).with('Extract starts')
-      end
-
-      it 'logs extracts completed' do
-        subject
-        expect(logger).to have_received(:info).with('Extract completed')
-      end
-
-      it 'extracts into a file named from the zip' do
-        subject
-        expect(File.file?(expected_unzipped_file)).to eq(true)
-      end
-
-      it 'returns the extracted file path' do
-        expect(subject[:extracted_file]).to eq(expected_unzipped_file)
-      end
+    it 'is successful' do
+      expect(subject).to be_success
     end
+
+    it 'logs extract starts' do
+      subject
+      expect(logger).to have_received(:info).with('Extract starts')
+    end
+
+    it 'logs extracts completed' do
+      subject
+      expect(logger).to have_received(:info).with('Extract completed')
+    end
+
+    it 'extracts into a file named from the zip' do
+      subject
+      expect(File.file?(expected_unzipped_file)).to eq(true)
+    end
+
+    it 'returns the extracted file path' do
+      expect(subject[:extracted_file]).to eq(expected_unzipped_file)
+    end
+  end
 
   describe 'gz file' do
     let(:compressed_file) { Rails.root.join('spec', 'fixtures', 'example.csv.gz').to_s }

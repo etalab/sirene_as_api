@@ -45,12 +45,14 @@ class CheckIfOnlyOneSiege < SireneAsAPIInteractor
 
   def validate_single_etablissement(siren, number_sieges)
     return unless number_sieges != 1
+
     @number_errors += 1
     stdout_warn_log "ERROR FOUND : Etablissement #{siren} is single for his siren but is_siege = #{number_sieges}"
   end
 
   def validate_multiple_etablissements(siren, number_sieges)
     return unless number_sieges != 1
+
     @number_errors += 1
     stdout_warn_log "ERROR FOUND : Etablissements #{siren} don't have a single siege but #{number_sieges} sieges"
   end

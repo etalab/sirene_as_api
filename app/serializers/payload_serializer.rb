@@ -67,6 +67,7 @@ module PayloadSerializer
 
     def status
       return 200 unless @result_siege.nil?
+
       404
     end
 
@@ -74,7 +75,7 @@ module PayloadSerializer
     def date_sirene_stock
       name_stock = File.read(SaveLastMonthlyStockName.new.full_path)
       name_stock.split('/')[4]
-    rescue
+    rescue StandardError
       nil
     end
 

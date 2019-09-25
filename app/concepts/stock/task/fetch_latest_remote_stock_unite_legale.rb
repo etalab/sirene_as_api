@@ -7,7 +7,7 @@ class Stock
       step :fetch_latest_link
       step :build_stock_from_link
 
-      def fetch_latest_link(ctx,**)
+      def fetch_latest_link(ctx, **)
         ctx[:stock_link] = unite_legale_url
       end
 

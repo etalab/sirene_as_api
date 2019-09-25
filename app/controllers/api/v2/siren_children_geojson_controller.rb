@@ -1,5 +1,4 @@
 class API::V2::SirenChildrenGeojsonController < API::V2::SirenChildrenController
-
   private
 
   def render_payload_siren_children(result_siege, results_children)

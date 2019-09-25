@@ -56,4 +56,4 @@ ETABLISSEMENT_HEADER_MAPPING = {
   'geo_ligne' => :geo_ligne,
   'geo_l4' => :geo_l4,
   'geo_l5' => :geo_l5
-}
+}.freeze

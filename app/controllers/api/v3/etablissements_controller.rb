@@ -5,7 +5,7 @@ class API::V3::EtablissementsController < ApplicationController
   def index
     @pagy, @results = pagy(scoped_results)
 
-    render json: message_empty, status: 404 and return if @results.empty?
+    render(json: message_empty, status: 404) && return if @results.empty?
     render json: @results, status: 200, meta: pagination_pagy
   end
 
@@ -14,7 +14,7 @@ class API::V3::EtablissementsController < ApplicationController
 
     @results = scoped_results
 
-    render json: message_empty, status: 404 and return if @results.empty?
+    render(json: message_empty, status: 404) && return if @results.empty?
     render json: @results.first, status: 200
   end
 

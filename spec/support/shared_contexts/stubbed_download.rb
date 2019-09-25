@@ -4,7 +4,7 @@ shared_context 'stubbed download' do
     # the fixture file as the downloaded file
     allow_any_instance_of(Files::Operation::Download)
       .to receive(:download_file)
-      .and_wrap_original do |method, ctx, **|
+      .and_wrap_original do |_method, ctx, **|
       ctx[:file_path] = mocked_downloaded_file
     end
   end

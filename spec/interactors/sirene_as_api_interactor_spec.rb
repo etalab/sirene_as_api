@@ -9,7 +9,7 @@ describe SireneAsAPIInteractor do
     end
 
     it 'log to a log file' do
-      expect_any_instance_of(Logger).to receive(:info).with("------>  Test message2")
+      expect_any_instance_of(Logger).to receive(:info).with('------>  Test message2')
       described_class.new.stdout_info_log('tEsT MesSage2')
     end
   end
