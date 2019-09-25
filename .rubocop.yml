@@ -1,18 +1,35 @@
+# Warning:
+# run `bundle exec rubocop` like Travis
+# and not `rubocop` only
 AllCops:
   Exclude:
+    - 'vendor/**/*'
     - 'Guardfile'
     - 'db/migrate/*'
     - 'bin/*'
     - 'config/initializers/*'
+    # TODO: remove when dropping v1
+    - 'spec/controllers/api/v1/**/*'
+    - 'app/interactors/**/*'
+    - 'app/controllers/api/v1/**/*'
 
 Metrics/LineLength:
   Max: 120
+  IgnoredPatterns:
+    - 'logger'
 
 Metrics/BlockLength:
   Exclude:
     - 'spec/interactors/*'
     - 'spec/controllers/api/v1/*'
+    - 'spec/support/shared_examples/*'
     - 'db/schema.rb'
+    - 'spec/factories/*'
+    - 'config/routes.rb'
+  ExcludedMethods:
+    - 'describe'
+    - 'context'
+    - 'namespace'
 
 Documentation:
   Enabled: false
@@ -22,7 +39,31 @@ Style/FrozenStringLiteralComment:
 
 Style/ClassAndModuleChildren:
   EnforcedStyle: compact
+  Exclude:
+    - 'app/channels/**/*'
+    - 'app/concepts/**/*'
+    - 'spec/support/trailblazer.rb'
+    - 'config/application.rb'
 
 Style/PercentLiteralDelimiters:
   PreferredDelimiters:
     default: '{}'
+
+Style/SignalException:
+  Exclude:
+    - 'app/concepts/**/*'
+
+Naming/VariableNumber:
+  EnforcedStyle: snake_case
+
+Lint/AmbiguousOperator:
+  Exclude:
+    - 'app/serializers/**/*'
+
+Lint/UnreachableCode:
+  Exclude:
+    - 'app/concepts/**/*'
+
+Naming/UncommunicativeMethodParamName:
+  AllowedNames:
+    - '_'
