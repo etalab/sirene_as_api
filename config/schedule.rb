@@ -30,6 +30,6 @@ if environment == 'production'
   # end
 
   every :weekend, at: '1:00 am' do
-    rake "-s sitemap:refresh:no_ping"
+    rake '-s sitemap:refresh:no_ping'
   end
 end

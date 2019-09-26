@@ -7,7 +7,7 @@ class Stock
       step :fetch_latest_link
       step :build_stock_from_link
 
-      def fetch_latest_link(ctx,**)
+      def fetch_latest_link(ctx, **)
         ctx[:stock_link] = unite_legale_url
       end
 
@@ -30,13 +30,14 @@ class Stock
       end
 
       def year
-        DateTime.now.year.to_s
+        Time.now.year.to_s
       end
 
       def month
         french_months[french_month.to_sym]
       end
 
+      # rubocop:disable Naming/VariableNumber
       def french_month
         html
           .css('h4')
@@ -46,19 +47,21 @@ class Stock
           .captures
           .first
       end
+      # rubocop:enable Naming/VariableNumber
 
       def html
-        Nokogiri::HTML open data_gouv_url
+        Nokogiri::HTML data_gouv_uri.open
       end
 
-      def data_gouv_url
-        base_uri + '/fr/datasets/base-sirene-des-entreprises-et-de-leurs-etablissements-siren-siret'
+      def data_gouv_uri
+        URI.parse base_uri + '/fr/datasets/base-sirene-des-entreprises-et-de-leurs-etablissements-siren-siret'
       end
 
       def base_uri
         'https://www.data.gouv.fr'
       end
 
+      # rubocop:disable Metrics/MethodLength
       def french_months
         {
           janvier: '01',
@@ -75,6 +78,7 @@ class Stock
           décembre: '12'
         }
       end
+      # rubocop:enable Metrics/MethodLength
     end
   end
 end

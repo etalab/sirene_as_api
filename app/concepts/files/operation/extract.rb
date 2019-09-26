@@ -38,7 +38,7 @@ module Files
         logger.info 'Extract completed'
       end
 
-      def log_gunzip_failed(ctx, logger:, gzip_stderr:, **)
+      def log_gunzip_failed(_ctx, logger:, gzip_stderr:, **)
         logger.error gzip_stderr
       end
     end

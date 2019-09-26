@@ -19,11 +19,11 @@ class Stock
         end
       end
 
-      def log_indexes_creation_starts(ctx, logger:, **)
+      def log_indexes_creation_starts(_ctx, logger:, **)
         logger.info 'Indexes creation starts'
       end
 
-      def log_indexes_created(ctx, logger:, **)
+      def log_indexes_created(_ctx, logger:, **)
         logger.info 'All indexes created'
       end
     end

@@ -9,8 +9,8 @@ class UpdateEtablissementRowsJob < EtablissementRowJobs
 
     begin
       update_attrs(etablissements)
-    rescue StandardError => error
-      stdout_error_log "Error: Could not update etablissement attributes:  #{error.class}
+    rescue StandardError => e
+      stdout_error_log "Error: Could not update etablissement attributes:  #{e.class}
         Make sure Solr server is launched on the right environment and accessible."
       exit
     end
@@ -23,6 +23,7 @@ class UpdateEtablissementRowsJob < EtablissementRowJobs
       nature_mise_a_jour = etablissement_attrs[:nature_mise_a_jour]
       # Il y a une paire I/F, I etant l'etat initial
       next if nature_mise_a_jour == 'I'
+
       if nature_mise_a_jour == 'E'
         # On supprime l'etablissement si il est persiste
         # Si non persiste veut dire qu on rejoue un patch interrompu

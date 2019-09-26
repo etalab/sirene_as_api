@@ -1,12 +1,12 @@
 shared_examples 'a paginable controller' do |model, field_1, field_2|
   describe 'pagination', type: :request do
-    let!(:instance_1) { create(model, field_1 => '001', field_2 => 'Foo' ) }
-    let!(:instance_2) { create(model, field_1 => '002', field_2 => 'Foo' ) }
-    let!(:instance_3) { create(model, field_1 => '003', field_2 => 'Bar' ) }
+    let!(:instance_1) { create(model, field_1 => '001', field_2 => 'Foo') }
+    let!(:instance_2) { create(model, field_1 => '002', field_2 => 'Foo') }
+    let!(:instance_3) { create(model, field_1 => '003', field_2 => 'Bar') }
 
     subject { response }
 
-    before { get "#{route}" }
+    before { get route.to_s }
 
     let(:meta) { subject.parsed_body['meta'] }
 

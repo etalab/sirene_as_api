@@ -13,10 +13,10 @@ class TestSelfServer < SireneAsAPIInteractor
     test_results = JSON.parse(execute_test)
 
     return context.fail! unless test_results && test_results['total_results'] > 60_000
-    context.success!
 
-  rescue StandardError => error
-    stdout_error_log "Couldn't parse API result : #{error}"
+    context.success!
+  rescue StandardError => e
+    stdout_error_log "Couldn't parse API result : #{e}"
     context.fail!
   end
 
@@ -24,8 +24,8 @@ class TestSelfServer < SireneAsAPIInteractor
 
   def execute_test
     `curl --resolve entreprise.data.gouv.fr:443:127.0.0.1 https://entreprise.data.gouv.fr/api/sirene/v1/full_text/montpellier`
-  rescue StandardError => error
-    stdout_error_log "Couldn't reach the API on this server : #{error}"
+  rescue StandardError => e
+    stdout_error_log "Couldn't reach the API on this server : #{e}"
     context.fail!
   end
 end

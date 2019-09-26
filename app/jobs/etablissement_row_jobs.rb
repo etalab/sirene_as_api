@@ -5,8 +5,8 @@ class EtablissementRowJobs < SireneAsAPIInteractor
       lines.each do |line|
         etablissements << EtablissementAttrsFromLine.instance.call(line)
       end
-    rescue StandardError => error
-      stdout_error_log "Error: Could not finish the import task. Cause: #{error.class}"
+    rescue StandardError => e
+      stdout_error_log "Error: Could not finish the import task. Cause: #{e.class}"
       exit
     end
 

@@ -20,6 +20,7 @@ module Files
         2_000
       end
 
+      # rubocop:disable Metrics/MethodLength
       def options
         {
           chunk_size: chunk_size,
@@ -34,6 +35,7 @@ module Files
           file_encoding: 'UTF-8'
         }
       end
+      # rubocop:enable Metrics/MethodLength
     end
   end
 end

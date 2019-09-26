@@ -5,7 +5,8 @@ describe Stock::Task::Load do
     described_class.call(
       current_stock: current_stock,
       remote_stock: remote_stock,
-      logger: logger)
+      logger: logger
+    )
   end
 
   let(:logger) { instance_spy Logger }
@@ -21,7 +22,7 @@ describe Stock::Task::Load do
       subject
       expect(logger)
         .to have_received(:info)
-        .with("New stock found 07, will import...")
+        .with('New stock found 07, will import...')
     end
 
     it 'shedule a new ImportStockJob' do
@@ -35,7 +36,9 @@ describe Stock::Task::Load do
     end
 
     its([:remote_stock]) { is_expected.to be_persisted }
-    its([:remote_stock]) { is_expected.to have_attributes(uri: expected_uri, status: 'PENDING', month: '07', year: '2019') }
+    its([:remote_stock]) do
+      is_expected.to have_attributes(uri: expected_uri, status: 'PENDING', month: '07', year: '2019')
+    end
   end
 
   context 'when new stock is not importable' do
@@ -48,7 +51,7 @@ describe Stock::Task::Load do
       subject
       expect(logger)
         .to have_received(:warn)
-        .with("Remote stock not importable (remote month: 07, current (COMPLETED) month: 07)")
+        .with('Remote stock not importable (remote month: 07, current (COMPLETED) month: 07)')
     end
 
     its([:remote_stock]) { is_expected.not_to be_persisted }

@@ -4,8 +4,8 @@ describe API::V3::UnitesLegalesController do
   include_context 'api v3 response',       :unite_legale, :siren, :nom
 
   it_behaves_like 'a scopable controller', :unite_legale, :siren, :nom
-  it_behaves_like 'a paginable controller',:unite_legale, :siren, :nom
-  it_behaves_like 'a REST API',            :unite_legale, :siren, :nom
+  it_behaves_like 'a paginable controller', :unite_legale, :siren, :nom
+  it_behaves_like 'a REST API', :unite_legale, :siren, :nom
 
   describe 'associations', type: :request do
     let!(:unite_legale)    { create(:unite_legale) }
@@ -16,7 +16,7 @@ describe API::V3::UnitesLegalesController do
 
     subject { response }
 
-    before { get "/v3/unites_legales" }
+    before { get '/v3/unites_legales' }
 
     # Parsing as json to replicate serializer formatting for timestamps
     let(:children_1) { JSON.parse etablissement_1.to_json }

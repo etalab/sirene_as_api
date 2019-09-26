@@ -5,10 +5,10 @@ require_relative 'config/application'
 
 Rails.application.load_tasks
 
-production1 = 'production1.entreprise.data.gouv.fr'
-production2 = 'production2.entreprise.data.gouv.fr'
+production_1 = 'production1.entreprise.data.gouv.fr'
+production_2 = 'production2.entreprise.data.gouv.fr'
 
-domains = [production1, production2]
+domains = [production_1, production_2]
 
 task :setup do
   domains.each do |domain|

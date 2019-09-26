@@ -15,7 +15,7 @@ describe Stock::Operation::LoadUniteLegale, vcr: { cassette_name: 'data_gouv_sir
       subject
       expect(logger)
         .to have_received(:info)
-        .with("New stock found 07, will import...")
+        .with('New stock found 07, will import...')
     end
 
     it 'shedule a new ImportStockJob' do
@@ -29,7 +29,9 @@ describe Stock::Operation::LoadUniteLegale, vcr: { cassette_name: 'data_gouv_sir
     end
 
     its([:remote_stock]) { is_expected.to be_persisted }
-    its([:remote_stock]) { is_expected.to have_attributes(uri: expected_uri, status: 'PENDING', month: '07', year: '2019') }
+    its([:remote_stock]) do
+      is_expected.to have_attributes(uri: expected_uri, status: 'PENDING', month: '07', year: '2019')
+    end
   end
 
   context 'when remote stock is not importable (same)' do
@@ -55,7 +57,7 @@ describe Stock::Operation::LoadUniteLegale, vcr: { cassette_name: 'data_gouv_sir
   describe 'Integration: from download to import', :perform_enqueued_jobs do
     let(:stock_model) { StockUniteLegale }
     let(:imported_month) { '07' }
-    let(:expected_sirens) { ['000325175', '001807254', '005410220'] }
+    let(:expected_sirens) { %w[000325175 001807254 005410220] }
 
     let(:expected_tmp_file) do
       Rails.root.join 'tmp', 'files', 'sample_unites_legales.csv'

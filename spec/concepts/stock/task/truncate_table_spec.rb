@@ -19,7 +19,7 @@ describe Stock::Task::TruncateTable do
     end
 
     it 'has deleted Etablissement' do
-      expect { subject }.to change(Etablissement, :count).by -1
+      expect { subject }.to change(Etablissement, :count).by(-1)
     end
   end
 

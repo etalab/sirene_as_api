@@ -5,18 +5,20 @@ describe SireneAsAPIInteractor do
 
   context 'when outputing info' do
     it 'output the right format' do
-      expect { described_class.new.stdout_info_log('tEsT MesSage') }.to output("------>  Test message\n").to_stdout
+      expect { described_class.new.stdout_info_log('tEsT MesSage') }
+        .to output("------>  Test message\n").to_stdout
     end
 
     it 'log to a log file' do
-      expect_any_instance_of(Logger).to receive(:info).with("------>  Test message2")
+      expect_any_instance_of(Logger).to receive(:info).with('------>  Test message2')
       described_class.new.stdout_info_log('tEsT MesSage2')
     end
   end
 
   context 'when outputing success logs' do
     it 'output the right format' do
-      expect { described_class.new.stdout_success_log('tEsT MesSage') }.to output("       \e[32m✓  Test message\e[0m\n").to_stdout
+      expect { described_class.new.stdout_success_log('tEsT MesSage') }
+        .to output("       \e[32m✓  Test message\e[0m\n").to_stdout
     end
 
     it 'log to a log file' do
@@ -27,7 +29,8 @@ describe SireneAsAPIInteractor do
 
   context 'when outputing warn logs' do
     it 'output the right format' do
-      expect { described_class.new.stdout_warn_log('tEsT MesSage') }.to output("       \e[33m⚠ Test message\e[0m\n").to_stdout
+      expect { described_class.new.stdout_warn_log('tEsT MesSage') }
+        .to output("       \e[33m⚠ Test message\e[0m\n").to_stdout
     end
 
     it 'log to a log file' do
@@ -38,7 +41,8 @@ describe SireneAsAPIInteractor do
 
   context 'when outputing error logs' do
     it 'output the right format' do
-      expect { described_class.new.stdout_error_log('tEsT MesSage') }.to output("       \e[31m✖ Test message\e[0m\n").to_stdout
+      expect { described_class.new.stdout_error_log('tEsT MesSage') }
+        .to output("       \e[31m✖ Test message\e[0m\n").to_stdout
     end
 
     it 'log to a log file' do

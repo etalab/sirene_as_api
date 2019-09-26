@@ -26,6 +26,7 @@ class CheckIfOnlyOneSiege < SireneAsAPIInteractor
     )
   end
 
+  # rubocop:disable Metrics/AbcSize
   def perform_check_on(all_sirens, progress_bar)
     all_sirens.each do |siren|
       number_sirets = EtablissementV2.where(siren: siren).pluck(:siret)
@@ -37,6 +38,7 @@ class CheckIfOnlyOneSiege < SireneAsAPIInteractor
       progress_bar.increment
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
   def create_log_file
     file = File.open('log/check_is_siege.txt', 'w')
@@ -45,12 +47,14 @@ class CheckIfOnlyOneSiege < SireneAsAPIInteractor
 
   def validate_single_etablissement(siren, number_sieges)
     return unless number_sieges != 1
+
     @number_errors += 1
     stdout_warn_log "ERROR FOUND : Etablissement #{siren} is single for his siren but is_siege = #{number_sieges}"
   end
 
   def validate_multiple_etablissements(siren, number_sieges)
     return unless number_sieges != 1
+
     @number_errors += 1
     stdout_warn_log "ERROR FOUND : Etablissements #{siren} don't have a single siege but #{number_sieges} sieges"
   end

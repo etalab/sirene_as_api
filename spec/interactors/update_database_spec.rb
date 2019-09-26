@@ -37,7 +37,7 @@ describe UpdateDatabase do
     it 'destroy and rebuild database if new link' do
       allow(File).to receive(:exist?).and_return(true)
       allow(File).to receive(:read).and_return('mock-link-201802')
-      allow(GetLastMonthlyStockLink).to receive_message_chain(:call, :link => 'mock-link-201809')
+      allow(GetLastMonthlyStockLink).to receive_message_chain(:call, link: 'mock-link-201809')
 
       expect(DeleteDatabase).to receive(:call)
       expect(PopulateDatabase).to receive(:call)
@@ -49,7 +49,7 @@ describe UpdateDatabase do
 
       allow(File).to receive(:exist?).and_return(true)
       allow(File).to receive(:read).and_return('mock-link-201802')
-      allow(GetLastMonthlyStockLink).to receive_message_chain(:call, :link => 'mock-link-201802')
+      allow(GetLastMonthlyStockLink).to receive_message_chain(:call, link: 'mock-link-201802')
       allow(SelectAndApplyPatches).to receive(:call).and_return(empty_context)
 
       expect(DeleteDatabase).not_to receive(:call)
@@ -62,7 +62,7 @@ describe UpdateDatabase do
 
       allow(File).to receive(:exist?).and_return(true)
       allow(File).to receive(:read).and_return('mock-link-201802')
-      allow(GetLastMonthlyStockLink).to receive_message_chain(:call, :link => 'mock-link-201802')
+      allow(GetLastMonthlyStockLink).to receive_message_chain(:call, link: 'mock-link-201802')
 
       expect(DeleteDatabase).not_to receive(:call)
       expect(PopulateDatabase).not_to receive(:call)

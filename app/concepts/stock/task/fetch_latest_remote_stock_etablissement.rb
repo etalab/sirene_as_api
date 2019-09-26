@@ -15,7 +15,7 @@ class Stock
       end
 
       def build_stock_from_link(ctx, stock_link:, **)
-        year, month = stock_link.match(/(\d{4})-(\d{2})\//).captures
+        year, month = stock_link.match(%r{(\d{4})-(\d{2})/}).captures
         ctx[:remote_stock] = StockEtablissement.new(
           year: year,
           month: month,
@@ -39,23 +39,27 @@ class Stock
       end
 
       def html
-        Nokogiri::HTML open "#{base_uri}/#{geo_sirene_folder}"
+        Nokogiri::HTML full_uri.open
+      end
+
+      def full_uri
+        URI.parse "#{base_uri}/#{geo_sirene_folder}"
       end
 
       def base_uri
-        "http://data.cquest.org"
+        'http://data.cquest.org'
       end
 
       def filename
-        "StockEtablissement_utf8_geo.csv.gz"
+        'StockEtablissement_utf8_geo.csv.gz'
       end
 
       def geo_sirene_folder
-        "geo_sirene/v2019"
+        'geo_sirene/v2019'
       end
 
       def year_month_pattern
-        /^\d{4}-\d{2}\/$/
+        %r{^\d{4}-\d{2}/$}
       end
     end
   end

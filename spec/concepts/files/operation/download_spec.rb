@@ -20,7 +20,7 @@ describe Files::Operation::Download do
     its([:file_path]) { is_expected.to eq local_file_path.to_s }
 
     it 'downloads the file on disk' do
-      expect(File.exists?(subject[:file_path])).to be_truthy
+      expect(File.exist?(subject[:file_path])).to be_truthy
     end
   end
 
@@ -30,7 +30,7 @@ describe Files::Operation::Download do
     it { is_expected.to be_failure }
 
     it 'logs an error' do
-      expect(logger).to receive(:error).with("Download failed: 404 Not Found")
+      expect(logger).to receive(:error).with('Download failed: 404 Not Found')
       subject
     end
   end
