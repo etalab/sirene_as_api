@@ -75,7 +75,6 @@ task deploy: :remote_environment do
     # instance of your project.
     invoke :'git:clone'
     invoke :'deploy:link_shared_paths'
-    set :bundle_options, fetch(:bundle_options) + ' --clean'
     invoke :'bundle:install'
     invoke :'rails:db_migrate'
 
@@ -98,8 +97,6 @@ end
 task whenever_update: :remote_environment do
   # default value is based on domain name, and it is used to match in crontab !
   set :whenever_name, "sirene_api_#{ENV['to']}"
-  # with our rbenv config it cannot be found...
-  set :bundle_bin, '/usr/local/rbenv/shims/bundle'
 
   # whenever environement comes from fetch(:rails_env)
   invoke :'whenever:update'
