@@ -3,12 +3,67 @@ default: &default
     - columns: siren
       options:
         unique: true
+    - columns: statut_diffusion
+    - columns: unite_purgee
+    - columns: date_creation
+    - columns: sigle
+    - columns: sexe
+    - columns: prenom_1
+    - columns: prenom_usuel
+    - columns: pseudonyme
+    - columns: identifiant_association
+    - columns: tranche_effectifs
+    - columns: annee_effectifs
+    - columns: date_dernier_traitement
+    - columns: nombre_periodes
+    - columns: categorie_entreprise
+    - columns: annee_categorie_entreprise
+    - columns: date_fin
+    - columns: date_debut
+    - columns: etat_administratif
+    - columns: nom
+    - columns: nom_usage
+    - columns: denomination
+    - columns: denomination_usuelle_1
+    - columns: categorie_juridique
+    - columns: activite_principale
+    - columns: economie_sociale_solidaire
+    - columns: caractere_employeur
   etablissements:
     - columns: siren
     - columns: unite_legale_id
     - columns: siret
       options:
         unique: true
+    - columns: statut_diffusion
+    - columns: date_creation
+    - columns: tranche_effectifs
+    - columns: annee_effectifs
+    - columns: activite_principale_registre_metiers
+    - columns: date_dernier_traitement
+    - columns: etablissement_siege
+    - columns: nombre_periodes
+    - columns: code_postal
+    - columns: code_commune
+    - columns: code_cedex
+    - columns: code_pays_etranger
+    - columns: code_postal_2
+    - columns: code_commune_2
+    - columns: code_cedex_2
+    - columns: code_pays_etranger_2
+    - columns: date_debut
+    - columns: etat_administratif
+    - columns: enseigne_1
+    - columns: denomination_usuelle
+    - columns: activite_principale
+    - columns: nomenclature_activite_principale
+    - columns: caractere_employeur
+    - columns: libelle_commune
+    - columns: libelle_commune_etranger
+    - columns: libelle_pays_etranger
+    - columns: libelle_commune_2
+    - columns: libelle_commune_etranger_2
+    - columns: libelle_pays_etranger_2
 
 development:
   <<: *default
