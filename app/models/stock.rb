@@ -8,9 +8,7 @@ class Stock < ApplicationRecord
   end
 
   def importable?
-    database_empty? ||
-      newer_than_current_completed_stock? ||
-      same_as_current_stock_errored?
+    cases_always_import || (cases_maybe_import && !cases_avoid_import)
   end
 
   def newer?(other)
@@ -31,15 +29,32 @@ class Stock < ApplicationRecord
 
   private
 
+  def cases_always_import
+    database_empty?
+  end
+
+  def cases_maybe_import
+    newer_than_current_stock? || current_stock_errored?
+  end
+
+  def cases_avoid_import
+    current_stock_busy?
+  end
+
   def database_empty?
     self.class.none?
   end
 
-  def newer_than_current_completed_stock?
-    newer?(self.class.current) && self.class.current.imported?
+  def current_stock_busy?
+    current_status = self.class.current.status
+    current_status == 'LOADING' || current_status == 'PENDING'
   end
 
-  def same_as_current_stock_errored?
-    date == self.class.current.date && self.class.current.status == 'ERROR'
+  def newer_than_current_stock?
+    newer?(self.class.current)
+  end
+
+  def current_stock_errored?
+    self.class.current.status == 'ERROR'
   end
 end
