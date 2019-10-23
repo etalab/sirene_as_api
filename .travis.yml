@@ -14,7 +14,6 @@ addons:
 script:
   - bundle exec rubocop
   - bundle exec rspec
-  - bundle exec rspec --tag real_tcp_requests
 before_script:
   - psql -U postgres -f postgresql_setup.txt
   - RAILS_ENV=test bundle exec rails db:migrate
