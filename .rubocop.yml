@@ -14,9 +14,7 @@ AllCops:
     - 'app/controllers/api/v1/**/*'
 
 Metrics/LineLength:
-  Max: 120
-  IgnoredPatterns:
-    - 'logger'
+  Enabled: false
 
 Metrics/BlockLength:
   Exclude:
