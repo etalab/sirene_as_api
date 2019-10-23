@@ -1,0 +1,50 @@
+require 'rails_helper'
+
+describe INSEE::Operation::RenewToken do
+  subject { described_class.call }
+
+  let(:mocked_token) { 'this a token' }
+  let(:expected_token) { 'ab380ad7-5725-33d6-9d57-18a40e209021' }
+  let(:expected_timestamp) { Time.zone.now.to_i + 603_438 }
+
+  before { Timecop.freeze }
+  after { File.delete(described_class.new.send(:filename)) }
+
+  context 'when token file is found' do
+    before { create_token(expiration_timestamp) }
+
+    context 'when token is not expired' do
+      let(:expiration_timestamp) { 1.day.since.to_i }
+
+      its(:success?) { is_expected.to be_truthy }
+      its([:insee_token]) { is_expected.to eq mocked_token }
+      its([:insee_expiration_date]) { is_expected.to eq expiration_timestamp }
+    end
+
+    context 'when token is expired', vcr: { cassette_name: 'insee/renew_token' } do
+      let(:expiration_timestamp) { 1.day.ago.to_i }
+
+      its(:success?) { is_expected.to be_truthy }
+      its([:insee_token]) { is_expected.to eq expected_token }
+      its([:insee_expiration_date]) { is_expected.to eq expected_timestamp }
+    end
+  end
+
+  context 'when token file is not found', vcr: { cassette_name: 'insee/renew_token' } do
+    its(:success?) { is_expected.to be_truthy }
+    its([:insee_token]) { is_expected.to eq expected_token }
+    its([:insee_expiration_date]) { is_expected.to eq expected_timestamp }
+  end
+
+  def create_token(expiration_timestamp)
+    File.open(described_class.new.send(:filename), 'w+') do |file|
+      content = <<-YML
+        ---
+        token: #{mocked_token}
+        expiration_date: #{expiration_timestamp}
+      YML
+
+      file.write(content.unindent)
+    end
+  end
+end
