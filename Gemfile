@@ -92,6 +92,7 @@ group :test do
   gem 'simplecov'
   gem 'simplecov-console'
   gem 'timecop'
+  gem 'unindent'
   gem 'vcr'
   gem 'webmock'
 end
