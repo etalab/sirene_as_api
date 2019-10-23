@@ -267,6 +267,14 @@ Pour installer rapidement & efficacement l'API en environnement de production,
 vous pouvez vous referer a la documentation sur [sirene_as_api_ansible](https://github.com/etalab/sirene_as_api_ansible)
 et utiliser les scripts de déploiement automatiques.
 
+## Token de l'API INSEE
+
+Afin de récupérer automatiquement les mises à jours quotidiennes de l'API SIRENE de l'INSEE il est nécessaire de renseigner `insee_credentials` dans `config/secrets.yml`.
+
+Pour obtenir un token rendez-vous sur https://api.insee.fr/ dans : "Mes Applications"->sélectionnez ou créer une application->"Clefs et Jetons d'accès"->copiez la chaine de charactère sous "Génération des jetons d'accès" (dans l'exemple de code)
+
+_Attention_, il ne s'agit ni de la _Clef du consommateur_, ni du _Secret du consommateur_, ni du _Jeton d'accès_.
+
 ## Nouveau : Installation avec Docker
 
 Si vous disposez de docker et de docker-compose, vous pouvez lancer le serveur en local avec les commandes suivantes :
