@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://api.ovh.com/1.0/ip/54.36.95.61/
+    uri: https://api.ovh.com/1.0/ip/01.01.01.01/
     body:
       encoding: US-ASCII
       string: ''

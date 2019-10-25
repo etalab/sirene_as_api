@@ -4,6 +4,6 @@ production:
   sirene_server2: 'ns3107905.ip-54-37-87.eu'
 
 test:
-  ip_fallback: '54.36.95.61'
+  ip_fallback: '01.01.01.01'
   sirene_server1: 'address1'
   sirene_server2: 'address2'
