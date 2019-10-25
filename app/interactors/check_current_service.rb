@@ -14,7 +14,7 @@ class CheckCurrentService < SireneAsAPIInteractor
     query = check_current_service_query
     body = ''
 
-    response = OvhAPI.new(method, query, body).call
+    response = OvhAPIInteractor.new(method, query, body).call
 
     other_machine_in_use?(response)
   end

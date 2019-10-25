@@ -9,7 +9,7 @@ describe CheckCurrentService do
     subject(:context) { described_class.call }
     it 'fails the context' do
       allow_any_instance_of(described_class).to receive(:current_machine_name).and_return('address1')
-      allow_any_instance_of(OvhAPI).to receive(:signature).and_return('dummy-sign')
+      allow_any_instance_of(OvhAPIInteractor).to receive(:signature).and_return('dummy-sign')
 
       described_class.call
       expect(context).to be_a_failure
@@ -21,7 +21,7 @@ describe CheckCurrentService do
     subject(:context) { described_class.call }
     it 'succeed the context' do
       allow_any_instance_of(described_class).to receive(:current_machine_name).and_return('address2')
-      allow_any_instance_of(OvhAPI).to receive(:signature).and_return('dummy-sign')
+      allow_any_instance_of(OvhAPIInteractor).to receive(:signature).and_return('dummy-sign')
 
       described_class.call
       expect(context).to be_a_success

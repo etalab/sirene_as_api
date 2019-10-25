@@ -2,12 +2,12 @@ require 'digest'
 require 'net/http'
 require 'openssl'
 
-class OvhAPI < SireneAsAPIInteractor
+class OvhAPIInteractor < SireneAsAPIInteractor
   AK = Rails.application.secrets.OVH_APPLICATION_KEY
   AS = Rails.application.secrets.OVH_APPLICATION_SECRET
   CK = Rails.application.secrets.OVH_CONSUMER_KEY
 
-  def initialize(method, query, body)
+  def initialize(method, query, body = '')
     @method = method
     @query = ovh_api_version + query
     @full_query = ovh_domain + ovh_api_version + query

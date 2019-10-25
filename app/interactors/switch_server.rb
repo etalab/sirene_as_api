@@ -12,7 +12,7 @@ class SwitchServer < SireneAsAPIInteractor
     query = switch_server_query
     body = { to: current_machine_verified }.to_json
 
-    OvhAPI.new(method, query, body).call
+    OvhAPIInteractor.new(method, query, body).call
   end
 
   private
