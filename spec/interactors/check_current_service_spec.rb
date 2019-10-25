@@ -1,30 +1,28 @@
 require 'rails_helper'
+require 'ovh_request.rb'
 require 'net/http'
 
 describe CheckCurrentService do
   include_context 'mute interactors'
 
-  context 'When this machine is in service',
-          vcr: { cassette_name: 'OvhAPI_check_current_service' } do
-    subject(:context) { described_class.call }
-    it 'fails the context' do
-      allow_any_instance_of(described_class).to receive(:current_machine_name).and_return('address1')
-      allow_any_instance_of(OvhAPIInteractor).to receive(:signature).and_return('dummy-sign')
+  let(:response){ instance_double(Net::HTTPSuccess, body: response_body)}
+  let(:response_body) { {"routedTo": {"serviceName": "address1"}}.to_json }
 
-      described_class.call
-      expect(context).to be_a_failure
-    end
+  subject(:context) { described_class.call }
+
+  it 'fails the context if same address' do
+    allow_any_instance_of(described_class).to receive(:current_machine_name).and_return('address1')
+    allow_any_instance_of(OvhAPIInteractor).to receive(:call).and_return(response)
+
+    described_class.call
+    expect(context).to be_a_failure
   end
 
-  context 'When this machine is not in service',
-          vcr: { cassette_name: 'OvhAPI_check_current_service' } do
-    subject(:context) { described_class.call }
-    it 'succeed the context' do
-      allow_any_instance_of(described_class).to receive(:current_machine_name).and_return('address2')
-      allow_any_instance_of(OvhAPIInteractor).to receive(:signature).and_return('dummy-sign')
+  it 'succeed the context if other address' do
+    allow_any_instance_of(described_class).to receive(:current_machine_name).and_return('address2')
+    allow_any_instance_of(OvhAPIInteractor).to receive(:call).and_return(response)
 
-      described_class.call
-      expect(context).to be_a_success
-    end
+    described_class.call
+    expect(context).to be_a_success
   end
 end
