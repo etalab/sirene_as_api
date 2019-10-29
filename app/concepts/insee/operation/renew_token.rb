@@ -4,43 +4,34 @@ module INSEE
       step :file_exist?
       step :load_file
       step :verify_expiration
-      failure :renew_token, Output(:success) => Track(:success)
-      step :secrets!
+      failure Nested(INSEE::Request::RenewToken), Output(:success) => Track(:token_renewed)
+      step :persist_secrets, magnetic_to: [:token_renewed]
 
       def file_exist?(_, **)
         File.exist?(filename)
       end
 
       def load_file(ctx, **)
-        ctx[:insee_secrets] = YAML.load_file(filename)
+        current_secrets = YAML.load_file(filename)
+        ctx[:token] = current_secrets['token']
+        ctx[:expiration_date] = current_secrets['expiration_date']
       end
 
-      def verify_expiration(_, insee_secrets:, **)
-        expiration_date = Time.zone.at(insee_secrets['expiration_date'])
-        expiration_date > Time.zone.now
+      def verify_expiration(_, expiration_date:, **)
+        expiration_date > Time.zone.now.to_i
       end
 
-      def renew_token(ctx, **)
-        ctx[:insee_secrets] = insee_secrets.as_json
-        File.write(filename, ctx[:insee_secrets].to_yaml)
-      end
-
-      def secrets!(ctx, insee_secrets:, **)
-        ctx[:insee_token] = insee_secrets['token']
-        ctx[:insee_expiration_date] = insee_secrets['expiration_date']
+      def persist_secrets(ctx, **)
+        File.write(filename, secrets(ctx).to_yaml)
       end
 
       private
 
-      def insee_secrets
+      def secrets(ctx)
         {
-          token: request[:token],
-          expiration_date: request[:expiration_date]
+          token: ctx[:token],
+          expiration_date: ctx[:expiration_date]
         }
-      end
-
-      def request
-        @request ||= INSEE::Request::RenewToken.call
       end
 
       def filename
