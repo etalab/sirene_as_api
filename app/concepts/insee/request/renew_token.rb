@@ -2,10 +2,16 @@ module INSEE
   module Request
     class RenewToken < Trailblazer::Operation
       step :get
+      step :response_valid?
+      failure :log_renew_failed
       step :parse_response
 
       def get(ctx, **)
         ctx[:response] = http.request(request)
+      end
+
+      def response_valid?(_, response:, **)
+        response.code == '200'
       end
 
       def parse_response(ctx, response:, **)
@@ -14,6 +20,10 @@ module INSEE
         ctx[:token] = response_json[:access_token]
         ctx[:expires_in] = response_json[:expires_in]
         ctx[:expiration_date] = Time.zone.now.to_i + response_json[:expires_in]
+      end
+
+      def log_renew_failed(ctx, response:, logger:, **)
+        logger.error "Failed to renew INSEE token code: #{response.code}, body: #{response.body}"
       end
 
       private
