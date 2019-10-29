@@ -22,7 +22,7 @@ module INSEE
         ctx[:expiration_date] = Time.zone.now.to_i + response_json[:expires_in]
       end
 
-      def log_renew_failed(ctx, response:, logger:, **)
+      def log_renew_failed(_, response:, logger:, **)
         logger.error "Failed to renew INSEE token code: #{response.code}, body: #{response.body}"
       end
 
