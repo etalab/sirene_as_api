@@ -3,9 +3,9 @@ module INSEE
     class RenewToken < Trailblazer::Operation
       step :file_exist?
       step :load_file
-      step :verify_expiration
-      failure Nested(INSEE::Request::RenewToken), Output(:success) => Track(:token_renewed)
-      step :persist_secrets, magnetic_to: [:token_renewed]
+      step :verify_expiration, Output(:success) => 'End.success'
+      failure Nested(INSEE::Request::RenewToken), Output(:success) => Track(:success)
+      step :persist_secrets
 
       def file_exist?(_, **)
         File.exist?(filename)

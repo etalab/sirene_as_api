@@ -12,21 +12,21 @@ describe INSEE::Operation::RenewToken do
   before { Timecop.freeze }
 
   context 'when token file is found' do
-    before { create_token(expiration_timestamp) }
+    before { create_token(mocked_expiration_timestamp) }
     after { File.delete(file_path) }
 
     context 'when token is not expired' do
-      let(:expiration_timestamp) { 1.day.since.to_i }
+      let(:mocked_expiration_timestamp) { 1.day.since.to_i }
 
-      its(:success?) { is_expected.to be_truthy }
+      its(:success?) { is_expected.to eq(true) }
       its([:token]) { is_expected.to eq mocked_token }
-      its([:expiration_date]) { is_expected.to eq expiration_timestamp }
+      its([:expiration_date]) { is_expected.to eq mocked_expiration_timestamp }
     end
 
     context 'when token is expired', vcr: { cassette_name: 'insee/renew_token' } do
-      let(:expiration_timestamp) { 1.day.ago.to_i }
+      let(:mocked_expiration_timestamp) { 1.day.ago.to_i }
 
-      its(:success?) { is_expected.to be_truthy }
+      its(:success?) { is_expected.to eq(true) }
       its([:token]) { is_expected.to eq expected_token }
       its([:expiration_date]) { is_expected.to eq expected_timestamp }
     end
@@ -35,7 +35,7 @@ describe INSEE::Operation::RenewToken do
   context 'when token file is not found', vcr: { cassette_name: 'insee/renew_token' } do
     after { File.delete(file_path) }
 
-    its(:success?) { is_expected.to be_truthy }
+    its(:success?) { is_expected.to eq(true) }
     its([:token]) { is_expected.to eq expected_token }
     its([:expiration_date]) { is_expected.to eq expected_timestamp }
   end
@@ -43,7 +43,7 @@ describe INSEE::Operation::RenewToken do
   context 'when renewing token failed', vcr: { cassette_name: 'insee/renew_token' } do
     before { allow_any_instance_of(Net::HTTPOK).to receive(:code).and_return('500') }
 
-    its(:success?) { is_expected.to be_falsey }
+    its(:success?) { is_expected.to eq(false) }
 
     it 'logs an error' do
       subject
@@ -51,12 +51,12 @@ describe INSEE::Operation::RenewToken do
     end
   end
 
-  def create_token(expiration_timestamp)
+  def create_token(mocked_expiration_timestamp)
     File.open(described_class.new.send(:filename), 'w+') do |file|
       content = <<-YML
         ---
         token: #{mocked_token}
-        expiration_date: #{expiration_timestamp}
+        expiration_date: #{mocked_expiration_timestamp}
       YML
 
       file.write(content.unindent)
