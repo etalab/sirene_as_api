@@ -19,8 +19,8 @@ http_interactions:
       - dummy-sign
   response:
     status:
-      code: 200
-      message: Not Found
+      code: 500
+      message: error
     headers:
       Date:
       - Fri, 03 Aug 2018 09:46:28 GMT
@@ -32,18 +32,7 @@ http_interactions:
       - text/html; charset=iso-8859-1
     body:
       encoding: UTF-8
-      string: |
-        {
-          "organisationId": null,
-          "country": "fr",
-          "routedTo": {
-            "serviceName": "address1"
-          },
-          "ip": "dummy-ip/32",
-          "canBeTerminated": true,
-          "type": "failover",
-          "description": null
-        }
+      string: error
     http_version:
   recorded_at: Fri, 03 Aug 2018 09:46:28 GMT
 recorded_with: VCR 4.0.0

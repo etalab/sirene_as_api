@@ -15,22 +15,21 @@ class OvhRequest
     @tstamp = Time.now.to_i.to_s
   end
 
-  def send
+  def send_request
     uri = URI.parse(ovh_domain)
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = true
 
-    request = build_request
-    add_headers(request)
-
     http.request(request)
   end
 
-  def build_request
-    return request_get if @method == 'GET'
-    return request_post if @method == 'POST'
+  def request
+    request = request_get if @method == 'GET'
+    request = request_post if @method == 'POST'
+    raise 'Error : method parameter should be GET or POST' unless request
 
-    raise 'Error : method parameter should be GET or POST'
+    add_headers(request)
+    request
   end
 
   def request_get

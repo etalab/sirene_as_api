@@ -3,9 +3,11 @@ sandbox:
     cron: '0 8 * * *'
     class: 'UpdateDatabaseJob'
     queue: 'auto_updates'
+    args: { safe: false }
 
 production:
   update_database_job:
     cron: '0 2 * * *'
     class: 'UpdateDatabaseJob'
     queue: 'auto_updates'
+    args: { safe: true }

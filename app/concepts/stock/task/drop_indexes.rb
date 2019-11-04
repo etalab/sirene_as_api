@@ -17,7 +17,7 @@ class Stock
         end
       end
 
-      def log_indexes_dropped(_ctx, logger:, **)
+      def log_indexes_dropped(_, logger:, **)
         logger.info 'Indexes dropped'
       end
     end
