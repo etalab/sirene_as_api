@@ -5,8 +5,8 @@ require 'net/http'
 describe CheckCurrentService do
   include_context 'mute interactors'
 
-  let(:response){ instance_double(Net::HTTPSuccess, body: response_body)}
-  let(:response_body) { {"routedTo": {"serviceName": "address1"}}.to_json }
+  let(:response) { instance_double(Net::HTTPSuccess, body: response_body) }
+  let(:response_body) { { "routedTo": { "serviceName": 'address1' } }.to_json }
 
   subject(:context) { described_class.call }
 
