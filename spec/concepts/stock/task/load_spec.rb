@@ -41,24 +41,55 @@ describe Stock::Task::Load do
     end
   end
 
-  context 'when new stock is not importable' do
-    let!(:current_stock) { create :stock, :of_july, :completed }
-    let(:remote_stock)   { build :stock, :of_july, :pending }
+  context 'when remete stock is not importable' do
+    context 'because current stock completed' do
+      let!(:current_stock) { create :stock, :of_july, :completed }
+      let(:remote_stock)   { build :stock, :of_july, :pending }
 
-    it { is_expected.to be_failure }
+      it { is_expected.to be_success }
 
-    it 'logs a warning' do
-      subject
-      expect(logger)
-        .to have_received(:warn)
-        .with('Remote stock not importable (remote month: 07, current (COMPLETED) month: 07)')
+      it 'logs a warning' do
+        subject
+        expect(logger)
+          .to have_received(:warn)
+          .with('Remote stock not importable (remote month: 07, current (COMPLETED) month: 07)')
+      end
+
+      its([:remote_stock]) { is_expected.not_to be_persisted }
+
+      it 'does not enqueue job' do
+        expect { subject }
+          .not_to have_enqueued_job ImportStockJob
+      end
     end
 
-    its([:remote_stock]) { is_expected.not_to be_persisted }
+    context 'because current stock is stuck' do
+      let!(:current_stock) { create :stock, :of_july, status: 'LOADING' }
+      let(:remote_stock)   { build :stock, :of_july, :pending }
 
-    it 'does not enqueue job' do
-      expect { subject }
-        .not_to have_enqueued_job ImportStockJob
+      it { is_expected.to be_failure }
+
+      it 'logs a warning' do
+        subject
+        expect(logger)
+          .to have_received(:warn)
+          .with('Remote stock not importable (remote month: 07, current (LOADING) month: 07)')
+      end
+
+      it 'logs an error' do
+        subject
+        expect(logger)
+          .to have_received(:error)
+          .with('Current stock is stuck in LOADING')
+      end
+
+
+      its([:remote_stock]) { is_expected.not_to be_persisted }
+
+      it 'does not enqueue job' do
+        expect { subject }
+          .not_to have_enqueued_job ImportStockJob
+      end
     end
   end
 end
