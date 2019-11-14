@@ -83,7 +83,6 @@ describe Stock::Task::Load do
           .with('Current stock is stuck in LOADING')
       end
 
-
       its([:remote_stock]) { is_expected.not_to be_persisted }
 
       it 'does not enqueue job' do
