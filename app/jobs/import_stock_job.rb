@@ -6,7 +6,9 @@ class ImportStockJob < ApplicationJob
     @logger = @stock.logger_for_import
     @stock.update status: 'LOADING'
 
-    import
+    wrap_import_with_log_level(:fatal) do
+      import
+    end
   rescue ActiveRecord::RecordNotFound
     Rails.logger.error $ERROR_INFO.message
   end
@@ -25,5 +27,12 @@ class ImportStockJob < ApplicationJob
     end
 
     @stock.update(status: 'ERROR') if operation.failure?
+  end
+
+  def wrap_import_with_log_level(log_level)
+    usual_log_level = ActiveRecord::Base.logger.level
+    ActiveRecord::Base.logger.level = log_level
+    yield
+    ActiveRecord::Base.logger.level = usual_log_level
   end
 end
