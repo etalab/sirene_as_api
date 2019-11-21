@@ -27,7 +27,7 @@ class Stock
 
       def log_not_importable(_, remote_stock:, logger:, **)
         current_stock = remote_stock.class.current
-        logger.warn "Remote stock not importable (remote month: #{remote_stock.month}, current (#{current_stock.status}) month: #{current_stock.month})"
+        logger.warn "Latest stock available (from month #{remote_stock.month}) already exists with status #{current_stock.status}"
       end
 
       def log_current_stock_stuck(_, remote_stock:, logger:, **)

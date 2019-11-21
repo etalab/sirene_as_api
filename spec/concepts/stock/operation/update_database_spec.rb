@@ -35,7 +35,7 @@ describe Stock::Operation::UpdateDatabase, :trb, vcr: { cassette_name: 'update_d
       subject
       expect(logger)
         .to have_received(:warn)
-        .with('Remote stock not importable (remote month: 07, current (COMPLETED) month: 07)')
+        .with('Latest stock available (from month 07) already exists with status COMPLETED')
     end
 
     it_behaves_like 'both imports succeed'

@@ -42,7 +42,7 @@ describe Stock::Task::Load do
   end
 
   context 'when remete stock is not importable' do
-    context 'because current stock completed' do
+    context "because it's already imported (COMPLETED)" do
       let!(:current_stock) { create :stock, :of_july, :completed }
       let(:remote_stock)   { build :stock, :of_july, :pending }
 
@@ -52,7 +52,7 @@ describe Stock::Task::Load do
         subject
         expect(logger)
           .to have_received(:warn)
-          .with('Remote stock not importable (remote month: 07, current (COMPLETED) month: 07)')
+          .with('Latest stock available (from month 07) already exists with status COMPLETED')
       end
 
       its([:remote_stock]) { is_expected.not_to be_persisted }
@@ -73,7 +73,7 @@ describe Stock::Task::Load do
         subject
         expect(logger)
           .to have_received(:warn)
-          .with('Remote stock not importable (remote month: 07, current (LOADING) month: 07)')
+          .with('Latest stock available (from month 07) already exists with status LOADING')
       end
 
       it 'logs an error' do
