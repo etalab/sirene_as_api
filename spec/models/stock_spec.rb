@@ -46,38 +46,45 @@ describe Stock do
   describe '#importable?' do
     subject { build :stock, :of_july }
 
-    it 'is true with empty database' do
-      expect(subject).to be_importable
+    # truth table
+    # database empty : always import
+    # importable? | remote stock newer ? | current stock errored ?
+    #           0 |                    0 |                       0
+    #           1 |                    0 |                       1
+    #           1 |                    1 |                       0
+    #           1 |                    1 |                       1
+    # should not import ONLY when remote stock not newer
+    # and current stock completed
+    #
+    # /!\ current stock stuck in LOADING/PENDING not handled
+    # another problem would be somewhere else
+    #
+    context 'no' do
+      it 'is not importable, remote stock not newer & current stock not errored (0|0)' do
+        create :stock, :of_july, status: 'anything'
+        expect(subject).not_to be_importable
+      end
     end
 
-    it 'is true with a stock newer than the current one' do
-      create :stock, :of_june, :completed
-      expect(subject).to be_importable
-    end
+    context 'yes' do
+      it 'is importable with an empty database' do
+        expect(subject).to be_importable
+      end
 
-    it 'is false with a stock older than the current one' do
-      create :stock, :of_august, :completed
-      expect(subject).not_to be_importable
-    end
+      it 'is importable, remote stock not newer & current stock errored (0|1)' do
+        create :stock, :of_july, :errored
+        expect(subject).to be_importable
+      end
 
-    it 'is true when same stock is ERRORED' do
-      create :stock, :of_july, :errored
-      expect(subject).to be_importable
-    end
+      it 'is importable, remote stock newer & current stock not errored (1|0)' do
+        create :stock, :of_june, :completed
+        expect(subject).to be_importable
+      end
 
-    it 'is false when same stock is PENDING' do
-      create :stock, :of_july, :pending
-      expect(subject).not_to be_importable
-    end
-
-    it 'is false when same stock is LOADING' do
-      create :stock, :of_july, :loading
-      expect(subject).not_to be_importable
-    end
-
-    it 'is false when same stock already COMPLETED' do
-      create :stock, :of_july, :completed
-      expect(subject).not_to be_importable
+      it 'is importable, remote stock newer & current stock errored (1|1)' do
+        create :stock, :of_june, :errored
+        expect(subject).to be_importable
+      end
     end
   end
 

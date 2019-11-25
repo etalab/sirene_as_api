@@ -34,16 +34,16 @@ describe Stock::Operation::LoadUniteLegale, vcr: { cassette_name: 'data_gouv_sir
     end
   end
 
-  context 'when remote stock is not importable (same)' do
-    before { create :stock_unite_legale, :of_july, :completed }
+  context 'when remote stock is not importable (current stock stuck)' do
+    before { create :stock_unite_legale, :of_july, :pending }
 
     it { is_expected.to be_failure }
 
-    it 'logs a warning' do
+    it 'logs an error' do
       subject
       expect(logger)
-        .to have_received(:warn)
-        .with('Remote stock not importable (remote month: 07, current (COMPLETED) month: 07)')
+        .to have_received(:error)
+        .with('Current stock is still pending for import (PENDING)')
     end
 
     its([:remote_stock]) { is_expected.not_to be_persisted }

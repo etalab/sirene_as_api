@@ -34,16 +34,16 @@ describe Stock::Operation::LoadEtablissement, vcr: { cassette_name: 'cquest_geo_
     end
   end
 
-  context 'when remote stock is not importable (same)' do
-    before { create :stock_etablissement, :completed, month: '05' }
+  context 'when remote stock is not importable (current stock stuck)' do
+    before { create :stock_etablissement, :loading, month: '05' }
 
     it { is_expected.to be_failure }
 
-    it 'logs a warning' do
+    it 'logs an error' do
       subject
       expect(logger)
-        .to have_received(:warn)
-        .with('Remote stock not importable (remote month: 05, current (COMPLETED) month: 05)')
+        .to have_received(:error)
+        .with('Current stock is still importing (LOADING)')
     end
 
     its([:remote_stock]) { is_expected.not_to be_persisted }
