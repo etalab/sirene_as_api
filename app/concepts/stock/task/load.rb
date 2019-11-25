@@ -3,7 +3,8 @@ class Stock
     class Load < Trailblazer::Operation
       step :remote_stock_importable?
       fail :log_not_importable
-      fail :rescue_current_stock_completed, Output(:success) => 'End.success'
+      # it should continue with success if this month import is successfully imported
+      fail :rescue_if_current_monthly_stock_imported, Output(:success) => 'End.success'
       fail :log_current_stock_stuck
       step :persist_new_stock
       step :import
@@ -13,7 +14,7 @@ class Stock
         remote_stock.importable?
       end
 
-      def rescue_current_stock_completed(_, remote_stock:, **)
+      def rescue_if_current_monthly_stock_imported(_, remote_stock:, **)
         remote_stock.class.current.imported?
       end
 
@@ -32,7 +33,11 @@ class Stock
 
       def log_current_stock_stuck(_, remote_stock:, logger:, **)
         current_stock = remote_stock.class.current
-        logger.error "Current stock is stuck in #{current_stock.status}"
+        if current_stock.status == 'LOADING'
+          logger.error "Current stock is still importing (#{current_stock.status})"
+        else
+          logger.error "Current stock is still pending for import (#{current_stock.status})"
+        end
       end
 
       def log_import_starts(_, remote_stock:, logger:, **)

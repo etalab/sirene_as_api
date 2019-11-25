@@ -35,7 +35,7 @@ describe Stock::Operation::LoadUniteLegale, vcr: { cassette_name: 'data_gouv_sir
   end
 
   context 'when remote stock is not importable (current stock stuck)' do
-    before { create :stock_unite_legale, :of_july, :loading }
+    before { create :stock_unite_legale, :of_july, :pending }
 
     it { is_expected.to be_failure }
 
@@ -43,7 +43,7 @@ describe Stock::Operation::LoadUniteLegale, vcr: { cassette_name: 'data_gouv_sir
       subject
       expect(logger)
         .to have_received(:error)
-        .with('Current stock is stuck in LOADING')
+        .with('Current stock is still pending for import (PENDING)')
     end
 
     its([:remote_stock]) { is_expected.not_to be_persisted }

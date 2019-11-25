@@ -43,7 +43,7 @@ describe Stock::Operation::LoadEtablissement, vcr: { cassette_name: 'cquest_geo_
       subject
       expect(logger)
         .to have_received(:error)
-        .with('Current stock is stuck in LOADING')
+        .with('Current stock is still importing (LOADING)')
     end
 
     its([:remote_stock]) { is_expected.not_to be_persisted }
