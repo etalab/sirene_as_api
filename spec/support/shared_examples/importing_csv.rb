@@ -18,9 +18,7 @@ shared_examples 'importing csv' do
       )
     end
 
-    it 'persists 3 UniteLegale' do
-      expect { subject }.to change(model, :count).by 3
-    end
+    pending 'persists 3 UniteLegale in temp table'
 
     it 'deletes tmp file' do
       subject
