@@ -63,7 +63,7 @@ describe Stock::Operation::LoadUniteLegale, vcr: { cassette_name: 'data_gouv_sir
       Rails.root.join 'tmp', 'files', 'sample_unites_legales.csv'
     end
 
-    let(:mocked_downloaded_file) do
+    let(:downloaded_fixture_file) do
       Rails.root.join('spec', 'fixtures', 'sample_unites_legales.csv.zip').to_s
     end
 

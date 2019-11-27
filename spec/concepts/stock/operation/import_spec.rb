@@ -8,7 +8,7 @@ describe Stock::Operation::Import, :trb do
   let(:stock) { create :stock_etablissement }
   let(:logger) { instance_spy Logger }
   let!(:existing_etab) { create :etablissement }
-  let(:mocked_downloaded_file) do
+  let(:downloaded_fixture_file) do
     Rails.root.join('spec', 'fixtures', 'sample_etablissements.csv.gz').to_s
   end
 
@@ -54,6 +54,17 @@ describe Stock::Operation::Import, :trb do
   it 'deletes extracted files when failure' do
     allow_any_instance_of(described_class).to receive(:csv).and_return(false)
     file = Pathname.new subject[:extracted_file]
+    expect(file).not_to exist
+  end
+
+  it 'deletes downloaded files when success' do
+    file = Pathname.new subject[:file_path]
+    expect(file).not_to exist
+  end
+
+  it 'deletes downloaded files when failure' do
+    allow_any_instance_of(described_class).to receive(:csv).and_return(false)
+    file = Pathname.new subject[:file_path]
     expect(file).not_to exist
   end
 end

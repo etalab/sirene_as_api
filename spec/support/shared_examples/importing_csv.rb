@@ -18,7 +18,11 @@ shared_examples 'importing csv' do
       )
     end
 
-    pending 'persists 3 UniteLegale in temp table'
+    it 'persists 3 UniteLegale in temp table' do
+      subject
+      data = get_raw_data(model.table_name + '_tmp')
+      expect(data.count).to eq 3
+    end
 
     it 'deletes tmp file' do
       subject

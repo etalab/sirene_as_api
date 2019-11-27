@@ -41,7 +41,8 @@ class Stock
         ctx[:table_name] = model.table_name
       end
 
-      def delete_tmp_files(_, extracted_file:, **)
+      def delete_tmp_files(_, file_path:, extracted_file:, **)
+        FileUtils.rm_rf file_path
         FileUtils.rm_rf extracted_file
       end
     end

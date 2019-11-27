@@ -63,7 +63,7 @@ describe Stock::Operation::LoadEtablissement, vcr: { cassette_name: 'cquest_geo_
       Rails.root.join 'tmp', 'files', 'sample_etablissements.csv'
     end
 
-    let(:mocked_downloaded_file) do
+    let(:downloaded_fixture_file) do
       Rails.root.join('spec', 'fixtures', 'sample_etablissements.csv.gz').to_s
     end
 
