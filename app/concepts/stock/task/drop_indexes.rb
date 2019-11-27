@@ -3,8 +3,21 @@ class Stock
     class DropIndexes < Trailblazer::Operation
       include Stock::Helper::DatabaseIndexes
 
+      step :table_name_unite_legale
       step :drop_indexes
       step :log_indexes_dropped
+
+      step :table_name_etablissement
+      step :drop_indexes
+      step :log_indexes_dropped
+
+      def table_name_unite_legale(ctx, **)
+        ctx[:table_name] = UniteLegale.table_name
+      end
+
+      def table_name_etablissement(ctx, **)
+        ctx[:table_name] = Etablissement.table_name
+      end
 
       def drop_indexes(_, table_name:, **)
         each_index_configuration do |index_table_name, columns, options|
