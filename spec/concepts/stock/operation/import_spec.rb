@@ -29,14 +29,12 @@ describe Stock::Operation::Import, :trb do
   end
 
   it 'truncates the temporary table before inserting' do
-    # create an entry in the temp table
     model = stock.class::RELATED_MODEL
-    model.table_name = model.table_name + '_tmp'
-    etab = model.create
-    expect(model.first).to eq etab
 
-    # set back the real table name
-    model.table_name.slice!('_tmp')
+    wrap_with_table_renamed(model) do
+      etab = model.create
+      expect(model.first).to eq etab
+    end
 
     tmp_model = subject[:model]
     expect(tmp_model.count).to eq(3)
