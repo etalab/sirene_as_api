@@ -32,7 +32,7 @@ shared_examples 'importing csv' do
     it 'read the file by chunk' do
       expect(SmarterCSV)
         .to receive(:process)
-        .with(expected_tmp_file.to_s, a_hash_including(chunk_size: 2_000))
+        .with(expected_tmp_file.to_s, a_hash_including(chunk_size: 10_000))
       subject
     end
 

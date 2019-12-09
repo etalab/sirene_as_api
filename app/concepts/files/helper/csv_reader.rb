@@ -17,7 +17,7 @@ module Files
       private
 
       def chunk_size
-        2_000
+        Stock::Task::ImportCSV::CHUNK_SIZE
       end
 
       # rubocop:disable Metrics/MethodLength
