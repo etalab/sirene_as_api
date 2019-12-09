@@ -65,3 +65,4 @@ Lint/UnreachableCode:
 Naming/UncommunicativeMethodParamName:
   AllowedNames:
     - '_'
+    - 'to'
