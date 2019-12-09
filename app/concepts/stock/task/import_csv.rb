@@ -8,6 +8,8 @@ class Stock
       step :import_csv
       pass :log_import_completed
 
+      CHUNK_SIZE = 10_000
+
       def file_exists?(_, csv:, **)
         File.exist? csv
       end
@@ -42,7 +44,7 @@ class Stock
 
       def basic_options
         {
-          chunk_size: 2_000,
+          chunk_size: CHUNK_SIZE,
           col_sep: ',',
           row_sep: "\n",
           downcase_header: false,

@@ -9,7 +9,7 @@ describe ImportStockJob, :trb do
     let(:stock) { create :stock_unite_legale, :pending }
     let(:stock_id) { stock.id }
 
-    context 'when import is a success' do
+    context 'when import operation is a success' do
       before do
         allow_any_instance_of(StockUniteLegale)
           .to receive(:logger_for_import)
@@ -18,49 +18,58 @@ describe ImportStockJob, :trb do
         allow(Stock::Operation::Import)
           .to receive(:call)
           .and_return(trb_result_success)
-
-        allow(Stock::Operation::PostImport)
-          .to receive(:call)
-          .and_return(trb_result_success)
       end
 
-      it 'calls the import operation' do
-        expect(Stock::Operation::Import)
-          .to receive(:call)
-          .with(stock: stock, logger: logger)
-          .and_return(trb_result_success)
-        subject
+      context 'when post import operation is a success' do
+        before do
+          allow(Stock::Operation::PostImport)
+            .to receive(:call)
+            .and_return(trb_result_success)
+        end
+
+        it 'calls the import operation' do
+          expect(Stock::Operation::Import)
+            .to receive(:call)
+            .with(stock: stock, logger: logger)
+            .and_return(trb_result_success)
+          subject
+        end
+
+        it 'changes the stock status to COMPLETED' do
+          subject
+          stock.reload
+          expect(stock.status).to eq 'COMPLETED'
+        end
+
+        it 'calls PostImport at the end' do
+          expect(Stock::Operation::PostImport)
+            .to receive(:call)
+
+          subject
+        end
       end
 
-      it 'changes the stock status to COMPLETED' do
-        subject
-        stock.reload
-        expect(stock.status).to eq 'COMPLETED'
-      end
+      context 'when post import operation fails' do
+        before do
+          allow(Stock::Operation::PostImport)
+            .to receive(:call)
+            .and_return(trb_result_failure)
+        end
 
-      it 'calls PostImport at the end' do
-        expect(Stock::Operation::PostImport)
-          .to receive(:call)
+        it 'set status to ERROR' do
+          allow(Stock::Operation::Import)
+            .to receive(:call)
+            .and_return(trb_result_failure)
 
-        subject
+          subject
+          stock.reload
+
+          expect(stock.status).to eq 'ERROR'
+        end
       end
     end
 
-    describe 'when operation fails' do
-      it 'rollbacks database' do
-        allow(Stock::Operation::Import)
-          .to receive(:call)
-          .and_wrap_original do
-          create :stock, status: 'GHOST'
-          trb_result_failure
-        end
-
-        subject
-
-        ghost = Stock.where(status: 'GHOST')
-        expect(ghost).to be_empty
-      end
-
+    describe 'when import operation fails' do
       it 'set status to ERROR' do
         allow(Stock::Operation::Import)
           .to receive(:call)

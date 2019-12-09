@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 11.4
--- Dumped by pg_dump version 11.4
+-- Dumped from database version 10.10 (Ubuntu 10.10-0ubuntu0.18.04.1)
+-- Dumped by pg_dump version 10.10 (Ubuntu 10.10-0ubuntu0.18.04.1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -15,6 +15,20 @@ SET check_function_bodies = false;
 SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
+
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: -
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: -
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
 
 --
 -- Name: pg_trgm; Type: EXTENSION; Schema: -; Owner: -
@@ -133,6 +147,95 @@ CREATE SEQUENCE public.etablissements_id_seq
 --
 
 ALTER SEQUENCE public.etablissements_id_seq OWNED BY public.etablissements.id;
+
+
+--
+-- Name: etablissements_tmp; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.etablissements_tmp (
+    id integer NOT NULL,
+    siren character varying,
+    nic character varying,
+    siret character varying,
+    statut_diffusion character varying,
+    date_creation character varying,
+    tranche_effectifs character varying,
+    annee_effectifs character varying,
+    activite_principale_registre_metiers character varying,
+    date_dernier_traitement character varying,
+    etablissement_siege character varying,
+    nombre_periodes character varying,
+    complement_adresse character varying,
+    numero_voie character varying,
+    indice_repetition character varying,
+    type_voie character varying,
+    libelle_voie character varying,
+    code_postal character varying,
+    libelle_commune character varying,
+    libelle_commune_etranger character varying,
+    distribution_speciale character varying,
+    code_commune character varying,
+    code_cedex character varying,
+    libelle_cedex character varying,
+    code_pays_etranger character varying,
+    libelle_pays_etranger character varying,
+    complement_adresse_2 character varying,
+    numero_voie_2 character varying,
+    indice_repetition_2 character varying,
+    type_voie_2 character varying,
+    libelle_voie_2 character varying,
+    code_postal_2 character varying,
+    libelle_commune_2 character varying,
+    libelle_commune_etranger_2 character varying,
+    distribution_speciale_2 character varying,
+    code_commune_2 character varying,
+    code_cedex_2 character varying,
+    libelle_cedex_2 character varying,
+    code_pays_etranger_2 character varying,
+    libelle_pays_etranger_2 character varying,
+    date_debut character varying,
+    etat_administratif character varying,
+    enseigne_1 character varying,
+    enseigne_2 character varying,
+    enseigne_3 character varying,
+    denomination_usuelle character varying,
+    activite_principale character varying,
+    nomenclature_activite_principale character varying,
+    caractere_employeur character varying,
+    longitude character varying,
+    latitude character varying,
+    geo_score character varying,
+    geo_type character varying,
+    geo_adresse character varying,
+    geo_id character varying,
+    geo_ligne character varying,
+    geo_l4 character varying,
+    geo_l5 character varying,
+    unite_legale_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: etablissements_tmp_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.etablissements_tmp_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: etablissements_tmp_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.etablissements_tmp_id_seq OWNED BY public.etablissements_tmp.id;
 
 
 --
@@ -387,10 +490,82 @@ ALTER SEQUENCE public.unites_legales_id_seq OWNED BY public.unites_legales.id;
 
 
 --
+-- Name: unites_legales_tmp; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.unites_legales_tmp (
+    id integer NOT NULL,
+    siren character varying,
+    statut_diffusion character varying,
+    unite_purgee character varying,
+    date_creation character varying,
+    sigle character varying,
+    sexe character varying,
+    prenom_1 character varying,
+    prenom_2 character varying,
+    prenom_3 character varying,
+    prenom_4 character varying,
+    prenom_usuel character varying,
+    pseudonyme character varying,
+    identifiant_association character varying,
+    tranche_effectifs character varying,
+    annee_effectifs character varying,
+    date_dernier_traitement character varying,
+    nombre_periodes character varying,
+    categorie_entreprise character varying,
+    annee_categorie_entreprise character varying,
+    date_fin character varying,
+    date_debut character varying,
+    etat_administratif character varying,
+    nom character varying,
+    nom_usage character varying,
+    denomination character varying,
+    denomination_usuelle_1 character varying,
+    denomination_usuelle_2 character varying,
+    denomination_usuelle_3 character varying,
+    categorie_juridique character varying,
+    activite_principale character varying,
+    nomenclature_activite_principale character varying,
+    nic_siege character varying,
+    economie_sociale_solidaire character varying,
+    caractere_employeur character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: unites_legales_tmp_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.unites_legales_tmp_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: unites_legales_tmp_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.unites_legales_tmp_id_seq OWNED BY public.unites_legales_tmp.id;
+
+
+--
 -- Name: etablissements id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.etablissements ALTER COLUMN id SET DEFAULT nextval('public.etablissements_id_seq'::regclass);
+
+
+--
+-- Name: etablissements_tmp id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.etablissements_tmp ALTER COLUMN id SET DEFAULT nextval('public.etablissements_tmp_id_seq'::regclass);
 
 
 --
@@ -415,6 +590,13 @@ ALTER TABLE ONLY public.unites_legales ALTER COLUMN id SET DEFAULT nextval('publ
 
 
 --
+-- Name: unites_legales_tmp id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.unites_legales_tmp ALTER COLUMN id SET DEFAULT nextval('public.unites_legales_tmp_id_seq'::regclass);
+
+
+--
 -- Name: ar_internal_metadata ar_internal_metadata_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -428,6 +610,14 @@ ALTER TABLE ONLY public.ar_internal_metadata
 
 ALTER TABLE ONLY public.etablissements
     ADD CONSTRAINT etablissements_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: etablissements_tmp etablissements_tmp_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.etablissements_tmp
+    ADD CONSTRAINT etablissements_tmp_pkey PRIMARY KEY (id);
 
 
 --
@@ -460,6 +650,14 @@ ALTER TABLE ONLY public.stocks
 
 ALTER TABLE ONLY public.unites_legales
     ADD CONSTRAINT unites_legales_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: unites_legales_tmp unites_legales_tmp_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.unites_legales_tmp
+    ADD CONSTRAINT unites_legales_tmp_pkey PRIMARY KEY (id);
 
 
 --
@@ -579,6 +777,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190603115019'),
 ('20190606142656'),
 ('20190619121622'),
-('20190703100825');
+('20190703100825'),
+('20191126124448'),
+('20191126124456');
 
 

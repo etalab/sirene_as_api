@@ -18,8 +18,10 @@ shared_examples 'importing csv' do
       )
     end
 
-    it 'persists 3 UniteLegale' do
-      expect { subject }.to change(model, :count).by 3
+    it 'persists 3 UniteLegale in temp table' do
+      subject
+      data = get_raw_data(model.table_name + '_tmp')
+      expect(data.count).to eq 3
     end
 
     it 'deletes tmp file' do
@@ -30,7 +32,7 @@ shared_examples 'importing csv' do
     it 'read the file by chunk' do
       expect(SmarterCSV)
         .to receive(:process)
-        .with(expected_tmp_file.to_s, a_hash_including(chunk_size: 2_000))
+        .with(expected_tmp_file.to_s, a_hash_including(chunk_size: 10_000))
       subject
     end
 
