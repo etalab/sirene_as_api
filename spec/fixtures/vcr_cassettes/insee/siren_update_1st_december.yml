@@ -1,0 +1,235 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.insee.fr/token
+    body:
+      encoding: UTF-8
+      string: grant_type=client_credentials
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.insee.fr
+      Authorization:
+      - Basic <INSEE_CREDENTIALS>
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Frame-Options:
+      - DENY
+      Cache-Control:
+      - no-store
+      X-Content-Type-Options:
+      - nosniff
+      Set-Cookie:
+      - INSEE=1863723786.58148.0000;secure; expires=Thu, 12-Dec-2019 12:43:35 GMT;
+        path=/
+      - pdapimgateway=1846946570.22560.0000;secure; expires=Thu, 12-Dec-2019 12:43:35
+        GMT; path=/
+      Pragma:
+      - no-cache
+      X-Xss-Protection:
+      - 1; mode=block
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 12 Dec 2019 12:23:35 GMT
+      Transfer-Encoding:
+      - chunked
+      Strict-Transport-Security:
+      - max-age=100000; includeSubDomains
+    body:
+      encoding: UTF-8
+      string: '{"access_token":"18097024-d91e-3b35-bdba-abcdc50c07f4","scope":"am_application_scope
+        default","token_type":"Bearer","expires_in":510683}'
+    http_version: 
+  recorded_at: Sun, 01 Dec 2019 18:00:00 GMT
+- request:
+    method: get
+    uri: https://api.insee.fr/entreprises/sirene/V3/siren?curseur=*&nombre=1000&q=dateDernierTraitementUniteLegale:%5B2019-12-01T00:00:00%20TO%202019-12-01T20:00:00%5D
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.insee.fr
+      Authorization:
+      - Bearer 18097024-d91e-3b35-bdba-abcdc50c07f4
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      Cache-Control:
+      - private
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Methods:
+      - POST,GET
+      Set-Cookie:
+      - INSEE=1627925258.20480.0000;secure; expires=Thu, 12-Dec-2019 12:43:35 GMT;
+        path=/
+      - pdapimgateway=1830169354.22560.0000;secure; expires=Thu, 12-Dec-2019 12:43:35
+        GMT; path=/
+      Vary:
+      - Accept-Encoding
+      Expires:
+      - Thu, 01 Jan 1970 01:00:00 GMT
+      X-Total-Count:
+      - '10'
+      Access-Control-Allow-Headers:
+      - authorization,Access-Control-Allow-Origin,Content-Type,SOAPAction
+      Link:
+      - <https://api.insee.fr/entreprises/sirene/siren?nombre=1000&curseur=*&q=dateDernierTraitementUniteLegale%3A%5B2019-12-01T00%3A00%3A00+TO+2019-12-01T20%3A00%3A00%5D>;
+        rel="first"
+      - <https://api.insee.fr/entreprises/sirene/siren?nombre=1000&curseur=AoEpODc4MDkzODcx&q=dateDernierTraitementUniteLegale%3A%5B2019-12-01T00%3A00%3A00+TO+2019-12-01T20%3A00%3A00%5D>;
+        rel="next"
+      Content-Type:
+      - application/json;charset=utf-8
+      Date:
+      - Thu, 12 Dec 2019 12:23:35 GMT
+      Transfer-Encoding:
+      - chunked
+      Strict-Transport-Security:
+      - max-age=100000; includeSubDomains
+    body:
+      encoding: ASCII-8BIT
+      string: '{"header":{"statut":200,"message":"OK","total":10,"debut":0,"nombre":10,"curseur":"*","curseurSuivant":"AoEpODc4MDkzODcx"},"unitesLegales":[{"siren":"212000244","statutDiffusionUniteLegale":"O","dateCreationUniteLegale":"1983-03-01","sigleUniteLegale":null,"sexeUniteLegale":null,"prenom1UniteLegale":null,"prenom2UniteLegale":null,"prenom3UniteLegale":null,"prenom4UniteLegale":null,"prenomUsuelUniteLegale":null,"pseudonymeUniteLegale":null,"identifiantAssociationUniteLegale":null,"trancheEffectifsUniteLegale":"01","anneeEffectifsUniteLegale":"2017","dateDernierTraitementUniteLegale":"2019-12-01T18:01:33","nombrePeriodesUniteLegale":6,"categorieEntreprise":"PME","anneeCategorieEntreprise":"2017","periodesUniteLegale":[{"dateFin":null,"dateDebut":"2008-01-01","etatAdministratifUniteLegale":"A","changementEtatAdministratifUniteLegale":false,"nomUniteLegale":null,"changementNomUniteLegale":false,"nomUsageUniteLegale":null,"changementNomUsageUniteLegale":false,"denominationUniteLegale":"COMMUNE
+        D AULLENE","changementDenominationUniteLegale":false,"denominationUsuelle1UniteLegale":null,"denominationUsuelle2UniteLegale":null,"denominationUsuelle3UniteLegale":null,"changementDenominationUsuelleUniteLegale":false,"categorieJuridiqueUniteLegale":"7210","changementCategorieJuridiqueUniteLegale":false,"activitePrincipaleUniteLegale":"84.11Z","nomenclatureActivitePrincipaleUniteLegale":"NAFRev2","changementActivitePrincipaleUniteLegale":true,"nicSiegeUniteLegale":"00013","changementNicSiegeUniteLegale":false,"economieSocialeSolidaireUniteLegale":null,"changementEconomieSocialeSolidaireUniteLegale":false,"caractereEmployeurUniteLegale":"O","changementCaractereEmployeurUniteLegale":false},{"dateFin":"2007-12-31","dateDebut":"1996-12-25","etatAdministratifUniteLegale":"A","changementEtatAdministratifUniteLegale":false,"nomUniteLegale":null,"changementNomUniteLegale":false,"nomUsageUniteLegale":null,"changementNomUsageUniteLegale":false,"denominationUniteLegale":"COMMUNE
+        D AULLENE","changementDenominationUniteLegale":false,"denominationUsuelle1UniteLegale":null,"denominationUsuelle2UniteLegale":null,"denominationUsuelle3UniteLegale":null,"changementDenominationUsuelleUniteLegale":false,"categorieJuridiqueUniteLegale":"7210","changementCategorieJuridiqueUniteLegale":false,"activitePrincipaleUniteLegale":"75.1A","nomenclatureActivitePrincipaleUniteLegale":"NAF1993","changementActivitePrincipaleUniteLegale":false,"nicSiegeUniteLegale":"00013","changementNicSiegeUniteLegale":false,"economieSocialeSolidaireUniteLegale":null,"changementEconomieSocialeSolidaireUniteLegale":false,"caractereEmployeurUniteLegale":"O","changementCaractereEmployeurUniteLegale":true},{"dateFin":"1996-12-24","dateDebut":"1990-12-25","etatAdministratifUniteLegale":"A","changementEtatAdministratifUniteLegale":false,"nomUniteLegale":null,"changementNomUniteLegale":false,"nomUsageUniteLegale":null,"changementNomUsageUniteLegale":false,"denominationUniteLegale":"COMMUNE
+        D AULLENE","changementDenominationUniteLegale":false,"denominationUsuelle1UniteLegale":null,"denominationUsuelle2UniteLegale":null,"denominationUsuelle3UniteLegale":null,"changementDenominationUsuelleUniteLegale":false,"categorieJuridiqueUniteLegale":"7210","changementCategorieJuridiqueUniteLegale":false,"activitePrincipaleUniteLegale":"75.1A","nomenclatureActivitePrincipaleUniteLegale":"NAF1993","changementActivitePrincipaleUniteLegale":true,"nicSiegeUniteLegale":"00013","changementNicSiegeUniteLegale":false,"economieSocialeSolidaireUniteLegale":null,"changementEconomieSocialeSolidaireUniteLegale":false,"caractereEmployeurUniteLegale":"N","changementCaractereEmployeurUniteLegale":false},{"dateFin":"1990-12-24","dateDebut":"1983-12-21","etatAdministratifUniteLegale":"A","changementEtatAdministratifUniteLegale":false,"nomUniteLegale":null,"changementNomUniteLegale":false,"nomUsageUniteLegale":null,"changementNomUsageUniteLegale":false,"denominationUniteLegale":"COMMUNE
+        D AULLENE","changementDenominationUniteLegale":false,"denominationUsuelle1UniteLegale":null,"denominationUsuelle2UniteLegale":null,"denominationUsuelle3UniteLegale":null,"changementDenominationUsuelleUniteLegale":false,"categorieJuridiqueUniteLegale":"7210","changementCategorieJuridiqueUniteLegale":false,"activitePrincipaleUniteLegale":null,"nomenclatureActivitePrincipaleUniteLegale":null,"changementActivitePrincipaleUniteLegale":false,"nicSiegeUniteLegale":"00013","changementNicSiegeUniteLegale":false,"economieSocialeSolidaireUniteLegale":null,"changementEconomieSocialeSolidaireUniteLegale":false,"caractereEmployeurUniteLegale":"N","changementCaractereEmployeurUniteLegale":true},{"dateFin":"1983-12-20","dateDebut":"1983-03-01","etatAdministratifUniteLegale":"A","changementEtatAdministratifUniteLegale":true,"nomUniteLegale":null,"changementNomUniteLegale":false,"nomUsageUniteLegale":null,"changementNomUsageUniteLegale":false,"denominationUniteLegale":"COMMUNE
+        D AULLENE","changementDenominationUniteLegale":false,"denominationUsuelle1UniteLegale":null,"denominationUsuelle2UniteLegale":null,"denominationUsuelle3UniteLegale":null,"changementDenominationUsuelleUniteLegale":false,"categorieJuridiqueUniteLegale":"7210","changementCategorieJuridiqueUniteLegale":true,"activitePrincipaleUniteLegale":null,"nomenclatureActivitePrincipaleUniteLegale":null,"changementActivitePrincipaleUniteLegale":false,"nicSiegeUniteLegale":"00013","changementNicSiegeUniteLegale":true,"economieSocialeSolidaireUniteLegale":null,"changementEconomieSocialeSolidaireUniteLegale":false,"caractereEmployeurUniteLegale":null,"changementCaractereEmployeurUniteLegale":false},{"dateFin":"1983-02-28","dateDebut":"1900-01-01","etatAdministratifUniteLegale":null,"changementEtatAdministratifUniteLegale":false,"nomUniteLegale":null,"changementNomUniteLegale":false,"nomUsageUniteLegale":null,"changementNomUsageUniteLegale":false,"denominationUniteLegale":"COMMUNE
+        D AULLENE","changementDenominationUniteLegale":false,"denominationUsuelle1UniteLegale":null,"denominationUsuelle2UniteLegale":null,"denominationUsuelle3UniteLegale":null,"changementDenominationUsuelleUniteLegale":false,"categorieJuridiqueUniteLegale":null,"changementCategorieJuridiqueUniteLegale":false,"activitePrincipaleUniteLegale":null,"nomenclatureActivitePrincipaleUniteLegale":null,"changementActivitePrincipaleUniteLegale":false,"nicSiegeUniteLegale":null,"changementNicSiegeUniteLegale":false,"economieSocialeSolidaireUniteLegale":null,"changementEconomieSocialeSolidaireUniteLegale":false,"caractereEmployeurUniteLegale":null,"changementCaractereEmployeurUniteLegale":false}]},{"siren":"380366005","statutDiffusionUniteLegale":"O","dateCreationUniteLegale":"1990-12-26","sigleUniteLegale":null,"sexeUniteLegale":null,"prenom1UniteLegale":null,"prenom2UniteLegale":null,"prenom3UniteLegale":null,"prenom4UniteLegale":null,"prenomUsuelUniteLegale":null,"pseudonymeUniteLegale":null,"identifiantAssociationUniteLegale":null,"trancheEffectifsUniteLegale":"NN","anneeEffectifsUniteLegale":null,"dateDernierTraitementUniteLegale":"2019-12-01T18:01:56","nombrePeriodesUniteLegale":3,"categorieEntreprise":null,"anneeCategorieEntreprise":null,"periodesUniteLegale":[{"dateFin":null,"dateDebut":"2008-01-01","etatAdministratifUniteLegale":"A","changementEtatAdministratifUniteLegale":false,"nomUniteLegale":null,"changementNomUniteLegale":false,"nomUsageUniteLegale":null,"changementNomUsageUniteLegale":false,"denominationUniteLegale":"SCI
+        CHATEAU DE BELLEFONTAINE","changementDenominationUniteLegale":false,"denominationUsuelle1UniteLegale":null,"denominationUsuelle2UniteLegale":null,"denominationUsuelle3UniteLegale":null,"changementDenominationUsuelleUniteLegale":false,"categorieJuridiqueUniteLegale":"6540","changementCategorieJuridiqueUniteLegale":false,"activitePrincipaleUniteLegale":"68.20B","nomenclatureActivitePrincipaleUniteLegale":"NAFRev2","changementActivitePrincipaleUniteLegale":true,"nicSiegeUniteLegale":"00011","changementNicSiegeUniteLegale":false,"economieSocialeSolidaireUniteLegale":null,"changementEconomieSocialeSolidaireUniteLegale":false,"caractereEmployeurUniteLegale":"N","changementCaractereEmployeurUniteLegale":false},{"dateFin":"2007-12-31","dateDebut":"1990-12-26","etatAdministratifUniteLegale":"A","changementEtatAdministratifUniteLegale":true,"nomUniteLegale":null,"changementNomUniteLegale":false,"nomUsageUniteLegale":null,"changementNomUsageUniteLegale":false,"denominationUniteLegale":"SCI
+        CHATEAU DE BELLEFONTAINE","changementDenominationUniteLegale":true,"denominationUsuelle1UniteLegale":null,"denominationUsuelle2UniteLegale":null,"denominationUsuelle3UniteLegale":null,"changementDenominationUsuelleUniteLegale":false,"categorieJuridiqueUniteLegale":"6540","changementCategorieJuridiqueUniteLegale":true,"activitePrincipaleUniteLegale":"70.2C","nomenclatureActivitePrincipaleUniteLegale":"NAF1993","changementActivitePrincipaleUniteLegale":false,"nicSiegeUniteLegale":"00011","changementNicSiegeUniteLegale":true,"economieSocialeSolidaireUniteLegale":null,"changementEconomieSocialeSolidaireUniteLegale":false,"caractereEmployeurUniteLegale":"N","changementCaractereEmployeurUniteLegale":true},{"dateFin":"1990-12-25","dateDebut":"1990-12-25","etatAdministratifUniteLegale":null,"changementEtatAdministratifUniteLegale":false,"nomUniteLegale":null,"changementNomUniteLegale":false,"nomUsageUniteLegale":null,"changementNomUsageUniteLegale":false,"denominationUniteLegale":null,"changementDenominationUniteLegale":false,"denominationUsuelle1UniteLegale":null,"denominationUsuelle2UniteLegale":null,"denominationUsuelle3UniteLegale":null,"changementDenominationUsuelleUniteLegale":false,"categorieJuridiqueUniteLegale":null,"changementCategorieJuridiqueUniteLegale":false,"activitePrincipaleUniteLegale":"70.2C","nomenclatureActivitePrincipaleUniteLegale":"NAF1993","changementActivitePrincipaleUniteLegale":false,"nicSiegeUniteLegale":null,"changementNicSiegeUniteLegale":false,"economieSocialeSolidaireUniteLegale":null,"changementEconomieSocialeSolidaireUniteLegale":false,"caractereEmployeurUniteLegale":null,"changementCaractereEmployeurUniteLegale":false}]},{"siren":"509137147","statutDiffusionUniteLegale":"N","dateCreationUniteLegale":"2009-01-02","sigleUniteLegale":null,"sexeUniteLegale":"F","prenom1UniteLegale":"THERESE","prenom2UniteLegale":"CLAIRE","prenom3UniteLegale":"JEANNE","prenom4UniteLegale":null,"prenomUsuelUniteLegale":"THERESE","pseudonymeUniteLegale":null,"identifiantAssociationUniteLegale":null,"trancheEffectifsUniteLegale":"01","anneeEffectifsUniteLegale":"2017","dateDernierTraitementUniteLegale":"2019-12-01T18:01:13","nombrePeriodesUniteLegale":5,"categorieEntreprise":"PME","anneeCategorieEntreprise":"2017","periodesUniteLegale":[{"dateFin":null,"dateDebut":"2019-09-30","etatAdministratifUniteLegale":"C","changementEtatAdministratifUniteLegale":true,"nomUniteLegale":"CLAESSENS","changementNomUniteLegale":false,"nomUsageUniteLegale":null,"changementNomUsageUniteLegale":false,"denominationUniteLegale":null,"changementDenominationUniteLegale":false,"denominationUsuelle1UniteLegale":null,"denominationUsuelle2UniteLegale":null,"denominationUsuelle3UniteLegale":null,"changementDenominationUsuelleUniteLegale":false,"categorieJuridiqueUniteLegale":"1000","changementCategorieJuridiqueUniteLegale":false,"activitePrincipaleUniteLegale":"85.53Z","nomenclatureActivitePrincipaleUniteLegale":"NAFRev2","changementActivitePrincipaleUniteLegale":false,"nicSiegeUniteLegale":"00021","changementNicSiegeUniteLegale":false,"economieSocialeSolidaireUniteLegale":null,"changementEconomieSocialeSolidaireUniteLegale":false,"caractereEmployeurUniteLegale":"N","changementCaractereEmployeurUniteLegale":false},{"dateFin":"2019-09-29","dateDebut":"2019-08-01","etatAdministratifUniteLegale":"A","changementEtatAdministratifUniteLegale":false,"nomUniteLegale":"CLAESSENS","changementNomUniteLegale":false,"nomUsageUniteLegale":null,"changementNomUsageUniteLegale":true,"denominationUniteLegale":null,"changementDenominationUniteLegale":false,"denominationUsuelle1UniteLegale":null,"denominationUsuelle2UniteLegale":null,"denominationUsuelle3UniteLegale":null,"changementDenominationUsuelleUniteLegale":false,"categorieJuridiqueUniteLegale":"1000","changementCategorieJuridiqueUniteLegale":false,"activitePrincipaleUniteLegale":"85.53Z","nomenclatureActivitePrincipaleUniteLegale":"NAFRev2","changementActivitePrincipaleUniteLegale":false,"nicSiegeUniteLegale":"00021","changementNicSiegeUniteLegale":false,"economieSocialeSolidaireUniteLegale":null,"changementEconomieSocialeSolidaireUniteLegale":false,"caractereEmployeurUniteLegale":"N","changementCaractereEmployeurUniteLegale":true},{"dateFin":"2019-07-31","dateDebut":"2014-09-11","etatAdministratifUniteLegale":"A","changementEtatAdministratifUniteLegale":false,"nomUniteLegale":"CLAESSENS","changementNomUniteLegale":false,"nomUsageUniteLegale":"GOLLUS","changementNomUsageUniteLegale":false,"denominationUniteLegale":null,"changementDenominationUniteLegale":false,"denominationUsuelle1UniteLegale":null,"denominationUsuelle2UniteLegale":null,"denominationUsuelle3UniteLegale":null,"changementDenominationUsuelleUniteLegale":false,"categorieJuridiqueUniteLegale":"1000","changementCategorieJuridiqueUniteLegale":false,"activitePrincipaleUniteLegale":"85.53Z","nomenclatureActivitePrincipaleUniteLegale":"NAFRev2","changementActivitePrincipaleUniteLegale":false,"nicSiegeUniteLegale":"00021","changementNicSiegeUniteLegale":true,"economieSocialeSolidaireUniteLegale":null,"changementEconomieSocialeSolidaireUniteLegale":false,"caractereEmployeurUniteLegale":"O","changementCaractereEmployeurUniteLegale":false},{"dateFin":"2014-09-10","dateDebut":"2011-01-30","etatAdministratifUniteLegale":"A","changementEtatAdministratifUniteLegale":false,"nomUniteLegale":"CLAESSENS","changementNomUniteLegale":false,"nomUsageUniteLegale":"GOLLUS","changementNomUsageUniteLegale":false,"denominationUniteLegale":null,"changementDenominationUniteLegale":false,"denominationUsuelle1UniteLegale":null,"denominationUsuelle2UniteLegale":null,"denominationUsuelle3UniteLegale":null,"changementDenominationUsuelleUniteLegale":false,"categorieJuridiqueUniteLegale":"1000","changementCategorieJuridiqueUniteLegale":false,"activitePrincipaleUniteLegale":"85.53Z","nomenclatureActivitePrincipaleUniteLegale":"NAFRev2","changementActivitePrincipaleUniteLegale":false,"nicSiegeUniteLegale":"00013","changementNicSiegeUniteLegale":false,"economieSocialeSolidaireUniteLegale":null,"changementEconomieSocialeSolidaireUniteLegale":false,"caractereEmployeurUniteLegale":"O","changementCaractereEmployeurUniteLegale":true},{"dateFin":"2011-01-29","dateDebut":"2009-01-02","etatAdministratifUniteLegale":"A","changementEtatAdministratifUniteLegale":false,"nomUniteLegale":"CLAESSENS","changementNomUniteLegale":false,"nomUsageUniteLegale":"GOLLUS","changementNomUsageUniteLegale":false,"denominationUniteLegale":null,"changementDenominationUniteLegale":false,"denominationUsuelle1UniteLegale":null,"denominationUsuelle2UniteLegale":null,"denominationUsuelle3UniteLegale":null,"changementDenominationUsuelleUniteLegale":false,"categorieJuridiqueUniteLegale":"1000","changementCategorieJuridiqueUniteLegale":false,"activitePrincipaleUniteLegale":"85.53Z","nomenclatureActivitePrincipaleUniteLegale":"NAFRev2","changementActivitePrincipaleUniteLegale":false,"nicSiegeUniteLegale":"00013","changementNicSiegeUniteLegale":false,"economieSocialeSolidaireUniteLegale":null,"changementEconomieSocialeSolidaireUniteLegale":false,"caractereEmployeurUniteLegale":"N","changementCaractereEmployeurUniteLegale":false}]},{"siren":"822358255","statutDiffusionUniteLegale":"O","dateCreationUniteLegale":"2016-09-05","sigleUniteLegale":null,"sexeUniteLegale":"M","prenom1UniteLegale":"WENHU","prenom2UniteLegale":null,"prenom3UniteLegale":null,"prenom4UniteLegale":null,"prenomUsuelUniteLegale":"WENHU","pseudonymeUniteLegale":null,"identifiantAssociationUniteLegale":null,"trancheEffectifsUniteLegale":null,"anneeEffectifsUniteLegale":null,"dateDernierTraitementUniteLegale":"2019-12-01T18:01:30","nombrePeriodesUniteLegale":3,"categorieEntreprise":"PME","anneeCategorieEntreprise":"2017","periodesUniteLegale":[{"dateFin":null,"dateDebut":"2019-01-01","etatAdministratifUniteLegale":"C","changementEtatAdministratifUniteLegale":false,"nomUniteLegale":"WANG","changementNomUniteLegale":false,"nomUsageUniteLegale":null,"changementNomUsageUniteLegale":false,"denominationUniteLegale":null,"changementDenominationUniteLegale":false,"denominationUsuelle1UniteLegale":null,"denominationUsuelle2UniteLegale":null,"denominationUsuelle3UniteLegale":null,"changementDenominationUsuelleUniteLegale":false,"categorieJuridiqueUniteLegale":"1000","changementCategorieJuridiqueUniteLegale":false,"activitePrincipaleUniteLegale":"85.52Z","nomenclatureActivitePrincipaleUniteLegale":"NAFRev2","changementActivitePrincipaleUniteLegale":true,"nicSiegeUniteLegale":"00021","changementNicSiegeUniteLegale":true,"economieSocialeSolidaireUniteLegale":null,"changementEconomieSocialeSolidaireUniteLegale":false,"caractereEmployeurUniteLegale":"N","changementCaractereEmployeurUniteLegale":false},{"dateFin":"2018-12-31","dateDebut":"2018-12-31","etatAdministratifUniteLegale":"C","changementEtatAdministratifUniteLegale":true,"nomUniteLegale":"WANG","changementNomUniteLegale":false,"nomUsageUniteLegale":null,"changementNomUsageUniteLegale":false,"denominationUniteLegale":null,"changementDenominationUniteLegale":false,"denominationUsuelle1UniteLegale":null,"denominationUsuelle2UniteLegale":null,"denominationUsuelle3UniteLegale":null,"changementDenominationUsuelleUniteLegale":false,"categorieJuridiqueUniteLegale":"1000","changementCategorieJuridiqueUniteLegale":false,"activitePrincipaleUniteLegale":"93.29Z","nomenclatureActivitePrincipaleUniteLegale":"NAFRev2","changementActivitePrincipaleUniteLegale":false,"nicSiegeUniteLegale":"00013","changementNicSiegeUniteLegale":false,"economieSocialeSolidaireUniteLegale":null,"changementEconomieSocialeSolidaireUniteLegale":false,"caractereEmployeurUniteLegale":"N","changementCaractereEmployeurUniteLegale":false},{"dateFin":"2018-12-30","dateDebut":"2016-09-05","etatAdministratifUniteLegale":"A","changementEtatAdministratifUniteLegale":false,"nomUniteLegale":"WANG","changementNomUniteLegale":false,"nomUsageUniteLegale":null,"changementNomUsageUniteLegale":false,"denominationUniteLegale":null,"changementDenominationUniteLegale":false,"denominationUsuelle1UniteLegale":null,"denominationUsuelle2UniteLegale":null,"denominationUsuelle3UniteLegale":null,"changementDenominationUsuelleUniteLegale":false,"categorieJuridiqueUniteLegale":"1000","changementCategorieJuridiqueUniteLegale":false,"activitePrincipaleUniteLegale":"93.29Z","nomenclatureActivitePrincipaleUniteLegale":"NAFRev2","changementActivitePrincipaleUniteLegale":false,"nicSiegeUniteLegale":"00013","changementNicSiegeUniteLegale":false,"economieSocialeSolidaireUniteLegale":null,"changementEconomieSocialeSolidaireUniteLegale":false,"caractereEmployeurUniteLegale":"N","changementCaractereEmployeurUniteLegale":false}]},{"siren":"845079854","statutDiffusionUniteLegale":"O","dateCreationUniteLegale":"2018-10-12","sigleUniteLegale":null,"sexeUniteLegale":"M","prenom1UniteLegale":"ALAIN","prenom2UniteLegale":"PHILIPPE","prenom3UniteLegale":"CLAUDE","prenom4UniteLegale":null,"prenomUsuelUniteLegale":"ALAIN","pseudonymeUniteLegale":null,"identifiantAssociationUniteLegale":null,"trancheEffectifsUniteLegale":null,"anneeEffectifsUniteLegale":null,"dateDernierTraitementUniteLegale":"2019-12-01T18:01:47","nombrePeriodesUniteLegale":1,"categorieEntreprise":null,"anneeCategorieEntreprise":null,"periodesUniteLegale":[{"dateFin":null,"dateDebut":"2018-10-12","etatAdministratifUniteLegale":"A","changementEtatAdministratifUniteLegale":false,"nomUniteLegale":"POIRIER","changementNomUniteLegale":false,"nomUsageUniteLegale":null,"changementNomUsageUniteLegale":false,"denominationUniteLegale":null,"changementDenominationUniteLegale":false,"denominationUsuelle1UniteLegale":null,"denominationUsuelle2UniteLegale":null,"denominationUsuelle3UniteLegale":null,"changementDenominationUsuelleUniteLegale":false,"categorieJuridiqueUniteLegale":"1000","changementCategorieJuridiqueUniteLegale":false,"activitePrincipaleUniteLegale":"68.20A","nomenclatureActivitePrincipaleUniteLegale":"NAFRev2","changementActivitePrincipaleUniteLegale":false,"nicSiegeUniteLegale":"00012","changementNicSiegeUniteLegale":false,"economieSocialeSolidaireUniteLegale":null,"changementEconomieSocialeSolidaireUniteLegale":false,"caractereEmployeurUniteLegale":"N","changementCaractereEmployeurUniteLegale":false}]},{"siren":"850466137","statutDiffusionUniteLegale":"O","dateCreationUniteLegale":"2019-01-01","sigleUniteLegale":null,"sexeUniteLegale":"M","prenom1UniteLegale":"MIGUEL","prenom2UniteLegale":null,"prenom3UniteLegale":null,"prenom4UniteLegale":null,"prenomUsuelUniteLegale":"MIGUEL","pseudonymeUniteLegale":null,"identifiantAssociationUniteLegale":null,"trancheEffectifsUniteLegale":null,"anneeEffectifsUniteLegale":null,"dateDernierTraitementUniteLegale":"2019-12-01T18:01:56","nombrePeriodesUniteLegale":1,"categorieEntreprise":null,"anneeCategorieEntreprise":null,"periodesUniteLegale":[{"dateFin":null,"dateDebut":"2019-01-01","etatAdministratifUniteLegale":"A","changementEtatAdministratifUniteLegale":false,"nomUniteLegale":"MAROUDIN","changementNomUniteLegale":false,"nomUsageUniteLegale":null,"changementNomUsageUniteLegale":false,"denominationUniteLegale":null,"changementDenominationUniteLegale":false,"denominationUsuelle1UniteLegale":null,"denominationUsuelle2UniteLegale":null,"denominationUsuelle3UniteLegale":null,"changementDenominationUsuelleUniteLegale":false,"categorieJuridiqueUniteLegale":"1000","changementCategorieJuridiqueUniteLegale":false,"activitePrincipaleUniteLegale":"68.20A","nomenclatureActivitePrincipaleUniteLegale":"NAFRev2","changementActivitePrincipaleUniteLegale":false,"nicSiegeUniteLegale":"00013","changementNicSiegeUniteLegale":false,"economieSocialeSolidaireUniteLegale":null,"changementEconomieSocialeSolidaireUniteLegale":false,"caractereEmployeurUniteLegale":"N","changementCaractereEmployeurUniteLegale":false}]},{"siren":"853754638","statutDiffusionUniteLegale":"N","dateCreationUniteLegale":"2019-09-10","sigleUniteLegale":null,"sexeUniteLegale":"F","prenom1UniteLegale":"EMILIE","prenom2UniteLegale":null,"prenom3UniteLegale":null,"prenom4UniteLegale":null,"prenomUsuelUniteLegale":"EMILIE","pseudonymeUniteLegale":null,"identifiantAssociationUniteLegale":null,"trancheEffectifsUniteLegale":null,"anneeEffectifsUniteLegale":null,"dateDernierTraitementUniteLegale":"2019-12-01T18:01:24","nombrePeriodesUniteLegale":2,"categorieEntreprise":null,"anneeCategorieEntreprise":null,"periodesUniteLegale":[{"dateFin":null,"dateDebut":"2019-11-12","etatAdministratifUniteLegale":"C","changementEtatAdministratifUniteLegale":true,"nomUniteLegale":"FARGUES","changementNomUniteLegale":false,"nomUsageUniteLegale":"NOEL","changementNomUsageUniteLegale":false,"denominationUniteLegale":null,"changementDenominationUniteLegale":false,"denominationUsuelle1UniteLegale":null,"denominationUsuelle2UniteLegale":null,"denominationUsuelle3UniteLegale":null,"changementDenominationUsuelleUniteLegale":false,"categorieJuridiqueUniteLegale":"1000","changementCategorieJuridiqueUniteLegale":false,"activitePrincipaleUniteLegale":"68.31Z","nomenclatureActivitePrincipaleUniteLegale":"NAFRev2","changementActivitePrincipaleUniteLegale":false,"nicSiegeUniteLegale":"00015","changementNicSiegeUniteLegale":false,"economieSocialeSolidaireUniteLegale":null,"changementEconomieSocialeSolidaireUniteLegale":false,"caractereEmployeurUniteLegale":"N","changementCaractereEmployeurUniteLegale":false},{"dateFin":"2019-11-11","dateDebut":"2019-09-10","etatAdministratifUniteLegale":"A","changementEtatAdministratifUniteLegale":false,"nomUniteLegale":"FARGUES","changementNomUniteLegale":false,"nomUsageUniteLegale":"NOEL","changementNomUsageUniteLegale":false,"denominationUniteLegale":null,"changementDenominationUniteLegale":false,"denominationUsuelle1UniteLegale":null,"denominationUsuelle2UniteLegale":null,"denominationUsuelle3UniteLegale":null,"changementDenominationUsuelleUniteLegale":false,"categorieJuridiqueUniteLegale":"1000","changementCategorieJuridiqueUniteLegale":false,"activitePrincipaleUniteLegale":"68.31Z","nomenclatureActivitePrincipaleUniteLegale":"NAFRev2","changementActivitePrincipaleUniteLegale":false,"nicSiegeUniteLegale":"00015","changementNicSiegeUniteLegale":false,"economieSocialeSolidaireUniteLegale":null,"changementEconomieSocialeSolidaireUniteLegale":false,"caractereEmployeurUniteLegale":"N","changementCaractereEmployeurUniteLegale":false}]},{"siren":"878084581","statutDiffusionUniteLegale":"O","dateCreationUniteLegale":"2019-10-12","sigleUniteLegale":null,"sexeUniteLegale":"F","prenom1UniteLegale":"MANGO","prenom2UniteLegale":null,"prenom3UniteLegale":null,"prenom4UniteLegale":null,"prenomUsuelUniteLegale":"MANGO","pseudonymeUniteLegale":null,"identifiantAssociationUniteLegale":null,"trancheEffectifsUniteLegale":null,"anneeEffectifsUniteLegale":null,"dateDernierTraitementUniteLegale":"2019-12-01T18:01:26","nombrePeriodesUniteLegale":2,"categorieEntreprise":null,"anneeCategorieEntreprise":null,"periodesUniteLegale":[{"dateFin":null,"dateDebut":"2019-10-13","etatAdministratifUniteLegale":"C","changementEtatAdministratifUniteLegale":true,"nomUniteLegale":"MNQALI","changementNomUniteLegale":false,"nomUsageUniteLegale":null,"changementNomUsageUniteLegale":false,"denominationUniteLegale":null,"changementDenominationUniteLegale":false,"denominationUsuelle1UniteLegale":null,"denominationUsuelle2UniteLegale":null,"denominationUsuelle3UniteLegale":null,"changementDenominationUsuelleUniteLegale":false,"categorieJuridiqueUniteLegale":"1000","changementCategorieJuridiqueUniteLegale":false,"activitePrincipaleUniteLegale":"85.59B","nomenclatureActivitePrincipaleUniteLegale":"NAFRev2","changementActivitePrincipaleUniteLegale":false,"nicSiegeUniteLegale":"00015","changementNicSiegeUniteLegale":false,"economieSocialeSolidaireUniteLegale":null,"changementEconomieSocialeSolidaireUniteLegale":false,"caractereEmployeurUniteLegale":"N","changementCaractereEmployeurUniteLegale":false},{"dateFin":"2019-10-12","dateDebut":"2019-10-12","etatAdministratifUniteLegale":"A","changementEtatAdministratifUniteLegale":false,"nomUniteLegale":"MNQALI","changementNomUniteLegale":false,"nomUsageUniteLegale":null,"changementNomUsageUniteLegale":false,"denominationUniteLegale":null,"changementDenominationUniteLegale":false,"denominationUsuelle1UniteLegale":null,"denominationUsuelle2UniteLegale":null,"denominationUsuelle3UniteLegale":null,"changementDenominationUsuelleUniteLegale":false,"categorieJuridiqueUniteLegale":"1000","changementCategorieJuridiqueUniteLegale":false,"activitePrincipaleUniteLegale":"85.59B","nomenclatureActivitePrincipaleUniteLegale":"NAFRev2","changementActivitePrincipaleUniteLegale":false,"nicSiegeUniteLegale":"00015","changementNicSiegeUniteLegale":false,"economieSocialeSolidaireUniteLegale":null,"changementEconomieSocialeSolidaireUniteLegale":false,"caractereEmployeurUniteLegale":"N","changementCaractereEmployeurUniteLegale":false}]},{"siren":"878093178","statutDiffusionUniteLegale":"O","dateCreationUniteLegale":"2019-10-09","sigleUniteLegale":null,"sexeUniteLegale":"F","prenom1UniteLegale":"SONIA","prenom2UniteLegale":null,"prenom3UniteLegale":null,"prenom4UniteLegale":null,"prenomUsuelUniteLegale":"SONIA","pseudonymeUniteLegale":null,"identifiantAssociationUniteLegale":null,"trancheEffectifsUniteLegale":null,"anneeEffectifsUniteLegale":null,"dateDernierTraitementUniteLegale":"2019-12-01T18:01:29","nombrePeriodesUniteLegale":2,"categorieEntreprise":null,"anneeCategorieEntreprise":null,"periodesUniteLegale":[{"dateFin":null,"dateDebut":"2019-11-04","etatAdministratifUniteLegale":"C","changementEtatAdministratifUniteLegale":true,"nomUniteLegale":"NOUAINIA","changementNomUniteLegale":false,"nomUsageUniteLegale":null,"changementNomUsageUniteLegale":false,"denominationUniteLegale":null,"changementDenominationUniteLegale":false,"denominationUsuelle1UniteLegale":null,"denominationUsuelle2UniteLegale":null,"denominationUsuelle3UniteLegale":null,"changementDenominationUsuelleUniteLegale":false,"categorieJuridiqueUniteLegale":"1000","changementCategorieJuridiqueUniteLegale":false,"activitePrincipaleUniteLegale":"70.22Z","nomenclatureActivitePrincipaleUniteLegale":"NAFRev2","changementActivitePrincipaleUniteLegale":false,"nicSiegeUniteLegale":"00019","changementNicSiegeUniteLegale":false,"economieSocialeSolidaireUniteLegale":null,"changementEconomieSocialeSolidaireUniteLegale":false,"caractereEmployeurUniteLegale":"N","changementCaractereEmployeurUniteLegale":false},{"dateFin":"2019-11-03","dateDebut":"2019-10-09","etatAdministratifUniteLegale":"A","changementEtatAdministratifUniteLegale":false,"nomUniteLegale":"NOUAINIA","changementNomUniteLegale":false,"nomUsageUniteLegale":null,"changementNomUsageUniteLegale":false,"denominationUniteLegale":null,"changementDenominationUniteLegale":false,"denominationUsuelle1UniteLegale":null,"denominationUsuelle2UniteLegale":null,"denominationUsuelle3UniteLegale":null,"changementDenominationUsuelleUniteLegale":false,"categorieJuridiqueUniteLegale":"1000","changementCategorieJuridiqueUniteLegale":false,"activitePrincipaleUniteLegale":"70.22Z","nomenclatureActivitePrincipaleUniteLegale":"NAFRev2","changementActivitePrincipaleUniteLegale":false,"nicSiegeUniteLegale":"00019","changementNicSiegeUniteLegale":false,"economieSocialeSolidaireUniteLegale":null,"changementEconomieSocialeSolidaireUniteLegale":false,"caractereEmployeurUniteLegale":"N","changementCaractereEmployeurUniteLegale":false}]},{"siren":"878093871","statutDiffusionUniteLegale":"O","dateCreationUniteLegale":"2019-10-11","sigleUniteLegale":null,"sexeUniteLegale":"F","prenom1UniteLegale":"NGOC
+        HA","prenom2UniteLegale":null,"prenom3UniteLegale":null,"prenom4UniteLegale":null,"prenomUsuelUniteLegale":"NGOC
+        HA","pseudonymeUniteLegale":null,"identifiantAssociationUniteLegale":null,"trancheEffectifsUniteLegale":null,"anneeEffectifsUniteLegale":null,"dateDernierTraitementUniteLegale":"2019-12-01T18:01:16","nombrePeriodesUniteLegale":2,"categorieEntreprise":null,"anneeCategorieEntreprise":null,"periodesUniteLegale":[{"dateFin":null,"dateDebut":"2019-10-12","etatAdministratifUniteLegale":"C","changementEtatAdministratifUniteLegale":true,"nomUniteLegale":"PHAM","changementNomUniteLegale":false,"nomUsageUniteLegale":null,"changementNomUsageUniteLegale":false,"denominationUniteLegale":null,"changementDenominationUniteLegale":false,"denominationUsuelle1UniteLegale":null,"denominationUsuelle2UniteLegale":null,"denominationUsuelle3UniteLegale":null,"changementDenominationUsuelleUniteLegale":false,"categorieJuridiqueUniteLegale":"1000","changementCategorieJuridiqueUniteLegale":false,"activitePrincipaleUniteLegale":"70.22Z","nomenclatureActivitePrincipaleUniteLegale":"NAFRev2","changementActivitePrincipaleUniteLegale":false,"nicSiegeUniteLegale":"00019","changementNicSiegeUniteLegale":false,"economieSocialeSolidaireUniteLegale":null,"changementEconomieSocialeSolidaireUniteLegale":false,"caractereEmployeurUniteLegale":"N","changementCaractereEmployeurUniteLegale":false},{"dateFin":"2019-10-11","dateDebut":"2019-10-11","etatAdministratifUniteLegale":"A","changementEtatAdministratifUniteLegale":false,"nomUniteLegale":"PHAM","changementNomUniteLegale":false,"nomUsageUniteLegale":null,"changementNomUsageUniteLegale":false,"denominationUniteLegale":null,"changementDenominationUniteLegale":false,"denominationUsuelle1UniteLegale":null,"denominationUsuelle2UniteLegale":null,"denominationUsuelle3UniteLegale":null,"changementDenominationUsuelleUniteLegale":false,"categorieJuridiqueUniteLegale":"1000","changementCategorieJuridiqueUniteLegale":false,"activitePrincipaleUniteLegale":"70.22Z","nomenclatureActivitePrincipaleUniteLegale":"NAFRev2","changementActivitePrincipaleUniteLegale":false,"nicSiegeUniteLegale":"00019","changementNicSiegeUniteLegale":false,"economieSocialeSolidaireUniteLegale":null,"changementEconomieSocialeSolidaireUniteLegale":false,"caractereEmployeurUniteLegale":"N","changementCaractereEmployeurUniteLegale":false}]}]}'
+    http_version: 
+  recorded_at: Sun, 01 Dec 2019 18:00:00 GMT
+- request:
+    method: post
+    uri: https://api.insee.fr/token
+    body:
+      encoding: UTF-8
+      string: grant_type=client_credentials
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.insee.fr
+      Authorization:
+      - Basic <INSEE_CREDENTIALS>
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Frame-Options:
+      - DENY
+      Cache-Control:
+      - no-store
+      X-Content-Type-Options:
+      - nosniff
+      Set-Cookie:
+      - INSEE=1863723786.58148.0000;secure; expires=Thu, 12-Dec-2019 12:43:36 GMT;
+        path=/
+      - pdapimgateway=1846946570.22560.0000;secure; expires=Thu, 12-Dec-2019 12:43:36
+        GMT; path=/
+      Pragma:
+      - no-cache
+      X-Xss-Protection:
+      - 1; mode=block
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 12 Dec 2019 12:23:36 GMT
+      Transfer-Encoding:
+      - chunked
+      Strict-Transport-Security:
+      - max-age=100000; includeSubDomains
+    body:
+      encoding: UTF-8
+      string: '{"access_token":"18097024-d91e-3b35-bdba-abcdc50c07f4","scope":"am_application_scope
+        default","token_type":"Bearer","expires_in":510682}'
+    http_version: 
+  recorded_at: Sun, 01 Dec 2019 18:00:00 GMT
+- request:
+    method: get
+    uri: https://api.insee.fr/entreprises/sirene/V3/siren?curseur=AoEpODc4MDkzODcx&nombre=1000&q=dateDernierTraitementUniteLegale:%5B2019-12-01T00:00:00%20TO%202019-12-01T20:00:00%5D
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.insee.fr
+      Authorization:
+      - Bearer 18097024-d91e-3b35-bdba-abcdc50c07f4
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      Cache-Control:
+      - private
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Methods:
+      - POST,GET
+      Set-Cookie:
+      - INSEE=1644702474.20480.0000;secure; expires=Thu, 12-Dec-2019 12:43:36 GMT;
+        path=/
+      - pdapimgateway=1846946570.22560.0000;secure; expires=Thu, 12-Dec-2019 12:43:36
+        GMT; path=/
+      Vary:
+      - Accept-Encoding
+      Expires:
+      - Thu, 01 Jan 1970 01:00:00 GMT
+      X-Total-Count:
+      - '10'
+      Access-Control-Allow-Headers:
+      - authorization,Access-Control-Allow-Origin,Content-Type,SOAPAction
+      Link:
+      - <https://api.insee.fr/entreprises/sirene/siren?nombre=1000&curseur=*&q=dateDernierTraitementUniteLegale%3A%5B2019-12-01T00%3A00%3A00+TO+2019-12-01T20%3A00%3A00%5D>;
+        rel="first"
+      Content-Type:
+      - application/json;charset=utf-8
+      Date:
+      - Thu, 12 Dec 2019 12:23:36 GMT
+      Transfer-Encoding:
+      - chunked
+      Strict-Transport-Security:
+      - max-age=100000; includeSubDomains
+    body:
+      encoding: ASCII-8BIT
+      string: '{"header":{"statut":200,"message":"OK","total":10,"debut":0,"nombre":0,"curseur":"AoEpODc4MDkzODcx","curseurSuivant":"AoEpODc4MDkzODcx"},"unitesLegales":[]}'
+    http_version: 
+  recorded_at: Sun, 01 Dec 2019 18:00:00 GMT
+recorded_with: VCR 4.0.0

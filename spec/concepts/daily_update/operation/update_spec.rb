@@ -5,9 +5,9 @@ describe DailyUpdate::Operation::Update, :trb do
 
   let(:logger) { instance_spy Logger }
 
-  before { Timecop.freeze Time.new(2019, 12, 4) }
+  before { Timecop.freeze Time.new(2019, 12, 1, 20, 0, 0) }
 
-  context 'when updating UniteLegale' do
+  context 'when updating UniteLegale', vcr: { cassette_name: 'insee/siren_update_1st_december' } do
     let(:model) { UniteLegale }
 
     it { is_expected.to be_success }
@@ -15,7 +15,7 @@ describe DailyUpdate::Operation::Update, :trb do
     it 'logs the period to import' do
       subject
       expect(logger).to have_received(:info)
-        .with('Importing from 2019-12-01 to 2019-12-04')
+        .with(/Importing from 2019-12-01T00:00:00.+ to 2019-12-01T20:00:00.+/)
     end
 
     it 'fetch updates' do
