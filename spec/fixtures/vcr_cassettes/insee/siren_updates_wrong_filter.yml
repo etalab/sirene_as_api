@@ -1,0 +1,170 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.insee.fr/token
+    body:
+      encoding: UTF-8
+      string: grant_type=client_credentials
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.insee.fr
+      Authorization:
+      - Basic <INSEE_CREDENTIALS>
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Frame-Options:
+      - DENY
+      Cache-Control:
+      - no-store
+      X-Content-Type-Options:
+      - nosniff
+      Set-Cookie:
+      - INSEE=1863723786.58148.0000;secure; expires=Wed, 11-Dec-2019 11:34:43 GMT;
+        path=/
+      - pdapimgateway=1830169354.22560.0000;secure; expires=Wed, 11-Dec-2019 11:34:43
+        GMT; path=/
+      Pragma:
+      - no-cache
+      X-Xss-Protection:
+      - 1; mode=block
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 11 Dec 2019 11:14:42 GMT
+      Transfer-Encoding:
+      - chunked
+      Strict-Transport-Security:
+      - max-age=100000; includeSubDomains
+    body:
+      encoding: UTF-8
+      string: '{"access_token":"18097024-d91e-3b35-bdba-abcdc50c07f4","scope":"am_application_scope
+        default","token_type":"Bearer","expires_in":601215}'
+    http_version: 
+  recorded_at: Wed, 11 Dec 2019 11:14:43 GMT
+- request:
+    method: get
+    uri: https://api.insee.fr/entreprises/sirene/V3/siren?curseur=*&nombre=1000&q=dateDernierTraitementUniteLegale:%5B2020-01-01T00:00:00%20TO%202019-12-04T00:00:00%5D
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.insee.fr
+      Authorization:
+      - Bearer 18097024-d91e-3b35-bdba-abcdc50c07f4
+  response:
+    status:
+      code: 400
+      message: ''
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      Cache-Control:
+      - private
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Methods:
+      - POST,GET
+      X-Cnection:
+      - Close
+      - close
+      Set-Cookie:
+      - INSEE=1644702474.20480.0000;secure; expires=Wed, 11-Dec-2019 11:34:44 GMT;
+        path=/
+      - pdapimgateway=1830169354.22560.0000;secure; expires=Wed, 11-Dec-2019 11:34:44
+        GMT; path=/
+      Vary:
+      - Accept-Encoding
+      Expires:
+      - Thu, 01 Jan 1970 01:00:00 GMT
+      Access-Control-Allow-Headers:
+      - authorization,Access-Control-Allow-Origin,Content-Type,SOAPAction
+      Content-Type:
+      - application/json;charset=utf-8
+      Date:
+      - Wed, 11 Dec 2019 11:14:44 GMT
+      Transfer-Encoding:
+      - chunked
+      Strict-Transport-Security:
+      - max-age=100000; includeSubDomains
+    body:
+      encoding: ASCII-8BIT
+      string: '{"header":{"statut":400,"message":"Erreur de syntaxe, ordre incorrect
+        dans l''intervalle : 2020 TO 2019-12-04T00:00:00"}}'
+    http_version: 
+  recorded_at: Wed, 11 Dec 2019 11:14:43 GMT
+- request:
+    method: get
+    uri: https://api.insee.fr/entreprises/sirene/V3/siren?curseur=*&nombre=1000&q=dateDernierTraitementUniteLegale:%5B2020-01-01T00:00:00%20TO%202019-12-09T00:00:00%5D
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.insee.fr
+      Authorization:
+      - Bearer 18097024-d91e-3b35-bdba-abcdc50c07f4
+  response:
+    status:
+      code: 400
+      message: ''
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      Cache-Control:
+      - private
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Methods:
+      - POST,GET
+      X-Cnection:
+      - Close
+      - close
+      Set-Cookie:
+      - INSEE=1627925258.20480.0000;secure; expires=Wed, 11-Dec-2019 12:56:21 GMT;
+        path=/
+      - pdapimgateway=1846946570.22560.0000;secure; expires=Wed, 11-Dec-2019 12:56:21
+        GMT; path=/
+      Vary:
+      - Accept-Encoding
+      Expires:
+      - Thu, 01 Jan 1970 01:00:00 GMT
+      Access-Control-Allow-Headers:
+      - authorization,Access-Control-Allow-Origin,Content-Type,SOAPAction
+      Content-Type:
+      - application/json;charset=utf-8
+      Date:
+      - Wed, 11 Dec 2019 12:36:21 GMT
+      Transfer-Encoding:
+      - chunked
+      Strict-Transport-Security:
+      - max-age=100000; includeSubDomains
+    body:
+      encoding: ASCII-8BIT
+      string: '{"header":{"statut":400,"message":"Erreur de syntaxe, ordre incorrect
+        dans l''intervalle : 2020 TO 2019-12-09T00:00:00"}}'
+    http_version: 
+  recorded_at: Wed, 11 Dec 2019 12:36:19 GMT
+recorded_with: VCR 4.0.0
