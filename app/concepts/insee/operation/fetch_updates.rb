@@ -6,12 +6,13 @@ module INSEE
       step :log_entitites_fetched
       fail :log_operation_failure
 
-      CURSOR_START_VALUE = '*'
+      CURSOR_START_VALUE = '*'.freeze
 
       def init_api_results(ctx, **)
         ctx[:api_results] = []
       end
 
+      # rubocop:disable Metrics/MethodLength
       def fetch_with_cursor(ctx, **)
         current_cursor = CURSOR_START_VALUE
         operation = nil
@@ -32,6 +33,7 @@ module INSEE
 
         operation.success?
       end
+      # rubocop:enable Metrics/MethodLength
 
       def log_entitites_fetched(_, model:, api_results:, logger:, **)
         logger.info "Total: #{api_results.size} #{model} fetched"

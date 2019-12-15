@@ -22,7 +22,7 @@ module INSEE
       # value limited by INSEE
       MAX_ELEMENTS_PER_CALL = 1_000
       # 2019-06-01T00:00:00
-      TIME_FORMAT = '%Y-%m-%dT%H:%M:%S'
+      TIME_FORMAT = '%Y-%m-%dT%H:%M:%S'.freeze
 
       def set_api_results_key(ctx, model:, **)
         # UniteLegale => unitesLegales

@@ -20,6 +20,7 @@ module DailyUpdate
         end
       end
 
+      # rubocop:disable Metrics/ParameterLists
       def supersede(ctx, model:, primary_key:, results:, logger:, **)
         results.each do |result|
           entity = model.find_or_initialize_by("#{primary_key}": result[primary_key])
@@ -37,6 +38,7 @@ module DailyUpdate
       def log_update_done(_, counter_new:, counter_updates:, model:, logger:, **)
         logger.info "#{model}: #{counter_new} created, #{counter_updates} updated"
       end
+      # rubocop:enable Metrics/ParameterLists
 
       private
 

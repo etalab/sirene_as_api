@@ -8,8 +8,8 @@ module DailyUpdate
       step Nested Task::Supersede
 
       def set_period_to_update(ctx, **)
-        ctx[:from] = DateTime.now.beginning_of_month
-        ctx[:to]   = DateTime.now
+        ctx[:from] = Time.now.beginning_of_month
+        ctx[:to]   = Time.now
       end
 
       def log_update_period(_, from:, to:, logger:, **)

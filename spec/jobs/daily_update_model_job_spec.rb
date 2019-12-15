@@ -50,7 +50,7 @@ describe DailyUpdateModelJob, :trb do
     it 'rollback the operation' do
       allow(DailyUpdate::Operation::Update)
         .to receive(:call)
-        .and_wrap_original do |original_method, *args|
+        .and_wrap_original do |_original_method, *_args|
           create :unite_legale, siren: 'GHOST'
           trb_result_failure
         end
@@ -58,6 +58,5 @@ describe DailyUpdateModelJob, :trb do
       subject
       expect(UniteLegale.where(siren: 'GHOST')).to be_empty
     end
-
   end
 end

@@ -77,7 +77,7 @@ describe INSEE::Operation::FetchUpdates, :trb do
     it 'logs an error' do
       subject
       expect(logger).to have_received(:error)
-        .with("Fetching new UniteLegale failed")
+        .with('Fetching new UniteLegale failed')
     end
 
     its([:api_results]) { are_expected.to be_empty }
