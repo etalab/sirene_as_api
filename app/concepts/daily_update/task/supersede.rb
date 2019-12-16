@@ -1,6 +1,7 @@
 module DailyUpdate
   module Task
     class Supersede < Trailblazer::Operation
+      pass :log_supersede_starts
       step :init_counters
       step :set_primary_key
       step :supersede
@@ -33,6 +34,10 @@ module DailyUpdate
             logger.error "#{e.class}: #{e.message}. Invalid hash: #{result}"
           end
         end
+      end
+
+      def log_supersede_starts(_, results:, logger:, **)
+        logger.info "Supersede starts ; #{results.size} update to perform"
       end
 
       def log_update_done(_, counter_new:, counter_updates:, model:, logger:, **)
