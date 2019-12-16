@@ -28,6 +28,7 @@ module INSEE
 
           current_cursor = body[:header][:curseurSuivant]
 
+          log_progress(ctx, body)
           break if end_reached?(body[:header])
         end
 
@@ -57,6 +58,13 @@ module INSEE
 
       def end_reached?(header)
         header[:curseur] == header[:curseurSuivant]
+      end
+
+      def log_progress(context, latest_body)
+        total = latest_body[:header][:total]
+        current_count = context[:api_results].size
+        percent = (current_count.to_f / total * 100).round(2)
+        context[:logger].info "#{current_count} / #{total} (#{percent}%)"
       end
     end
   end
