@@ -15,7 +15,7 @@ describe DailyUpdate::Operation::Update, :trb do
     it 'logs the period to import' do
       subject
       expect(logger).to have_received(:info)
-        .with(/Importing from 2019-12-01T00:00:00.+ to 2019-12-01T20:00:00.+/)
+        .with(/Importing from 2019-12-01 00:00:00.+ to 2019-12-01 20:00:00.+/)
     end
 
     it 'fetch updates' do
