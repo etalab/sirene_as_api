@@ -8,6 +8,7 @@ describe INSEE::Operation::RenewToken do
   let(:expected_token) { 'ab380ad7-5725-33d6-9d57-18a40e209021' }
   let(:expected_timestamp) { Time.zone.now.to_i + 603_438 }
   let(:file_path) { Rails.root.join('config', 'insee_secrets.yml') }
+  let(:secrets) { YAML.load_file(described_class.new.send(:filename)).symbolize_keys }
 
   before { Timecop.freeze }
 
@@ -21,6 +22,18 @@ describe INSEE::Operation::RenewToken do
       its(:success?) { is_expected.to eq(true) }
       its([:token]) { is_expected.to eq mocked_token }
       its([:expiration_date]) { is_expected.to eq mocked_expiration_timestamp }
+
+      it 'logs token valid' do
+        subject
+        expect(logger).to have_received(:info)
+          .with("Token still valid until #{Time.at(mocked_expiration_timestamp)}")
+      end
+
+      it 'has valid secret file' do
+        subject
+        expect(secrets[:token]).to eq mocked_token
+        expect(secrets[:expiration_date]).to eq mocked_expiration_timestamp
+      end
     end
 
     context 'when token is expired', vcr: { cassette_name: 'insee/renew_token' } do
@@ -29,6 +42,18 @@ describe INSEE::Operation::RenewToken do
       its(:success?) { is_expected.to eq(true) }
       its([:token]) { is_expected.to eq expected_token }
       its([:expiration_date]) { is_expected.to eq expected_timestamp }
+
+      it 'logs token renewed' do
+        subject
+        expect(logger).to have_received(:info)
+          .with("Token renewed and valid until #{Time.at(expected_timestamp)}")
+      end
+
+      it 'has valid secret file' do
+        subject
+        expect(secrets[:token]).to eq expected_token
+        expect(secrets[:expiration_date]).to eq expected_timestamp
+      end
     end
   end
 
@@ -38,6 +63,23 @@ describe INSEE::Operation::RenewToken do
     its(:success?) { is_expected.to eq(true) }
     its([:token]) { is_expected.to eq expected_token }
     its([:expiration_date]) { is_expected.to eq expected_timestamp }
+
+    it 'logs token renewed' do
+      subject
+      expect(logger).to have_received(:info)
+        .with("Token renewed and valid until #{Time.at(expected_timestamp)}")
+    end
+
+    it 'persist token in a file' do
+      subject
+      expect(file_path).to exist
+    end
+
+    it 'has valid secret file' do
+      subject
+      expect(secrets[:token]).to eq expected_token
+      expect(secrets[:expiration_date]).to eq expected_timestamp
+    end
   end
 
   context 'when renewing token failed', vcr: { cassette_name: 'insee/renew_token' } do

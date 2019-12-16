@@ -3,8 +3,9 @@ module INSEE
     class RenewToken < Trailblazer::Operation
       step :get
       step :response_valid?
-      failure :log_renew_failed
+      failure :log_renew_failed, fail_fast: true
       step :parse_response
+      pass :log_token_renewed
 
       def get(ctx, **)
         ctx[:response] = http.request(request)
@@ -26,17 +27,21 @@ module INSEE
         logger.error "Failed to renew INSEE token code: #{response.code}, body: #{response.body}"
       end
 
+      def log_token_renewed(_, expiration_date:, logger:, **)
+        logger.info "Token renewed and valid until #{Time.at(expiration_date)}"
+      end
+
       private
 
       def http
-        http = Net::HTTP.new(url.host, url.port)
+        http = ::Net::HTTP.new(url.host, url.port)
         http.use_ssl = true
         http.verify_mode = OpenSSL::SSL::VERIFY_NONE
         http
       end
 
       def request
-        request = Net::HTTP::Post.new(url)
+        request = ::Net::HTTP::Post.new(url)
         request['authorization'] = "Basic #{token}"
         request.body = 'grant_type=client_credentials'
         request
