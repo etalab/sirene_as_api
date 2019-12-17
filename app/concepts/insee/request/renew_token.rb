@@ -3,7 +3,7 @@ module INSEE
     class RenewToken < Trailblazer::Operation
       step :get
       step :response_valid?
-      failure :log_renew_failed, fail_fast: true
+      fail :log_renew_failed, fail_fast: true
       step :parse_response
       pass :log_token_renewed
 

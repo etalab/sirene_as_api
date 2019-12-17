@@ -30,7 +30,7 @@ describe DailyUpdate::Task::CurrentStockCompleted do
   end
 
   context 'when stock etablissement is not completed' do
-    let!(:stock_unite_legale) { create :stock_unite_legale, :errored }
+    let!(:stock_unite_legale) { create :stock_unite_legale, :completed }
     let!(:stock_etablissement) { create :stock_etablissement, :loading }
 
     it_behaves_like 'not ready for daily update'

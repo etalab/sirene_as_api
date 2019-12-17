@@ -5,7 +5,7 @@ module INSEE
       step :load_file
       step :verify_expiration
       step :log_token_still_valid, Output(:success) => 'End.success'
-      failure Nested(INSEE::Request::RenewToken), Output(:success) => Track(:success)
+      fail Nested(INSEE::Request::RenewToken), Output(:success) => Track(:success)
       step :persist_secrets
 
       def file_exist?(_, **)

@@ -3,7 +3,7 @@ module INSEE
     class FetchUpdates < Trailblazer::Operation
       step :init_api_results
       step :fetch_with_cursor
-      step :log_entitites_fetched
+      pass :log_entitites_fetched
       fail :log_operation_failure
 
       CURSOR_START_VALUE = '*'.freeze

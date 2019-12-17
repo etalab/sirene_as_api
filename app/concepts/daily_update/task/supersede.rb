@@ -5,7 +5,7 @@ module DailyUpdate
       step :init_counters
       step :set_primary_key
       step :supersede
-      step :log_update_done
+      pass :log_update_done
 
       def init_counters(ctx, **)
         ctx[:counter_new] = 0

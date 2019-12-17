@@ -25,7 +25,7 @@ module INSEE
       TIME_FORMAT = '%Y-%m-%dT%H:%M:%S'.freeze
 
       def set_api_results_key(ctx, model:, **)
-        # UniteLegale => unitesLegales
+        # UniteLegale => :unitesLegales
         ctx[:api_results_key] = model.name
           .underscore.pluralize # pluralize only works on underscore
           .camelize(:lower).to_sym
