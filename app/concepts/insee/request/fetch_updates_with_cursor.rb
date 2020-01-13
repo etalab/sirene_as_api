@@ -4,13 +4,7 @@ module INSEE
       step Nested Operation::RenewToken
 
       step :set_api_results_key
-      step :set_route_insee
-      step :set_query_filter
-      step :set_query_hash
-
-      step :build_url
-      step :build_http
-      step :build_request
+      step :set_http_params
 
       step :fetch_api_results
       step :check_http_code
@@ -19,58 +13,22 @@ module INSEE
       fail :log_parsing_failed
       pass :log_http_get_success
 
-      # value limited by INSEE
-      MAX_ELEMENTS_PER_CALL = 1_000
-      # 2019-06-01T00:00:00
-      TIME_FORMAT = '%Y-%m-%dT%H:%M:%S'.freeze
-
       def set_api_results_key(ctx, model:, **)
-        # UniteLegale => :unitesLegales
-        ctx[:api_results_key] = model.name
-          .underscore.pluralize # pluralize only works on underscore
-          .camelize(:lower).to_sym
+        ctx[:api_results_key] = name_mapping[model.name.to_sym]
       end
 
-      def set_route_insee(ctx, model:, **)
-        ctx[:route_insee] = model == UniteLegale ? 'siren' : 'siret'
-      end
-
-      def set_query_filter(ctx, from:, to:, model:, **)
-        from = from.strftime TIME_FORMAT
-        to   = to.strftime TIME_FORMAT
-
-        ctx[:query_filter] = "dateDernierTraitement#{model.name}:[#{from} TO #{to}]"
-      end
-
-      def set_query_hash(ctx, cursor:, query_filter:, **)
-        ctx[:query_hash] = {
-          nombre: MAX_ELEMENTS_PER_CALL,
-          curseur: cursor,
-          q: query_filter
+      def set_http_params(ctx, **)
+        ctx[:http_params] = {
+          from: ctx[:from],
+          to: ctx[:to],
+          model: ctx[:model],
+          cursor: ctx[:cursor],
+          token: ctx[:token]
         }
       end
 
-      def build_url(ctx, route_insee:, query_hash:, **)
-        url = URI(base_url + route_insee.to_s)
-        url.query = URI.encode_www_form(query_hash)
-        ctx[:url] = url
-      end
-
-      def build_http(ctx, url:, **)
-        http = Net::HTTP.new(url.host, url.port)
-        http.use_ssl = true
-        http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-        ctx[:http] = http
-      end
-
-      def build_request(ctx, url:, token:, **)
-        request = Net::HTTP::Get.new(url)
-        request['authorization'] = "Bearer #{token}"
-        ctx[:request] = request
-      end
-
-      def fetch_api_results(ctx, http:, request:, **)
-        ctx[:response] = http.request(request)
+      def fetch_api_results(ctx, http_params:, **)
+        ctx[:response] = ApiClient.new(http_params).call
       end
 
       def check_http_code(_, response:, **)
@@ -98,8 +56,11 @@ module INSEE
 
       private
 
-      def base_url
-        'https://api.insee.fr/entreprises/sirene/V3/'
+      def name_mapping
+        {
+          UniteLegale: :unitesLegales,
+          Etablissement: :etablissements
+        }
       end
     end
   end

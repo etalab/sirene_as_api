@@ -14,7 +14,7 @@ describe INSEE::Operation::FetchUpdates, :trb do
   end
 
   before do
-    stub_const('INSEE::Request::FetchUpdatesWithCursor::MAX_ELEMENTS_PER_CALL', 20)
+    stub_const('INSEE::ApiClient::MAX_ELEMENTS_PER_CALL', 20)
   end
 
   describe 'with Etablissement', vcr: { cassette_name: 'insee/siret_small_update_OK' } do
