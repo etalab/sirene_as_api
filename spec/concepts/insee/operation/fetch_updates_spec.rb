@@ -19,8 +19,8 @@ describe INSEE::Operation::FetchUpdates, :trb do
 
   describe 'with Etablissement', vcr: { cassette_name: 'insee/siret_small_update_OK' } do
     let(:model) { Etablissement }
-    let(:from) { Date.new(2019, 11, 30) }
-    let(:to) { Date.new(2019, 12, 1) }
+    let(:from) { Time.new(2019, 11, 30) }
+    let(:to) { Time.new(2019, 12, 1) }
 
     it { is_expected.to be_success }
 
@@ -41,8 +41,8 @@ describe INSEE::Operation::FetchUpdates, :trb do
 
   describe 'with UniteLegale', vcr: { cassette_name: 'insee/siren_small_update_OK' } do
     let(:model) { UniteLegale }
-    let(:from) { Date.new(2019, 12, 8) }
-    let(:to) { Date.new(2019, 12, 9) }
+    let(:from) { Time.new(2019, 12, 8) }
+    let(:to) { Time.new(2019, 12, 9) }
 
     it { is_expected.to be_success }
 
@@ -69,8 +69,8 @@ describe INSEE::Operation::FetchUpdates, :trb do
     end
 
     let(:model) { UniteLegale }
-    let(:from) { Date.new(2019, 12, 8) }
-    let(:to) { Date.new(2019, 12, 9) }
+    let(:from) { Time.new(2019, 12, 8) }
+    let(:to) { Time.new(2019, 12, 9) }
 
     it { is_expected.to be_failure }
 
