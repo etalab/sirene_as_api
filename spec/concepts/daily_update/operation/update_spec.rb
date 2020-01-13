@@ -5,7 +5,7 @@ describe DailyUpdate::Operation::Update, :trb do
 
   let(:logger) { instance_spy Logger }
 
-  before { Timecop.freeze Time.new(2019, 12, 1, 22, 0, 0) }
+  before { Timecop.freeze Time.zone.parse('2019-12-01 20:00:00') }
 
   context 'when updating UniteLegale', vcr: { cassette_name: 'insee/siren_update_1st_december' } do
     let(:model) { UniteLegale }

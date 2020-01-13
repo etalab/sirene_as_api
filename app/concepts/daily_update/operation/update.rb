@@ -9,7 +9,7 @@ module DailyUpdate
 
       def set_period_to_update(ctx, **)
         ctx[:from] = Time.now.beginning_of_month
-        ctx[:to]   = Time.zone.now
+        ctx[:to]   = Time.current
       end
 
       def log_update_period(_, from:, to:, logger:, **)
