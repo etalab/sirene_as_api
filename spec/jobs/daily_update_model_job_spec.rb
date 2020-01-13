@@ -15,7 +15,7 @@ describe DailyUpdateModelJob, :trb do
     it 'calls the update operation' do
       expect(DailyUpdate::Operation::Update)
         .to receive(:call)
-        .with(model: UniteLegale, logger: an_instance_of(Logger))
+        .with(model: UniteLegale, logger: Logger)
       subject
     end
 

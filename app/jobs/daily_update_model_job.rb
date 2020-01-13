@@ -29,6 +29,6 @@ class DailyUpdateModelJob < ApplicationJob
   end
 
   def logger_file_path
-    Rails.root.join 'log', "daily_update_#{model.name.underscore}.log"
+    Rails.root.join 'log', "daily_update_#{@model_name}.log"
   end
 end
