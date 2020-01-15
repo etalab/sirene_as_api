@@ -1,12 +1,11 @@
 require 'rails_helper'
 
 describe DailyUpdate::Task::Supersede do
-  subject { described_class.call model: model, results: results, logger: logger }
+  subject { described_class.call model: model, data: data, logger: logger }
 
   let(:logger) { instance_spy Logger }
-  let(:results) { [existing_item, new_item] }
 
-  def sanitize_in_hash(element)
+  def generate_hash_like_insee(element)
     element
       .attributes
       .symbolize_keys
@@ -14,89 +13,91 @@ describe DailyUpdate::Task::Supersede do
   end
 
   describe 'UniteLegale' do
-    before { create :unite_legale, siren: existing_siren }
-
     let(:model) { UniteLegale }
-    let(:new_item) { sanitize_in_hash(build(:unite_legale)) }
-    let(:existing_siren) { '123456789' }
 
-    context 'with valid inputs' do
-      let(:existing_item) do
-        sanitize_in_hash(
+    describe 'new unite legale created' do
+      let(:new_siren) { '123456789' }
+      let(:data) do
+        generate_hash_like_insee(
+          build(:unite_legale, siren: new_siren, denomination: 'dummy denomination')
+        )
+      end
+
+      it { is_expected.to be_success }
+
+      it 'persists a new unite legale' do
+        expect { subject }.to change(model, :count).by(1)
+      end
+
+      it 'creates the right unite legale' do
+        subject
+        unite_legale = UniteLegale.find_by siren: new_siren
+        expect(unite_legale.denomination).to eq('dummy denomination')
+      end
+    end
+
+    describe 'existing unite legale updated' do
+      before { create :unite_legale, siren: existing_siren }
+
+      let(:existing_siren) { '123456789' }
+      let(:data) do
+        generate_hash_like_insee(
           build(:unite_legale, siren: existing_siren, denomination: 'updated denomination')
         )
       end
 
       it { is_expected.to be_success }
 
-      it 'persist a new unite legale' do
-        expect { subject }.to change(model, :count).by(1)
+      it 'does not persist a new unite legale' do
+        expect { subject }.not_to change(model, :count)
       end
 
-      it 'update one unite legale' do
+      it 'updates one unite legale' do
         subject
         unite_legale = UniteLegale.find_by siren: existing_siren
         expect(unite_legale.denomination).to eq('updated denomination')
       end
+    end
 
-      it 'logs 2 unites legales created/updated' do
+    context 'when primary key not found' do
+      let(:data) { { sirenn: 'misspell primary key' } }
+
+      it { is_expected.to be_failure }
+
+      it 'logs missing primary key' do
         subject
-        expect(logger).to have_received(:info)
-          .with('UniteLegale: 1 created, 1 updated')
+        expect(logger).to have_received(:error)
+          .with("Supersede failed, primary key (siren) not found in #{data}")
       end
     end
 
-    context 'with invalid input' do
-      let(:existing_item) do
-        etab = sanitize_in_hash(
-          build(:unite_legale, siren: existing_siren, denomination: 'updated denomination')
+    context 'when the input is invalid' do
+      let(:data) do
+        etab = generate_hash_like_insee(
+          build(:unite_legale, denomination: 'updated denomination')
         )
         etab[:not_an_attribute] = 'dummy value'
         etab
       end
 
-      it { is_expected.to be_success }
+      it { is_expected.to be_failure }
 
       it 'logs an error' do
         subject
         expect(logger).to have_received(:error)
           .with(/ActiveModel::UnknownAttributeError: unknown attribute 'not_an_attribute' for UniteLegale/)
       end
-
-      it 'still import new data' do
-        expect { subject }.to change(model, :count).by(1)
-      end
     end
   end
 
   describe 'Etablissement' do
-    before { create :etablissement, siret: existing_siret }
-
     let(:model) { Etablissement }
-    let(:new_item) { sanitize_in_hash(build(:etablissement)) }
-    let(:existing_siret) { '12345678900000' }
-    let(:existing_item) do
-      sanitize_in_hash(
-        build(:etablissement, siret: existing_siret, enseigne_1: 'updated enseigne')
-      )
-    end
+    let(:data) { generate_hash_like_insee(build(:etablissement)) }
 
     it { is_expected.to be_success }
 
     it 'persist a new etablissement' do
       expect { subject }.to change(model, :count).by(1)
-    end
-
-    it 'update one etablissement' do
-      subject
-      etablissement = Etablissement.find_by siret: existing_siret
-      expect(etablissement.enseigne_1).to eq('updated enseigne')
-    end
-
-    it 'logs 2 etablissements created/updated' do
-      subject
-      expect(logger).to have_received(:info)
-        .with('Etablissement: 1 created, 1 updated')
     end
   end
 end

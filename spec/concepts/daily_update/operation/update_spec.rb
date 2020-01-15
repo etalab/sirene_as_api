@@ -29,8 +29,20 @@ describe DailyUpdate::Operation::Update, :trb do
     end
 
     it 'update or create entities' do
-      expect_to_call_nested_operation(DailyUpdate::Task::Supersede)
+      expect_to_call_nested_operation(DailyUpdate::Task::Supersede).exactly(10).times
       subject
+    end
+
+    context 'when a supersede fails' do
+      before do
+        allow(DailyUpdate::Task::Supersede)
+          .to receive(:call)
+          .and_return(trb_result_failure_with(data: { siren: 'XXXXXXXXX' }))
+      end
+
+      it 'continues updatings' do
+        expect(subject).to be_success
+      end
     end
   end
 end

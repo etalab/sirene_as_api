@@ -1,16 +1,10 @@
 module DailyUpdate
   module Task
     class Supersede < Trailblazer::Operation
-      pass :log_supersede_starts
-      step :init_counters
       step :set_primary_key
+      step :find_primary_key
+      fail :log_primary_key_not_found
       step :supersede
-      pass :log_update_done
-
-      def init_counters(ctx, **)
-        ctx[:counter_new] = 0
-        ctx[:counter_updates] = 0
-      end
 
       def set_primary_key(ctx, model:, **)
         case model.name
@@ -21,39 +15,26 @@ module DailyUpdate
         end
       end
 
+      def find_primary_key(ctx, primary_key:, data:, **)
+        ctx[:primary_key_value] = data[primary_key]
+      end
+
       # rubocop:disable Metrics/ParameterLists
-      def supersede(ctx, model:, primary_key:, results:, logger:, **)
-        results.each do |result|
-          entity = model.find_or_initialize_by("#{primary_key}": result[primary_key])
+      def supersede(_, model:, primary_key:, primary_key_value:, data:, logger:, **)
+        entity = model.find_or_initialize_by("#{primary_key}": primary_key_value)
 
-          increment_counters(ctx, entity)
-
-          begin
-            entity.update_attributes(result)
-          rescue ActiveRecord::ActiveRecordError, ActiveModel::UnknownAttributeError => e
-            logger.error "#{e.class}: #{e.message}. Invalid hash: #{result}"
-          end
+        begin
+          entity.update_attributes(data)
+        rescue ActiveRecord::ActiveRecordError, ActiveModel::UnknownAttributeError => e
+          logger.error "#{e.class}: #{e.message}. Invalid hash: #{data}"
+          false
         end
       end
 
-      def log_supersede_starts(_, results:, logger:, **)
-        logger.info "Supersede starts ; #{results.size} update to perform"
-      end
-
-      def log_update_done(_, counter_new:, counter_updates:, model:, logger:, **)
-        logger.info "#{model}: #{counter_new} created, #{counter_updates} updated"
+      def log_primary_key_not_found(_, primary_key:, data:, logger:, **)
+        logger.error "Supersede failed, primary key (#{primary_key}) not found in #{data}"
       end
       # rubocop:enable Metrics/ParameterLists
-
-      private
-
-      def increment_counters(context, entity)
-        if entity.new_record?
-          context[:counter_new] += 1
-        else
-          context[:counter_updates] += 1
-        end
-      end
     end
   end
 end
