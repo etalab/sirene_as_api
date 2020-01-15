@@ -15,7 +15,7 @@ describe DailyUpdateModelJob, :trb do
     it 'calls the update operation' do
       expect(DailyUpdate::Operation::Update)
         .to receive(:call)
-        .with(model: UniteLegale, logger: Logger)
+        .with(a_hash_including(model: UniteLegale))
       subject
     end
 
@@ -33,7 +33,7 @@ describe DailyUpdateModelJob, :trb do
     it 'call the update operation' do
       expect(DailyUpdate::Operation::Update)
         .to receive(:call)
-        .with(model: Etablissement, logger: an_instance_of(Logger))
+        .with(a_hash_including(model: Etablissement))
       subject
     end
 

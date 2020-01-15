@@ -14,19 +14,19 @@ module INSEE
 
       # rubocop:disable Metrics/MethodLength
       def fetch_with_cursor(ctx, **)
-        current_cursor = CURSOR_START_VALUE
+        next_cursor = CURSOR_START_VALUE
         operation = nil
 
         loop do
-          operation = fetch_operation(ctx, current_cursor)
+          operation = fetch_operation(ctx, next_cursor)
           break if operation.failure?
 
           body = operation[:body]
-          api_results = body[operation[:api_results_key]]
 
+          api_results = body[operation[:api_results_key]]
           ctx[:api_results] += api_results
 
-          current_cursor = body[:header][:curseurSuivant]
+          next_cursor = body[:header][:curseurSuivant]
 
           log_progress(ctx, body)
           break if end_reached?(body[:header])
@@ -46,12 +46,12 @@ module INSEE
 
       private
 
-      def fetch_operation(context, current_cursor)
+      def fetch_operation(context, next_cursor)
         INSEE::Request::FetchUpdatesWithCursor.call(
           model: context[:model],
           from: context[:from],
           to: context[:to],
-          cursor: current_cursor,
+          cursor: next_cursor,
           logger: context[:logger]
         )
       end
