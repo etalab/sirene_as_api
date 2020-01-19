@@ -5,23 +5,12 @@ describe DailyUpdate::Task::Supersede do
 
   let(:logger) { instance_spy Logger }
 
-  def generate_hash_like_insee(element)
-    element
-      .attributes
-      .symbolize_keys
-      .tap { |e| %i[id created_at updated_at].each { |key| e.delete(key) } }
-  end
-
   describe 'UniteLegale' do
     let(:model) { UniteLegale }
 
     describe 'new unite legale created' do
       let(:new_siren) { '123456789' }
-      let(:data) do
-        generate_hash_like_insee(
-          build(:unite_legale, siren: new_siren, denomination: 'dummy denomination')
-        )
-      end
+      let(:data) { { siren: new_siren, denomination: 'dummy denomination' } }
 
       it { is_expected.to be_success }
 
@@ -40,11 +29,7 @@ describe DailyUpdate::Task::Supersede do
       before { create :unite_legale, siren: existing_siren }
 
       let(:existing_siren) { '123456789' }
-      let(:data) do
-        generate_hash_like_insee(
-          build(:unite_legale, siren: existing_siren, denomination: 'updated denomination')
-        )
-      end
+      let(:data) { { siren: existing_siren, denomination: 'updated denomination' } }
 
       it { is_expected.to be_success }
 
@@ -72,13 +57,7 @@ describe DailyUpdate::Task::Supersede do
     end
 
     context 'when the input is invalid' do
-      let(:data) do
-        etab = generate_hash_like_insee(
-          build(:unite_legale, denomination: 'updated denomination')
-        )
-        etab[:not_an_attribute] = 'dummy value'
-        etab
-      end
+      let(:data) { { siren: '000000000', not_an_attribute: 'dummy value' } }
 
       it { is_expected.to be_failure }
 
@@ -92,7 +71,7 @@ describe DailyUpdate::Task::Supersede do
 
   describe 'Etablissement' do
     let(:model) { Etablissement }
-    let(:data) { generate_hash_like_insee(build(:etablissement)) }
+    let(:data) { { siret: '12345678900000' } }
 
     it { is_expected.to be_success }
 

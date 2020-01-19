@@ -25,6 +25,7 @@ class DailyUpdateModelJob < ApplicationJob
   end
 
   def logger_for_import
+    # TODO: use it from future model DailyUpdate model to come
     Logger.new logger_file_path.to_s
   end
 
