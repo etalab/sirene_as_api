@@ -2,6 +2,7 @@ require 'rails_helper'
 
 describe Stock do
   it { is_expected.to have_db_column(:id).of_type(:integer) }
+  it { is_expected.to have_db_column(:type).of_type(:string) }
   it { is_expected.to have_db_column(:year).of_type(:string) }
   it { is_expected.to have_db_column(:month).of_type(:string) }
   it { is_expected.to have_db_column(:status).of_type(:string) }
