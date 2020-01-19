@@ -1,17 +1,11 @@
 class DailyUpdate
   module Operation
     class Update < Trailblazer::Operation
-      step :set_period_to_update
       pass :log_update_period
       step Nested INSEE::Operation::FetchUpdates
       step Nested Task::AdaptApiResults
       pass :log_supersede_starts
       step :supersede
-
-      def set_period_to_update(ctx, **)
-        ctx[:from] = Time.now.beginning_of_month
-        ctx[:to]   = Time.zone.now
-      end
 
       def supersede(_, model:, results:, logger:, **)
         results.each do |item|

@@ -1,11 +1,13 @@
 require 'rails_helper'
 
 describe DailyUpdate::Operation::Update, :trb do
-  subject { described_class.call model: model, logger: logger }
+  subject do
+    described_class.call model: model, from: from, to: to, logger: logger
+  end
 
   let(:logger) { instance_spy Logger }
-
-  before { Timecop.freeze Time.zone.parse('2019-12-01 20:00:00') }
+  let(:from) { Time.new(2019, 12, 1) }
+  let(:to) { Time.new(2019, 12, 1, 20, 0, 0) }
 
   context 'when updating UniteLegale', vcr: { cassette_name: 'insee/siren_update_1st_december' } do
     let(:model) { UniteLegale }
