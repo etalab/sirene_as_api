@@ -1,4 +1,4 @@
-module DailyUpdate
+class DailyUpdate
   module Operation
     class Update < Trailblazer::Operation
       step :set_period_to_update

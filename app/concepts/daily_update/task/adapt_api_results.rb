@@ -1,4 +1,4 @@
-module DailyUpdate
+class DailyUpdate
   module Task
     class AdaptApiResults < Trailblazer::Operation
       pass :log_adapt_starts

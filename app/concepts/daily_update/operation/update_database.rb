@@ -1,4 +1,4 @@
-module DailyUpdate
+class DailyUpdate
   module Operation
     class UpdateDatabase < Trailblazer::Operation
       step Nested Task::CurrentStockCompleted

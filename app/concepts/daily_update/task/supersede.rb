@@ -1,4 +1,4 @@
-module DailyUpdate
+class DailyUpdate
   module Task
     class Supersede < Trailblazer::Operation
       step :set_primary_key
