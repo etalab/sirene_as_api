@@ -1,62 +1,63 @@
 require 'rails_helper'
 
 describe DailyUpdateModelJob, :trb do
-  subject { described_class.perform_now model_name }
+  subject { described_class.perform_now daily_update.id }
+
+  let(:daily_update) { create :daily_update, :for_unite_legale }
+  let(:import_logger) { instance_spy Logger }
 
   before do
-    allow(DailyUpdate::Operation::Update)
-      .to receive(:call)
-      .and_return(trb_result_success)
+    allow_any_instance_of(DailyUpdate)
+      .to receive(:logger_for_import)
+      .and_return(import_logger)
   end
 
-  describe 'with UniteLegale' do
-    let(:model_name) { 'unite_legale' }
+  context 'when the import is a success' do
+    before do
+      allow(DailyUpdate::Operation::Update)
+        .to receive(:call)
+        .and_return(trb_result_success)
+    end
+
+    it 'set status to COMPLETED' do
+      subject
+      daily_update.reload
+      expect(daily_update.status).to eq 'COMPLETED'
+    end
 
     it 'calls the update operation' do
       expect(DailyUpdate::Operation::Update)
         .to receive(:call)
-        .with(a_hash_including(model: UniteLegale))
-      subject
-    end
-
-    it 'uses logger of the model' do
-      expect(Logger).to receive(:new)
-        .with(/daily_update_unite_legale.log/)
-        .and_call_original
-      subject
-    end
-  end
-
-  describe 'with Etablissement' do
-    let(:model_name) { 'etablissement' }
-
-    it 'call the update operation' do
-      expect(DailyUpdate::Operation::Update)
-        .to receive(:call)
-        .with(a_hash_including(model: Etablissement))
-      subject
-    end
-
-    it 'uses logger of the model' do
-      expect(Logger).to receive(:new)
-        .with(/daily_update_etablissement.log/)
-        .and_call_original
+        .with(
+          model: UniteLegale,
+          from: daily_update.from,
+          to: daily_update.to,
+          logger: import_logger
+        )
       subject
     end
   end
 
-  describe 'operation failure' do
-    let(:model_name) { 'unite_legale' }
-    it 'rollback the operation' do
+  context 'when the import is a failure' do
+    before do
       allow(DailyUpdate::Operation::Update)
         .to receive(:call)
-        .and_wrap_original do |_original_method, *_args|
+        .and_wrap_original do
           create :unite_legale, siren: 'GHOST'
           trb_result_failure
         end
+    end
 
+    it 'set status to ERROR' do
       subject
-      expect(UniteLegale.where(siren: 'GHOST')).to be_empty
+      daily_update.reload
+      expect(daily_update.status).to eq 'ERROR'
+    end
+
+    it 'calls the update operation' do
+      subject
+      unites_legales = UniteLegale.where(siren: 'GHOST')
+      expect(unites_legales).to be_empty
     end
   end
 end
