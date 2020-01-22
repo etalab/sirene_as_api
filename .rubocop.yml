@@ -54,6 +54,9 @@ Style/SignalException:
 Naming/VariableNumber:
   EnforcedStyle: snake_case
 
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
+
 Lint/AmbiguousOperator:
   Exclude:
     - 'app/serializers/**/*'
@@ -65,3 +68,4 @@ Lint/UnreachableCode:
 Naming/UncommunicativeMethodParamName:
   AllowedNames:
     - '_'
+    - 'to'
