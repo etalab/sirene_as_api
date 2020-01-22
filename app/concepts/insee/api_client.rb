@@ -35,7 +35,11 @@ class INSEE::ApiClient
   end
 
   def resource_name
-    model == UniteLegale ? 'siren' : 'siret'
+    unite_legale? ? 'siren' : 'siret'
+  end
+
+  def unite_legale?
+    model == UniteLegale
   end
 
   def query_hash
