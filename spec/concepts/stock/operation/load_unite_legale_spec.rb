@@ -3,6 +3,8 @@ require 'rails_helper'
 describe Stock::Operation::LoadUniteLegale, vcr: { cassette_name: 'data_gouv_sirene_july_OK' } do
   subject { described_class.call logger: logger }
 
+  before { Timecop.freeze(Time.new(2019, 7, 5)) }
+
   let(:logger) { instance_spy Logger }
   let(:expected_uri) { 'http://files.data.gouv.fr/insee-sirene/StockUniteLegale_utf8.zip' }
 
@@ -29,9 +31,7 @@ describe Stock::Operation::LoadUniteLegale, vcr: { cassette_name: 'data_gouv_sir
     end
 
     its([:remote_stock]) { is_expected.to be_persisted }
-    its([:remote_stock]) do
-      is_expected.to have_attributes(uri: expected_uri, status: 'PENDING', month: '07', year: '2019')
-    end
+    its([:remote_stock]) { is_expected.to have_attributes(uri: expected_uri, status: 'PENDING', month: '07', year: '2019') }
   end
 
   context 'when remote stock is not importable (current stock stuck)' do

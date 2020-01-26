@@ -1,4 +1,4 @@
-module DailyUpdate
+class DailyUpdate
   module Task
     class CurrentStockCompleted < Trailblazer::Operation
       step :stock_unite_legale_completed?

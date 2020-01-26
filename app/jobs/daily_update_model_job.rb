@@ -1,35 +1,35 @@
 class DailyUpdateModelJob < ApplicationJob
   queue_as :auto_updates
 
-  def perform(model_name)
-    @model_name = model_name
+  def perform(daily_update_id)
+    @daily_update_id = daily_update_id
     operation = nil
+
+    daily_update.update(status: 'LOADING')
+
     ActiveRecord::Base.transaction do
       operation = DailyUpdate::Operation::Update.call params
 
       raise ActiveRecord::Rollback unless operation.success?
+
+      daily_update.update(status: 'COMPLETED')
     end
+
+    daily_update.update(status: 'ERROR') if operation.failure?
   end
 
   private
 
   def params
     {
-      model: model,
-      logger: logger_for_import
+      model: daily_update.model_to_update,
+      from: daily_update.from,
+      to: daily_update.to,
+      logger: daily_update.logger_for_import
     }
   end
 
-  def model
-    @model_name.camelize.constantize
-  end
-
-  def logger_for_import
-    # TODO: use it from future model DailyUpdate model to come
-    Logger.new logger_file_path.to_s
-  end
-
-  def logger_file_path
-    Rails.root.join 'log', "daily_update_#{@model_name}.log"
+  def daily_update
+    @daily_update ||= DailyUpdate.find(@daily_update_id)
   end
 end
