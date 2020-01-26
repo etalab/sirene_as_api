@@ -54,7 +54,7 @@ describe DailyUpdateModelJob, :trb do
       expect(daily_update.status).to eq 'ERROR'
     end
 
-    it 'calls the update operation' do
+    it 'rollback the operation' do
       subject
       unites_legales = UniteLegale.where(siren: 'GHOST')
       expect(unites_legales).to be_empty
