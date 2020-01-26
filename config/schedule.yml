@@ -16,6 +16,8 @@ production:
     class: 'UpdateDatabaseJob'
     queue: 'auto_updates'
 
+# à supprimer à partir d'ici
+# pour ne pas utiliser l'API de l'INSEE
   daily_update_job:
     cron: '0 5 * * *'
     class: 'DailyUpdateJob'
