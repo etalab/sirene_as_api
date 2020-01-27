@@ -61,7 +61,7 @@ describe Files::Helper::FileImporter do
     it 'yields falsey value' do
       expect do |b|
         described_class.new(logger)
-                       .bulk_import(file: csv, model: model, &b)
+          .bulk_import(file: csv, model: model, &b)
       end.to yield_with_args false
     end
   end

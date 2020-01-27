@@ -14,9 +14,7 @@ AllCops:
     - 'app/controllers/api/v1/**/*'
 
 Metrics/LineLength:
-  Max: 120
-  IgnoredPatterns:
-    - 'logger'
+  Enabled: false
 
 Metrics/BlockLength:
   Exclude:
@@ -56,6 +54,9 @@ Style/SignalException:
 Naming/VariableNumber:
   EnforcedStyle: snake_case
 
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
+
 Lint/AmbiguousOperator:
   Exclude:
     - 'app/serializers/**/*'
@@ -67,3 +68,4 @@ Lint/UnreachableCode:
 Naming/UncommunicativeMethodParamName:
   AllowedNames:
     - '_'
+    - 'to'

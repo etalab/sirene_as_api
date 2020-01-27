@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 describe SaveLastMonthlyStockName do
+  include_context 'mute interactors'
+
   before(:all) do
     @test_folder = 'spec/fixtures/save_link_folder'
     @test_file = 'test_file.txt'

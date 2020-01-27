@@ -30,20 +30,6 @@ CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
 
 
---
--- Name: pg_trgm; Type: EXTENSION; Schema: -; Owner: -
---
-
-CREATE EXTENSION IF NOT EXISTS pg_trgm WITH SCHEMA public;
-
-
---
--- Name: EXTENSION pg_trgm; Type: COMMENT; Schema: -; Owner: -
---
-
-COMMENT ON EXTENSION pg_trgm IS 'text similarity measurement and index searching based on trigrams';
-
-
 SET default_tablespace = '';
 
 SET default_with_oids = false;
@@ -58,6 +44,41 @@ CREATE TABLE public.ar_internal_metadata (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
+
+
+--
+-- Name: daily_updates; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.daily_updates (
+    id integer NOT NULL,
+    status character varying,
+    model_name_to_update character varying,
+    "from" timestamp without time zone,
+    "to" timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: daily_updates_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.daily_updates_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: daily_updates_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.daily_updates_id_seq OWNED BY public.daily_updates.id;
 
 
 --
@@ -555,6 +576,13 @@ ALTER SEQUENCE public.unites_legales_tmp_id_seq OWNED BY public.unites_legales_t
 
 
 --
+-- Name: daily_updates id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_updates ALTER COLUMN id SET DEFAULT nextval('public.daily_updates_id_seq'::regclass);
+
+
+--
 -- Name: etablissements id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -602,6 +630,14 @@ ALTER TABLE ONLY public.unites_legales_tmp ALTER COLUMN id SET DEFAULT nextval('
 
 ALTER TABLE ONLY public.ar_internal_metadata
     ADD CONSTRAINT ar_internal_metadata_pkey PRIMARY KEY (key);
+
+
+--
+-- Name: daily_updates daily_updates_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_updates
+    ADD CONSTRAINT daily_updates_pkey PRIMARY KEY (id);
 
 
 --
@@ -779,6 +815,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190619121622'),
 ('20190703100825'),
 ('20191126124448'),
-('20191126124456');
+('20191126124456'),
+('20200119132507');
 
 

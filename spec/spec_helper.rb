@@ -38,18 +38,6 @@ if ARGV.grep(/spec\.rb/).empty?
   end
 end
 
-VCR.configure do |config|
-  config.cassette_library_dir = 'spec/fixtures/vcr_cassettes'
-  config.hook_into :webmock
-  config.configure_rspec_metadata!
-  config.default_cassette_options[:allow_playback_repeats] = true
-  config.allow_http_connections_when_no_cassette = false
-  # Config ignore_request to stop VCR from managing Solr server requests
-  config.ignore_request do |request|
-    URI(request.uri).port == 8981
-  end
-end
-
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
