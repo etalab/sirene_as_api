@@ -1,6 +1,9 @@
 class DailyUpdate < ApplicationRecord
-  def model_to_update
-    model_name_to_update.camelize.constantize
+  def related_model_name
+    related_model
+      .name
+      .underscore
+      .to_sym
   end
 
   def logger_for_import
@@ -8,6 +11,6 @@ class DailyUpdate < ApplicationRecord
   end
 
   def logger_file_path
-    Rails.root.join 'log', "daily_update_#{model_name_to_update}.log"
+    Rails.root.join 'log', "daily_update_#{related_model_name}.log"
   end
 end

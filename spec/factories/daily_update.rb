@@ -4,14 +4,6 @@ FactoryBot.define do
     from { Time.new(2020, 1, 1) }
     to { Time.new(2020, 1, 19) }
 
-    trait :for_etablissement do
-      model_name_to_update { 'etablissement' }
-    end
-
-    trait :for_unite_legale do
-      model_name_to_update { 'unite_legale' }
-    end
-
     trait :pending do
       status { 'PENDING' }
     end
@@ -28,4 +20,7 @@ FactoryBot.define do
       status { 'COMPLETED' }
     end
   end
+
+  factory :daily_update_unite_legale, parent: :daily_update, class: DailyUpdateUniteLegale
+  factory :daily_update_etablissement, parent: :daily_update, class: DailyUpdateEtablissement
 end

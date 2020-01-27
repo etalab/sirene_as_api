@@ -53,11 +53,11 @@ CREATE TABLE public.ar_internal_metadata (
 CREATE TABLE public.daily_updates (
     id integer NOT NULL,
     status character varying,
-    model_name_to_update character varying,
     "from" timestamp without time zone,
     "to" timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    type character varying
 );
 
 
@@ -816,6 +816,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190703100825'),
 ('20191126124448'),
 ('20191126124456'),
-('20200119132507');
+('20200119132507'),
+('20200127073524'),
+('20200127074730');
 
 

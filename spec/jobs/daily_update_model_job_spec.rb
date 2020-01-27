@@ -3,7 +3,7 @@ require 'rails_helper'
 describe DailyUpdateModelJob, :trb do
   subject { described_class.perform_now daily_update.id }
 
-  let(:daily_update) { create :daily_update, :for_unite_legale }
+  let(:daily_update) { create :daily_update_unite_legale }
   let(:import_logger) { instance_spy Logger }
 
   before do
