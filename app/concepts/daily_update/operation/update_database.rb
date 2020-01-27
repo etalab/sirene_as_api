@@ -14,8 +14,7 @@ class DailyUpdate
       end
 
       def daily_updates_unite_legale(ctx, from:, to:, **)
-        ctx[:du_unite_legale] = DailyUpdate.create(
-          model_name_to_update: 'unite_legale',
+        ctx[:du_unite_legale] = DailyUpdateUniteLegale.create(
           status: 'PENDING',
           from: from,
           to: to
@@ -23,8 +22,7 @@ class DailyUpdate
       end
 
       def daily_updates_etablissement(ctx, from:, to:, **)
-        ctx[:du_etablissement] = DailyUpdate.create(
-          model_name_to_update: 'etablissement',
+        ctx[:du_etablissement] = DailyUpdateEtablissement.create(
           status: 'PENDING',
           from: from,
           to: to

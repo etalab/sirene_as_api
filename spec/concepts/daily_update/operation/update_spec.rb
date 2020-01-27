@@ -1,10 +1,9 @@
 require 'rails_helper'
 
 describe DailyUpdate::Operation::Update, :trb do
-  subject do
-    described_class.call model: model, from: from, to: to, logger: logger
-  end
+  subject { described_class.call daily_update: daily_update, logger: logger }
 
+  let(:daily_update) { create :daily_update_unite_legale, from: from, to: to }
   let(:logger) { instance_spy Logger }
   let(:from) { Time.zone.local(2019, 12, 1) }
   let(:to) { Time.zone.local(2019, 12, 1, 20, 0, 0) }

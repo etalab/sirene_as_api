@@ -28,7 +28,7 @@ describe DailyUpdate::Operation::UpdateDatabase, :trb do
     it 'creates a valid unite legale daily update' do
       du = subject[:du_unite_legale]
       expect(du).to have_attributes(
-        model_name_to_update: 'unite_legale',
+        type: 'DailyUpdateUniteLegale',
         status: 'PENDING',
         from: beginning_of_month,
         to: froze_time
@@ -48,7 +48,7 @@ describe DailyUpdate::Operation::UpdateDatabase, :trb do
     it 'creates a valid etablissement daily update' do
       du = subject[:du_etablissement]
       expect(du).to have_attributes(
-        model_name_to_update: 'etablissement',
+        type: 'DailyUpdateEtablissement',
         status: 'PENDING',
         from: beginning_of_month,
         to: froze_time

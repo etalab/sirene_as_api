@@ -5,11 +5,9 @@ describe INSEE::ApiClient do
 
   let(:params) do
     {
-      model: model,
+      daily_update: daily_update,
       cursor: '*',
-      token: token,
-      from: from,
-      to: to
+      token: token
     }
   end
 
@@ -17,7 +15,7 @@ describe INSEE::ApiClient do
   let(:token) { INSEE::Request::RenewToken.call(logger: logger)[:token] }
 
   context 'with valid params for Etablissement', vcr: { cassette_name: 'insee/siret_small_update_OK' } do
-    let(:model) { Etablissement }
+    let(:daily_update) { create :daily_update_etablissement, from: from, to: to }
     let(:from) { Time.zone.local(2019, 11, 30) }
     let(:to) { Time.zone.local(2019, 12, 1) }
 
@@ -25,7 +23,7 @@ describe INSEE::ApiClient do
   end
 
   describe 'UniteLegale' do
-    let(:model) { UniteLegale }
+    let(:daily_update) { create :daily_update_unite_legale, from: from, to: to }
     let(:from) { Time.zone.local(2019, 12, 8) }
     let(:to) { Time.zone.local(2019, 12, 9) }
 

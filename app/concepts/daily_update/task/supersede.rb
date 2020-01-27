@@ -1,21 +1,11 @@
 class DailyUpdate
   module Task
     class Supersede < Trailblazer::Operation
-      step :set_primary_key
-      step :find_primary_key
+      step :find_primary_key_value
       fail :log_primary_key_not_found
       step :supersede
 
-      def set_primary_key(ctx, model:, **)
-        case model.name
-        when UniteLegale.name
-          ctx[:primary_key] = :siren
-        when Etablissement.name
-          ctx[:primary_key] = :siret
-        end
-      end
-
-      def find_primary_key(ctx, primary_key:, data:, **)
+      def find_primary_key_value(ctx, primary_key:, data:, **)
         ctx[:primary_key_value] = data[primary_key]
       end
 
@@ -30,11 +20,11 @@ class DailyUpdate
           false
         end
       end
+      # rubocop:enable Metrics/ParameterLists
 
       def log_primary_key_not_found(_, primary_key:, data:, logger:, **)
         logger.error "Supersede failed, primary key (#{primary_key}) not found in #{data}"
       end
-      # rubocop:enable Metrics/ParameterLists
     end
   end
 end

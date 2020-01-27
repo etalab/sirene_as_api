@@ -7,18 +7,19 @@ class DailyUpdate
       pass :log_supersede_starts
       step :supersede
 
-      def supersede(_, model:, results:, logger:, **)
+      def supersede(_, daily_update:, results:, logger:, **)
         results.each do |item|
           DailyUpdate::Task::Supersede.call(
-            model: model,
+            model: daily_update.related_model,
+            primary_key: daily_update.primary_key,
             data: item,
             logger: logger
           )
         end
       end
 
-      def log_update_period(_, from:, to:, logger:, **)
-        logger.info "Importing from #{from} to #{to}"
+      def log_update_period(_, daily_update:, logger:, **)
+        logger.info "Importing from #{daily_update.from} to #{daily_update.to}"
       end
 
       def log_supersede_starts(_, results:, logger:, **)
