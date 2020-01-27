@@ -19,6 +19,12 @@ describe DailyUpdate::Operation::Update, :trb do
         .with(/Importing from 2019-12-01 00:00:00.+ to 2019-12-01 20:00:00.+/)
     end
 
+    it 'logs database updated' do
+      subject
+      expect(logger).to have_received(:info)
+        .with('UniteLegale updated until 2019-12-01 20:00:00 +0100')
+    end
+
     it 'fetch updates' do
       expect_to_call_nested_operation(INSEE::Operation::FetchUpdates)
       subject
