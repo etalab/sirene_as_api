@@ -6,8 +6,8 @@ describe DailyUpdate::Operation::Update, :trb do
   end
 
   let(:logger) { instance_spy Logger }
-  let(:from) { Time.new(2019, 12, 1) }
-  let(:to) { Time.new(2019, 12, 1, 20, 0, 0) }
+  let(:from) { Time.zone.local(2019, 12, 1) }
+  let(:to) { Time.zone.local(2019, 12, 1, 20, 0, 0) }
 
   context 'when updating UniteLegale', vcr: { cassette_name: 'insee/siren_update_1st_december' } do
     let(:model) { UniteLegale }

@@ -14,6 +14,7 @@ Bundler.require(*Rails.groups)
 
 module SireneAsAPI
   class Application < Rails::Application
+    config.time_zone = 'Europe/Paris'
     config.api_only = true
     config.active_record.schema_format = :sql
 

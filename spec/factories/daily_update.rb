@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :daily_update do
     pending
-    from { Time.new(2020, 1, 1) }
-    to { Time.new(2020, 1, 19) }
+    from { Time.zone.local(2020, 1, 1) }
+    to { Time.zone.local(2020, 1, 19) }
 
     trait :pending do
       status { 'PENDING' }
