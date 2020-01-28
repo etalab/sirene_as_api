@@ -30,22 +30,25 @@ class Stock
       end
 
       def year
-        Time.now.year.to_s
+        latest_stock_link[1]
       end
 
       def month
         french_months[french_month.to_sym]
       end
 
-      # rubocop:disable Naming/VariableNumber
       def french_month
+        latest_stock_link.first
+      end
+
+      # rubocop:disable Naming/VariableNumber
+      def latest_stock_link
         html
           .css('h4')
           .map { |h4| h4.children.text }
           .find { |h4| h4 =~ /Sirene : Fichier StockUniteLegale du+/ }
-          .match(/Sirene : Fichier StockUniteLegale du \d{2} (.+) 2019/)
+          .match(/Sirene : Fichier StockUniteLegale du \d{2} (.+) (\d{4})/)
           .captures
-          .first
       end
       # rubocop:enable Naming/VariableNumber
 
