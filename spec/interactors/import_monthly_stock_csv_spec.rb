@@ -26,7 +26,10 @@ describe ImportMonthlyStockCsv do
   #   end
   # end
 
-  subject(:context) { described_class.call(unzipped_files: ['spec/fixtures/sample_patches/import_last_monthly_stock_test.csv']) }
+  subject(:context) do
+    described_class
+      .call(unzipped_files: ['spec/fixtures/sample_patches/import_last_monthly_stock_test.csv'])
+  end
   context 'when database not empty' do
     it 'fails' do
       allow(EtablissementV2).to receive(:count).and_return(0)

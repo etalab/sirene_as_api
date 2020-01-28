@@ -17,7 +17,7 @@ module Files
         ctx[:file_path] = "#{destination_directory}/#{filename}"
       end
 
-      def download_file(ctx, uri:, file_path:, logger:, **)
+      def download_file(_ctx, uri:, file_path:, logger:, **)
         uri = URI(uri)
         File.write file_path, uri.open.read, mode: 'wb'
       rescue OpenURI::HTTPError

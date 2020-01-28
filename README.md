@@ -1,5 +1,5 @@
 
-[![Maintainability](https://api.codeclimate.com/v1/badges/cb7334374140808435c3/maintainability)](https://codeclimate.com/github/etalab/sirene_as_api/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/cb7334374140808435c3/test_coverage)](https://codeclimate.com/github/etalab/sirene_as_api/test_coverage)
+[![Maintainability](https://api.codeclimate.com/v1/badges/cb7334374140808435c3/maintainability)](https://codeclimate.com/github/etalab/sirene_as_api/maintainability)
 
 ## ⚠ Changements importants ⚠
 
@@ -12,8 +12,6 @@ Attention, le format des requêtes / le format de réponse changent avec le pass
 Notre site frontend présente dorénavant la possibilité de s'inscrire sur [une mailing-list](https://entreprise.data.gouv.fr/api_doc). Si vous utilisez notre API régulièrement, nous vous conseillons de vous inscrire.
 
 Vous pouvez également nous contacter au travers des issues de ce repo GitHub.
-
-
 
 # SIRENE_as_api
 
@@ -42,7 +40,7 @@ Ou bien par le site front-end : https://entreprise.data.gouv.fr/
 ## Qualification des fichiers mis à disposition par l'INSEE
 
 L'ensemble des fichiers mis à disposition pour le SIRENE se trouvent sur
-[data.gouv.fr](http://www.data.gouv.fr/fr/datasets/base-sirene-des-entreprises-et-de-leurs-etablissements-siren-siret/).
+[data.gouv.fr](https://www.data.gouv.fr/fr/datasets/base-sirene-des-entreprises-et-de-leurs-etablissements-siren-siret/).
 On y trouve chaque début de mois un fichier dit stock qui recense toutes
 les entreprises et leurs établissements.
 Ces fichiers stocks mensuels sont accompagnés de fichiers de mises à jour
@@ -51,25 +49,13 @@ mensuelles dites "de recalage".
 
 ### Fichiers stocks mensuels
 
-Il s'agit de fichiers mensuels contenant toute la base de donnée.
-Règle de nommage : sirene_YYYYMM_L_M.zip, YYYY => 2017, MM => 01 pour janvier
+Les données sont découpés en deux fichiers :
+- les unités légales
+- les établissements
+-
+Il s'agit de fichiers mensuels contenant toute la base de donnée, incluant donc aussi l'historique contenant les unités légales et établissements fermés.
 
-### Fichiers de mises à jour quotidiennes
-
-Il s'agit de fichiers quotidiens mettant à jour la base de donnée.
-Règle de nommage : sirene_YYYYddd, YYY => 2017, ddd => 032 pour le 1er février car 32e
-jour de l'année
-
-Ces fichiers paraissent dans la nuit suivant chaque jour ouvré.
-Pour en savoir plus, rendez vous sur la [faq de l'insee](https://www.sirene.fr/sirene/public/faq?sirene_locale=fr)
-
-Une commande Rake est disponible pour mettre à jour la base de données
-(Cf. liste des tâches plus bas). Toute mise à jour est suivie par une
-réindexation automatique.
-
-### Limitations des fichiers Sirene
-
-L'INSEE ne délivre pour le moment pas les établissements refusant la prospection commerciale. Ces établissements sont donc manquants de la base Sirene.
+P.S: le fichier des établissements n'est pas téléchargé depuis data.gouv.fr mais depuis data.cquest.org qui fournit des fichiers géo-codés.
 
 # Requêtes V1
 
@@ -261,11 +247,49 @@ On peut également demander ce retour au format GeoJSON :
 
     curl 'localhost:3000/v2/siren/:SIREN/etablissements_geojson'
 
+# Requêtes v3
+
+L'INSEE fournit depuis le 1er janvier 2019 des fichiers dans un nouveau format, l'API v3 reflète le contenu de ce nouveau fichier.
+
+Sont uniquement fournit des fichiers de stocks mensuels, afin de rester à jour l'API récupère les modifications quotidiennes via [l'API de l'INSEE](api.insee.fr).
+
+Vous devez ouvrir un compte afin d'obtenir un token pour que l'API se mette à jour toute seule. [À voir ici](#token-de-lapi-insee).
+
+## Recherche directe par SIREN ou SIRET
+
+La requête directe pour une unité légale se fait ainsi :
+
+    curl 'localhost:3000/v3/unites_legales/:siren'
+
+La requête directe pour un établissement se fait ainsi :
+
+    curl 'localhost:3000/v3/etablissements/:siret'
+
+## Recherche plus large
+
+Il est possible de rechercher une unité légale ou un établissement via n'importe quelle variable :
+
+    # recherche de tous les établissments ouverts pour un siren donné
+    curl 'localhost:3000/v3/etablissements/?etat_administratif=A&siren=345184428'
+
+    # recherche de toutes les unité légales ouvertes du code postal 59 380
+    curl 'localhost:3000/v3/unites_legales/?etat_administratif=A&code_postal=59380'
+
 # Installation et configuration
 
 Pour installer rapidement & efficacement l'API en environnement de production,
 vous pouvez vous referer a la documentation sur [sirene_as_api_ansible](https://github.com/etalab/sirene_as_api_ansible)
 et utiliser les scripts de déploiement automatiques.
+
+## Token de l'API INSEE
+
+Afin de récupérer automatiquement les mises à jours quotidiennes de l'API SIRENE de l'INSEE il est nécessaire de renseigner `insee_credentials` dans `config/secrets.yml`.
+
+Pour obtenir un token rendez-vous sur https://api.insee.fr/ dans : "Mes Applications"->sélectionnez ou créer une application->"Clefs et Jetons d'accès"->copiez la chaine de charactère sous "Génération des jetons d'accès" (dans l'exemple de code)
+
+_Attention_, il ne s'agit ni de la _Clef du consommateur_, ni du _Secret du consommateur_, ni du _Jeton d'accès_.
+
+Si vous ne souhaitez pas avoir les mises à jours via l'API commentez ou supprimer le bloc de code indiqué dans `config/schedule.yml`.
 
 ## Nouveau : Installation avec Docker
 

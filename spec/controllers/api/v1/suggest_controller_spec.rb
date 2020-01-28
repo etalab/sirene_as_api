@@ -25,7 +25,9 @@ describe API::V1::SuggestController do
       allow(response).to receive(:body).and_return(example_json.to_json)
 
       expect(Net::HTTP).to receive(:new).and_return(session)
-      expect(session).to receive(:get).with('/solr/test/suggesthandler?wt=json&suggest.q=test_suggestion').and_return(response)
+      expect(session).to receive(:get)
+        .with('/solr/test/suggesthandler?wt=json&suggest.q=test_suggestion')
+        .and_return(response)
 
       get "/v1/suggest/#{keyword}" # This needs to be after expectations
     end

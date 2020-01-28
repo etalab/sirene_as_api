@@ -9,8 +9,8 @@ class Stock < ApplicationRecord
 
   def importable?
     database_empty? ||
-      newer_than_current_completed_stock? ||
-      same_as_current_stock_errored?
+      newer_than_current_stock? ||
+      current_stock_errored?
   end
 
   def newer?(other)
@@ -23,7 +23,7 @@ class Stock < ApplicationRecord
 
   def logger_for_import
     Logger.new logger_file_path
-    end
+  end
 
   def logger_file_path
     Rails.root.join 'log', "#{self.class.to_s.underscore}.log"
@@ -32,14 +32,14 @@ class Stock < ApplicationRecord
   private
 
   def database_empty?
-    !self.class.any?
+    self.class.none?
   end
 
-  def newer_than_current_completed_stock?
-    newer?(self.class.current) && self.class.current.imported?
+  def newer_than_current_stock?
+    newer?(self.class.current)
   end
 
-  def same_as_current_stock_errored?
-    date == self.class.current.date && self.class.current.status == 'ERROR'
+  def current_stock_errored?
+    self.class.current.status == 'ERROR'
   end
 end

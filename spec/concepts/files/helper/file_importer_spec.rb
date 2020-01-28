@@ -5,7 +5,7 @@ describe Files::Helper::FileImporter do
 
   let(:logger) { instance_spy Logger }
   let(:model)  { Etablissement }
-  let(:block)  { Proc.new {} }
+  let(:block)  { proc {} }
   let(:etab_1) { build :etablissement, siret: '123' }
   let(:etab_2) { build :etablissement, siret: '456' }
   let(:etab_3) { build :etablissement, siret: '789' }

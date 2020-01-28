@@ -8,9 +8,7 @@ require 'colorize'
 ENV['domain'] || raise('no domain provided'.red)
 
 ENV['to'] ||= 'sandbox'
-unless %w[sandbox production].include?(ENV['to'])
-  raise("target environment (#{ENV['to']}) not in the list")
-end
+raise("target environment (#{ENV['to']}) not in the list") unless %w[sandbox production].include?(ENV['to'])
 
 print "Deploy to #{ENV['to']}\n".green
 
@@ -77,7 +75,6 @@ task deploy: :remote_environment do
     # instance of your project.
     invoke :'git:clone'
     invoke :'deploy:link_shared_paths'
-    set :bundle_options, fetch(:bundle_options) + ' --clean'
     invoke :'bundle:install'
     invoke :'rails:db_migrate'
 
@@ -98,8 +95,8 @@ task deploy: :remote_environment do
 end
 
 task whenever_update: :remote_environment do
-  set :whenever_name, "sirene_api_#{ENV['to']}" # default value is based on domain name, and it is used to match in crontab !
-  set :bundle_bin, '/usr/local/rbenv/shims/bundle' # with our rbenv config it cannot be found...
+  # default value is based on domain name, and it is used to match in crontab !
+  set :whenever_name, "sirene_api_#{ENV['to']}"
 
   # whenever environement comes from fetch(:rails_env)
   invoke :'whenever:update'
@@ -112,9 +109,8 @@ end
 
 task :sidekiq do
   comment 'Restarting Sidekiq (reloads code)'.green
-  command %(sudo systemctl restart sidekiq_sirene_api_#{ENV['to']}_1)
+  command %{sudo systemctl restart sidekiq_sirene_api_#{ENV['to']}_1}
 end
-
 
 task passenger: :remote_environment do
   comment %{Attempting to start Passenger app}.green

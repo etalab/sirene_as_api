@@ -5,7 +5,7 @@ describe API::V2::SirenChildrenGeojsonController do
     siren = '833057201'
 
     context 'SIRENE 404' do
-      let!(:etablissement) {
+      let!(:etablissement) do
         create(
           :etablissement_v2,
           nom_raison_sociale: 'foobarcompany',
@@ -17,7 +17,7 @@ describe API::V2::SirenChildrenGeojsonController do
           longitude: '1',
           latitude: '2'
         )
-      }
+      end
 
       it 'returns 404' do
         get '/v2/siren/111111/etablissements_geojson'
@@ -27,7 +27,7 @@ describe API::V2::SirenChildrenGeojsonController do
     end
 
     context 'SIRENE 200' do
-      let!(:etablissement) {
+      let!(:etablissement) do
         create(
           :etablissement_v2,
           nom_raison_sociale: 'foobarcompany',
@@ -39,8 +39,8 @@ describe API::V2::SirenChildrenGeojsonController do
           longitude: '1',
           latitude: '2'
         )
-      }
-      let!(:etablissement2) {
+      end
+      let!(:etablissement2) do
         create(
           :etablissement_v2,
           nom_raison_sociale: 'foobarcompany',
@@ -52,8 +52,8 @@ describe API::V2::SirenChildrenGeojsonController do
           longitude: '1',
           latitude: '2'
         )
-      }
-      let!(:etablissement3) {
+      end
+      let!(:etablissement3) do
         create(
           :etablissement_v2,
           nom_raison_sociale: 'foobarcompany',
@@ -65,7 +65,7 @@ describe API::V2::SirenChildrenGeojsonController do
           longitude: '1',
           latitude: '2'
         )
-      }
+      end
       it 'returns 200' do
         get "/v2/siren/#{siren}/etablissements_geojson"
 
@@ -78,4 +78,3 @@ describe API::V2::SirenChildrenGeojsonController do
     end
   end
 end
-

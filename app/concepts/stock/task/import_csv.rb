@@ -8,6 +8,8 @@ class Stock
       step :import_csv
       pass :log_import_completed
 
+      CHUNK_SIZE = 10_000
+
       def file_exists?(_, csv:, **)
         File.exist? csv
       end
@@ -16,12 +18,15 @@ class Stock
         ctx[:file_importer] = Files::Helper::FileImporter.new(logger)
       end
 
+      # rubocop:disable Metrics/ParameterLists
       def import_csv(_, csv:, model:, file_importer:, logger:, **)
         file_importer.bulk_import(file: csv, model: model) do |imported_row_count|
           break unless imported_row_count
+
           logger.info "#{imported_row_count} rows imported"
         end
       end
+      # rubocop:enable Metrics/ParameterLists
 
       def log_import_start(_, csv:, logger:, **)
         logger.info "Import starting for file #{csv}"
@@ -39,7 +44,7 @@ class Stock
 
       def basic_options
         {
-          chunk_size: 2_000,
+          chunk_size: CHUNK_SIZE,
           col_sep: ',',
           row_sep: "\n",
           downcase_header: false,

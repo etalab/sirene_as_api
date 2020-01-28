@@ -28,7 +28,7 @@ module TrailblazerHelper
       expect(operation).not_to receive(:call_with_circuit_interface)
     end
 
-    # TODO stub a nested operation to return a fake object
+    # TODO: stub a nested operation to return a fake object
     # Waiting issue https://github.com/trailblazer/trailblazer-operation/issues/32 to be solved
 
     private

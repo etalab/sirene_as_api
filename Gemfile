@@ -73,8 +73,8 @@ group :development, :test do
   gem 'pry-byebug'
 
   gem 'rspec-activejob'
-  gem 'rspec-rails', '~> 3.5'
   gem 'rspec-its'
+  gem 'rspec-rails', '~> 3.5'
   gem 'shoulda-matchers'
 
   gem 'guard'
@@ -92,6 +92,7 @@ group :test do
   gem 'simplecov'
   gem 'simplecov-console'
   gem 'timecop'
+  gem 'unindent'
   gem 'vcr'
   gem 'webmock'
 end

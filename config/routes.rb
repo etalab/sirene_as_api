@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-
   concern :v1_routes do
     get 'siret/:siret' => '/api/v1/siret#show'
     get 'siren/:siren' => '/api/v1/siren#show'
@@ -51,5 +50,4 @@ Rails.application.routes.draw do
       concerns :v3_routes
     end
   end
-
 end

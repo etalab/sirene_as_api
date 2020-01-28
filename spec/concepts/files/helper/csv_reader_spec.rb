@@ -3,7 +3,7 @@ require 'rails_helper'
 describe Files::Helper::CSVReader do
   subject { described_class.new logger }
 
-  let(:block)  { Proc.new {} }
+  let(:block)  { proc {} }
   let(:model)  { Etablissement }
   let(:logger) { instance_spy Logger }
 
@@ -21,7 +21,7 @@ describe Files::Helper::CSVReader do
         [
           a_hash_including(siren: '005880034', statut_diffusion: 'O'),
           a_hash_including(siren: '006003560', statut_diffusion: 'O')
-        ],[
+        ], [
           a_hash_including(siren: '006004659', statut_diffusion: 'O')
         ]
       )

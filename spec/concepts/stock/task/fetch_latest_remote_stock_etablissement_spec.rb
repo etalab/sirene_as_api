@@ -6,7 +6,9 @@ describe Stock::Task::FetchLatestRemoteStockEtablissement do
   let(:logger) { instance_spy Logger }
 
   describe 'valid HTTP interaction', vcr: { cassette_name: 'cquest_geo_sirene_may_OK' } do
-    let(:latest_remote_stock_file) { 'http://data.cquest.org/geo_sirene/v2019/2019-05/StockEtablissement_utf8_geo.csv.gz' }
+    let(:latest_remote_stock_file) do
+      'http://data.cquest.org/geo_sirene/v2019/2019-05/StockEtablissement_utf8_geo.csv.gz'
+    end
 
     it { is_expected.to be_success }
 

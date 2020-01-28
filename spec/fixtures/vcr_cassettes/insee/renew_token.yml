@@ -1,0 +1,54 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.insee.fr/token
+    body:
+      encoding: UTF-8
+      string: grant_type=client_credentials
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.insee.fr
+      Authorization:
+      - Basic <INSEE_CREDENTIALS>
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Frame-Options:
+      - DENY
+      Cache-Control:
+      - no-store
+      X-Content-Type-Options:
+      - nosniff
+      Set-Cookie:
+      - INSEE=1863723786.58148.0000;secure; expires=Wed, 23-Oct-2019 13:13:48 GMT;
+        path=/
+      - pdapimgateway=1846946570.22560.0000;secure; expires=Wed, 23-Oct-2019 13:13:48
+        GMT; path=/
+      Pragma:
+      - no-cache
+      X-Xss-Protection:
+      - 1; mode=block
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 23 Oct 2019 12:53:47 GMT
+      Transfer-Encoding:
+      - chunked
+      Strict-Transport-Security:
+      - max-age=100000; includeSubDomains
+    body:
+      encoding: UTF-8
+      string: '{"access_token":"ab380ad7-5725-33d6-9d57-18a40e209021","scope":"am_application_scope
+        default","token_type":"Bearer","expires_in":603438}'
+    http_version: 
+  recorded_at: Wed, 23 Oct 2019 12:53:48 GMT
+recorded_with: VCR 4.0.0

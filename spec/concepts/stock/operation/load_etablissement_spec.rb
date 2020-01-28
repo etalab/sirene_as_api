@@ -15,7 +15,7 @@ describe Stock::Operation::LoadEtablissement, vcr: { cassette_name: 'cquest_geo_
       subject
       expect(logger)
         .to have_received(:info)
-        .with("New stock found 05, will import...")
+        .with('New stock found 05, will import...')
     end
 
     it 'shedule a new ImportStockJob' do
@@ -29,19 +29,21 @@ describe Stock::Operation::LoadEtablissement, vcr: { cassette_name: 'cquest_geo_
     end
 
     its([:remote_stock]) { is_expected.to be_persisted }
-    its([:remote_stock]) { is_expected.to have_attributes(uri: expected_uri, status: 'PENDING', month: '05', year: '2019') }
+    its([:remote_stock]) do
+      is_expected.to have_attributes(uri: expected_uri, status: 'PENDING', month: '05', year: '2019')
+    end
   end
 
-  context 'when remote stock is not importable (same)' do
-    before { create :stock_etablissement, :completed, month: '05' }
+  context 'when remote stock is not importable (current stock stuck)' do
+    before { create :stock_etablissement, :loading, month: '05' }
 
     it { is_expected.to be_failure }
 
-    it 'logs a warning' do
+    it 'logs an error' do
       subject
       expect(logger)
-        .to have_received(:warn)
-        .with('Remote stock not importable (remote month: 05, current (COMPLETED) month: 05)')
+        .to have_received(:error)
+        .with('Current stock is still importing (LOADING)')
     end
 
     its([:remote_stock]) { is_expected.not_to be_persisted }
@@ -55,13 +57,13 @@ describe Stock::Operation::LoadEtablissement, vcr: { cassette_name: 'cquest_geo_
   describe 'Integration: from download to import', :perform_enqueued_jobs do
     let(:stock_model) { StockEtablissement }
     let(:imported_month) { '05' }
-    let(:expected_sirens) { ['005880034', '006003560', '006004659'] }
+    let(:expected_sirens) { %w[005880034 006003560 006004659] }
 
     let(:expected_tmp_file) do
       Rails.root.join 'tmp', 'files', 'sample_etablissements.csv'
     end
 
-    let(:mocked_downloaded_file) do
+    let(:downloaded_fixture_file) do
       Rails.root.join('spec', 'fixtures', 'sample_etablissements.csv.gz').to_s
     end
 

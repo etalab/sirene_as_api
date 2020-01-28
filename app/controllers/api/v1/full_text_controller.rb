@@ -130,6 +130,7 @@ end
 def request_suggestions(query)
   response = SolrRequests.new(query).request_suggestions
   return [] unless response.is_a? Net::HTTPSuccess
+
   extract_suggestions(response.body)
 end
 
@@ -154,5 +155,6 @@ def spellcheck_custom(search, query)
     collation << search.spellcheck_suggestion_for(word)
   end
   return nil if collation.empty?
+
   collation.join(' ')
 end
