@@ -73,6 +73,7 @@ group :development, :test do
   gem 'pry-byebug'
 
   gem 'rspec-activejob'
+  gem 'rspec-collection_matchers'
   gem 'rspec-its'
   gem 'rspec-rails', '~> 3.5'
   gem 'shoulda-matchers'
