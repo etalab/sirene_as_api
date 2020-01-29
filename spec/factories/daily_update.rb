@@ -23,4 +23,6 @@ FactoryBot.define do
 
   factory :daily_update_unite_legale, parent: :daily_update, class: DailyUpdateUniteLegale
   factory :daily_update_etablissement, parent: :daily_update, class: DailyUpdateEtablissement
+  factory :daily_update_unite_legale_non_diffusable, parent: :daily_update, class: DailyUpdateUniteLegaleNonDiffusable
+  factory :daily_update_etablissement_non_diffusable, parent: :daily_update, class: DailyUpdateEtablissementNonDiffusable
 end

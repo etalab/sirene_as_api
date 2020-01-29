@@ -1,6 +1,6 @@
-class DailyUpdateUniteLegale < DailyUpdate
+class DailyUpdateUniteLegaleNonDiffusable < DailyUpdate
   def log_filename
-    'daily_update_unite_legale.log'
+    'daily_update_unite_legale_non_diffusable.log'
   end
 
   def related_model
@@ -12,11 +12,11 @@ class DailyUpdateUniteLegale < DailyUpdate
   end
 
   def insee_results_body_key
-    :unitesLegales
+    :unitesLegalesNonDiffusibles
   end
 
   def insee_resource_suffix
-    'siren/'
+    'siren/nonDiffusibles'
   end
 
   def adapter_task
