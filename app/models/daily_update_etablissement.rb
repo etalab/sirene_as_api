@@ -3,7 +3,7 @@ class DailyUpdateEtablissement < DailyUpdate
     Etablissement
   end
 
-  def primary_key
+  def business_key
     :siret
   end
 

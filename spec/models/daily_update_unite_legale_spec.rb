@@ -4,7 +4,7 @@ describe DailyUpdateUniteLegale do
   subject { build :daily_update_unite_legale }
 
   its(:related_model) { is_expected.to be UniteLegale }
-  its(:primary_key) { is_expected.to eq :siren }
+  its(:business_key) { is_expected.to eq :siren }
   its(:insee_results_body_key) { is_expected.to eq :unitesLegales }
   its(:insee_resource_suffix) { is_expected.to eq 'siren/' }
   its(:adapter_task) { is_expected.to be DailyUpdate::Task::AdaptUniteLegale }

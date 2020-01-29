@@ -12,7 +12,7 @@ class DailyUpdate
         results.each do |item|
           DailyUpdate::Task::Supersede.call(
             model: daily_update.related_model,
-            primary_key: daily_update.primary_key,
+            business_key: daily_update.business_key,
             data: item,
             logger: logger
           )

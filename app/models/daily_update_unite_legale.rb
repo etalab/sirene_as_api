@@ -3,7 +3,7 @@ class DailyUpdateUniteLegale < DailyUpdate
     UniteLegale
   end
 
-  def primary_key
+  def business_key
     :siren
   end
 
