@@ -3,9 +3,7 @@ module INSEE
     class FetchUpdatesWithCursor < Trailblazer::Operation
       step Nested Operation::RenewToken
 
-      step :set_api_results_key
       step :set_http_params
-
       step :fetch_api_results
       step :check_http_code
       fail :log_http_failed, fail_fast: true
@@ -13,15 +11,9 @@ module INSEE
       fail :log_parsing_failed
       pass :log_http_get_success
 
-      def set_api_results_key(ctx, model:, **)
-        ctx[:api_results_key] = name_mapping[model.name.to_sym]
-      end
-
       def set_http_params(ctx, **)
         ctx[:http_params] = {
-          from: ctx[:from],
-          to: ctx[:to],
-          model: ctx[:model],
+          daily_update: ctx[:daily_update],
           cursor: ctx[:cursor],
           token: ctx[:token]
         }
@@ -42,8 +34,9 @@ module INSEE
         )
       end
 
-      def log_http_get_success(_, body:, api_results_key:, logger:, **)
-        logger.info "#{body[api_results_key].size} #{api_results_key} retrieved, new cursor: #{body[:header][:curseurSuivant]}"
+      def log_http_get_success(_, body:, daily_update:, logger:, **)
+        nb_updates = body[daily_update.insee_results_body_key].size
+        logger.info "#{nb_updates} #{daily_update.related_model} retrieved, new cursor: #{body[:header][:curseurSuivant]}"
       end
 
       def log_http_failed(_, response:, logger:, **)
@@ -52,15 +45,6 @@ module INSEE
 
       def log_parsing_failed(_, response:, logger:, **)
         logger.error "Body is not a valid JSON (#{response.body})"
-      end
-
-      private
-
-      def name_mapping
-        {
-          UniteLegale: :unitesLegales,
-          Etablissement: :etablissements
-        }
       end
     end
   end

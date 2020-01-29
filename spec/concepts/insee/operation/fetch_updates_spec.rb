@@ -1,26 +1,18 @@
 require 'rails_helper'
 
 describe INSEE::Operation::FetchUpdates, :trb do
-  subject { described_class.call params }
+  subject { described_class.call daily_update: daily_update, logger: logger }
 
   let(:logger) { instance_spy Logger }
-  let(:params) do
-    {
-      model: model,
-      from: from,
-      to: to,
-      logger: logger
-    }
-  end
 
   before do
     stub_const('INSEE::ApiClient::MAX_ELEMENTS_PER_CALL', 20)
   end
 
   describe 'with Etablissement', vcr: { cassette_name: 'insee/siret_small_update_OK' } do
-    let(:model) { Etablissement }
-    let(:from) { Time.new(2019, 11, 30) }
-    let(:to) { Time.new(2019, 12, 1) }
+    let(:daily_update) { create :daily_update_etablissement, from: from, to: to }
+    let(:from) { Time.zone.local(2019, 11, 30) }
+    let(:to) { Time.zone.local(2019, 12, 1) }
 
     it { is_expected.to be_success }
 
@@ -40,9 +32,9 @@ describe INSEE::Operation::FetchUpdates, :trb do
   end
 
   describe 'with UniteLegale', vcr: { cassette_name: 'insee/siren_small_update_OK' } do
-    let(:model) { UniteLegale }
-    let(:from) { Time.new(2019, 12, 8) }
-    let(:to) { Time.new(2019, 12, 9) }
+    let(:daily_update) { create :daily_update_unite_legale, from: from, to: to }
+    let(:from) { Time.zone.local(2019, 12, 8) }
+    let(:to) { Time.zone.local(2019, 12, 9) }
 
     it { is_expected.to be_success }
 
@@ -68,9 +60,9 @@ describe INSEE::Operation::FetchUpdates, :trb do
         .and_return(trb_result_failure)
     end
 
-    let(:model) { UniteLegale }
-    let(:from) { Time.new(2019, 12, 8) }
-    let(:to) { Time.new(2019, 12, 9) }
+    let(:daily_update) { create :daily_update_unite_legale, from: from, to: to }
+    let(:from) { Time.zone.local(2019, 12, 8) }
+    let(:to) { Time.zone.local(2019, 12, 9) }
 
     it { is_expected.to be_failure }
 

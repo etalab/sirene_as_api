@@ -53,7 +53,7 @@ http_interactions:
   recorded_at: Wed, 11 Dec 2019 12:32:11 GMT
 - request:
     method: get
-    uri: https://api.insee.fr/entreprises/sirene/V3/siret?curseur=*&nombre=20&q=dateDernierTraitementEtablissement:%5B2019-11-30T00:00:00%20TO%202019-12-01T00:00:00%5D
+    uri: https://api.insee.fr/entreprises/sirene/V3/siret/?curseur=*&nombre=20&q=dateDernierTraitementEtablissement:%5B2019-11-30T00:00:00%20TO%202019-12-01T00:00:00%5D
     body:
       encoding: US-ASCII
       string: ''
@@ -95,9 +95,9 @@ http_interactions:
       Access-Control-Allow-Headers:
       - authorization,Access-Control-Allow-Origin,Content-Type,SOAPAction
       Link:
-      - <https://api.insee.fr/entreprises/sirene/siret?nombre=20&curseur=*&q=dateDernierTraitementEtablissement%3A%5B2019-11-30T00%3A00%3A00+TO+2019-12-01T00%3A00%3A00%5D>;
+      - <https://api.insee.fr/entreprises/sirene/siret/?nombre=20&curseur=*&q=dateDernierTraitementEtablissement%3A%5B2019-11-30T00%3A00%3A00+TO+2019-12-01T00%3A00%3A00%5D>;
         rel="first"
-      - <https://api.insee.fr/entreprises/sirene/siret?nombre=20&curseur=AoEuODM4NTA2NzIzMDAwMTc=&q=dateDernierTraitementEtablissement%3A%5B2019-11-30T00%3A00%3A00+TO+2019-12-01T00%3A00%3A00%5D>;
+      - <https://api.insee.fr/entreprises/sirene/siret/?nombre=20&curseur=AoEuODM4NTA2NzIzMDAwMTc=&q=dateDernierTraitementEtablissement%3A%5B2019-11-30T00%3A00%3A00+TO+2019-12-01T00%3A00%3A00%5D>;
         rel="next"
       Content-Type:
       - application/json;charset=utf-8
@@ -197,7 +197,7 @@ http_interactions:
   recorded_at: Wed, 11 Dec 2019 12:32:12 GMT
 - request:
     method: get
-    uri: https://api.insee.fr/entreprises/sirene/V3/siret?curseur=AoEuODM4NTA2NzIzMDAwMTc=&nombre=20&q=dateDernierTraitementEtablissement:%5B2019-11-30T00:00:00%20TO%202019-12-01T00:00:00%5D
+    uri: https://api.insee.fr/entreprises/sirene/V3/siret/?curseur=AoEuODM4NTA2NzIzMDAwMTc=&nombre=20&q=dateDernierTraitementEtablissement:%5B2019-11-30T00:00:00%20TO%202019-12-01T00:00:00%5D
     body:
       encoding: US-ASCII
       string: ''
@@ -239,9 +239,9 @@ http_interactions:
       Access-Control-Allow-Headers:
       - authorization,Access-Control-Allow-Origin,Content-Type,SOAPAction
       Link:
-      - <https://api.insee.fr/entreprises/sirene/siret?nombre=20&curseur=*&q=dateDernierTraitementEtablissement%3A%5B2019-11-30T00%3A00%3A00+TO+2019-12-01T00%3A00%3A00%5D>;
+      - <https://api.insee.fr/entreprises/sirene/siret/?nombre=20&curseur=*&q=dateDernierTraitementEtablissement%3A%5B2019-11-30T00%3A00%3A00+TO+2019-12-01T00%3A00%3A00%5D>;
         rel="first"
-      - <https://api.insee.fr/entreprises/sirene/siret?nombre=20&curseur=AoEuODUyMTIxNDkwMDAwMTk=&q=dateDernierTraitementEtablissement%3A%5B2019-11-30T00%3A00%3A00+TO+2019-12-01T00%3A00%3A00%5D>;
+      - <https://api.insee.fr/entreprises/sirene/siret/?nombre=20&curseur=AoEuODUyMTIxNDkwMDAwMTk=&q=dateDernierTraitementEtablissement%3A%5B2019-11-30T00%3A00%3A00+TO+2019-12-01T00%3A00%3A00%5D>;
         rel="next"
       Content-Type:
       - application/json;charset=utf-8
@@ -343,7 +343,7 @@ http_interactions:
   recorded_at: Wed, 11 Dec 2019 12:32:13 GMT
 - request:
     method: get
-    uri: https://api.insee.fr/entreprises/sirene/V3/siret?curseur=AoEuODUyMTIxNDkwMDAwMTk=&nombre=20&q=dateDernierTraitementEtablissement:%5B2019-11-30T00:00:00%20TO%202019-12-01T00:00:00%5D
+    uri: https://api.insee.fr/entreprises/sirene/V3/siret/?curseur=AoEuODUyMTIxNDkwMDAwMTk=&nombre=20&q=dateDernierTraitementEtablissement:%5B2019-11-30T00:00:00%20TO%202019-12-01T00:00:00%5D
     body:
       encoding: US-ASCII
       string: ''
@@ -385,9 +385,9 @@ http_interactions:
       Access-Control-Allow-Headers:
       - authorization,Access-Control-Allow-Origin,Content-Type,SOAPAction
       Link:
-      - <https://api.insee.fr/entreprises/sirene/siret?nombre=20&curseur=*&q=dateDernierTraitementEtablissement%3A%5B2019-11-30T00%3A00%3A00+TO+2019-12-01T00%3A00%3A00%5D>;
+      - <https://api.insee.fr/entreprises/sirene/siret/?nombre=20&curseur=*&q=dateDernierTraitementEtablissement%3A%5B2019-11-30T00%3A00%3A00+TO+2019-12-01T00%3A00%3A00%5D>;
         rel="first"
-      - <https://api.insee.fr/entreprises/sirene/siret?nombre=20&curseur=AoEuODc5MTc4NTQ5MDAwMTc=&q=dateDernierTraitementEtablissement%3A%5B2019-11-30T00%3A00%3A00+TO+2019-12-01T00%3A00%3A00%5D>;
+      - <https://api.insee.fr/entreprises/sirene/siret/?nombre=20&curseur=AoEuODc5MTc4NTQ5MDAwMTc=&q=dateDernierTraitementEtablissement%3A%5B2019-11-30T00%3A00%3A00+TO+2019-12-01T00%3A00%3A00%5D>;
         rel="next"
       Content-Type:
       - application/json;charset=utf-8
@@ -468,7 +468,7 @@ http_interactions:
   recorded_at: Wed, 11 Dec 2019 12:32:14 GMT
 - request:
     method: get
-    uri: https://api.insee.fr/entreprises/sirene/V3/siret?curseur=AoEuODc5MTc4NTQ5MDAwMTc=&nombre=20&q=dateDernierTraitementEtablissement:%5B2019-11-30T00:00:00%20TO%202019-12-01T00:00:00%5D
+    uri: https://api.insee.fr/entreprises/sirene/V3/siret/?curseur=AoEuODc5MTc4NTQ5MDAwMTc=&nombre=20&q=dateDernierTraitementEtablissement:%5B2019-11-30T00:00:00%20TO%202019-12-01T00:00:00%5D
     body:
       encoding: US-ASCII
       string: ''
@@ -510,7 +510,7 @@ http_interactions:
       Access-Control-Allow-Headers:
       - authorization,Access-Control-Allow-Origin,Content-Type,SOAPAction
       Link:
-      - <https://api.insee.fr/entreprises/sirene/siret?nombre=20&curseur=*&q=dateDernierTraitementEtablissement%3A%5B2019-11-30T00%3A00%3A00+TO+2019-12-01T00%3A00%3A00%5D>;
+      - <https://api.insee.fr/entreprises/sirene/siret/?nombre=20&curseur=*&q=dateDernierTraitementEtablissement%3A%5B2019-11-30T00%3A00%3A00+TO+2019-12-01T00%3A00%3A00%5D>;
         rel="first"
       Content-Type:
       - application/json;charset=utf-8
@@ -527,7 +527,7 @@ http_interactions:
   recorded_at: Wed, 11 Dec 2019 12:32:14 GMT
 - request:
     method: get
-    uri: https://api.insee.fr/entreprises/sirene/V3/siret?curseur=*&nombre=1000&q=dateDernierTraitementEtablissement:%5B2019-11-30T00:00:00%20TO%202019-12-01T00:00:00%5D
+    uri: https://api.insee.fr/entreprises/sirene/V3/siret/?curseur=*&nombre=1000&q=dateDernierTraitementEtablissement:%5B2019-11-30T00:00:00%20TO%202019-12-01T00:00:00%5D
     body:
       encoding: US-ASCII
       string: ''
@@ -569,9 +569,9 @@ http_interactions:
       Access-Control-Allow-Headers:
       - authorization,Access-Control-Allow-Origin,Content-Type,SOAPAction
       Link:
-      - <https://api.insee.fr/entreprises/sirene/siret?nombre=1000&curseur=*&q=dateDernierTraitementEtablissement%3A%5B2019-11-30T00%3A00%3A00+TO+2019-12-01T00%3A00%3A00%5D>;
+      - <https://api.insee.fr/entreprises/sirene/siret/?nombre=1000&curseur=*&q=dateDernierTraitementEtablissement%3A%5B2019-11-30T00%3A00%3A00+TO+2019-12-01T00%3A00%3A00%5D>;
         rel="first"
-      - <https://api.insee.fr/entreprises/sirene/siret?nombre=1000&curseur=AoEuODc5MTc4NTQ5MDAwMTc=&q=dateDernierTraitementEtablissement%3A%5B2019-11-30T00%3A00%3A00+TO+2019-12-01T00%3A00%3A00%5D>;
+      - <https://api.insee.fr/entreprises/sirene/siret/?nombre=1000&curseur=AoEuODc5MTc4NTQ5MDAwMTc=&q=dateDernierTraitementEtablissement%3A%5B2019-11-30T00%3A00%3A00+TO+2019-12-01T00%3A00%3A00%5D>;
         rel="next"
       Content-Type:
       - application/json;charset=utf-8

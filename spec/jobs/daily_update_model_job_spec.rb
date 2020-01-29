@@ -3,7 +3,7 @@ require 'rails_helper'
 describe DailyUpdateModelJob, :trb do
   subject { described_class.perform_now daily_update.id }
 
-  let(:daily_update) { create :daily_update, :for_unite_legale }
+  let(:daily_update) { create :daily_update_unite_legale }
   let(:import_logger) { instance_spy Logger }
 
   before do
@@ -28,12 +28,7 @@ describe DailyUpdateModelJob, :trb do
     it 'calls the update operation' do
       expect(DailyUpdate::Operation::Update)
         .to receive(:call)
-        .with(
-          model: UniteLegale,
-          from: daily_update.from,
-          to: daily_update.to,
-          logger: import_logger
-        )
+        .with(daily_update: daily_update, logger: import_logger)
       subject
     end
   end

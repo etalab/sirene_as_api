@@ -5,9 +5,7 @@ describe INSEE::Request::FetchUpdatesWithCursor do
 
   let(:params) do
     {
-      model: model,
-      from: from,
-      to: to,
+      daily_update: daily_update,
       cursor: cursor,
       logger: logger
     }
@@ -17,9 +15,9 @@ describe INSEE::Request::FetchUpdatesWithCursor do
   let(:logger) { instance_spy Logger }
 
   context 'with valid params for Etablissement', vcr: { cassette_name: 'insee/siret_small_update_OK' } do
-    let(:model) { Etablissement }
-    let(:from) { Time.new(2019, 11, 30) }
-    let(:to) { Time.new(2019, 12, 1) }
+    let(:daily_update) { create :daily_update_etablissement, from: from, to: to }
+    let(:from) { Time.zone.local(2019, 11, 30) }
+    let(:to) { Time.zone.local(2019, 12, 1) }
 
     it { is_expected.to be_success }
 
@@ -28,14 +26,14 @@ describe INSEE::Request::FetchUpdatesWithCursor do
     it 'logs http get success' do
       subject
       expect(logger).to have_received(:info)
-        .with('49 etablissements retrieved, new cursor: AoEuODc5MTc4NTQ5MDAwMTc=')
+        .with('49 Etablissement retrieved, new cursor: AoEuODc5MTc4NTQ5MDAwMTc=')
     end
   end
 
   describe 'UniteLegale' do
-    let(:model) { UniteLegale }
-    let(:from) { Time.new(2019, 12, 8) }
-    let(:to) { Time.new(2019, 12, 9) }
+    let(:daily_update) { create :daily_update_unite_legale, from: from, to: to }
+    let(:from) { Time.zone.local(2019, 12, 8) }
+    let(:to) { Time.zone.local(2019, 12, 9) }
 
     context 'with valid params for UniteLegale', vcr: { cassette_name: 'insee/siren_small_update_OK' } do
       it { is_expected.to be_success }
@@ -45,12 +43,12 @@ describe INSEE::Request::FetchUpdatesWithCursor do
       it 'logs http get success' do
         subject
         expect(logger).to have_received(:info)
-          .with('60 unitesLegales retrieved, new cursor: AoEpODc5MDc1NjM4')
+          .with('60 UniteLegale retrieved, new cursor: AoEpODc5MDc1NjM4')
       end
     end
 
     context 'with invalid filter name', vcr: { cassette_name: 'insee/siren_updates_wrong_filter' } do
-      let(:from) { Time.new(2020, 1, 1) } # from > to
+      let(:from) { Time.zone.local(2020, 1, 1) } # from > to
 
       it { is_expected.to be_failure }
 

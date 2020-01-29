@@ -22,9 +22,7 @@ class DailyUpdateModelJob < ApplicationJob
 
   def params
     {
-      model: daily_update.model_to_update,
-      from: daily_update.from,
-      to: daily_update.to,
+      daily_update: daily_update,
       logger: daily_update.logger_for_import
     }
   end

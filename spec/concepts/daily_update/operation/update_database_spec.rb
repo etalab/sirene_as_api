@@ -4,8 +4,10 @@ describe DailyUpdate::Operation::UpdateDatabase, :trb do
   subject { described_class.call logger: logger }
 
   let(:logger) { instance_spy Logger }
+  let(:froze_time) { Time.zone.local(2020, 1, 19, 15, 0, 0) }
+  let(:beginning_of_month) { Time.zone.local(2020, 1, 1) }
 
-  before { Timecop.freeze(Time.new(2020, 1, 19, 15, 0, 0)) }
+  before { Timecop.freeze(froze_time) }
 
   context 'when stock import is completed' do
     let!(:stock_unite_legale) { create :stock_unite_legale, :completed }
@@ -26,10 +28,10 @@ describe DailyUpdate::Operation::UpdateDatabase, :trb do
     it 'creates a valid unite legale daily update' do
       du = subject[:du_unite_legale]
       expect(du).to have_attributes(
-        model_name_to_update: 'unite_legale',
+        type: 'DailyUpdateUniteLegale',
         status: 'PENDING',
-        from: Time.new(2020, 1, 1),
-        to: Time.new(2020, 1, 19, 15, 0, 0)
+        from: beginning_of_month,
+        to: froze_time
       )
     end
 
@@ -46,10 +48,10 @@ describe DailyUpdate::Operation::UpdateDatabase, :trb do
     it 'creates a valid etablissement daily update' do
       du = subject[:du_etablissement]
       expect(du).to have_attributes(
-        model_name_to_update: 'etablissement',
+        type: 'DailyUpdateEtablissement',
         status: 'PENDING',
-        from: Time.new(2020, 1, 1),
-        to: Time.new(2020, 1, 19, 15, 0, 0)
+        from: beginning_of_month,
+        to: froze_time
       )
     end
   end
