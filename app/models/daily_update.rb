@@ -1,4 +1,12 @@
 class DailyUpdate < ApplicationRecord
+  def self.current
+    order(to: :desc, created_at: :desc).first
+  end
+
+  def completed?
+    status == 'COMPLETED'
+  end
+
   def related_model_name
     related_model
       .name
