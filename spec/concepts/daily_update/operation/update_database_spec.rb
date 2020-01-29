@@ -54,6 +54,46 @@ describe DailyUpdate::Operation::UpdateDatabase, :trb do
         to: froze_time
       )
     end
+
+    its([:du_unite_legale_nd]) { is_expected.to be_persisted }
+
+    it 'schedules DailyUpdateJob for unite legale non diffusable' do
+      id = subject[:du_unite_legale_nd].id
+      expect(DailyUpdateModelJob)
+        .to have_been_enqueued
+        .with(id)
+        .on_queue('sirene_api_test_auto_updates')
+    end
+
+    it 'creates a valid daily update unite legale non diffusable' do
+      du = subject[:du_unite_legale_nd]
+      expect(du).to have_attributes(
+        type: 'DailyUpdateUniteLegaleNonDiffusable',
+        status: 'PENDING',
+        from: beginning_of_month,
+        to: froze_time
+      )
+    end
+
+    its([:du_etablissement_nd]) { is_expected.to be_persisted }
+
+    it 'schedules DailyUpdateJob for etablissement non diffusable' do
+      id = subject[:du_etablissement_nd].id
+      expect(DailyUpdateModelJob)
+        .to have_been_enqueued
+        .with(id)
+        .on_queue('sirene_api_test_auto_updates')
+    end
+
+    it 'creates a valid daily update etablissement non diffusable' do
+      du = subject[:du_etablissement_nd]
+      expect(du).to have_attributes(
+        type: 'DailyUpdateEtablissementNonDiffusable',
+        status: 'PENDING',
+        from: beginning_of_month,
+        to: froze_time
+      )
+    end
   end
 
   context 'when stock import is not completed' do
