@@ -3,12 +3,12 @@ class DailyUpdate
     class AdaptUniteLegale < Trailblazer::Operation
       step :get_latest_informations
       step :rename_all_keys
-      step :delete_extra_keys
+      pass :delete_extra_keys
 
       PERIODES_KEY = :periodesUniteLegale
 
       def get_latest_informations(_, result:, **)
-        data = result[PERIODES_KEY].first
+        data = result[PERIODES_KEY]&.first || {}
         result.delete(PERIODES_KEY)
         result.merge!(data)
       end
