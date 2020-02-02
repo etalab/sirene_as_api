@@ -8,11 +8,6 @@ describe Stock::Helper::DatabaseIndexes do
   it 'yields table_names, indexes and options' do
     expect do |b|
       subject.each_index_configuration(&b)
-    end.to yield_successive_args(
-      [:unites_legales, 'siren', { unique: true }],
-      [:etablissements, 'siren', {}],
-      [:etablissements, 'unite_legale_id', {}],
-      [:etablissements, 'siret', { unique: true }]
-    )
+    end.to yield_control.exactly(59).times
   end
 end
