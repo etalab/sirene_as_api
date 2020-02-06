@@ -16,13 +16,15 @@ describe DailyUpdate do
     expect(described_class.current).to eq current
   end
 
-  it 'has status completed' do
-    daily_update = create :daily_update, :completed
-    expect(daily_update).to be_completed
-  end
+  describe '#status' do
+    it 'is completed' do
+      daily_update = create :daily_update, :completed
+      expect(daily_update).to be_completed
+    end
 
-  it 'has not status completed' do
-    daily_update = create :daily_update, :loading
-    expect(daily_update).not_to be_completed
+    it 'is completed' do
+      daily_update = create :daily_update, :loading
+      expect(daily_update).not_to be_completed
+    end
   end
 end
