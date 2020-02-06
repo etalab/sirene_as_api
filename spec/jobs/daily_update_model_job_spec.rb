@@ -17,6 +17,9 @@ describe DailyUpdateModelJob, :trb do
       allow(DailyUpdate::Operation::Update)
         .to receive(:call)
         .and_return(trb_result_success)
+      allow(DailyUpdate::Operation::PostUpdate)
+        .to receive(:call)
+        .and_return(trb_result_success)
     end
 
     it 'set status to COMPLETED' do
@@ -29,6 +32,12 @@ describe DailyUpdateModelJob, :trb do
       expect(DailyUpdate::Operation::Update)
         .to receive(:call)
         .with(daily_update: daily_update, logger: import_logger)
+      subject
+    end
+
+    it 'calls the post update operation' do
+      expect(DailyUpdate::Operation::PostUpdate)
+        .to receive(:call)
       subject
     end
   end
@@ -53,6 +62,12 @@ describe DailyUpdateModelJob, :trb do
       subject
       unites_legales = UniteLegale.where(siren: 'GHOST')
       expect(unites_legales).to be_empty
+    end
+
+    it 'does not call post update operation' do
+      expect(DailyUpdate::Operation::PostUpdate)
+        .not_to receive(:call)
+      subject
     end
   end
 end

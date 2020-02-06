@@ -56,5 +56,13 @@ describe Stock::Task::CreateAssociations do
       subject
       expect(logger).to have_received(:error).with(/Association failed:/)
     end
+
+    it 'does not create association' do
+      subject
+      etab = Etablissement.new(
+        get_raw_data('etablissements_tmp').first
+      )
+      expect(etab.unite_legale_id).to be_nil
+    end
   end
 end

@@ -1,4 +1,4 @@
-class Stock
+class DailyUpdate
   module Task
     class CreateAssociations < Trailblazer::Operation
       pass :log_associations_starts
@@ -35,10 +35,10 @@ class Stock
 
       def sql
         <<-END_SQL
-        UPDATE etablissements_tmp
-        SET unite_legale_id = unites_legales_tmp.id
-        FROM unites_legales_tmp
-        WHERE etablissements_tmp.siren = unites_legales_tmp.siren
+        UPDATE etablissements
+        SET unite_legale_id = unites_legales.id
+        FROM unites_legales
+        WHERE etablissements.unite_legale_id is null and etablissements.siren = unites_legales.siren
         END_SQL
       end
     end
