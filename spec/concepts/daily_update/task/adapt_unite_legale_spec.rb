@@ -14,12 +14,7 @@ describe DailyUpdate::Task::AdaptUniteLegale do
     let(:fixture_path) { 'spec/fixtures/samples_insee/unite_legale.json' }
     let(:keys_to_ignore) { %i[id unite_purgee created_at updated_at] }
     let(:expected_keys) do
-      UniteLegale
-        .new
-        .attributes
-        .deep_symbolize_keys
-        .tap { |hash| keys_to_ignore.each { |k| hash.delete(k) } }
-        .keys
+      %i[siren statut_diffusion date_creation sigle sexe prenom_1 prenom_2 prenom_3 prenom_4 prenom_usuel pseudonyme identifiant_association tranche_effectifs annee_effectifs date_dernier_traitement nombre_periodes categorie_entreprise annee_categorie_entreprise date_fin date_debut etat_administratif nom nom_usage denomination denomination_usuelle_1 denomination_usuelle_2 denomination_usuelle_3 categorie_juridique activite_principale nomenclature_activite_principale nic_siege economie_sociale_solidaire caractere_employeur]
     end
 
     it { is_expected.to be_success }

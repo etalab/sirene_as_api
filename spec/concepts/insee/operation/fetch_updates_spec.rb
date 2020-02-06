@@ -84,7 +84,7 @@ describe INSEE::Operation::FetchUpdates, :trb do
 
     its([:api_results]) { is_expected.to have_attributes(count: 131) }
 
-    it 'calls request 3 times' do
+    it 'calls request 8 times' do
       expect_to_call_nested_operation(INSEE::Request::FetchUpdatesWithCursor)
         .exactly(8).times
       subject
