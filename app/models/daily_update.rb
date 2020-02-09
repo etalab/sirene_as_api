@@ -1,6 +1,8 @@
 class DailyUpdate < ApplicationRecord
   def self.current
-    order(to: :desc, created_at: :desc).first
+    where(update_type: 'limited')
+      .order(to: :desc, created_at: :desc)
+      .first
   end
 
   def completed?

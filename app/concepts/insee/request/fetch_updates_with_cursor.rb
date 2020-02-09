@@ -36,7 +36,8 @@ module INSEE
 
       def log_http_get_success(_, body:, daily_update:, logger:, **)
         nb_updates = body[daily_update.insee_results_body_key].size
-        logger.info "#{nb_updates} #{daily_update.related_model} retrieved, new cursor: #{body[:header][:curseurSuivant]}"
+        total = body.dig(:header, :total)
+        logger.info "#{nb_updates} #{daily_update.related_model} retrieved (total: #{total}), new cursor: #{body[:header][:curseurSuivant]}"
       end
 
       def log_http_failed(_, response:, logger:, **)

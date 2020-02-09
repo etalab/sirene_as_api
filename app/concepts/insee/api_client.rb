@@ -2,7 +2,7 @@ class INSEE::ApiClient
   include ActiveModel::Model
   attr_accessor :daily_update, :cursor, :token
   extend Forwardable
-  def_delegators :@daily_update, :from, :to, :related_model, :insee_resource_suffix
+  def_delegators :@daily_update, :from, :to, :related_model, :insee_resource_suffix, :update_type
 
   # value limited by INSEE
   MAX_ELEMENTS_PER_CALL = 1_000
@@ -37,11 +37,13 @@ class INSEE::ApiClient
   end
 
   def query_hash
-    {
+    query = {
       nombre: MAX_ELEMENTS_PER_CALL,
-      curseur: cursor,
-      q: query_filter
+      curseur: cursor
     }
+
+    query[:q] = query_filter unless update_type == 'full'
+    query
   end
 
   def query_filter

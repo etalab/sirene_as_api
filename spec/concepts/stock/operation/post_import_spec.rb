@@ -89,5 +89,10 @@ describe Stock::Operation::PostImport, :trb do
         .ordered
       subject
     end
+
+    it 'updates all non diffusables' do
+      expect_to_call_nested_operation(Stock::Task::UpdateNonDiffusable)
+      subject
+    end
   end
 end

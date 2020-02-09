@@ -9,6 +9,7 @@ class Stock
       step Nested Task::SwapTableNames
       step Nested Task::CreateIndexes
       step :truncate_temp_tables
+      step Nested Task::UpdateNonDiffusable
 
       def stock_unite_legale_imported?(_, **)
         StockUniteLegale.current&.imported?

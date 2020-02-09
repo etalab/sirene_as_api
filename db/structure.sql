@@ -57,7 +57,8 @@ CREATE TABLE public.daily_updates (
     "to" timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    type character varying
+    type character varying,
+    update_type character varying DEFAULT 'limited'::character varying
 );
 
 
@@ -818,6 +819,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20191126124456'),
 ('20200119132507'),
 ('20200127073524'),
-('20200127074730');
+('20200127074730'),
+('20200210140344');
 
 

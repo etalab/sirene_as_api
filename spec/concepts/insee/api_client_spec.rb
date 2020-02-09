@@ -36,5 +36,21 @@ describe INSEE::ApiClient do
 
       it { is_expected.to be_a Net::HTTPBadRequest }
     end
+
+    context 'with update_type: full is updates on all perimeter', vcr: { cassette_name: 'insee/siren_full_update_OK' } do
+      before do
+        daily_update.update(update_type: 'full')
+        stub_const('INSEE::ApiClient::MAX_ELEMENTS_PER_CALL', 20)
+      end
+
+      it { is_expected.to be_a Net::HTTPOK }
+
+      it 'calls an URL without dateDernierTraitement' do
+        expect(Net::HTTP::Get).to receive(:new)
+          .with(an_object_having_attributes(query: 'nombre=20&curseur=*'))
+          .and_call_original
+        subject
+      end
+    end
   end
 end

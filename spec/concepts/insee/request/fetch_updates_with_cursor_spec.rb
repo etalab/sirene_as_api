@@ -26,7 +26,7 @@ describe INSEE::Request::FetchUpdatesWithCursor do
     it 'logs http get success' do
       subject
       expect(logger).to have_received(:info)
-        .with('49 Etablissement retrieved, new cursor: AoEuODc5MTc4NTQ5MDAwMTc=')
+        .with('49 Etablissement retrieved (total: 49), new cursor: AoEuODc5MTc4NTQ5MDAwMTc=')
     end
   end
 
@@ -43,7 +43,7 @@ describe INSEE::Request::FetchUpdatesWithCursor do
       it 'logs http get success' do
         subject
         expect(logger).to have_received(:info)
-          .with('60 UniteLegale retrieved, new cursor: AoEpODc5MDc1NjM4')
+          .with('60 UniteLegale retrieved (total: 60), new cursor: AoEpODc5MDc1NjM4')
       end
     end
 
@@ -58,6 +58,26 @@ describe INSEE::Request::FetchUpdatesWithCursor do
         subject
         expect(logger).to have_received(:error)
           .with(/HTTP request failed \(code: 400\)\: .+/)
+      end
+    end
+
+    context 'with update_type: full is updates on all perimeter' do
+      before do
+        stub_const('INSEE::ApiClient::MAX_ELEMENTS_PER_CALL', 20)
+      end
+
+      let(:daily_update) { create :daily_update_unite_legale_non_diffusable, update_type: 'full' }
+
+      context 'with valid params for UniteLegale', vcr: { cassette_name: 'insee/siren_non_diffusable_update_all_OK' } do
+        it { is_expected.to be_success }
+
+        its([:body]) { is_expected.to be_a(Hash) }
+
+        it 'logs http get success' do
+          subject
+          expect(logger).to have_received(:info)
+            .with('20 UniteLegale retrieved (total: 703776), new cursor: AoIpMDU3MTAyMTA1KTA1NzEwMjEwNQ==')
+        end
       end
     end
 
