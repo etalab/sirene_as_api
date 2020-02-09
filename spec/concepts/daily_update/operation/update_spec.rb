@@ -9,8 +9,6 @@ describe DailyUpdate::Operation::Update, :trb do
   let(:to) { Time.zone.local(2019, 12, 1, 20, 0, 0) }
 
   context 'when updating UniteLegale', vcr: { cassette_name: 'insee/siren_update_1st_december' } do
-    let(:model) { UniteLegale }
-
     it { is_expected.to be_success }
 
     it 'logs the period to import' do

@@ -19,6 +19,6 @@ production:
 # à supprimer à partir d'ici
 # pour ne pas utiliser l'API de l'INSEE
   daily_update_job:
-    cron: '0 5 * * *'
+    cron: '15 0 * * *'
     class: 'DailyUpdateJob'
     queue: 'auto_updates'

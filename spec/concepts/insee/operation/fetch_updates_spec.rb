@@ -53,6 +53,50 @@ describe INSEE::Operation::FetchUpdates, :trb do
     end
   end
 
+  describe 'with unite legale non diffusables', vcr: { cassette_name: 'insee/siren_non_diffusable_small_update_OK' } do
+    let(:daily_update) { create :daily_update_unite_legale_non_diffusable, from: from, to: to }
+    let(:from) { Time.zone.local(2019, 12, 8) }
+    let(:to) { Time.zone.local(2019, 12, 9) }
+
+    it { is_expected.to be_success }
+
+    its([:api_results]) { is_expected.to have_attributes(count: 12) }
+
+    it 'calls request 2 times' do
+      expect_to_call_nested_operation(INSEE::Request::FetchUpdatesWithCursor)
+        .exactly(2).times
+      subject
+    end
+
+    it 'logs how many entities have been fetched' do
+      subject
+      expect(logger).to have_received(:info)
+        .with('Total: 12 UniteLegale fetched')
+    end
+  end
+
+  describe 'with etablissement non diffusables', vcr: { cassette_name: 'insee/siret_non_diffusable_small_update_OK' } do
+    let(:daily_update) { create :daily_update_etablissement_non_diffusable, from: from, to: to }
+    let(:from) { Time.zone.local(2019, 12, 8) }
+    let(:to) { Time.zone.local(2019, 12, 9) }
+
+    it { is_expected.to be_success }
+
+    its([:api_results]) { is_expected.to have_attributes(count: 131) }
+
+    it 'calls request 8 times' do
+      expect_to_call_nested_operation(INSEE::Request::FetchUpdatesWithCursor)
+        .exactly(8).times
+      subject
+    end
+
+    it 'logs how many entities have been fetched' do
+      subject
+      expect(logger).to have_received(:info)
+        .with('Total: 131 Etablissement fetched')
+    end
+  end
+
   context 'when an API call fails' do
     before do
       allow(INSEE::Request::FetchUpdatesWithCursor)

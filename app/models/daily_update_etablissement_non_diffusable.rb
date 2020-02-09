@@ -1,6 +1,6 @@
-class DailyUpdateEtablissement < DailyUpdate
+class DailyUpdateEtablissementNonDiffusable < DailyUpdate
   def log_filename
-    'daily_update_etablissement.log'
+    'daily_update_etablissement_non_diffusable.log'
   end
 
   def related_model
@@ -12,11 +12,11 @@ class DailyUpdateEtablissement < DailyUpdate
   end
 
   def insee_results_body_key
-    :etablissements
+    :etablissementsNonDiffusibles
   end
 
   def insee_resource_suffix
-    'siret/'
+    'siret/nonDiffusibles'
   end
 
   def adapter_task

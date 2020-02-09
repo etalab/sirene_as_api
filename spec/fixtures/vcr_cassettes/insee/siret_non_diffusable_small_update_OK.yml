@@ -1,0 +1,540 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.insee.fr/token
+    body:
+      encoding: UTF-8
+      string: grant_type=client_credentials
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.insee.fr
+      Authorization:
+      - Basic <INSEE_CREDENTIALS>
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Frame-Options:
+      - DENY
+      Cache-Control:
+      - no-store
+      X-Content-Type-Options:
+      - nosniff
+      Set-Cookie:
+      - INSEE=1880501002.58148.0000;secure; expires=Thu, 30-Jan-2020 13:45:40 GMT;
+        path=/
+      - pdapimgateway=1846946570.22560.0000;secure; expires=Thu, 30-Jan-2020 13:45:40
+        GMT; path=/
+      Pragma:
+      - no-cache
+      X-Xss-Protection:
+      - 1; mode=block
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 30 Jan 2020 13:25:39 GMT
+      Transfer-Encoding:
+      - chunked
+      Strict-Transport-Security:
+      - max-age=100000; includeSubDomains
+    body:
+      encoding: UTF-8
+      string: '{"access_token":"b6e7cd3d-616a-30eb-8b5f-6676386baae7","scope":"am_application_scope
+        default","token_type":"Bearer","expires_in":262492}'
+    http_version: 
+  recorded_at: Thu, 30 Jan 2020 13:25:40 GMT
+- request:
+    method: get
+    uri: https://api.insee.fr/entreprises/sirene/V3/siret/nonDiffusibles?curseur=*&nombre=20&q=dateDernierTraitementEtablissement:%5B2019-12-08T00:00:00%20TO%202019-12-09T00:00:00%5D
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.insee.fr
+      Authorization:
+      - Bearer b6e7cd3d-616a-30eb-8b5f-6676386baae7
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      Cache-Control:
+      - private
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Methods:
+      - GET
+      Set-Cookie:
+      - INSEE=1627925258.20480.0000;secure; expires=Thu, 30-Jan-2020 13:45:40 GMT;
+        path=/
+      - pdapimgateway=1846946570.22560.0000;secure; expires=Thu, 30-Jan-2020 13:45:40
+        GMT; path=/
+      Vary:
+      - Accept-Encoding
+      Expires:
+      - Thu, 01 Jan 1970 01:00:00 GMT
+      X-Total-Count:
+      - '131'
+      Access-Control-Allow-Headers:
+      - authorization,Access-Control-Allow-Origin,Content-Type,SOAPAction
+      Link:
+      - <https://api.insee.fr/entreprises/sirene/siret/nonDiffusibles?nombre=20&curseur=*&q=dateDernierTraitementEtablissement%3A%5B2019-12-08T00%3A00%3A00+TO+2019-12-09T00%3A00%3A00%5D>;
+        rel="first"
+      - <https://api.insee.fr/entreprises/sirene/siret/nonDiffusibles?nombre=20&curseur=AoIuODMzNzgzNzk4MDAwMTQuODMzNzgzNzk4MDAwMTQ=&q=dateDernierTraitementEtablissement%3A%5B2019-12-08T00%3A00%3A00+TO+2019-12-09T00%3A00%3A00%5D>;
+        rel="next"
+      Content-Type:
+      - application/json;charset=utf-8
+      Date:
+      - Thu, 30 Jan 2020 13:25:40 GMT
+      Transfer-Encoding:
+      - chunked
+      Strict-Transport-Security:
+      - max-age=100000; includeSubDomains
+    body:
+      encoding: ASCII-8BIT
+      string: '{"header":{"statut":200,"message":"OK","total":131,"debut":0,"nombre":20,"curseur":"*","curseurSuivant":"AoIuODMzNzgzNzk4MDAwMTQuODMzNzgzNzk4MDAwMTQ="},"etablissementsNonDiffusibles":[{"siren":"344459326","nic":"00031","siret":"34445932600031","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:28"},{"siren":"378839120","nic":"00011","siret":"37883912000011","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T20:00:21"},{"siren":"378839120","nic":"00029","siret":"37883912000029","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T20:00:21"},{"siren":"378839120","nic":"00037","siret":"37883912000037","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T20:00:21"},{"siren":"397495193","nic":"00054","siret":"39749519300054","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:01:17"},{"siren":"437923535","nic":"00029","siret":"43792353500029","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:20"},{"siren":"479964280","nic":"00057","siret":"47996428000057","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:54"},{"siren":"504337833","nic":"00025","siret":"50433783300025","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:47"},{"siren":"510694227","nic":"00016","siret":"51069422700016","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T20:00:21"},{"siren":"510694227","nic":"00024","siret":"51069422700024","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T20:00:21"},{"siren":"510694227","nic":"00032","siret":"51069422700032","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T20:00:21"},{"siren":"512366923","nic":"00021","siret":"51236692300021","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:45"},{"siren":"512561952","nic":"00049","siret":"51256195200049","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:15"},{"siren":"517534210","nic":"00029","siret":"51753421000029","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:34"},{"siren":"527688089","nic":"00046","siret":"52768808900046","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:31"},{"siren":"535348650","nic":"00024","siret":"53534865000024","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:48"},{"siren":"750792160","nic":"00038","siret":"75079216000038","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:27"},{"siren":"830207858","nic":"00010","siret":"83020785800010","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T20:00:19"},{"siren":"830458899","nic":"00028","siret":"83045889900028","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:49"},{"siren":"833783798","nic":"00014","siret":"83378379800014","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:01:47"}]}'
+    http_version: 
+  recorded_at: Thu, 30 Jan 2020 13:25:40 GMT
+- request:
+    method: get
+    uri: https://api.insee.fr/entreprises/sirene/V3/siret/nonDiffusibles?curseur=AoIuODMzNzgzNzk4MDAwMTQuODMzNzgzNzk4MDAwMTQ=&nombre=20&q=dateDernierTraitementEtablissement:%5B2019-12-08T00:00:00%20TO%202019-12-09T00:00:00%5D
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.insee.fr
+      Authorization:
+      - Bearer b6e7cd3d-616a-30eb-8b5f-6676386baae7
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      Cache-Control:
+      - private
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Methods:
+      - GET
+      Set-Cookie:
+      - INSEE=1627925258.20480.0000;secure; expires=Thu, 30-Jan-2020 13:45:40 GMT;
+        path=/
+      - pdapimgateway=1830169354.22560.0000;secure; expires=Thu, 30-Jan-2020 13:45:40
+        GMT; path=/
+      Vary:
+      - Accept-Encoding
+      Expires:
+      - Thu, 01 Jan 1970 01:00:00 GMT
+      X-Total-Count:
+      - '131'
+      Access-Control-Allow-Headers:
+      - authorization,Access-Control-Allow-Origin,Content-Type,SOAPAction
+      Link:
+      - <https://api.insee.fr/entreprises/sirene/siret/nonDiffusibles?nombre=20&curseur=*&q=dateDernierTraitementEtablissement%3A%5B2019-12-08T00%3A00%3A00+TO+2019-12-09T00%3A00%3A00%5D>;
+        rel="first"
+      - <https://api.insee.fr/entreprises/sirene/siret/nonDiffusibles?nombre=20&curseur=AoIuODc4MDQ4ODgzMDAwMTAuODc4MDQ4ODgzMDAwMTA=&q=dateDernierTraitementEtablissement%3A%5B2019-12-08T00%3A00%3A00+TO+2019-12-09T00%3A00%3A00%5D>;
+        rel="next"
+      Content-Type:
+      - application/json;charset=utf-8
+      Date:
+      - Thu, 30 Jan 2020 13:25:40 GMT
+      Transfer-Encoding:
+      - chunked
+      Strict-Transport-Security:
+      - max-age=100000; includeSubDomains
+    body:
+      encoding: ASCII-8BIT
+      string: '{"header":{"statut":200,"message":"OK","total":131,"debut":0,"nombre":20,"curseur":"AoIuODMzNzgzNzk4MDAwMTQuODMzNzgzNzk4MDAwMTQ=","curseurSuivant":"AoIuODc4MDQ4ODgzMDAwMTAuODc4MDQ4ODgzMDAwMTA="},"etablissementsNonDiffusibles":[{"siren":"834266736","nic":"00034","siret":"83426673600034","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:01:40"},{"siren":"849748165","nic":"00024","siret":"84974816500024","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:55"},{"siren":"851771691","nic":"00017","siret":"85177169100017","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T20:00:17"},{"siren":"852886076","nic":"00011","siret":"85288607600011","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T20:00:21"},{"siren":"853233104","nic":"00019","siret":"85323310400019","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:21"},{"siren":"853751071","nic":"00012","siret":"85375107100012","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:49"},{"siren":"853752202","nic":"00012","siret":"85375220200012","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:42"},{"siren":"853878320","nic":"00011","siret":"85387832000011","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:31"},{"siren":"854088408","nic":"00018","siret":"85408840800018","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:29"},{"siren":"877470823","nic":"00015","siret":"87747082300015","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:22"},{"siren":"877582510","nic":"00013","siret":"87758251000013","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:56"},{"siren":"877635789","nic":"00010","siret":"87763578900010","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:32"},{"siren":"877715839","nic":"00016","siret":"87771583900016","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:19"},{"siren":"877843508","nic":"00012","siret":"87784350800012","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:18"},{"siren":"877879924","nic":"00018","siret":"87787992400018","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:16"},{"siren":"877923359","nic":"00013","siret":"87792335900013","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:43"},{"siren":"877924035","nic":"00018","siret":"87792403500018","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:35"},{"siren":"877996546","nic":"00017","siret":"87799654600017","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:44"},{"siren":"878040898","nic":"00016","siret":"87804089800016","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:43"},{"siren":"878048883","nic":"00010","siret":"87804888300010","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:21"}]}'
+    http_version: 
+  recorded_at: Thu, 30 Jan 2020 13:25:41 GMT
+- request:
+    method: get
+    uri: https://api.insee.fr/entreprises/sirene/V3/siret/nonDiffusibles?curseur=AoIuODc4MDQ4ODgzMDAwMTAuODc4MDQ4ODgzMDAwMTA=&nombre=20&q=dateDernierTraitementEtablissement:%5B2019-12-08T00:00:00%20TO%202019-12-09T00:00:00%5D
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.insee.fr
+      Authorization:
+      - Bearer b6e7cd3d-616a-30eb-8b5f-6676386baae7
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      Cache-Control:
+      - private
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Methods:
+      - GET
+      Set-Cookie:
+      - INSEE=1627925258.20480.0000;secure; expires=Thu, 30-Jan-2020 13:45:41 GMT;
+        path=/
+      - pdapimgateway=1846946570.22560.0000;secure; expires=Thu, 30-Jan-2020 13:45:41
+        GMT; path=/
+      Vary:
+      - Accept-Encoding
+      Expires:
+      - Thu, 01 Jan 1970 01:00:00 GMT
+      X-Total-Count:
+      - '131'
+      Access-Control-Allow-Headers:
+      - authorization,Access-Control-Allow-Origin,Content-Type,SOAPAction
+      Link:
+      - <https://api.insee.fr/entreprises/sirene/siret/nonDiffusibles?nombre=20&curseur=*&q=dateDernierTraitementEtablissement%3A%5B2019-12-08T00%3A00%3A00+TO+2019-12-09T00%3A00%3A00%5D>;
+        rel="first"
+      - <https://api.insee.fr/entreprises/sirene/siret/nonDiffusibles?nombre=20&curseur=AoIuODc4NDU0Nzc2MDAwMTMuODc4NDU0Nzc2MDAwMTM=&q=dateDernierTraitementEtablissement%3A%5B2019-12-08T00%3A00%3A00+TO+2019-12-09T00%3A00%3A00%5D>;
+        rel="next"
+      Content-Type:
+      - application/json;charset=utf-8
+      Date:
+      - Thu, 30 Jan 2020 13:25:41 GMT
+      Transfer-Encoding:
+      - chunked
+      Strict-Transport-Security:
+      - max-age=100000; includeSubDomains
+    body:
+      encoding: ASCII-8BIT
+      string: '{"header":{"statut":200,"message":"OK","total":131,"debut":0,"nombre":20,"curseur":"AoIuODc4MDQ4ODgzMDAwMTAuODc4MDQ4ODgzMDAwMTA=","curseurSuivant":"AoIuODc4NDU0Nzc2MDAwMTMuODc4NDU0Nzc2MDAwMTM="},"etablissementsNonDiffusibles":[{"siren":"878049816","nic":"00019","siret":"87804981600019","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:14"},{"siren":"878122472","nic":"00011","siret":"87812247200011","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:38"},{"siren":"878134402","nic":"00014","siret":"87813440200014","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T20:00:20"},{"siren":"878244656","nic":"00012","siret":"87824465600012","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:56"},{"siren":"878244706","nic":"00015","siret":"87824470600015","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:46"},{"siren":"878248731","nic":"00019","siret":"87824873100019","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:43"},{"siren":"878271394","nic":"00016","siret":"87827139400016","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:43"},{"siren":"878286053","nic":"00011","siret":"87828605300011","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:50"},{"siren":"878286806","nic":"00012","siret":"87828680600012","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:38"},{"siren":"878288901","nic":"00019","siret":"87828890100019","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:37"},{"siren":"878290543","nic":"00015","siret":"87829054300015","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:36"},{"siren":"878299346","nic":"00014","siret":"87829934600014","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T20:00:18"},{"siren":"878317841","nic":"00012","siret":"87831784100012","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:20"},{"siren":"878332915","nic":"00015","siret":"87833291500015","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:45"},{"siren":"878368315","nic":"00015","siret":"87836831500015","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:30"},{"siren":"878390871","nic":"00019","siret":"87839087100019","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:21"},{"siren":"878446145","nic":"00012","siret":"87844614500012","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:48"},{"siren":"878448000","nic":"00017","siret":"87844800000017","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:25"},{"siren":"878452770","nic":"00018","siret":"87845277000018","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:44"},{"siren":"878454776","nic":"00013","siret":"87845477600013","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:29"}]}'
+    http_version: 
+  recorded_at: Thu, 30 Jan 2020 13:25:41 GMT
+- request:
+    method: get
+    uri: https://api.insee.fr/entreprises/sirene/V3/siret/nonDiffusibles?curseur=AoIuODc4NDU0Nzc2MDAwMTMuODc4NDU0Nzc2MDAwMTM=&nombre=20&q=dateDernierTraitementEtablissement:%5B2019-12-08T00:00:00%20TO%202019-12-09T00:00:00%5D
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.insee.fr
+      Authorization:
+      - Bearer b6e7cd3d-616a-30eb-8b5f-6676386baae7
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      Cache-Control:
+      - private
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Methods:
+      - GET
+      Set-Cookie:
+      - INSEE=1644702474.20480.0000;secure; expires=Thu, 30-Jan-2020 13:45:41 GMT;
+        path=/
+      - pdapimgateway=1830169354.22560.0000;secure; expires=Thu, 30-Jan-2020 13:45:41
+        GMT; path=/
+      Vary:
+      - Accept-Encoding
+      Expires:
+      - Thu, 01 Jan 1970 01:00:00 GMT
+      X-Total-Count:
+      - '131'
+      Access-Control-Allow-Headers:
+      - authorization,Access-Control-Allow-Origin,Content-Type,SOAPAction
+      Link:
+      - <https://api.insee.fr/entreprises/sirene/siret/nonDiffusibles?nombre=20&curseur=*&q=dateDernierTraitementEtablissement%3A%5B2019-12-08T00%3A00%3A00+TO+2019-12-09T00%3A00%3A00%5D>;
+        rel="first"
+      - <https://api.insee.fr/entreprises/sirene/siret/nonDiffusibles?nombre=20&curseur=AoIuODc4OTExMjk2MDAwMTkuODc4OTExMjk2MDAwMTk=&q=dateDernierTraitementEtablissement%3A%5B2019-12-08T00%3A00%3A00+TO+2019-12-09T00%3A00%3A00%5D>;
+        rel="next"
+      Content-Type:
+      - application/json;charset=utf-8
+      Date:
+      - Thu, 30 Jan 2020 13:25:41 GMT
+      Transfer-Encoding:
+      - chunked
+      Strict-Transport-Security:
+      - max-age=100000; includeSubDomains
+    body:
+      encoding: ASCII-8BIT
+      string: '{"header":{"statut":200,"message":"OK","total":131,"debut":0,"nombre":20,"curseur":"AoIuODc4NDU0Nzc2MDAwMTMuODc4NDU0Nzc2MDAwMTM=","curseurSuivant":"AoIuODc4OTExMjk2MDAwMTkuODc4OTExMjk2MDAwMTk="},"etablissementsNonDiffusibles":[{"siren":"878470319","nic":"00012","siret":"87847031900012","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:55"},{"siren":"878490879","nic":"00011","siret":"87849087900011","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:36"},{"siren":"878494350","nic":"00019","siret":"87849435000019","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:37"},{"siren":"878499201","nic":"00019","siret":"87849920100019","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:45"},{"siren":"878506609","nic":"00014","siret":"87850660900014","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:43"},{"siren":"878540681","nic":"00011","siret":"87854068100011","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:18"},{"siren":"878553908","nic":"00012","siret":"87855390800012","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:42"},{"siren":"878579309","nic":"00013","siret":"87857930900013","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:45"},{"siren":"878579929","nic":"00018","siret":"87857992900018","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:49"},{"siren":"878706316","nic":"00014","siret":"87870631600014","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:16"},{"siren":"878720002","nic":"00012","siret":"87872000200012","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:20"},{"siren":"878792134","nic":"00016","siret":"87879213400016","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:35"},{"siren":"878818608","nic":"00019","siret":"87881860800019","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:18"},{"siren":"878857416","nic":"00019","siret":"87885741600019","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:20"},{"siren":"878877596","nic":"00014","siret":"87887759600014","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:24"},{"siren":"878883271","nic":"00016","siret":"87888327100016","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:20"},{"siren":"878901537","nic":"00018","siret":"87890153700018","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:27"},{"siren":"878908680","nic":"00019","siret":"87890868000019","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:24"},{"siren":"878909837","nic":"00014","siret":"87890983700014","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:41"},{"siren":"878911296","nic":"00019","siret":"87891129600019","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:33"}]}'
+    http_version: 
+  recorded_at: Thu, 30 Jan 2020 13:25:42 GMT
+- request:
+    method: get
+    uri: https://api.insee.fr/entreprises/sirene/V3/siret/nonDiffusibles?curseur=AoIuODc4OTExMjk2MDAwMTkuODc4OTExMjk2MDAwMTk=&nombre=20&q=dateDernierTraitementEtablissement:%5B2019-12-08T00:00:00%20TO%202019-12-09T00:00:00%5D
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.insee.fr
+      Authorization:
+      - Bearer b6e7cd3d-616a-30eb-8b5f-6676386baae7
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      Cache-Control:
+      - private
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Methods:
+      - GET
+      Set-Cookie:
+      - INSEE=1644702474.20480.0000;secure; expires=Thu, 30-Jan-2020 13:45:42 GMT;
+        path=/
+      - pdapimgateway=1830169354.22560.0000;secure; expires=Thu, 30-Jan-2020 13:45:42
+        GMT; path=/
+      Vary:
+      - Accept-Encoding
+      Expires:
+      - Thu, 01 Jan 1970 01:00:00 GMT
+      X-Total-Count:
+      - '131'
+      Access-Control-Allow-Headers:
+      - authorization,Access-Control-Allow-Origin,Content-Type,SOAPAction
+      Link:
+      - <https://api.insee.fr/entreprises/sirene/siret/nonDiffusibles?nombre=20&curseur=*&q=dateDernierTraitementEtablissement%3A%5B2019-12-08T00%3A00%3A00+TO+2019-12-09T00%3A00%3A00%5D>;
+        rel="first"
+      - <https://api.insee.fr/entreprises/sirene/siret/nonDiffusibles?nombre=20&curseur=AoIuODc5MDA5MjU2MDAwMTQuODc5MDA5MjU2MDAwMTQ=&q=dateDernierTraitementEtablissement%3A%5B2019-12-08T00%3A00%3A00+TO+2019-12-09T00%3A00%3A00%5D>;
+        rel="next"
+      Content-Type:
+      - application/json;charset=utf-8
+      Date:
+      - Thu, 30 Jan 2020 13:25:41 GMT
+      Transfer-Encoding:
+      - chunked
+      Strict-Transport-Security:
+      - max-age=100000; includeSubDomains
+    body:
+      encoding: ASCII-8BIT
+      string: '{"header":{"statut":200,"message":"OK","total":131,"debut":0,"nombre":20,"curseur":"AoIuODc4OTExMjk2MDAwMTkuODc4OTExMjk2MDAwMTk=","curseurSuivant":"AoIuODc5MDA5MjU2MDAwMTQuODc5MDA5MjU2MDAwMTQ="},"etablissementsNonDiffusibles":[{"siren":"878931328","nic":"00016","siret":"87893132800016","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:46"},{"siren":"878937010","nic":"00014","siret":"87893701000014","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:52"},{"siren":"878937374","nic":"00014","siret":"87893737400014","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:09"},{"siren":"878945021","nic":"00011","siret":"87894502100011","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:39"},{"siren":"878945047","nic":"00016","siret":"87894504700016","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:31"},{"siren":"878953090","nic":"00015","siret":"87895309000015","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:30"},{"siren":"878959618","nic":"00017","siret":"87895961800017","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:33"},{"siren":"878965359","nic":"00010","siret":"87896535900010","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:27"},{"siren":"878969526","nic":"00010","siret":"87896952600010","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:33"},{"siren":"878997386","nic":"00015","siret":"87899738600015","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:42"},{"siren":"878998160","nic":"00013","siret":"87899816000013","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:33"},{"siren":"878998806","nic":"00011","siret":"87899880600011","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:29"},{"siren":"878999390","nic":"00015","siret":"87899939000015","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:53"},{"siren":"878999770","nic":"00018","siret":"87899977000018","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:37"},{"siren":"879001212","nic":"00015","siret":"87900121200015","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:15"},{"siren":"879002863","nic":"00014","siret":"87900286300014","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:44"},{"siren":"879002996","nic":"00012","siret":"87900299600012","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:47"},{"siren":"879003648","nic":"00018","siret":"87900364800018","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:52"},{"siren":"879008407","nic":"00014","siret":"87900840700014","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:43"},{"siren":"879009256","nic":"00014","siret":"87900925600014","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:46"}]}'
+    http_version: 
+  recorded_at: Thu, 30 Jan 2020 13:25:42 GMT
+- request:
+    method: get
+    uri: https://api.insee.fr/entreprises/sirene/V3/siret/nonDiffusibles?curseur=AoIuODc5MDA5MjU2MDAwMTQuODc5MDA5MjU2MDAwMTQ=&nombre=20&q=dateDernierTraitementEtablissement:%5B2019-12-08T00:00:00%20TO%202019-12-09T00:00:00%5D
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.insee.fr
+      Authorization:
+      - Bearer b6e7cd3d-616a-30eb-8b5f-6676386baae7
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      Cache-Control:
+      - private
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Methods:
+      - GET
+      Set-Cookie:
+      - INSEE=1627925258.20480.0000;secure; expires=Thu, 30-Jan-2020 13:45:42 GMT;
+        path=/
+      - pdapimgateway=1846946570.22560.0000;secure; expires=Thu, 30-Jan-2020 13:45:42
+        GMT; path=/
+      Vary:
+      - Accept-Encoding
+      Expires:
+      - Thu, 01 Jan 1970 01:00:00 GMT
+      X-Total-Count:
+      - '131'
+      Access-Control-Allow-Headers:
+      - authorization,Access-Control-Allow-Origin,Content-Type,SOAPAction
+      Link:
+      - <https://api.insee.fr/entreprises/sirene/siret/nonDiffusibles?nombre=20&curseur=*&q=dateDernierTraitementEtablissement%3A%5B2019-12-08T00%3A00%3A00+TO+2019-12-09T00%3A00%3A00%5D>;
+        rel="first"
+      - <https://api.insee.fr/entreprises/sirene/siret/nonDiffusibles?nombre=20&curseur=AoIuODc5MDc0MzkxMDAwMTkuODc5MDc0MzkxMDAwMTk=&q=dateDernierTraitementEtablissement%3A%5B2019-12-08T00%3A00%3A00+TO+2019-12-09T00%3A00%3A00%5D>;
+        rel="next"
+      Content-Type:
+      - application/json;charset=utf-8
+      Date:
+      - Thu, 30 Jan 2020 13:25:42 GMT
+      Transfer-Encoding:
+      - chunked
+      Strict-Transport-Security:
+      - max-age=100000; includeSubDomains
+    body:
+      encoding: ASCII-8BIT
+      string: '{"header":{"statut":200,"message":"OK","total":131,"debut":0,"nombre":20,"curseur":"AoIuODc5MDA5MjU2MDAwMTQuODc5MDA5MjU2MDAwMTQ=","curseurSuivant":"AoIuODc5MDc0MzkxMDAwMTkuODc5MDc0MzkxMDAwMTk="},"etablissementsNonDiffusibles":[{"siren":"879010726","nic":"00013","siret":"87901072600013","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:39"},{"siren":"879011229","nic":"00017","siret":"87901122900017","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:55"},{"siren":"879011302","nic":"00012","siret":"87901130200012","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:40"},{"siren":"879015436","nic":"00014","siret":"87901543600014","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:56"},{"siren":"879015972","nic":"00018","siret":"87901597200018","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:24"},{"siren":"879016319","nic":"00011","siret":"87901631900011","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:54"},{"siren":"879016822","nic":"00014","siret":"87901682200014","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:40"},{"siren":"879024149","nic":"00012","siret":"87902414900012","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:09"},{"siren":"879026730","nic":"00017","siret":"87902673000017","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:32"},{"siren":"879027142","nic":"00014","siret":"87902714200014","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:12"},{"siren":"879027258","nic":"00018","siret":"87902725800018","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:27"},{"siren":"879027266","nic":"00011","siret":"87902726600011","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:11"},{"siren":"879027522","nic":"00017","siret":"87902752200017","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:15"},{"siren":"879032001","nic":"00015","siret":"87903200100015","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:39"},{"siren":"879040731","nic":"00017","siret":"87904073100017","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:55"},{"siren":"879042968","nic":"00013","siret":"87904296800013","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:33"},{"siren":"879045060","nic":"00016","siret":"87904506000016","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:55"},{"siren":"879063238","nic":"00015","siret":"87906323800015","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:30"},{"siren":"879070100","nic":"00018","siret":"87907010000018","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:41"},{"siren":"879074391","nic":"00019","siret":"87907439100019","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:56"}]}'
+    http_version: 
+  recorded_at: Thu, 30 Jan 2020 13:25:42 GMT
+- request:
+    method: get
+    uri: https://api.insee.fr/entreprises/sirene/V3/siret/nonDiffusibles?curseur=AoIuODc5MDc0MzkxMDAwMTkuODc5MDc0MzkxMDAwMTk=&nombre=20&q=dateDernierTraitementEtablissement:%5B2019-12-08T00:00:00%20TO%202019-12-09T00:00:00%5D
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.insee.fr
+      Authorization:
+      - Bearer b6e7cd3d-616a-30eb-8b5f-6676386baae7
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      Cache-Control:
+      - private
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Methods:
+      - GET
+      Set-Cookie:
+      - INSEE=1627925258.20480.0000;secure; expires=Thu, 30-Jan-2020 13:45:42 GMT;
+        path=/
+      - pdapimgateway=1846946570.22560.0000;secure; expires=Thu, 30-Jan-2020 13:45:42
+        GMT; path=/
+      Vary:
+      - Accept-Encoding
+      Expires:
+      - Thu, 01 Jan 1970 01:00:00 GMT
+      X-Total-Count:
+      - '131'
+      Access-Control-Allow-Headers:
+      - authorization,Access-Control-Allow-Origin,Content-Type,SOAPAction
+      Link:
+      - <https://api.insee.fr/entreprises/sirene/siret/nonDiffusibles?nombre=20&curseur=*&q=dateDernierTraitementEtablissement%3A%5B2019-12-08T00%3A00%3A00+TO+2019-12-09T00%3A00%3A00%5D>;
+        rel="first"
+      - <https://api.insee.fr/entreprises/sirene/siret/nonDiffusibles?nombre=20&curseur=AoIuODc5MTMyMTQwMDAwMTAuODc5MTMyMTQwMDAwMTA=&q=dateDernierTraitementEtablissement%3A%5B2019-12-08T00%3A00%3A00+TO+2019-12-09T00%3A00%3A00%5D>;
+        rel="next"
+      Content-Type:
+      - application/json;charset=utf-8
+      Date:
+      - Thu, 30 Jan 2020 13:25:42 GMT
+      Transfer-Encoding:
+      - chunked
+      Strict-Transport-Security:
+      - max-age=100000; includeSubDomains
+    body:
+      encoding: ASCII-8BIT
+      string: '{"header":{"statut":200,"message":"OK","total":131,"debut":0,"nombre":11,"curseur":"AoIuODc5MDc0MzkxMDAwMTkuODc5MDc0MzkxMDAwMTk=","curseurSuivant":"AoIuODc5MTMyMTQwMDAwMTAuODc5MTMyMTQwMDAwMTA="},"etablissementsNonDiffusibles":[{"siren":"879075414","nic":"00018","siret":"87907541400018","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:40"},{"siren":"879075638","nic":"00012","siret":"87907563800012","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T20:00:20"},{"siren":"879081453","nic":"00018","siret":"87908145300018","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:49"},{"siren":"879083509","nic":"00015","siret":"87908350900015","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:40"},{"siren":"879089910","nic":"00019","siret":"87908991000019","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:56"},{"siren":"879097343","nic":"00013","siret":"87909734300013","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:21"},{"siren":"879097962","nic":"00010","siret":"87909796200010","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:16"},{"siren":"879109932","nic":"00019","siret":"87910993200019","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:15"},{"siren":"879115418","nic":"00011","siret":"87911541800011","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:48"},{"siren":"879122158","nic":"00014","siret":"87912215800014","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:26"},{"siren":"879132140","nic":"00010","siret":"87913214000010","statutDiffusionEtablissement":"N","dateDernierTraitementEtablissement":"2019-12-08T18:00:53"}]}'
+    http_version: 
+  recorded_at: Thu, 30 Jan 2020 13:25:43 GMT
+- request:
+    method: get
+    uri: https://api.insee.fr/entreprises/sirene/V3/siret/nonDiffusibles?curseur=AoIuODc5MTMyMTQwMDAwMTAuODc5MTMyMTQwMDAwMTA=&nombre=20&q=dateDernierTraitementEtablissement:%5B2019-12-08T00:00:00%20TO%202019-12-09T00:00:00%5D
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.insee.fr
+      Authorization:
+      - Bearer b6e7cd3d-616a-30eb-8b5f-6676386baae7
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      Cache-Control:
+      - private
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Methods:
+      - GET
+      Set-Cookie:
+      - INSEE=1627925258.20480.0000;secure; expires=Thu, 30-Jan-2020 13:45:43 GMT;
+        path=/
+      - pdapimgateway=1830169354.22560.0000;secure; expires=Thu, 30-Jan-2020 13:45:43
+        GMT; path=/
+      Vary:
+      - Accept-Encoding
+      Expires:
+      - Thu, 01 Jan 1970 01:00:00 GMT
+      X-Total-Count:
+      - '131'
+      Access-Control-Allow-Headers:
+      - authorization,Access-Control-Allow-Origin,Content-Type,SOAPAction
+      Link:
+      - <https://api.insee.fr/entreprises/sirene/siret/nonDiffusibles?nombre=20&curseur=*&q=dateDernierTraitementEtablissement%3A%5B2019-12-08T00%3A00%3A00+TO+2019-12-09T00%3A00%3A00%5D>;
+        rel="first"
+      Content-Type:
+      - application/json;charset=utf-8
+      Date:
+      - Thu, 30 Jan 2020 13:25:42 GMT
+      Transfer-Encoding:
+      - chunked
+      Strict-Transport-Security:
+      - max-age=100000; includeSubDomains
+    body:
+      encoding: ASCII-8BIT
+      string: '{"header":{"statut":200,"message":"OK","total":131,"debut":0,"nombre":0,"curseur":"AoIuODc5MTMyMTQwMDAwMTAuODc5MTMyMTQwMDAwMTA=","curseurSuivant":"AoIuODc5MTMyMTQwMDAwMTAuODc5MTMyMTQwMDAwMTA="},"etablissementsNonDiffusibles":[]}'
+    http_version: 
+  recorded_at: Thu, 30 Jan 2020 13:25:43 GMT
+recorded_with: VCR 4.0.0

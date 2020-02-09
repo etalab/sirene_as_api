@@ -5,26 +5,26 @@ class DailyUpdate
       step :get_address_1
       step :get_address_2
       step :rename_all_keys
-      step :delete_extra_keys
+      pass :delete_extra_keys
 
       PERIODES_KEY = :periodesEtablissement
       ADDRESS_1_KEY = :adresseEtablissement
       ADDRESS_2_KEY = :adresse2Etablissement
 
       def get_latest_informations(_, result:, **)
-        data = result[PERIODES_KEY].first
+        data = result[PERIODES_KEY]&.first || {}
         result.delete(PERIODES_KEY)
         result.merge!(data)
       end
 
       def get_address_1(_, result:, **)
-        data = result[ADDRESS_1_KEY]
+        data = result[ADDRESS_1_KEY] || {}
         result.delete(ADDRESS_1_KEY)
         result.merge!(data)
       end
 
       def get_address_2(_, result:, **)
-        data = result[ADDRESS_2_KEY]
+        data = result[ADDRESS_2_KEY] || {}
         result.delete(ADDRESS_2_KEY)
         result.merge!(data)
       end
