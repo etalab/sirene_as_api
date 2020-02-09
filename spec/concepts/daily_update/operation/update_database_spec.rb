@@ -15,7 +15,9 @@ describe DailyUpdate::Operation::UpdateDatabase, :trb do
 
     it { is_expected.to be_success }
 
-    its([:du_unite_legale]) { is_expected.to be_persisted }
+    it 'perists daily update unite legale' do
+      expect(subject[:du_unite_legale]).to be_persisted
+    end
 
     it 'schedules DailyUpdateJob for unite legale' do
       id = subject[:du_unite_legale].id
@@ -35,7 +37,9 @@ describe DailyUpdate::Operation::UpdateDatabase, :trb do
       )
     end
 
-    its([:du_etablissement]) { is_expected.to be_persisted }
+    it 'persists daily update etablissement' do
+      expect(subject[:du_etablissement]).to be_persisted
+    end
 
     it 'schedules DailyUpdateJob for etablissement' do
       id = subject[:du_etablissement].id
@@ -55,7 +59,9 @@ describe DailyUpdate::Operation::UpdateDatabase, :trb do
       )
     end
 
-    its([:du_unite_legale_nd]) { is_expected.to be_persisted }
+    it 'persists daily update unite legale non diffusable' do
+      expect(subject[:du_unite_legale_nd]).to be_persisted
+    end
 
     it 'schedules DailyUpdateJob for unite legale non diffusable' do
       id = subject[:du_unite_legale_nd].id
@@ -75,7 +81,9 @@ describe DailyUpdate::Operation::UpdateDatabase, :trb do
       )
     end
 
-    its([:du_etablissement_nd]) { is_expected.to be_persisted }
+    it 'persists daily update etablissement non diffusable' do
+      expect(subject[:du_etablissement_nd]).to be_persisted
+    end
 
     it 'schedules DailyUpdateJob for etablissement non diffusable' do
       id = subject[:du_etablissement_nd].id
