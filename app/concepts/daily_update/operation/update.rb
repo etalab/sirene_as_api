@@ -3,14 +3,14 @@ class DailyUpdate
     class Update < Trailblazer::Operation
       pass :log_update_period
       step Nested INSEE::Operation::FetchUpdates
-      step Nested Task::AdaptApiResults
+      step Nested INSEE::Task::AdaptApiResults
       pass :log_supersede_starts
       step :supersede
       pass :log_update_done
 
       def supersede(_, daily_update:, results:, logger:, **)
         results.each do |item|
-          DailyUpdate::Task::Supersede.call(
+          INSEE::Task::Supersede.call(
             model: daily_update.related_model,
             business_key: daily_update.business_key,
             data: item,

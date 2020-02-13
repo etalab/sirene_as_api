@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe DailyUpdate::Task::Supersede do
+describe INSEE::Task::Supersede do
   subject { described_class.call model: model, business_key: business_key, data: data, logger: logger }
 
   let(:logger) { instance_spy Logger }

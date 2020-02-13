@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe DailyUpdate::Task::AdaptEtablissement do
+describe INSEE::Task::AdaptEtablissement do
   subject { described_class.call result: etablissement_insee }
 
   let(:etablissement_insee) do

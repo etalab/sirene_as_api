@@ -1,4 +1,4 @@
-class DailyUpdate
+module INSEE
   module Task
     class AdaptUniteLegale < Trailblazer::Operation
       step :get_latest_informations

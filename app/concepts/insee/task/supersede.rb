@@ -1,4 +1,4 @@
-class DailyUpdate
+module INSEE
   module Task
     class Supersede < Trailblazer::Operation
       step :find_business_key_value

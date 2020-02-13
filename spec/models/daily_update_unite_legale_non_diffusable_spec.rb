@@ -7,7 +7,7 @@ describe DailyUpdateUniteLegaleNonDiffusable, type: :model do
   its(:business_key) { is_expected.to eq :siren }
   its(:insee_results_body_key) { is_expected.to eq :unitesLegalesNonDiffusibles }
   its(:insee_resource_suffix) { is_expected.to eq 'siren/nonDiffusibles' }
-  its(:adapter_task) { is_expected.to be DailyUpdate::Task::AdaptUniteLegale }
+  its(:adapter_task) { is_expected.to be INSEE::Task::AdaptUniteLegale }
   its(:logger_for_import) { is_expected.to be_a Logger }
 
   it 'has a valid log filename' do

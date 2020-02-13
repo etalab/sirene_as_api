@@ -20,6 +20,6 @@ class DailyUpdateUniteLegale < DailyUpdate
   end
 
   def adapter_task
-    DailyUpdate::Task::AdaptUniteLegale
+    INSEE::Task::AdaptUniteLegale
   end
 end
