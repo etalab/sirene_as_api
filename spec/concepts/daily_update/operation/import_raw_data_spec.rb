@@ -21,12 +21,6 @@ describe INSEE::Operation::ImportRawData, :trb do
       subject
     end
 
-    it 'logs database updated' do
-      subject
-      expect(logger).to have_received(:info)
-        .with('UniteLegale updated until 2020-01-19 00:00:00 +0100')
-    end
-
     context 'when a supersede fails' do
       before do
         allow(INSEE::Task::Supersede)
