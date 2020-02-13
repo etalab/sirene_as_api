@@ -6,11 +6,15 @@ class DailyUpdate
       pass :log_update_done
 
       def log_update_period(_, daily_update:, logger:, **)
-        logger.info "Importing from #{daily_update.from} to #{daily_update.to}"
+        if daily_update.update_type == 'limited'
+          logger.info "Importing from #{daily_update.from} to #{daily_update.to}"
+        else
+          logger.info "Importing up to #{Time.zone.now}"
+        end
       end
 
       def log_update_done(_, daily_update:, logger:, **)
-        logger.info "#{daily_update.related_model} updated until #{daily_update.to}"
+        logger.info "#{daily_update.related_model} updated until #{daily_update.to || Time.zone.now}"
       end
     end
   end
