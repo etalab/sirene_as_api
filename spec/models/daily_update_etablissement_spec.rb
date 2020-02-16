@@ -6,7 +6,7 @@ describe DailyUpdateEtablissement do
   its(:related_model) { is_expected.to be Etablissement }
   its(:business_key) { is_expected.to eq :siret }
   its(:insee_results_body_key) { is_expected.to eq :etablissements }
-  its(:adapter_task) { is_expected.to be DailyUpdate::Task::AdaptEtablissement }
+  its(:adapter_task) { is_expected.to be INSEE::Task::AdaptEtablissement }
   its(:insee_resource_suffix) { is_expected.to eq 'siret/' }
   its(:logger_for_import) { is_expected.to be_a Logger }
 

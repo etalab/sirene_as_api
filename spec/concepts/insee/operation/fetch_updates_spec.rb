@@ -16,10 +16,14 @@ describe INSEE::Operation::FetchUpdates, :trb do
 
     it { is_expected.to be_success }
 
-    its([:api_results]) { is_expected.to have_attributes(count: 49) }
-
     it 'calls request 4 times' do
       expect_to_call_nested_operation(INSEE::Request::FetchUpdatesWithCursor)
+        .exactly(4).times
+      subject
+    end
+
+    it 'calls import 4 times' do
+      expect_to_call_nested_operation(INSEE::Operation::ImportRawData)
         .exactly(4).times
       subject
     end
@@ -38,10 +42,14 @@ describe INSEE::Operation::FetchUpdates, :trb do
 
     it { is_expected.to be_success }
 
-    its([:api_results]) { is_expected.to have_attributes(count: 60) }
-
     it 'calls request 4 times' do
       expect_to_call_nested_operation(INSEE::Request::FetchUpdatesWithCursor)
+        .exactly(4).times
+      subject
+    end
+
+    it 'calls import 4 times' do
+      expect_to_call_nested_operation(INSEE::Operation::ImportRawData)
         .exactly(4).times
       subject
     end
@@ -60,10 +68,14 @@ describe INSEE::Operation::FetchUpdates, :trb do
 
     it { is_expected.to be_success }
 
-    its([:api_results]) { is_expected.to have_attributes(count: 12) }
-
     it 'calls request 2 times' do
       expect_to_call_nested_operation(INSEE::Request::FetchUpdatesWithCursor)
+        .exactly(2).times
+      subject
+    end
+
+    it 'calls import 2 times' do
+      expect_to_call_nested_operation(INSEE::Operation::ImportRawData)
         .exactly(2).times
       subject
     end
@@ -82,10 +94,14 @@ describe INSEE::Operation::FetchUpdates, :trb do
 
     it { is_expected.to be_success }
 
-    its([:api_results]) { is_expected.to have_attributes(count: 131) }
-
     it 'calls request 8 times' do
       expect_to_call_nested_operation(INSEE::Request::FetchUpdatesWithCursor)
+        .exactly(8).times
+      subject
+    end
+
+    it 'calls import 8 times' do
+      expect_to_call_nested_operation(INSEE::Operation::ImportRawData)
         .exactly(8).times
       subject
     end
@@ -116,6 +132,9 @@ describe INSEE::Operation::FetchUpdates, :trb do
         .with('Fetching new UniteLegale failed')
     end
 
-    its([:api_results]) { are_expected.to be_empty }
+    it 'do not call import' do
+      expect_not_to_call_nested_operation(INSEE::Operation::ImportRawData)
+      subject
+    end
   end
 end

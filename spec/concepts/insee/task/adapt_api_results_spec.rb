@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe DailyUpdate::Task::AdaptApiResults, :trb do
+describe INSEE::Task::AdaptApiResults, :trb do
   subject { described_class.call daily_update: daily_update, api_results: api_results, logger: logger }
 
   let(:logger) { instance_spy Logger }
@@ -22,7 +22,7 @@ describe DailyUpdate::Task::AdaptApiResults, :trb do
     it { is_expected.to be_success }
 
     it 'calls AdaptEtablissement twice' do
-      expect_to_call_nested_operation(DailyUpdate::Task::AdaptEtablissement).twice
+      expect_to_call_nested_operation(INSEE::Task::AdaptEtablissement).twice
       subject
     end
 
@@ -40,7 +40,7 @@ describe DailyUpdate::Task::AdaptApiResults, :trb do
     it { is_expected.to be_success }
 
     it 'calls AdaptUniteLegale twice' do
-      expect_to_call_nested_operation(DailyUpdate::Task::AdaptUniteLegale).twice
+      expect_to_call_nested_operation(INSEE::Task::AdaptUniteLegale).twice
       subject
     end
 

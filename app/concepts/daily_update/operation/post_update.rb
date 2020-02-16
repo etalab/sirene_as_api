@@ -11,19 +11,23 @@ class DailyUpdate
       step :log_update_done
 
       def unites_legales_updated?(_, **)
-        DailyUpdateUniteLegale.current.completed?
+        current = DailyUpdateUniteLegale.current
+        current.nil? || current.completed?
       end
 
       def etablissements_updated?(_, **)
-        DailyUpdateEtablissement.current.completed?
+        current = DailyUpdateEtablissement.current
+        current.nil? || current.completed?
       end
 
       def unite_legale_non_diffusables_updated?(_, **)
-        DailyUpdateUniteLegaleNonDiffusable.current.completed?
+        current = DailyUpdateUniteLegaleNonDiffusable.current
+        current.nil? || current.completed?
       end
 
       def etablissement_non_diffusables_updated?(_, **)
-        DailyUpdateEtablissementNonDiffusable.current.completed?
+        current = DailyUpdateEtablissementNonDiffusable.current
+        current.nil? || current.completed?
       end
 
       def log_update_starts(_, logger:, **)

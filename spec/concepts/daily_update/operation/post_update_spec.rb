@@ -5,6 +5,10 @@ describe DailyUpdate::Operation::PostUpdate, :trb do
 
   let(:logger) { instance_spy Logger }
 
+  context 'when there are not daily update yet' do
+    it { is_expected.to be_success }
+  end
+
   context 'when all daily updates are done' do
     before do
       create :daily_update_unite_legale, :completed

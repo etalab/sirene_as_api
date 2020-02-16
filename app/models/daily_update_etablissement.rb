@@ -20,6 +20,6 @@ class DailyUpdateEtablissement < DailyUpdate
   end
 
   def adapter_task
-    DailyUpdate::Task::AdaptEtablissement
+    INSEE::Task::AdaptEtablissement
   end
 end

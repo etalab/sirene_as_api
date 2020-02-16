@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe DailyUpdate::Task::AdaptUniteLegale do
+describe INSEE::Task::AdaptUniteLegale do
   subject { described_class.call result: unite_legale_insee }
 
   let(:unite_legale_insee) do
