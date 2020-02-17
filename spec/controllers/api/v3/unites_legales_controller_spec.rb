@@ -30,4 +30,48 @@ describe API::V3::UnitesLegalesController do
       expect(results[0]['etablissement_siege']).to eq(children_1)
     end
   end
+
+  context 'when asking for non diffusable' do
+    subject { response }
+
+    let(:attributes) { UniteLegale.new.attributes.keys }
+    let(:mandatory_fields) { %w[id siren statut_diffusion etablissements etablissement_siege date_dernier_traitement created_at updated_at] }
+    let(:mandatory_fields_matcher) { mandatory_fields.map { |f| [f, be_truthy] }.to_h }
+    let(:remaining_fields_matcher) do
+      remaining_fields = attributes - mandatory_fields
+      remaining_fields.map { |f| [f, be_nil] }.to_h
+    end
+
+    describe '#index', type: :request do
+      let!(:unites_legales) { create_list :unite_legale, 3, :non_diffusable }
+
+      before { get route.to_s }
+
+      it { is_expected.to have_http_status(:ok) }
+
+      it 'has authorized fields' do
+        expect(subject.parsed_body[records]).to all include(mandatory_fields_matcher)
+      end
+
+      it 'has null in the remaining fields' do
+        expect(subject.parsed_body[records]).to all include(remaining_fields_matcher)
+      end
+    end
+
+    describe '#show', type: :request do
+      let!(:unite_legale) { create :unite_legale, :non_diffusable }
+
+      before { get "#{route}/#{unite_legale.siren}" }
+
+      it { is_expected.to have_http_status(:ok) }
+
+      it 'has authorized fields' do
+        expect(subject.parsed_body[record]).to include(mandatory_fields_matcher)
+      end
+
+      it 'has null in the remaining fields' do
+        expect(subject.parsed_body[record]).to include(remaining_fields_matcher)
+      end
+    end
+  end
 end
