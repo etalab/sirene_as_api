@@ -265,6 +265,8 @@ GEM
     rspec-activejob (0.6.1)
       activejob (>= 4.2)
       rspec-mocks
+    rspec-collection_matchers (1.2.0)
+      rspec-expectations (>= 2.99.0.beta1)
     rspec-core (3.7.1)
       rspec-support (~> 3.7.0)
     rspec-expectations (3.7.0)
@@ -428,6 +430,7 @@ DEPENDENCIES
   redis-objects
   resque
   rspec-activejob
+  rspec-collection_matchers
   rspec-its
   rspec-rails (~> 3.5)
   rubocop-checkstyle_formatter

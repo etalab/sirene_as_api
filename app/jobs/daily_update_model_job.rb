@@ -7,24 +7,29 @@ class DailyUpdateModelJob < ApplicationJob
 
     daily_update.update(status: 'LOADING')
 
-    ActiveRecord::Base.transaction do
-      operation = DailyUpdate::Operation::Update.call params
-
-      raise ActiveRecord::Rollback unless operation.success?
-
-      daily_update.update(status: 'COMPLETED')
-    end
-
-    daily_update.update(status: 'ERROR') if operation.failure?
+    execute_transaction(operation)
   end
 
   private
 
+  def execute_transaction(operation)
+    ActiveRecord::Base.transaction do
+      operation = DailyUpdate::Operation::Update.call params
+
+      raise ActiveRecord::Rollback unless operation.success?
+    end
+
+    if operation.success?
+      daily_update.update(status: 'COMPLETED')
+      DailyUpdate::Operation::PostUpdate.call logger: daily_update.logger_for_import
+    else
+      daily_update.update(status: 'ERROR')
+    end
+  end
+
   def params
     {
-      model: daily_update.model_to_update,
-      from: daily_update.from,
-      to: daily_update.to,
+      daily_update: daily_update,
       logger: daily_update.logger_for_import
     }
   end

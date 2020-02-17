@@ -37,16 +37,11 @@ describe Stock::Task::TruncateTable do
       expect(logger).to have_received(:error).with(/Truncate failed:/)
     end
 
-    pending 'has not deleted UniteLegale' do
-      # TODO: transaction error here
-      # rspec tests are in a transaction
-      # as we make it fails (cf before)
-      # PG refuse any other SQL request even count...
+    it 'has not deleted UniteLegale' do
       expect { subject }.not_to change(UniteLegale, :count)
     end
 
-    pending 'has not deleted Etablissment' do
-      # TODO: transaction error here
+    it 'has not deleted Etablissment' do
       expect { subject }.not_to change(Etablissement, :count)
     end
   end

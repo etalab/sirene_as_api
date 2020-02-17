@@ -79,5 +79,20 @@ describe Stock::Operation::PostImport, :trb do
       expect_to_call_nested_operation(Stock::Task::CreateIndexes)
       subject
     end
+
+    it 'truncates TEMP table unites legales & etablissements' do
+      expect(Stock::Task::TruncateTable).to receive(:call)
+        .with(table_name: 'unites_legales_tmp', logger: logger)
+        .ordered
+      expect(Stock::Task::TruncateTable).to receive(:call)
+        .with(table_name: 'etablissements_tmp', logger: logger)
+        .ordered
+      subject
+    end
+
+    it 'updates all non diffusables' do
+      expect_to_call_nested_operation(Stock::Task::UpdateNonDiffusable)
+      subject
+    end
   end
 end

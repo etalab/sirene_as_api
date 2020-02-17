@@ -3,7 +3,7 @@ require 'rails_helper'
 describe DailyUpdateModelJob, :trb do
   subject { described_class.perform_now daily_update.id }
 
-  let(:daily_update) { create :daily_update, :for_unite_legale }
+  let(:daily_update) { create :daily_update_unite_legale }
   let(:import_logger) { instance_spy Logger }
 
   before do
@@ -17,6 +17,9 @@ describe DailyUpdateModelJob, :trb do
       allow(DailyUpdate::Operation::Update)
         .to receive(:call)
         .and_return(trb_result_success)
+      allow(DailyUpdate::Operation::PostUpdate)
+        .to receive(:call)
+        .and_return(trb_result_success)
     end
 
     it 'set status to COMPLETED' do
@@ -28,12 +31,13 @@ describe DailyUpdateModelJob, :trb do
     it 'calls the update operation' do
       expect(DailyUpdate::Operation::Update)
         .to receive(:call)
-        .with(
-          model: UniteLegale,
-          from: daily_update.from,
-          to: daily_update.to,
-          logger: import_logger
-        )
+        .with(daily_update: daily_update, logger: import_logger)
+      subject
+    end
+
+    it 'calls the post update operation' do
+      expect(DailyUpdate::Operation::PostUpdate)
+        .to receive(:call)
       subject
     end
   end
@@ -58,6 +62,12 @@ describe DailyUpdateModelJob, :trb do
       subject
       unites_legales = UniteLegale.where(siren: 'GHOST')
       expect(unites_legales).to be_empty
+    end
+
+    it 'does not call post update operation' do
+      expect(DailyUpdate::Operation::PostUpdate)
+        .not_to receive(:call)
+      subject
     end
   end
 end

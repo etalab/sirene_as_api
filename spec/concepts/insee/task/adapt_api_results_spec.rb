@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-describe DailyUpdate::Task::AdaptApiResults, :trb do
-  subject { described_class.call model: model, api_results: api_results, logger: logger }
+describe INSEE::Task::AdaptApiResults, :trb do
+  subject { described_class.call daily_update: daily_update, api_results: api_results, logger: logger }
 
   let(:logger) { instance_spy Logger }
   let(:api_results) { [item_1, item_2] }
@@ -16,13 +16,13 @@ describe DailyUpdate::Task::AdaptApiResults, :trb do
   end
 
   describe 'Etablissement' do
-    let(:model) { Etablissement }
+    let(:daily_update) { create :daily_update_etablissement }
     let(:fixture_path) { 'spec/fixtures/samples_insee/etablissement.json' }
 
     it { is_expected.to be_success }
 
     it 'calls AdaptEtablissement twice' do
-      expect_to_call_nested_operation(DailyUpdate::Task::AdaptEtablissement).twice
+      expect_to_call_nested_operation(INSEE::Task::AdaptEtablissement).twice
       subject
     end
 
@@ -34,13 +34,13 @@ describe DailyUpdate::Task::AdaptApiResults, :trb do
   end
 
   describe 'UniteLegale' do
-    let(:model) { UniteLegale }
+    let(:daily_update) { create :daily_update_unite_legale }
     let(:fixture_path) { 'spec/fixtures/samples_insee/unite_legale.json' }
 
     it { is_expected.to be_success }
 
     it 'calls AdaptUniteLegale twice' do
-      expect_to_call_nested_operation(DailyUpdate::Task::AdaptUniteLegale).twice
+      expect_to_call_nested_operation(INSEE::Task::AdaptUniteLegale).twice
       subject
     end
 

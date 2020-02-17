@@ -53,7 +53,7 @@ http_interactions:
   recorded_at: Sun, 01 Dec 2019 18:00:00 GMT
 - request:
     method: get
-    uri: https://api.insee.fr/entreprises/sirene/V3/siren?curseur=*&nombre=1000&q=dateDernierTraitementUniteLegale:%5B2019-12-01T00:00:00%20TO%202019-12-01T20:00:00%5D
+    uri: https://api.insee.fr/entreprises/sirene/V3/siren/?curseur=*&nombre=1000&q=dateDernierTraitementUniteLegale:%5B2019-12-01T00:00:00%20TO%202019-12-01T20:00:00%5D
     body:
       encoding: US-ASCII
       string: ''
@@ -95,9 +95,9 @@ http_interactions:
       Access-Control-Allow-Headers:
       - authorization,Access-Control-Allow-Origin,Content-Type,SOAPAction
       Link:
-      - <https://api.insee.fr/entreprises/sirene/siren?nombre=1000&curseur=*&q=dateDernierTraitementUniteLegale%3A%5B2019-12-01T00%3A00%3A00+TO+2019-12-01T20%3A00%3A00%5D>;
+      - <https://api.insee.fr/entreprises/sirene/siren/?nombre=1000&curseur=*&q=dateDernierTraitementUniteLegale%3A%5B2019-12-01T00%3A00%3A00+TO+2019-12-01T20%3A00%3A00%5D>;
         rel="first"
-      - <https://api.insee.fr/entreprises/sirene/siren?nombre=1000&curseur=AoEpODc4MDkzODcx&q=dateDernierTraitementUniteLegale%3A%5B2019-12-01T00%3A00%3A00+TO+2019-12-01T20%3A00%3A00%5D>;
+      - <https://api.insee.fr/entreprises/sirene/siren/?nombre=1000&curseur=AoEpODc4MDkzODcx&q=dateDernierTraitementUniteLegale%3A%5B2019-12-01T00%3A00%3A00+TO+2019-12-01T20%3A00%3A00%5D>;
         rel="next"
       Content-Type:
       - application/json;charset=utf-8
@@ -175,7 +175,7 @@ http_interactions:
   recorded_at: Sun, 01 Dec 2019 18:00:00 GMT
 - request:
     method: get
-    uri: https://api.insee.fr/entreprises/sirene/V3/siren?curseur=AoEpODc4MDkzODcx&nombre=1000&q=dateDernierTraitementUniteLegale:%5B2019-12-01T00:00:00%20TO%202019-12-01T20:00:00%5D
+    uri: https://api.insee.fr/entreprises/sirene/V3/siren/?curseur=AoEpODc4MDkzODcx&nombre=1000&q=dateDernierTraitementUniteLegale:%5B2019-12-01T00:00:00%20TO%202019-12-01T20:00:00%5D
     body:
       encoding: US-ASCII
       string: ''
@@ -217,7 +217,7 @@ http_interactions:
       Access-Control-Allow-Headers:
       - authorization,Access-Control-Allow-Origin,Content-Type,SOAPAction
       Link:
-      - <https://api.insee.fr/entreprises/sirene/siren?nombre=1000&curseur=*&q=dateDernierTraitementUniteLegale%3A%5B2019-12-01T00%3A00%3A00+TO+2019-12-01T20%3A00%3A00%5D>;
+      - <https://api.insee.fr/entreprises/sirene/siren/?nombre=1000&curseur=*&q=dateDernierTraitementUniteLegale%3A%5B2019-12-01T00%3A00%3A00+TO+2019-12-01T20%3A00%3A00%5D>;
         rel="first"
       Content-Type:
       - application/json;charset=utf-8

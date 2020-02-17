@@ -1,12 +1,13 @@
 require 'rails_helper'
 
-describe DailyUpdate::Task::Supersede do
-  subject { described_class.call model: model, data: data, logger: logger }
+describe INSEE::Task::Supersede do
+  subject { described_class.call model: model, business_key: business_key, data: data, logger: logger }
 
   let(:logger) { instance_spy Logger }
 
   describe 'UniteLegale' do
     let(:model) { UniteLegale }
+    let(:business_key) { :siren }
 
     describe 'new unite legale created' do
       let(:new_siren) { '123456789' }
@@ -71,6 +72,7 @@ describe DailyUpdate::Task::Supersede do
 
   describe 'Etablissement' do
     let(:model) { Etablissement }
+    let(:business_key) { :siret }
     let(:data) { { siret: '12345678900000' } }
 
     it { is_expected.to be_success }

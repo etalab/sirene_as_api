@@ -1,0 +1,113 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.insee.fr/entreprises/sirene/V3/siren/nonDiffusibles?curseur=*&nombre=20
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.insee.fr
+      Authorization:
+      - Bearer 704cdf1d-c36c-3567-ad71-15627e66f776
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      Cache-Control:
+      - private
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Methods:
+      - GET
+      Set-Cookie:
+      - INSEE=1644702474.20480.0000;secure; expires=Sun, 09-Feb-2020 13:00:09 GMT;
+        path=/
+      - pdapimgateway=1846946570.22560.0000;secure; expires=Sun, 09-Feb-2020 13:00:09
+        GMT; path=/
+      Vary:
+      - Accept-Encoding
+      Expires:
+      - Thu, 01 Jan 1970 01:00:00 GMT
+      X-Total-Count:
+      - '703776'
+      Access-Control-Allow-Headers:
+      - authorization,Access-Control-Allow-Origin,Content-Type,SOAPAction
+      Link:
+      - <https://api.insee.fr/entreprises/sirene/siren/nonDiffusibles?nombre=20&curseur=*>;
+        rel="first"
+      - <https://api.insee.fr/entreprises/sirene/siren/nonDiffusibles?nombre=20&curseur=AoIpMDU3MTAyMTA1KTA1NzEwMjEwNQ==>;
+        rel="next"
+      Content-Type:
+      - application/json;charset=utf-8
+      Date:
+      - Sun, 09 Feb 2020 12:40:08 GMT
+      Transfer-Encoding:
+      - chunked
+      Strict-Transport-Security:
+      - max-age=100000; includeSubDomains
+    body:
+      encoding: ASCII-8BIT
+      string: '{"header":{"statut":200,"message":"OK","total":703776,"debut":0,"nombre":20,"curseur":"*","curseurSuivant":"AoIpMDU3MTAyMTA1KTA1NzEwMjEwNQ=="},"unitesLegalesNonDiffusibles":[{"siren":"005572466","statutDiffusionUniteLegale":"N","dateDernierTraitementUniteLegale":null},{"siren":"005775556","statutDiffusionUniteLegale":"N","dateDernierTraitementUniteLegale":"2016-11-30T14:31:01"},{"siren":"005900113","statutDiffusionUniteLegale":"N","dateDernierTraitementUniteLegale":null},{"siren":"006001218","statutDiffusionUniteLegale":"N","dateDernierTraitementUniteLegale":null},{"siren":"006001713","statutDiffusionUniteLegale":"N","dateDernierTraitementUniteLegale":null},{"siren":"006972590","statutDiffusionUniteLegale":"N","dateDernierTraitementUniteLegale":"2018-06-01T13:01:08"},{"siren":"007210602","statutDiffusionUniteLegale":"N","dateDernierTraitementUniteLegale":"2019-10-04T12:54:54"},{"siren":"007340813","statutDiffusionUniteLegale":"N","dateDernierTraitementUniteLegale":"2017-06-27T14:35:04"},{"siren":"016144677","statutDiffusionUniteLegale":"N","dateDernierTraitementUniteLegale":null},{"siren":"016843484","statutDiffusionUniteLegale":"N","dateDernierTraitementUniteLegale":null},{"siren":"016940975","statutDiffusionUniteLegale":"N","dateDernierTraitementUniteLegale":null},{"siren":"025772427","statutDiffusionUniteLegale":"N","dateDernierTraitementUniteLegale":null},{"siren":"026912113","statutDiffusionUniteLegale":"N","dateDernierTraitementUniteLegale":null},{"siren":"027010016","statutDiffusionUniteLegale":"N","dateDernierTraitementUniteLegale":"2018-04-07T07:27:54"},{"siren":"027212059","statutDiffusionUniteLegale":"N","dateDernierTraitementUniteLegale":"2017-06-20T09:21:52"},{"siren":"035410786","statutDiffusionUniteLegale":"N","dateDernierTraitementUniteLegale":null},{"siren":"037214202","statutDiffusionUniteLegale":"N","dateDernierTraitementUniteLegale":"2006-11-25T09:04:55"},{"siren":"046342382","statutDiffusionUniteLegale":"N","dateDernierTraitementUniteLegale":null},{"siren":"047311022","statutDiffusionUniteLegale":"N","dateDernierTraitementUniteLegale":"2019-12-06T12:50:39"},{"siren":"057102105","statutDiffusionUniteLegale":"N","dateDernierTraitementUniteLegale":"2019-03-26T17:39:39"}]}'
+    http_version: 
+  recorded_at: Sun, 09 Feb 2020 12:40:08 GMT
+- request:
+    method: post
+    uri: https://api.insee.fr/token
+    body:
+      encoding: UTF-8
+      string: grant_type=client_credentials
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.insee.fr
+      Authorization:
+      - Basic <INSEE_CREDENTIALS>
+  response:
+    status:
+      code: 401
+      message: Unauthorized
+    headers:
+      X-Frame-Options:
+      - DENY
+      X-Content-Type-Options:
+      - nosniff
+      Www-Authenticate:
+      - Basic realm=null
+      Set-Cookie:
+      - INSEE=1863723786.58148.0000;secure; expires=Mon, 10-Feb-2020 14:32:46 GMT;
+        path=/
+      - pdapimgateway=1830169354.22560.0000;secure; expires=Mon, 10-Feb-2020 14:32:46
+        GMT; path=/
+      X-Xss-Protection:
+      - 1; mode=block
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 10 Feb 2020 14:12:46 GMT
+      Transfer-Encoding:
+      - chunked
+      Strict-Transport-Security:
+      - max-age=100000; includeSubDomains
+    body:
+      encoding: UTF-8
+      string: '{"error_description":"Error decoding authorization header. Space delimited
+        \"<authMethod> <base64Hash>\" format violated.","error":"invalid_client"}'
+    http_version: 
+  recorded_at: Mon, 10 Feb 2020 14:12:46 GMT
+recorded_with: VCR 4.0.0

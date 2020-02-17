@@ -3,7 +3,7 @@ require 'rails_helper'
 describe Stock::Operation::LoadUniteLegale, vcr: { cassette_name: 'data_gouv_sirene_july_OK' } do
   subject { described_class.call logger: logger }
 
-  before { Timecop.freeze(Time.new(2019, 7, 5)) }
+  before { Timecop.freeze(Time.zone.local(2019, 7, 5)) }
 
   let(:logger) { instance_spy Logger }
   let(:expected_uri) { 'http://files.data.gouv.fr/insee-sirene/StockUniteLegale_utf8.zip' }

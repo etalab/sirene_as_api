@@ -1,6 +1,12 @@
 class DailyUpdate < ApplicationRecord
-  def model_to_update
-    model_name_to_update.camelize.constantize
+  def self.current
+    where(update_type: 'limited')
+      .order(to: :desc, created_at: :desc)
+      .first
+  end
+
+  def completed?
+    status == 'COMPLETED'
   end
 
   def logger_for_import
@@ -8,6 +14,6 @@ class DailyUpdate < ApplicationRecord
   end
 
   def logger_file_path
-    Rails.root.join 'log', "daily_update_#{model_name_to_update}.log"
+    Rails.root.join 'log', log_filename
   end
 end

@@ -1,6 +1,8 @@
 class INSEE::ApiClient
   include ActiveModel::Model
-  attr_accessor :model, :cursor, :token, :from, :to
+  attr_accessor :daily_update, :cursor, :token
+  extend Forwardable
+  def_delegators :@daily_update, :from, :to, :related_model, :insee_resource_suffix, :update_type
 
   # value limited by INSEE
   MAX_ELEMENTS_PER_CALL = 1_000
@@ -29,31 +31,25 @@ class INSEE::ApiClient
   end
 
   def build_url
-    uri = URI(base_url + resource_name)
+    uri = URI(base_url + insee_resource_suffix)
     uri.query = URI.encode_www_form(query_hash)
     uri
   end
 
-  def resource_name
-    unite_legale? ? 'siren' : 'siret'
-  end
-
-  def unite_legale?
-    model == UniteLegale
-  end
-
   def query_hash
-    {
+    query = {
       nombre: MAX_ELEMENTS_PER_CALL,
-      curseur: cursor,
-      q: query_filter
+      curseur: cursor
     }
+
+    query[:q] = query_filter unless update_type == 'full'
+    query
   end
 
   def query_filter
     from_s = from.strftime TIME_FORMAT
     to_s   = to.strftime TIME_FORMAT
 
-    "dateDernierTraitement#{model.name}:[#{from_s} TO #{to_s}]"
+    "dateDernierTraitement#{related_model.name}:[#{from_s} TO #{to_s}]"
   end
 end

@@ -1,19 +1,19 @@
 module INSEE
   module Operation
     class FetchUpdates < Trailblazer::Operation
-      step :init_api_results
+      step :init_counter
       step :fetch_with_cursor
-      pass :log_entitites_fetched
+      pass :log_entities_fetched
       fail :log_operation_failure
 
       CURSOR_START_VALUE = '*'.freeze
 
-      def init_api_results(ctx, **)
-        ctx[:api_results] = []
+      def init_counter(ctx, **)
+        ctx[:result_count] = 0
       end
 
       # rubocop:disable Metrics/MethodLength
-      def fetch_with_cursor(ctx, **)
+      def fetch_with_cursor(ctx, daily_update:, **)
         next_cursor = CURSOR_START_VALUE
         operation = nil
 
@@ -23,8 +23,8 @@ module INSEE
 
           body = operation[:body]
 
-          api_results = body[operation[:api_results_key]]
-          ctx[:api_results] += api_results
+          api_results = body[daily_update.insee_results_body_key]
+          import(api_results, ctx)
 
           next_cursor = body[:header][:curseurSuivant]
 
@@ -36,21 +36,29 @@ module INSEE
       end
       # rubocop:enable Metrics/MethodLength
 
-      def log_entitites_fetched(_, model:, api_results:, logger:, **)
-        logger.info "Total: #{api_results.size} #{model} fetched"
+      def log_entities_fetched(_, daily_update:, result_count:, logger:, **)
+        logger.info "Total: #{result_count} #{daily_update.related_model} fetched"
       end
 
-      def log_operation_failure(_, model:, logger:, **)
-        logger.error "Fetching new #{model} failed"
+      def log_operation_failure(_, daily_update:, logger:, **)
+        logger.error "Fetching new #{daily_update.related_model} failed"
       end
 
       private
 
+      def import(api_results, context)
+        context[:result_count] += api_results.size
+        INSEE::Operation::ImportRawData
+          .call(
+            api_results: api_results,
+            daily_update: context[:daily_update],
+            logger: context[:logger]
+          )
+      end
+
       def fetch_operation(context, next_cursor)
         INSEE::Request::FetchUpdatesWithCursor.call(
-          model: context[:model],
-          from: context[:from],
-          to: context[:to],
+          daily_update: context[:daily_update],
           cursor: next_cursor,
           logger: context[:logger]
         )
@@ -62,7 +70,7 @@ module INSEE
 
       def log_progress(context, latest_body)
         total = latest_body[:header][:total]
-        current_count = context[:api_results].size
+        current_count = context[:result_count]
         percent = (current_count.to_f / total * 100).round(2)
         context[:logger].info "#{current_count} / #{total} (#{percent}%)"
       end

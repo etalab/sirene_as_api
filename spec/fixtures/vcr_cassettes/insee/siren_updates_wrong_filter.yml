@@ -53,7 +53,7 @@ http_interactions:
   recorded_at: Wed, 11 Dec 2019 11:14:43 GMT
 - request:
     method: get
-    uri: https://api.insee.fr/entreprises/sirene/V3/siren?curseur=*&nombre=1000&q=dateDernierTraitementUniteLegale:%5B2020-01-01T00:00:00%20TO%202019-12-04T00:00:00%5D
+    uri: https://api.insee.fr/entreprises/sirene/V3/siren/?curseur=*&nombre=1000&q=dateDernierTraitementUniteLegale:%5B2020-01-01T00:00:00%20TO%202019-12-04T00:00:00%5D
     body:
       encoding: US-ASCII
       string: ''
@@ -111,7 +111,7 @@ http_interactions:
   recorded_at: Wed, 11 Dec 2019 11:14:43 GMT
 - request:
     method: get
-    uri: https://api.insee.fr/entreprises/sirene/V3/siren?curseur=*&nombre=1000&q=dateDernierTraitementUniteLegale:%5B2020-01-01T00:00:00%20TO%202019-12-09T00:00:00%5D
+    uri: https://api.insee.fr/entreprises/sirene/V3/siren/?curseur=*&nombre=1000&q=dateDernierTraitementUniteLegale:%5B2020-01-01T00:00:00%20TO%202019-12-09T00:00:00%5D
     body:
       encoding: US-ASCII
       string: ''
