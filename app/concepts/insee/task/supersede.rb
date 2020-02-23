@@ -14,7 +14,9 @@ module INSEE
         entity = model.find_or_initialize_by("#{business_key}": business_key_value)
 
         begin
-          entity.update_attributes(data)
+          entity.assign_attributes(data)
+          entity.nullify_non_diffusable_fields
+          entity.save
         rescue ActiveRecord::ActiveRecordError, ActiveModel::UnknownAttributeError => e
           logger.error "#{e.class}: #{e.message}. Invalid hash: #{data}"
           false
