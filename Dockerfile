@@ -11,6 +11,7 @@ RUN apt-get update -qq && apt-get install -y build-essential \
   # for cron scheduler job
   cron \
   vim
+RUN gem install bundler --version 2.0.2 --force
 
 ENV APP_HOME /docker_build
 RUN mkdir $APP_HOME
