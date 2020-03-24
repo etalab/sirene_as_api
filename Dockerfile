@@ -1,4 +1,4 @@
-FROM ruby:2.4
+FROM ruby:2.4-stretch
 
 RUN apt-get update -qq && apt-get install -y build-essential \
   libpq-dev \
