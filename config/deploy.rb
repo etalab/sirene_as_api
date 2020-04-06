@@ -2,7 +2,6 @@ require 'mina/bundler'
 require 'mina/rails'
 require 'mina/git'
 require 'mina/rbenv'
-require 'mina/whenever'
 require 'colorize'
 
 ENV['domain'] || raise('no domain provided'.red)
@@ -83,7 +82,6 @@ task deploy: :remote_environment do
         command %{mkdir -p tmp/}
         command %{touch tmp/restart.txt}
 
-        invoke :whenever_update
         invoke :solr
       end
 
@@ -92,14 +90,6 @@ task deploy: :remote_environment do
       invoke :warning_info
     end
   end
-end
-
-task whenever_update: :remote_environment do
-  # default value is based on domain name, and it is used to match in crontab !
-  set :whenever_name, "sirene_api_#{ENV['to']}"
-
-  # whenever environement comes from fetch(:rails_env)
-  invoke :'whenever:update'
 end
 
 task solr: :remote_environment do
