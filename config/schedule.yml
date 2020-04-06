@@ -5,12 +5,20 @@ development:
     queue: 'auto_updates'
 
 sandbox:
+  update_database_v1_job:
+    cron: '0 6 * * *'
+    class: 'AutomaticUpdateDatabase'
+    queue: 'auto_updates'
   update_database_job:
     cron: '0 8 * * *'
     class: 'UpdateDatabaseJob'
     queue: 'auto_updates'
 
 production:
+  update_database_v1_job:
+    cron: '30 0 * * *'
+    class: 'AutomaticUpdateDatabase'
+    queue: 'auto_updates'
   update_database_job:
     cron: '0 2 * * *'
     class: 'UpdateDatabaseJob'
