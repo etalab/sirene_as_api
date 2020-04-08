@@ -61,9 +61,6 @@ gem 'has_scope'
 # Pagination
 gem 'pagy'
 
-# Gem for deploying cron jobs
-gem 'whenever', require: false
-
 gem 'sitemap_generator'
 
 group :development, :test do
@@ -101,7 +98,6 @@ end
 group :development do
   gem 'brakeman', require: false
   gem 'mina'
-  gem 'mina-whenever'
   gem 'rails_best_practices'
   gem 'rubocop-checkstyle_formatter', require: false
   gem 'rubocop-rspec', require: false

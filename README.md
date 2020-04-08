@@ -1,6 +1,3 @@
-
-[![Maintainability](https://api.codeclimate.com/v1/badges/cb7334374140808435c3/maintainability)](https://codeclimate.com/github/etalab/sirene_as_api/maintainability)
-
 ## ⚠ Changements importants ⚠
 
 Les endpoints V3 sont disponibles en béta. Les endpoints V1 et V2 ainsi que l'import des fichiers ancien format sont considérés dépréciés et ne recevront plus de développement futur.
@@ -27,7 +24,7 @@ Le projet se découpe en trois sous-projets :
 
 - Une interface web de recherche exploitant l'API en Vue.js : [entreprise.data.gouv.fr](https://github.com/etalab/entreprise.data.gouv.fr)
 
-Nouveau ! l'[API RNA](https://github.com/etalab/rna_as_api) est disponible !
+- l'[API RNA](https://github.com/etalab/rna_as_api) est aussi disponible
 
 ## Essayez l'API
 
@@ -106,13 +103,13 @@ Les options suivantes de filtrage sont disponibles :
 
 | Filtrage désiré                                           | Requête GET               | Valeur                                              |
 |-----------------------------------------------------------|---------------------------|-----------------------------------------------------|
-| Activité principale de l'entreprise (code NAF)                       | activite_principale       | Le code `activité principale` (code NAF)                |
+| Activité principale de l'entreprise (code NAF)            | activite_principale       | Le code `activité principale` (code NAF)            |
 | Code postal                                               | code_postal               | Le code postal désiré                               |
-| Code commune INSEE                                             | code_commune              | Le code INSEE de la commune                     |
+| Code commune INSEE                                        | code_commune              | Le code INSEE de la commune                         |
 | Departement                                               | departement               | Le departement désiré                               |
 | Appartenance au champs de l'économie sociale et solidaire | is_ess                    | `O` pour Oui, `N` pour Non, `I` pour Invalide       |
 | Entreprises individuelles                                 | is_entrepreneur_individuel| `yes` pour Oui, `no` pour Non                       |
-| Tranche effectif salarié de l'entreprise                                 | tranche_effectif_salarie_entreprise | le code INSEE pour cette tranche d'effectif salarié |
+| Tranche effectif salarié de l'entreprise                  | tranche_effectif_salarie_entreprise | le code INSEE pour cette tranche d'effectif salarié |
 
 D'autres facettes pourront être implémentées en fonction des retours utilisateurs.
 
@@ -437,24 +434,29 @@ Suppression database, en cas de problèmes :
 
 Il est conseillé de rajouter RAILS_ENV=production au début des commandes en environnement de production.
 
-#### Mises à jour automatique (Infrastructure à double server)
+#### Mises à jour automatiques
 
-Pour assurer une continuité de service 24/7 et ce même pendant la reconstruction de la base de donnée, nous utilisons un système de double-server. Si vous désirez les réglages pour un seul server, reportez vous à la section suivante.
+Il y a deux processus de mises à jour:
 
-Nous utilisons la commande `bundle exec rake sirene_as_api:dual_server_update` pour effectuer la mise à jour : le server va effectuer une mise à jour, tester si tout fonctionne, puis effectuer un switch d'IP fallback sur lui-même.
+- pour la v1
+- pour le reste
 
-Si vous avez 2 servers, vous pouvez modifier /config/switch_server.rb pour ajouter vos propres valeurs.
+##### Base de données v1
 
-#### Mises à jour automatiques (1 seul server)
+    bundle exec rake sirene_as_api:automatic_update_database
 
-La commande `bundle exec rake sirene_as_api:automatic_update_database` permet la mise à jour automatique de la base de donnée.
-Pour modifier la fréquence des mises à jour, modifiez config/schedule.rb
+##### Base de données v2/V3
+
+    bundle exec rake sirene:update_database
+
+##### Modifier la fréquence des mises à jour
+
+Pour modifier la fréquence des mises à jour, modifiez config/schedule.yml
 puis exécutez la commande :
 
-    whenever --update-crontab
+    bundle exec rake sidekiq_cron:load
 
-La gem [whenever](https://github.com/javan/whenever) s'occupe de mettre à jour
-vos tâches cron. Par défaut la mise à jour se fait à 4h30 du matin.
+La gem [Sidekiq-cron](https://github.com/ondrejbartas/sidekiq-cron) gère les tâches indépendament de cron. Par défaut la mise à jour se fait à 0h30 du matin.
 
 L'API reste disponible sans interruptions pendant ce process, excepté ~ 3 à 4 heures lors de la
 suppression / réimportation du fichier stock au début de chaque mois.
