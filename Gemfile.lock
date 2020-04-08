@@ -63,7 +63,6 @@ GEM
     byebug (10.0.2)
     case_transform (0.2)
       activesupport
-    chronic (0.10.2)
     code_analyzer (0.4.8)
       sexp_processor
     coderay (1.1.2)
@@ -155,8 +154,6 @@ GEM
     mina (1.2.3)
       open4 (~> 1.3.4)
       rake
-    mina-whenever (1.0.1)
-      mina (~> 1.0)
     mini_mime (1.0.2)
     mini_portile2 (2.4.0)
     minitest (5.11.3)
@@ -388,8 +385,6 @@ GEM
     websocket-driver (0.6.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.4)
-    whenever (0.10.0)
-      chronic (>= 0.6.3)
     whirly (0.2.6)
       unicode-display_width (~> 1.1)
 
@@ -416,7 +411,6 @@ DEPENDENCIES
   listen (~> 3.0.5)
   logstasher
   mina
-  mina-whenever
   pagy
   pg (~> 0.20)
   progress_bar
@@ -454,8 +448,7 @@ DEPENDENCIES
   unindent
   vcr
   webmock
-  whenever
   whirly
 
 BUNDLED WITH
-   2.0.2
+   2.1.4

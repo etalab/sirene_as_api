@@ -1,9 +1,0 @@
-production:
-  ip_fallback: '54.36.95.61'
-  sirene_server1: 'ns372885.ip-178-33-234.eu'
-  sirene_server2: 'ns3107905.ip-54-37-87.eu'
-
-test:
-  ip_fallback: '54.36.95.61'
-  sirene_server1: 'address1'
-  sirene_server2: 'address2'
