@@ -50,7 +50,8 @@ set :shared_files, fetch(:shared_files, []).push(
   'config/database.yml',
   "config/environments/#{ENV['to']}.rb",
   'config/secrets.yml',
-  'config/sidekiq.yml'
+  'config/sidekiq.yml',
+  'config/sunspot.yml'
 )
 
 # This task is the environment that is loaded for all remote run commands, such as
