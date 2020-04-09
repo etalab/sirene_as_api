@@ -394,6 +394,7 @@
       <str name="spellcheck.dictionary">default</str>
       <str name="spellcheck.extendedResults">true</str>
       <str name="spellcheck.collate">true</str>
+      <str name="q.op">AND</str>
     </lst>
     <arr name="last-components">
       <str>spellcheck</str>
