@@ -93,7 +93,7 @@ end
 
 task solr: :remote_environment do
   comment 'Restarting Solr service'.green
-  command "sudo systemctl restart solr_sirene_api_#{ENV['to']}"
+  command 'sudo systemctl restart solr'
 end
 
 task :sidekiq do
