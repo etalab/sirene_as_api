@@ -86,7 +86,6 @@ task deploy: :remote_environment do
 
       invoke :sidekiq
       invoke :passenger
-      invoke :warning_info
     end
   end
 end
@@ -111,13 +110,4 @@ task passenger: :remote_environment do
       echo 'Skipping: no passenger app found (will be automatically loaded)'
     fi
   }
-end
-
-task warning_info: :remote_environment do
-  warning_sign = '\xE2\x9A\xA0'
-  comment %{#{warning_sign} #{warning_sign} #{warning_sign} #{warning_sign}}.yellow
-  comment %{#{warning_sign} If it's the first install (or a reboot) run the folowing commands #{warning_sign}}.yellow
-  comment %{#{warning_sign} in the following directory: #{fetch(:deploy_to)}/current #{warning_sign}}.yellow
-  comment %{bundle exec rake sirene_as_api:populate_database RAILS_ENV=#{ENV['to']}}.green
-  comment %{#{warning_sign} #{warning_sign} #{warning_sign} #{warning_sign}}.yellow
 end
