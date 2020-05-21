@@ -1,4 +1,8 @@
 development:
+  update_database_v1_job:
+    cron: '0 6 * * *'
+    class: 'UpdateDatabaseV1Job'
+    queue: 'auto_updates'
   update_database_job:
     cron: '0 8 * * *'
     class: 'UpdateDatabaseJob'
@@ -7,7 +11,7 @@ development:
 sandbox:
   update_database_v1_job:
     cron: '0 6 * * *'
-    class: 'AutomaticUpdateDatabase'
+    class: 'UpdateDatabaseV1Job'
     queue: 'auto_updates'
   update_database_job:
     cron: '0 8 * * *'
@@ -17,7 +21,7 @@ sandbox:
 production:
   update_database_v1_job:
     cron: '30 0 * * *'
-    class: 'AutomaticUpdateDatabase'
+    class: 'UpdateDatabaseV1Job'
     queue: 'auto_updates'
   update_database_job:
     cron: '0 2 * * *'
