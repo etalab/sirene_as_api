@@ -1,16 +1,9 @@
-sandbox:
-  solr:
-    hostname: localhost
-    port: 8984
-    log_level: OFF
-    path: /solr/sandbox
-    memory: 1G
-
+---
 development:
   solr:
     hostname: localhost
     port: 8982
-    log_level: OFF
+    log_level: 'OFF'
     path: /solr/development
     memory: 1G
 
@@ -18,13 +11,5 @@ test:
   solr:
     hostname: localhost
     port: 8981
-    log_level: OFF
+    log_level: 'OFF'
     path: /solr/test
-
-production:
-  solr:
-    hostname: localhost
-    port: 8983
-    log_level: OFF
-    path: /solr/production
-    memory: 8G

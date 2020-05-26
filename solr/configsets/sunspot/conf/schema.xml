@@ -60,14 +60,20 @@
     <fieldType name="rand" class="solr.RandomSortField" omitNorms="true"/>
     <!-- *** This fieldType is used by Sunspot! *** -->
     <fieldType name="text" class="solr.TextField" omitNorms="false">
-      <analyzer>
+      <analyzer type="index">
         <!-- Replacing StandardTokenizer by LetterTokenizer to make anything not a letter a separator -->
-        <!-- replacing again with StandardTokenizer for tests -->
         <!-- <tokenizer class="solr.StandardTokenizerFactory"/> -->
         <tokenizer class="solr.LetterTokenizerFactory"/>
-
-        <!-- <tokenizer class="solr.KeywordTokenizerFactory"/> -->
-        <!-- <filter class="solr.StandardFilterFactory"/> -->
+        <filter class="solr.LowerCaseFilterFactory"/>
+        <!-- <filter class="solr.PorterStemFilterFactory"/> -->
+        <filter class="solr.EdgeNGramFilterFactory" minGramSize="1" maxGramSize="25"/>
+        <filter class="solr.SynonymFilterFactory" synonyms="synonyms.txt" ignoreCase="true" expand="true" tokenizerFactory="solr.StandardTokenizerFactory"/>
+        <filter class="solr.SnowballPorterFilterFactory" language="French" />
+      </analyzer>
+      <analyzer type="query">
+        <!-- Replacing StandardTokenizer by LetterTokenizer to make anything not a letter a separator -->
+        <!-- <tokenizer class="solr.StandardTokenizerFactory"/> -->
+        <tokenizer class="solr.LetterTokenizerFactory"/>
         <filter class="solr.LowerCaseFilterFactory"/>
         <!-- <filter class="solr.PorterStemFilterFactory"/> -->
         <filter class="solr.SynonymFilterFactory" synonyms="synonyms.txt" ignoreCase="true" expand="true" tokenizerFactory="solr.StandardTokenizerFactory"/>
@@ -99,7 +105,6 @@
     <fieldType name="textSpell" class="solr.TextField" positionIncrementGap="100" omitNorms="true">
       <analyzer>
         <tokenizer class="solr.StandardTokenizerFactory"/>
-        <filter class="solr.StandardFilterFactory"/>
         <filter class="solr.LowerCaseFilterFactory"/>
       </analyzer>
     </fieldType>
@@ -282,10 +287,6 @@
       Unless this field is marked with required="false", it will be a required field
    -->
   <uniqueKey>id</uniqueKey>
-  <!-- field for the QueryParser to use when an explicit fieldname is absent -->
-  <defaultSearchField>text</defaultSearchField>
-  <!-- SolrQueryParser configuration: defaultOperator="AND|OR" -->
-  <solrQueryParser defaultOperator="AND"/>
   <!-- copyField commands copy one field to another at the time a document
         is added to the index.  It's used either to index the same field differently,
         or to add multiple fields to the same field for easier/faster

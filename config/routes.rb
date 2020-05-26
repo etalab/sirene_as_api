@@ -1,4 +1,9 @@
+require 'sidekiq/web'
+require 'sidekiq/cron/web'
+
 Rails.application.routes.draw do
+  mount Sidekiq::Web => '/sidekiq'
+
   concern :v1_routes do
     get 'siret/:siret' => '/api/v1/siret#show'
     get 'siren/:siren' => '/api/v1/siren#show'
