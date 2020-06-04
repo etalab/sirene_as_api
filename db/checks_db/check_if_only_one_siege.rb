@@ -26,7 +26,6 @@ class CheckIfOnlyOneSiege < SireneAsAPIInteractor
     )
   end
 
-  # rubocop:disable Metrics/AbcSize
   def perform_check_on(all_sirens, progress_bar)
     all_sirens.each do |siren|
       number_sirets = EtablissementV2.where(siren: siren).pluck(:siret)
@@ -38,7 +37,6 @@ class CheckIfOnlyOneSiege < SireneAsAPIInteractor
       progress_bar.increment
     end
   end
-  # rubocop:enable Metrics/AbcSize
 
   def create_log_file
     file = File.open('log/check_is_siege.txt', 'w')

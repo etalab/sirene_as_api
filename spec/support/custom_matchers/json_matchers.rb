@@ -1,11 +1,9 @@
 # Helpers to check specs for pure JSON Api
 RSpec::Matchers.define :look_like_json do
   match do |string|
-    begin
-      JSON.parse(string)
-    rescue JSON::ParserError
-      false
-    end
+    JSON.parse(string)
+  rescue JSON::ParserError
+    false
   end
 
   failure_message do |string|
