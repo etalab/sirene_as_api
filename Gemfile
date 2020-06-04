@@ -53,6 +53,9 @@ gem 'interactor', '~> 3.0'
 gem 'interactor-rails', '~> 2.0'
 
 # Trailblazer
+gem 'trailblazer', '2.1.0.rc1'
+gem 'trailblazer-activity', '0.7.1'
+gem 'trailblazer-operation', '0.4.1'
 gem 'trailblazer-rails'
 
 # Map incoming requests to scopes
