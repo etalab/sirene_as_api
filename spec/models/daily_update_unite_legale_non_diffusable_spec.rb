@@ -12,7 +12,7 @@ describe DailyUpdateUniteLegaleNonDiffusable, type: :model do
 
   it 'has a valid log filename' do
     expect(Logger).to receive(:new)
-      .with(%r{log\/daily_update_unite_legale_non_diffusable.log})
+      .with(%r{log/daily_update_unite_legale_non_diffusable.log})
     subject.logger_for_import
   end
 end

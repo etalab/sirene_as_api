@@ -24,7 +24,7 @@ describe Etablissement do
 
       it 'nullify unauthorized fields' do
         subject.nullify_non_diffusable_fields
-        subject.attributes.keys.each do |attr|
+        subject.attributes.each_key do |attr|
           next if described_class::AUTHORIZED_FIELDS.include?(attr)
 
           expect(subject.send(attr)).to be_nil

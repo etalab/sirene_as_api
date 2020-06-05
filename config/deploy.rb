@@ -41,16 +41,15 @@ set :shared_dirs, fetch(:shared_dirs, []).push(
   'tmp/files',
   'tmp/pids',
   'tmp/sockets',
-  '.last_monthly_stock_applied',
-  "solr/#{ENV['to']}",
-  'solr/pids'
+  '.last_monthly_stock_applied'
 )
 
 set :shared_files, fetch(:shared_files, []).push(
   'config/database.yml',
   "config/environments/#{ENV['to']}.rb",
   'config/secrets.yml',
-  'config/sidekiq.yml'
+  'config/sidekiq.yml',
+  'config/sunspot.yml'
 )
 
 # This task is the environment that is loaded for all remote run commands, such as
@@ -87,14 +86,13 @@ task deploy: :remote_environment do
 
       invoke :sidekiq
       invoke :passenger
-      invoke :warning_info
     end
   end
 end
 
 task solr: :remote_environment do
   comment 'Restarting Solr service'.green
-  command "sudo systemctl restart solr_sirene_api_#{ENV['to']}"
+  command 'sudo systemctl restart solr'
 end
 
 task :sidekiq do
@@ -112,13 +110,4 @@ task passenger: :remote_environment do
       echo 'Skipping: no passenger app found (will be automatically loaded)'
     fi
   }
-end
-
-task warning_info: :remote_environment do
-  warning_sign = '\xE2\x9A\xA0'
-  comment %{#{warning_sign} #{warning_sign} #{warning_sign} #{warning_sign}}.yellow
-  comment %{#{warning_sign} If it's the first install (or a reboot) run the folowing commands #{warning_sign}}.yellow
-  comment %{#{warning_sign} in the following directory: #{fetch(:deploy_to)}/current #{warning_sign}}.yellow
-  comment %{bundle exec rake sirene_as_api:populate_database RAILS_ENV=#{ENV['to']}}.green
-  comment %{#{warning_sign} #{warning_sign} #{warning_sign} #{warning_sign}}.yellow
 end

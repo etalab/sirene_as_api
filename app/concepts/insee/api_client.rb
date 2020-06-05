@@ -1,6 +1,7 @@
 class INSEE::ApiClient
   include ActiveModel::Model
   attr_accessor :daily_update, :cursor, :token
+
   extend Forwardable
   def_delegators :@daily_update, :from, :to, :related_model, :insee_resource_suffix, :update_type
 

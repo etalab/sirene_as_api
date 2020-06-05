@@ -12,7 +12,7 @@ describe DailyUpdateUniteLegale do
 
   it 'has a valid log filename' do
     expect(Logger).to receive(:new)
-      .with(%r{log\/daily_update_unite_legale.log})
+      .with(%r{log/daily_update_unite_legale.log})
     subject.logger_for_import
   end
 end
