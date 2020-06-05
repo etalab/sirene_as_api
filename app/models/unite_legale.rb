@@ -12,7 +12,7 @@ class UniteLegale < ApplicationRecord
   def nullify_non_diffusable_fields
     return if statut_diffusion == 'O'
 
-    attributes.keys.each do |attribute|
+    attributes.each_key do |attribute|
       send("#{attribute}=", nil) unless AUTHORIZED_FIELDS.include?(attribute)
     end
   end

@@ -57,7 +57,7 @@ describe INSEE::Request::FetchUpdatesWithCursor do
       it 'logs http failed' do
         subject
         expect(logger).to have_received(:error)
-          .with(/HTTP request failed \(code: 400\)\: .+/)
+          .with(/HTTP request failed \(code: 400\): .+/)
       end
     end
 
