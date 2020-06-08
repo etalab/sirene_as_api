@@ -52,6 +52,15 @@ describe Stock::Operation::PostImport, :trb do
     it_behaves_like 'not doing anything'
   end
 
+  context 'when both stocks are completed but not of same month' do
+    before do
+      create :stock_unite_legale, :of_june, :completed
+      create :stock_etablissement, :of_july, :completed
+    end
+
+    it_behaves_like 'not doing anything'
+  end
+
   context 'when both imports are COMPLETED' do
     before do
       create :stock_etablissement, :completed

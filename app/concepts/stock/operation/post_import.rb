@@ -3,6 +3,7 @@ class Stock
     class PostImport < Trailblazer::Operation
       step :stock_unite_legale_imported?
       step :stock_etablissement_imported?
+      step :both_stocks_of_same_month?
       fail :log_stock_not_imported, Output(:success) => 'End.success'
       step Nested Task::CreateAssociations
       step Nested Task::DropIndexes
@@ -17,6 +18,12 @@ class Stock
 
       def stock_etablissement_imported?(_, **)
         StockEtablissement.current&.imported?
+      end
+
+      def both_stocks_of_same_month?(_, **)
+        stock_ul = StockUniteLegale.current
+        stock_e = StockEtablissement.current
+        stock_ul.year == stock_e.year && stock_ul.month == stock_e.month
       end
 
       def truncate_temp_tables(_, logger:, **)
