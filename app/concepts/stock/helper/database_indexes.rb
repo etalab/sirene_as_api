@@ -4,7 +4,7 @@ class Stock
       def each_index_configuration
         index_configurations.each do |table_name, indexes|
           indexes.each do |index_config|
-            columns = index_config[:columns]
+            columns = [index_config[:columns]].flatten
             options = index_config[:options] || {}
 
             yield table_name, columns, options
