@@ -10,9 +10,7 @@ describe Stock::Task::CreateTmpIndexes do
   # indexes keep existing through RSpec transaction
   # so they need to be deleted manually
   before do
-    if ActiveRecord::Base.connection.index_exists?(table_name, columns)
-      ActiveRecord::Base.connection.remove_index(table_name, columns)
-    end
+    ActiveRecord::Base.connection.remove_index(table_name, columns) if ActiveRecord::Base.connection.index_exists?(table_name, columns)
   end
 
   after do
