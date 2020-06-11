@@ -8,7 +8,7 @@ describe Stock::Task::FetchLatestRemoteStockUniteLegale do
   before { Timecop.freeze(Time.zone.local(2019, 7, 15)) }
 
   describe 'valid HTTP interaction', vcr: { cassette_name: 'data_gouv_sirene_july_OK' } do
-    let(:latest_remote_stock_file) { 'http://files.data.gouv.fr/insee-sirene/StockUniteLegale_utf8.zip' }
+    let(:latest_remote_stock_file) { 'https://files.data.gouv.fr/insee-sirene/StockUniteLegale_utf8.zip' }
 
     it { is_expected.to be_success }
 

@@ -6,7 +6,7 @@ describe Stock::Operation::LoadUniteLegale, vcr: { cassette_name: 'data_gouv_sir
   before { Timecop.freeze(Time.zone.local(2019, 7, 5)) }
 
   let(:logger) { instance_spy Logger }
-  let(:expected_uri) { 'http://files.data.gouv.fr/insee-sirene/StockUniteLegale_utf8.zip' }
+  let(:expected_uri) { 'https://files.data.gouv.fr/insee-sirene/StockUniteLegale_utf8.zip' }
 
   context 'when remote stock is importable (newer)' do
     before { create :stock_unite_legale, :of_june, :completed }

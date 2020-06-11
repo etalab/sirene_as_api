@@ -26,7 +26,7 @@ class Stock
       private
 
       def unite_legale_url
-        'http://files.data.gouv.fr/insee-sirene/StockUniteLegale_utf8.zip'
+        'https://files.data.gouv.fr/insee-sirene/StockUniteLegale_utf8.zip'
       end
 
       def year
