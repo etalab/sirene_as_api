@@ -19,7 +19,7 @@ describe Stock::Operation::PostImport, :trb do
     end
 
     it 'does not create database indexes' do
-      expect_not_to_call_nested_operation(Stock::Task::CreateIndexes)
+      expect_not_to_call_nested_operation(Stock::Task::CreateTmpIndexes)
       subject
     end
   end
@@ -52,6 +52,15 @@ describe Stock::Operation::PostImport, :trb do
     it_behaves_like 'not doing anything'
   end
 
+  context 'when both stocks are completed but not of same month' do
+    before do
+      create :stock_unite_legale, :of_june, :completed
+      create :stock_etablissement, :of_july, :completed
+    end
+
+    it_behaves_like 'not doing anything'
+  end
+
   context 'when both imports are COMPLETED' do
     before do
       create :stock_etablissement, :completed
@@ -59,6 +68,16 @@ describe Stock::Operation::PostImport, :trb do
     end
 
     it { is_expected.to be_success }
+
+    it 'renames existing indexes' do
+      expect_to_call_nested_operation(Stock::Task::RenameIndexes)
+      subject
+    end
+
+    it 'creates database indexes' do
+      expect_to_call_nested_operation(Stock::Task::CreateTmpIndexes)
+      subject
+    end
 
     it 'created the association' do
       expect_to_call_nested_operation(Stock::Task::CreateAssociations)
@@ -70,13 +89,8 @@ describe Stock::Operation::PostImport, :trb do
       subject
     end
 
-    it 'drops indexes' do
-      expect_to_call_nested_operation(Stock::Task::DropIndexes)
-      subject
-    end
-
-    it 'creates database indexes' do
-      expect_to_call_nested_operation(Stock::Task::CreateIndexes)
+    it 'drops old indexes' do
+      expect_to_call_nested_operation(Stock::Task::DropTmpIndexes)
       subject
     end
 

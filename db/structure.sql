@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 10.10 (Ubuntu 10.10-0ubuntu0.18.04.1)
--- Dumped by pg_dump version 10.10 (Ubuntu 10.10-0ubuntu0.18.04.1)
+-- Dumped from database version 10.12 (Ubuntu 10.12-0ubuntu0.18.04.1)
+-- Dumped by pg_dump version 10.12 (Ubuntu 10.12-0ubuntu0.18.04.1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -28,6 +28,20 @@ CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 --
 
 COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+--
+-- Name: pg_trgm; Type: EXTENSION; Schema: -; Owner: -
+--
+
+CREATE EXTENSION IF NOT EXISTS pg_trgm WITH SCHEMA public;
+
+
+--
+-- Name: EXTENSION pg_trgm; Type: COMMENT; Schema: -; Owner: -
+--
+
+COMMENT ON EXTENSION pg_trgm IS 'text similarity measurement and index searching based on trigrams';
 
 
 SET default_tablespace = '';
@@ -740,17 +754,17 @@ CREATE INDEX etablissements_to_tsvector_idx ON public.etablissements_v2 USING gi
 
 
 --
--- Name: index_etablissements_on_siren; Type: INDEX; Schema: public; Owner: -
+-- Name: index_etablissements_siren_tmp; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_etablissements_on_siren ON public.etablissements USING btree (siren);
+CREATE INDEX index_etablissements_siren_tmp ON public.etablissements USING btree (siren);
 
 
 --
--- Name: index_etablissements_on_siret; Type: INDEX; Schema: public; Owner: -
+-- Name: index_etablissements_siret_tmp; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_etablissements_on_siret ON public.etablissements USING btree (siret);
+CREATE UNIQUE INDEX index_etablissements_siret_tmp ON public.etablissements USING btree (siret);
 
 
 --
@@ -820,6 +834,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200119132507'),
 ('20200127073524'),
 ('20200127074730'),
-('20200210140344');
+('20200210140344'),
+('20200613110234');
 
 
