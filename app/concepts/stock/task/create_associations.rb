@@ -7,9 +7,7 @@ class Stock
       pass :log_associations_completed
 
       def create_associations(ctx, **)
-        ActiveRecord::Base.transaction do
-          execute_transaction(ctx)
-        end
+        execute_transaction(ctx)
       end
 
       def log_associations_starts(_, logger:, **)
@@ -30,7 +28,7 @@ class Stock
         ActiveRecord::Base.connection.execute(sql)
       rescue ActiveRecord::ActiveRecordError
         ctx[:error] = $ERROR_INFO
-        raise ActiveRecord::Rollback
+        false
       end
 
       def sql
