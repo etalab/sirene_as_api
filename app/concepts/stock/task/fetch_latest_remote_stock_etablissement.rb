@@ -47,7 +47,7 @@ class Stock
       end
 
       def base_uri
-        'http://data.cquest.org'
+        'https://files.data.gouv.fr'
       end
 
       def filename
@@ -55,7 +55,7 @@ class Stock
       end
 
       def geo_sirene_folder
-        'geo_sirene/v2019'
+        'geo-sirene'
       end
 
       def year_month_pattern
