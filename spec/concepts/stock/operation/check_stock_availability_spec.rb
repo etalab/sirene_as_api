@@ -26,7 +26,7 @@ describe Stock::Operation::CheckStockAvailability, :trb, vcr: { cassette_name: '
 
   context 'when stock file etablissements is not reachable' do
     before do
-      allow_any_instance_of(StockEtablissement).to receive(:uri).and_return('http://data.cquest.org/geo_sirene/v2019/2222-22/FILE_NOT_FOUND.zip')
+      allow_any_instance_of(StockEtablissement).to receive(:uri).and_return('https://files.data.gouv.fr/geo-sirene/2222-22/FILE_NOT_FOUND.zip')
     end
 
     it { is_expected.to be_failure }

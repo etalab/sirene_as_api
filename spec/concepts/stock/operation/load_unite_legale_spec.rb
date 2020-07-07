@@ -56,6 +56,7 @@ describe Stock::Operation::LoadUniteLegale, vcr: { cassette_name: 'data_gouv_sir
 
   describe 'Integration: from download to import', :perform_enqueued_jobs do
     let(:stock_model) { StockUniteLegale }
+    let(:imported_year) { '2019' }
     let(:imported_month) { '07' }
     let(:expected_sirens) { %w[000325175 001807254 005410220] }
 
