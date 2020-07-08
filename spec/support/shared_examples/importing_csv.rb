@@ -12,7 +12,7 @@ shared_examples 'importing csv' do
     it 'imports a new stock successfully' do
       subject
       expect(stock_model.current).to have_attributes(
-        year: '2019',
+        year: imported_year,
         month: imported_month,
         status: 'COMPLETED'
       )
@@ -63,7 +63,7 @@ shared_examples 'importing csv' do
     it 'imports a new stock in error' do
       subject
       expect(stock_model.current).to have_attributes(
-        year: '2019',
+        year: imported_year,
         month: imported_month,
         status: 'ERROR'
       )
