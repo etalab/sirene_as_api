@@ -32,7 +32,7 @@ module Files
           ],
           col_sep: ',',
           row_sep: "\n",
-          file_encoding: 'UTF-8'
+          force_utf8: true
         }
       end
       # rubocop:enable Metrics/MethodLength
