@@ -8,6 +8,6 @@ class API::V3::UniteLegaleSerializer < ApplicationSerializer
   attribute :etablissement_siege
 
   def etablissement_siege
-    object.etablissements.where(etablissement_siege: 'true').first
+    object.etablissements.where(etablissement_siege: ['true', 't']).order(nil).limit(1).first
   end
 end
