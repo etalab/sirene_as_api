@@ -10,18 +10,21 @@ services:
       - POSTGRES_DB=${POSTGRES_DB}
       - PGDATA=/var/lib/postgresql/data
     volumes:
-      - ${HOST_APP_FOLDER}/config/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ${HOST_APP_FOLDER}/config/docker/init.sql:/docker-entrypoint-initdb.d/init.sql
       - ${POSTGRES_DATA}:/var/lib/postgresql/data
   sirene:
     build: ${HOST_APP_FOLDER}
     image: ${SIRENE_IMAGE_NAME}
     command: bin/rails server --port 3000 --binding 0.0.0.0
+    depends_on:
+      - db
     ports:
       - "${HOST_SOLR_PORT}:3000"
     environment:
       - RAILS_ENV=${RAILS_ENV}
       - PGHOST=${PGHOST}
       - PGUSER=${PGUSER}
+      - WAIT_HOSTS=db:5432
     volumes:
       - ${HOST_APP_FOLDER}/.last_monthly_stock_applied/:/docker_build/.last_monthly_stock_applied/
       - ${HOST_APP_FOLDER}/tmp/:/docker_build/tmp/
