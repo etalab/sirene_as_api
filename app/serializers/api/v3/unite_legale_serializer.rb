@@ -8,6 +8,8 @@ class API::V3::UniteLegaleSerializer < ApplicationSerializer
   attribute :etablissement_siege
 
   def etablissement_siege
-    object.etablissements.where(etablissement_siege: ['true', 't']).order(nil).limit(1).first
+    # `order(nil)` remove the default ordering on id that slow down the request
+    # `limit` forces ActiveRecord to use the LIMIT statement (`.first` was supposed to do the same but not)
+    object.etablissements.where(etablissement_siege: %w[true t]).order(nil).limit(1).first
   end
 end
