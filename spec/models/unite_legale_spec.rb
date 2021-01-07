@@ -38,4 +38,15 @@ describe UniteLegale do
       end
     end
   end
+
+  describe '#numero_tva_intra' do
+    # The computed VAT validation key shall be two digits length
+    # and is padded with a leading 0 when needed.
+    # Here is an example where the validation key should be "09" instead of "9"
+    it 'is always 13 characters long' do
+      entreprise = build(:unite_legale, siren: '504019662')
+
+      expect(entreprise.numero_tva_intra).to eq('FR09504019662')
+    end
+  end
 end

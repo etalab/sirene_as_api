@@ -5,7 +5,7 @@ class API::V3::UniteLegaleSerializer < ApplicationSerializer
 
   has_many :etablissements
 
-  attribute :etablissement_siege
+  attributes :etablissement_siege, :numero_tva_intra
 
   def etablissement_siege
     # `order(nil)` remove the default ordering on id that slow down the request
