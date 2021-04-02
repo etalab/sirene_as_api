@@ -72,6 +72,10 @@ GEM
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
     crass (1.0.6)
+    database_cleaner-active_record (2.0.0)
+      activerecord (>= 5.a)
+      database_cleaner-core (~> 2.0.0)
+    database_cleaner-core (2.0.1)
     declarative (0.0.10)
     declarative-builder (0.1.0)
       declarative-option (< 0.2.0)
@@ -407,6 +411,7 @@ DEPENDENCIES
   byebug
   colorize
   connection_pool (~> 2.2)
+  database_cleaner-active_record
   factory_bot_rails
   fuubar
   growl
@@ -462,4 +467,4 @@ DEPENDENCIES
   whirly
 
 BUNDLED WITH
-   2.1.4
+   2.2.4
