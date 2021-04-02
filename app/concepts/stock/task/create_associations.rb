@@ -25,8 +25,15 @@ class Stock
       private
 
       def execute_transaction(ctx)
-        ActiveRecord::Base.connection.execute(sql)
-      rescue ActiveRecord::ActiveRecordError
+        ctx[:loop_count] = 0
+        loop do
+          pg_result = ActiveRecord::Base.connection.execute(sql)
+          updated_rows_count = pg_result.cmd_tuples
+          break if updated_rows_count.zero?
+          ctx[:loop_count] += 1
+        end
+        ctx[:loop_count].positive?
+      rescue ActiveRecord::ActiveRecordError, StandardError
         ctx[:error] = $ERROR_INFO
         false
       end
@@ -36,8 +43,15 @@ class Stock
         UPDATE etablissements_tmp
         SET unite_legale_id = unites_legales_tmp.id
         FROM unites_legales_tmp
-        WHERE etablissements_tmp.siren = unites_legales_tmp.siren
+        WHERE etablissements_tmp.id IN (
+            SELECT id from etablissements_tmp where unite_legale_id IS NULL LIMIT #{request_limit}
+          )
+          AND etablissements_tmp.siren = unites_legales_tmp.siren
         END_SQL
+      end
+
+      def request_limit
+        5_000
       end
     end
   end

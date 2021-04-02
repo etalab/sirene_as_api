@@ -61,8 +61,18 @@ describe Stock::Operation::PostImport, :trb do
     it_behaves_like 'not doing anything'
   end
 
-  context 'when both imports are COMPLETED' do
+  context 'when both imports are COMPLETED', use_transactional_fixtures: false do
+    let(:siren_1) { '005880034' }
+
     before do
+      wrap_with_table_renamed(UniteLegale) do
+        create :unite_legale, siren: siren_1
+      end
+
+      wrap_with_table_renamed(Etablissement) do
+        create :etablissement, siren: siren_1
+      end
+
       create :stock_etablissement, :completed
       create :stock_unite_legale, :completed
     end
