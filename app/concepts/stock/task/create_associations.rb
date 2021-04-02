@@ -24,19 +24,24 @@ class Stock
 
       private
 
+      # rubocop:disable Metrics/MethodLength
       def execute_transaction(ctx)
         ctx[:loop_count] = 0
+
         loop do
           pg_result = ActiveRecord::Base.connection.execute(sql)
           updated_rows_count = pg_result.cmd_tuples
           break if updated_rows_count.zero?
+
           ctx[:loop_count] += 1
         end
+
         ctx[:loop_count].positive?
       rescue ActiveRecord::ActiveRecordError, StandardError
         ctx[:error] = $ERROR_INFO
         false
       end
+      # rubocop:enable Metrics/MethodLength
 
       def sql
         <<-END_SQL
