@@ -35,6 +35,8 @@ class ImportStockJob < ApplicationJob
     end
 
     @stock.update(status: 'ERROR') if operation.failure?
+
+    SwitchServer.call if operation.success? && dual_server_update?
   end
 
   def wrap_import_with_log_level(log_level)
@@ -42,5 +44,9 @@ class ImportStockJob < ApplicationJob
     ActiveRecord::Base.logger.level = log_level
     yield
     ActiveRecord::Base.logger.level = usual_log_level
+  end
+
+  def dual_server_update?
+    Rails.configuration.switch_server['perform_switch']
   end
 end

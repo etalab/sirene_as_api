@@ -1,0 +1,12 @@
+defaults: &defaults
+  perform_switch: false
+  ip_fallback: '54.36.95.61'
+  sirene_server1: address1
+  sirene_server2: address2
+
+development:
+  <<: *defaults
+test:
+  <<: *defaults
+production:
+  <<: *defaults
