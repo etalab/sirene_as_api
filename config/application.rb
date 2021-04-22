@@ -22,6 +22,9 @@ module SireneAsAPI
     config.active_job.queue_adapter = :sidekiq
     config.active_job.queue_name_prefix = "sirene_api_#{Rails.env}"
 
+    # Custom config
+    config.switch_server = config_for(:switch_server)
+
     config.autoload_paths +=
       %W[#{config.root}/lib
          #{config.root}/app/interactors

@@ -48,6 +48,7 @@ set :shared_files, fetch(:shared_files, []).push(
   'config/database.yml',
   "config/environments/#{ENV['to']}.rb",
   'config/secrets.yml',
+  'config/switch_server.yml',
   'config/sidekiq.yml',
   'config/sunspot.yml'
 )
