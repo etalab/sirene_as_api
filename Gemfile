@@ -103,6 +103,7 @@ group :development do
   gem 'mina'
   gem 'rails_best_practices'
   gem 'rubocop-checkstyle_formatter', require: false
+  gem 'rubocop-rails', require: false
   gem 'rubocop-rspec', require: false
   gem 'spring'
   gem 'spring-commands-rspec'
