@@ -21,6 +21,6 @@ class UniteLegale < ApplicationRecord
     tva_key =  (12 + 3 * (siren.to_i % 97)) % 97
     padded_key = tva_key.to_s.rjust(2, '0')
     tva_number = padded_key + siren.to_s
-    'FR' + tva_number
+    "FR#{tva_number}"
   end
 end

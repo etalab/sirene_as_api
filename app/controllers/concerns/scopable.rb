@@ -14,7 +14,7 @@ module Scopable
       end
 
       def add_has_scope_for_attribute(attr)
-        has_scope(attr.to_sym, ->(value) { where(Hash[attr, value]) })
+        has_scope(attr.to_sym, ->(value) { where({ attr => value }) })
       end
     end
   end
@@ -30,7 +30,7 @@ module Scopable
       private
 
       def add_scope_for_attribute(attr)
-        scope attr.to_sym, ->(value) { where(Hash[attr, value]) }
+        scope attr.to_sym, ->(value) { where({ attr => value }) }
       end
     end
   end

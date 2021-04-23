@@ -55,14 +55,14 @@ module PayloadSerializer
     # rubocop:enable Metrics/MethodLength
 
     def data_from_sirene
-      if !@result_siege.nil?
+      if @result_siege.nil?
+        'etablissement not found in SIRENE database'
+      else
         {
           total_results: @results_sirets.size + 1,
           siege_social: @result_siege,
           other_etablissements_sirets: @results_sirets
         }
-      else
-        'etablissement not found in SIRENE database'
       end
     end
 
@@ -83,7 +83,7 @@ module PayloadSerializer
     def numero_tva_for(siren)
       tva_key =  (12 + 3 * (siren.to_i % 97)) % 97
       tva_number = tva_key.to_s + siren.to_s
-      'FR' + tva_number
+      "FR#{tva_number}"
     end
   end
 end

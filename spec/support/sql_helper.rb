@@ -1,5 +1,5 @@
 def wrap_with_table_renamed(model)
-  model.table_name = model.table_name + '_tmp'
+  model.table_name = "#{model.table_name}_tmp"
   item = yield
   model.table_name.slice!('_tmp')
   item

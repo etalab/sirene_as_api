@@ -28,6 +28,7 @@ class Stock
         ActiveRecord::Base.connection.execute swap_sql(table_name)
       end
 
+      # rubocop:disable Style/StringConcatenation
       def swap_sql(table_name)
         <<-END_SQL
         ALTER TABLE "#{table_name}" RENAME TO "#{table_name + '_swap'}";
@@ -35,6 +36,7 @@ class Stock
         ALTER TABLE "#{table_name + '_swap'}" RENAME TO "#{table_name + '_tmp'}";
         END_SQL
       end
+      # rubocop:enable Style/StringConcatenation
     end
   end
 end

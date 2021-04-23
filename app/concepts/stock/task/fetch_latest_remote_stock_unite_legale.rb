@@ -41,7 +41,6 @@ class Stock
         latest_stock_link.first
       end
 
-      # rubocop:disable Naming/VariableNumber
       def latest_stock_link
         html
           .css('h4')
@@ -50,14 +49,13 @@ class Stock
           .match(/Sirene : Fichier StockUniteLegale du \d{2} (.+) (\d{4})/)
           .captures
       end
-      # rubocop:enable Naming/VariableNumber
 
       def html
         Nokogiri::HTML data_gouv_uri.open
       end
 
       def data_gouv_uri
-        URI.parse base_uri + '/fr/datasets/base-sirene-des-entreprises-et-de-leurs-etablissements-siren-siret'
+        URI.parse "#{base_uri}/fr/datasets/base-sirene-des-entreprises-et-de-leurs-etablissements-siren-siret"
       end
 
       def base_uri

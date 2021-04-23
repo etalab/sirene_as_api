@@ -6,10 +6,10 @@ class API::V2::SirenChildrenController < ApplicationController
     @results_children = []
     rebuild_hash_results
 
-    if !@result_siege.blank?
-      render_payload_siren_children(@result_siege.first, @results_children)
-    else
+    if @result_siege.blank?
       render json: { message: 'no results found' }, status: 404
+    else
+      render_payload_siren_children(@result_siege.first, @results_children)
     end
   end
 
@@ -18,9 +18,9 @@ class API::V2::SirenChildrenController < ApplicationController
   def rebuild_hash_results
     @results.each do |result|
       if result[0] == '0'
-        @results_children << Hash[essential_infos.zip result]
+        @results_children << (essential_infos.zip result).to_h
       else
-        @result_siege << Hash[essential_infos.zip result]
+        @result_siege << (essential_infos.zip result).to_h
       end
     end
   end
