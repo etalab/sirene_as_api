@@ -5,10 +5,10 @@ module Files
         @logger = logger
       end
 
-      def bulk_processing(file, model)
+      def bulk_processing(file, model, &block)
         @model = model
 
-        SmarterCSV.process(file, options) { |chunk| yield chunk }
+        SmarterCSV.process(file, options, &block)
       rescue SmarterCSV::SmarterCSVException, ArgumentError
         @logger.error $ERROR_INFO.message
         yield false
@@ -28,7 +28,7 @@ module Files
           header_validations: [required_headers: @model.header_mapping.values],
           header_transformations: [
             :none,
-            key_mapping: @model.header_mapping
+            { key_mapping: @model.header_mapping }
           ],
           col_sep: ',',
           row_sep: "\n",

@@ -23,9 +23,10 @@ set :forward_agent, true
 set :port, 22
 set :repository, 'https://github.com/etalab/sirene_as_api.git'
 
-if ENV['to'] == 'production'
+case ENV['to']
+when 'production'
   set :branch, 'master'
-elsif ENV['to'] == 'sandbox'
+when 'sandbox'
   set :branch, 'develop'
 else
   abort 'Environment must be set to sandbox or production'

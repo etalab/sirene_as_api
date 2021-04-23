@@ -56,7 +56,7 @@ class OvhAPI < SireneAsAPIInteractor
   end
 
   def signature
-    '$1$' + Digest::SHA1.hexdigest(AS + '+' + CK + '+' + @method + '+' + @full_query + '+' + @body + '+' + @tstamp)
+    "$1$#{Digest::SHA1.hexdigest("#{AS}+#{CK}+#{@method}+#{@full_query}+#{@body}+#{@tstamp}")}"
   end
 
   def ovh_domain

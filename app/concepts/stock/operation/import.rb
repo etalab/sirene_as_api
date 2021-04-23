@@ -32,7 +32,7 @@ class Stock
         Object.const_set(temp_model_name, Class.new(model)) unless Object.const_defined?(temp_model_name)
 
         temp_model = temp_model_name.constantize
-        temp_model.table_name = model.table_name + '_tmp'
+        temp_model.table_name = "#{model.table_name}_tmp"
 
         ctx[:model] = temp_model
       end
