@@ -5,7 +5,7 @@ module Files
         @logger = logger
       end
 
-      def bulk_import(file_reader_class: Files::Helper::CSVReader, file:, model:)
+      def bulk_import(file:, model:, file_reader_class: Files::Helper::CSVReader)
         file_reader = file_reader_class.new @logger
 
         file_reader.bulk_processing(file, model) do |chunk|

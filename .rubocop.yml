@@ -2,6 +2,7 @@
 # run `bundle exec rubocop` like Travis
 # and not `rubocop` only
 AllCops:
+  NewCops: enable
   Exclude:
     - 'vendor/**/*'
     - 'Guardfile'
@@ -12,7 +13,6 @@ AllCops:
     - 'spec/controllers/api/v1/**/*'
     - 'app/interactors/**/*'
     - 'app/controllers/api/v1/**/*'
-
 Layout/LineLength:
   Enabled: false
 
@@ -24,7 +24,7 @@ Metrics/BlockLength:
     - 'db/schema.rb'
     - 'spec/factories/*'
     - 'config/routes.rb'
-  ExcludedMethods:
+  IgnoredMethods:
     - 'describe'
     - 'context'
     - 'namespace'
@@ -52,7 +52,7 @@ Style/SignalException:
     - 'app/concepts/**/*'
 
 Naming/VariableNumber:
-  EnforcedStyle: snake_case
+  Enabled: false
 
 Layout/MultilineMethodCallIndentation:
   EnforcedStyle: indented
@@ -60,6 +60,12 @@ Layout/MultilineMethodCallIndentation:
 Lint/AmbiguousOperator:
   Exclude:
     - 'app/serializers/**/*'
+
+Lint/EmptyBlock:
+  Enabled: false
+
+Lint/MissingSuper:
+  Enabled: false
 
 Lint/UnreachableCode:
   Exclude:

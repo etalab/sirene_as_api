@@ -6,7 +6,7 @@ describe UpdateDatabase do
   context 'when there is no monthly stock link saved in a file' do
     it 'destroy and rebuild the database if user accepts it' do
       allow(File).to receive(:exist?).and_return(false)
-      allow(STDIN).to receive(:gets).and_return('y')
+      allow($stdin).to receive(:gets).and_return('y')
 
       expect(DeleteDatabase).to receive(:call)
       expect(PopulateDatabase).to receive(:call)
@@ -15,7 +15,7 @@ describe UpdateDatabase do
 
     it 'doesnt destroy and rebuild the database if user doesnt accepts it' do
       allow(File).to receive(:exist?).and_return(false)
-      allow(STDIN).to receive(:gets).and_return('n')
+      allow($stdin).to receive(:gets).and_return('n')
 
       expect(DeleteDatabase).not_to receive(:call)
       expect(PopulateDatabase).not_to receive(:call)
@@ -27,7 +27,7 @@ describe UpdateDatabase do
     it 'destroy and rebuild the database' do
       allow(File).to receive(:exist?).and_return(false)
 
-      expect(STDIN).not_to receive(:gets)
+      expect($stdin).not_to receive(:gets)
       expect(DeleteDatabase).to receive(:call)
       expect(PopulateDatabase).to receive(:call)
       described_class.call!(automatic_update: true)

@@ -8,7 +8,7 @@ class EtablissementAttrsFromLine
   def call(line)
     siret = line[:siren] + line[:nic]
 
-    etablissement_attrs = {
+    {
       siren: line[:siren],
       siret: siret,
       nic: line[:nic],
@@ -120,7 +120,6 @@ class EtablissementAttrsFromLine
       geo_l4: line[:geo_l4],
       geo_l5: line[:geo_l5]
     }
-    etablissement_attrs
   end
 end
 
