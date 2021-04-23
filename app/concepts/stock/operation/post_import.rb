@@ -12,6 +12,10 @@ class Stock
       step Nested Task::DropTmpIndexes
       step :truncate_temp_tables
       step Nested Task::UpdateNonDiffusable
+      step :dual_server_update?
+      fail :log_dual_server_update_disabled, Output(:success) => 'End.success'
+      step :switch_server
+      step :log_server_switched
 
       def stock_unite_legale_imported?(_, **)
         StockUniteLegale.current&.imported?
@@ -31,6 +35,22 @@ class Stock
         %w[unites_legales_tmp etablissements_tmp].each do |table_name|
           Stock::Task::TruncateTable.call table_name: table_name, logger: logger
         end
+      end
+
+      def dual_server_update?(_, **)
+        Rails.configuration.switch_server['perform_switch']
+      end
+
+      def switch_server(_, **)
+        SwitchServer.call
+      end
+
+      def log_server_switched(_, logger:, **)
+        logger.info 'IP Switch request made'
+      end
+
+      def log_dual_server_update_disabled(_, logger:, **)
+        logger.info 'Dual server update disabled, skipping IP switch'
       end
 
       def log_stock_not_imported(_, logger:, **)
