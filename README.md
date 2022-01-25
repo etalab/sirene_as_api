@@ -1,7 +1,8 @@
 ## ⚠ Déprécation de l'API & Avertissement concernant la sécurité ⚠
 
 Les développements de la DINUM ont cessé sur cette API.
-La version actuelle ne sera donc plus mise à jour et peut donc présenter d'importantes failles de sécurité.
+
+La version actuelle ne sera donc plus mise à jour et peut présenter d'importantes failles de sécurité.
 
 ## ⚠ Changements importants ⚠
 
