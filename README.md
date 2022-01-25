@@ -1,3 +1,9 @@
+## ⚠ Déprécation de l'API & Avertissement concernant la sécurité ⚠
+
+Les développements de la DINUM ont cessé sur cette API.
+
+La version actuelle ne sera donc plus mise à jour et peut présenter d'importantes failles de sécurité.
+
 ## ⚠ Changements importants ⚠
 
 Les endpoints V3 sont disponibles en béta. Les endpoints V1 et V2 ainsi que l'import des fichiers ancien format sont considérés dépréciés et ne recevront plus de développement futur.
