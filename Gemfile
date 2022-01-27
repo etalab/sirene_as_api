@@ -16,7 +16,7 @@ gem 'pg', '~> 0.20'
 gem 'connection_pool', '~> 2.2'
 
 # Backend jobs
-gem 'redis', '~> 3.0'
+gem 'redis', '~> 4.5'
 gem 'redis-namespace'
 gem 'redis-objects'
 gem 'resque'
