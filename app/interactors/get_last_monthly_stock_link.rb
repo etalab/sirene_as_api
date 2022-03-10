@@ -56,7 +56,7 @@ class GetLastMonthlyStockLink < SireneAsAPIInteractor
   end
 
   def files_repository
-    "#{files_domain}/geo_sirene"
+    "#{files_domain}/geo_sirene/v2017"
   end
 
   def sirene_month_folder_filename_pattern

@@ -19,7 +19,7 @@ class Stock
           uri: stock_link
         )
       rescue OpenURI::HTTPError
-        logger.error "Error while retrieving remote links: #{$ERROR_INFO.message}"
+        logger.error "Error while retrieving remote links: #{$ERROR_INFO.message} - #{stock_link}"
         false
       end
 
@@ -38,7 +38,7 @@ class Stock
       end
 
       def french_month
-        latest_stock_link.first
+        latest_stock_link.first.underscore
       end
 
       def latest_stock_link
@@ -55,7 +55,7 @@ class Stock
       end
 
       def data_gouv_uri
-        URI.parse "#{base_uri}/fr/datasets/base-sirene-des-entreprises-et-de-leurs-etablissements-siren-siret"
+        URI.parse "#{base_uri}/fr/datasets/base-sirene-des-entreprises-et-de-leurs-etablissements-siren-siret/"
       end
 
       def base_uri

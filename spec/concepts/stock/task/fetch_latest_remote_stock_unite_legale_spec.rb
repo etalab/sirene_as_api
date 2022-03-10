@@ -36,7 +36,7 @@ describe Stock::Task::FetchLatestRemoteStockUniteLegale do
     its([:remote_stock]) { is_expected.to be_nil }
 
     it 'logs an error' do
-      expect(logger).to receive(:error).with('Error while retrieving remote links: 404 Not Found')
+      expect(logger).to receive(:error).with('Error while retrieving remote links: 404 Not Found - https://files.data.gouv.fr/insee-sirene/StockUniteLegale_utf8.zip')
       subject
     end
   end

@@ -17,21 +17,25 @@ http_interactions:
       message: OK
     headers:
       Server:
-      - nginx/1.13.12
+      - nginx
       Date:
-      - Wed, 06 Jun 2018 09:35:23 GMT
+      - Thu, 10 Mar 2022 11:32:13 GMT
       Content-Type:
-      - text/html; charset=utf-8
+      - text/html; charset=utf8
       Connection:
       - keep-alive
+      Vary:
+      - Accept-Encoding
+      - Accept-Encoding
+      Strict-Transport-Security:
+      - max-age=15552000; includeSubdomains; preload
     body:
       encoding: UTF-8
       string: ''
-    http_version:
-  recorded_at: Fri, 30 Mar 2018 22:00:00 GMT
+  recorded_at: Wed, 09 Mar 2022 23:00:00 GMT
 - request:
     method: get
-    uri: http://data.cquest.org/geo_sirene
+    uri: http://data.cquest.org/geo_sirene/v2019
     body:
       encoding: US-ASCII
       string: ''
@@ -48,26 +52,27 @@ http_interactions:
       message: Moved Permanently
     headers:
       Server:
-      - nginx/1.13.12
+      - nginx
       Date:
-      - Wed, 06 Jun 2018 09:35:23 GMT
+      - Thu, 10 Mar 2022 11:32:13 GMT
       Content-Type:
       - text/html
       Content-Length:
-      - '186'
-      Location:
-      - http://data.cquest.org/geo_sirene/
+      - '169'
       Connection:
       - keep-alive
+      Location:
+      - http://data.cquest.org/geo_sirene/v2019/
+      Strict-Transport-Security:
+      - max-age=15552000; includeSubdomains; preload
     body:
       encoding: UTF-8
-      string: "<html>\r\n<head><title>301 Moved Permanently</title></head>\r\n<body
-        bgcolor=\"white\">\r\n<center><h1>301 Moved Permanently</h1></center>\r\n<hr><center>nginx/1.13.12</center>\r\n</body>\r\n</html>\r\n"
-    http_version:
-  recorded_at: Fri, 30 Mar 2018 22:00:00 GMT
+      string: "<html>\r\n<head><title>301 Moved Permanently</title></head>\r\n<body>\r\n<center><h1>301
+        Moved Permanently</h1></center>\r\n<hr><center>nginx/1.21.6</center>\r\n</body>\r\n</html>\r\n"
+  recorded_at: Wed, 09 Mar 2022 23:00:00 GMT
 - request:
     method: get
-    uri: http://data.cquest.org/geo_sirene/
+    uri: http://data.cquest.org/geo_sirene/v2019/
     body:
       encoding: US-ASCII
       string: ''
@@ -84,31 +89,51 @@ http_interactions:
       message: OK
     headers:
       Server:
-      - nginx/1.13.12
+      - nginx
       Date:
-      - Wed, 06 Jun 2018 09:35:23 GMT
+      - Thu, 10 Mar 2022 11:32:13 GMT
       Content-Type:
-      - text/html; charset=utf-8
+      - text/html; charset=utf8
       Transfer-Encoding:
       - chunked
       Connection:
       - keep-alive
+      Vary:
+      - Accept-Encoding
+      - Accept-Encoding
+      Strict-Transport-Security:
+      - max-age=15552000; includeSubdomains; preload
     body:
       encoding: ASCII-8BIT
-      string: "<html>\r\n<head><title>Index of /geo_sirene/</title></head>\r\n<body
-        bgcolor=\"white\">\r\n<h1>Index of /geo_sirene/</h1><hr><pre><a href=\"../\">../</a>\r\n<a
-        href=\"2017-12/\">2017-12/</a>                                           05-Jan-2018
-        23:24                   -\r\n<a href=\"2018-01/\">2018-01/</a>                                           02-Feb-2018
-        18:07                   -\r\n<a href=\"2018-02/\">2018-02/</a>                                           02-Mar-2018
-        19:54                   -\r\n<a href=\"last/\">last/</a>                                              01-Jun-2018
-        19:54                   -\r\n<a href=\"quotidien/\">quotidien/</a>                                         05-Jun-2018
-        14:06                   -\r\n<a href=\"LISEZMOI.txt\">LISEZMOI.txt</a>                                       02-May-2018
-        08:53                 895\r\n</pre><hr></body>\r\n</html>\r\n"
-    http_version:
-  recorded_at: Fri, 30 Mar 2018 22:00:00 GMT
+      string: "<html>\r\n<head><title>Index of /geo_sirene/v2019/</title></head>\r\n<body>\r\n<h1>Index
+        of /geo_sirene/v2019/</h1><hr><pre><a href=\"../\">../</a>\r\n<a href=\"2018/\">2018/</a>
+        \                                             23-Feb-2020 14:23                   -\r\n<a
+        href=\"2019/\">2019/</a>                                              23-Feb-2020
+        14:23                   -\r\n<a href=\"2020/\">2020/</a>                                              08-Feb-2021
+        09:51                   -\r\n<a href=\"2021-01/\">2021-01/</a>                                           08-Feb-2021
+        01:30                   -\r\n<a href=\"2021-02/\">2021-02/</a>                                           03-Mar-2021
+        05:49                   -\r\n<a href=\"2021-03/\">2021-03/</a>                                           01-Apr-2021
+        20:51                   -\r\n<a href=\"2021-04/\">2021-04/</a>                                           04-May-2021
+        21:51                   -\r\n<a href=\"2021-05/\">2021-05/</a>                                           02-Jun-2021
+        15:24                   -\r\n<a href=\"2021-06/\">2021-06/</a>                                           03-Jul-2021
+        08:53                   -\r\n<a href=\"2021-07/\">2021-07/</a>                                           02-Aug-2021
+        16:37                   -\r\n<a href=\"2021-08/\">2021-08/</a>                                           01-Sep-2021
+        14:33                   -\r\n<a href=\"2021-09/\">2021-09/</a>                                           01-Oct-2021
+        18:38                   -\r\n<a href=\"2021-10/\">2021-10/</a>                                           02-Nov-2021
+        07:52                   -\r\n<a href=\"2021-11/\">2021-11/</a>                                           02-Dec-2021
+        20:58                   -\r\n<a href=\"2021-12/\">2021-12/</a>                                           04-Jan-2022
+        14:35                   -\r\n<a href=\"2022-01/\">2022-01/</a>                                           06-Feb-2022
+        08:31                   -\r\n<a href=\"2022-02/\">2022-02/</a>                                           02-Mar-2022
+        04:57                   -\r\n<a href=\"2022-03/\">2022-03/</a>                                           01-Mar-2022
+        22:40                   -\r\n<a href=\"archives/\">archives/</a>                                          06-Sep-2021
+        15:53                   -\r\n<a href=\"last/\">last/</a>                                              01-Mar-2022
+        22:40                   -\r\n<a href=\"quotidien/\">quotidien/</a>                                         05-Mar-2022
+        07:02                   -\r\n<a href=\"quotidien_csv_bruts/\">quotidien_csv_bruts/</a>
+        \                              05-Mar-2022 07:02                   -\r\n</pre><hr></body>\r\n</html>\r\n"
+  recorded_at: Wed, 09 Mar 2022 23:00:00 GMT
 - request:
     method: head
-    uri: http://data.cquest.org/geo_sirene/2018-02/etablissements_actifs.csv.gz
+    uri: http://data.cquest.org/geo_sirene/v2019/2022-03/StockEtablissement_utf8_geo.csv.gz
     body:
       encoding: US-ASCII
       string: ''
@@ -123,24 +148,25 @@ http_interactions:
       message: OK
     headers:
       Server:
-      - nginx/1.13.12
+      - nginx
       Date:
-      - Wed, 06 Jun 2018 09:35:23 GMT
+      - Thu, 10 Mar 2022 11:32:13 GMT
       Content-Type:
       - application/octet-stream
       Content-Length:
-      - '1619565537'
-      Last-Modified:
-      - Fri, 01 Jun 2018 19:45:55 GMT
+      - '2474296963'
       Connection:
       - keep-alive
+      Last-Modified:
+      - Tue, 01 Mar 2022 22:30:54 GMT
       Etag:
-      - '"5b11a273-60889be1"'
+      - '"621e9e9e-937ac683"'
       Accept-Ranges:
       - bytes
+      Strict-Transport-Security:
+      - max-age=15552000; includeSubdomains; preload
     body:
       encoding: UTF-8
       string: ''
-    http_version:
-  recorded_at: Fri, 30 Mar 2018 22:00:00 GMT
-recorded_with: VCR 4.0.0
+  recorded_at: Wed, 09 Mar 2022 23:00:00 GMT
+recorded_with: VCR 6.0.0
