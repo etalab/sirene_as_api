@@ -13,9 +13,9 @@ describe GetLastMonthlyStockLink do
 
   context 'when in march', vcr: { cassette_name: 'geo-sirene_march' } do
     it 'retrieves february stock link' do
-      allow(Time).to receive(:now) { Time.new(2018, 3, 31) }
+      allow(Time).to receive(:now) { Time.new(2022, 3, 10) }
 
-      last_montly_link = 'http://data.cquest.org/geo_sirene/2018-02/etablissements_actifs.csv.gz'
+      last_montly_link = 'http://data.cquest.org/geo_sirene/v2019/2022-03/StockEtablissement_utf8_geo.csv.gz'
       expect(described_class.call.link).to eq(last_montly_link)
     end
   end

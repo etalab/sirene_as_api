@@ -570,6 +570,20 @@ Une fois celle-ci terminée il est possible de lancer les mises à jours quotidi
 DailyUpdateJob.perform_now
 ```
 
+#### Connaître l'état des mises à jours
+
+Ce fichier contient le nom du dernier fichier importé avec succès en v1 :
+
+```shell
+cat .last_monthly_stock_applied/last_monthly_stock_link_name.txt
+```
+
+Pour l'import v2, dans la console Rails :
+
+```shell
+Stock.last
+```
+
 # License
 
 Ce projet est sous [license MIT](https://fr.wikipedia.org/wiki/Licence_MIT)
