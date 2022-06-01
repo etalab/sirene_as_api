@@ -12,7 +12,6 @@ raise("target environment (#{ENV['to']}) not in the list") unless %w[sandbox pro
 print "Deploy to #{ENV['to']}\n".green
 
 set :commit, ENV['commit']
-set :user, 'deploy' # Username in the server to SSH to.
 set :application_name, 'sirene_api'
 set :domain, ENV['domain']
 
@@ -61,11 +60,15 @@ task :remote_environment do
   invoke :'rbenv:load'
 end
 
+task :samhain_db_update do
+  command %{sudo /usr/local/sbin/update-samhain-db.sh "#{fetch(:deploy_to)}"}
+end
+
 # Put any custom commands you need to run at setup
 # All paths in `shared_dirs` and `shared_paths` will be created on their own.
 task :setup do
-  # Production database has to be setup !
-  # command %(rbenv install 2.3.0)
+  invoke :'ownership'
+  invoke :'samhain_db_update'
 end
 
 desc 'Deploys the current version to the server.'
@@ -77,12 +80,13 @@ task deploy: :remote_environment do
     invoke :'deploy:link_shared_paths'
     invoke :'bundle:install'
     invoke :'rails:db_migrate'
+    invoke :'ownership'
 
     on :launch do
       in_path(fetch(:current_path)) do
         command %{mkdir -p tmp/}
         command %{touch tmp/restart.txt}
-
+        invoke :'ownership'
         invoke :solr
       end
 
@@ -90,6 +94,7 @@ task deploy: :remote_environment do
       invoke :passenger
     end
   end
+  invoke :'samhain_db_update'
 end
 
 task solr: :remote_environment do
@@ -107,9 +112,13 @@ task passenger: :remote_environment do
   command %{
     if (sudo passenger-status | grep sirene_api_#{ENV['to']}) >/dev/null
     then
-      passenger-config restart-app /var/www/sirene_api_#{ENV['to']}/current
+      sudo passenger-config restart-app /var/www/sirene_api_#{ENV['to']}/current
     else
       echo 'Skipping: no passenger app found (will be automatically loaded)'
     fi
   }
+end
+
+task :ownership do
+  command %{sudo chown -R deploy "#{fetch(:deploy_to)}"}
 end
