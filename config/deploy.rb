@@ -22,14 +22,16 @@ set :forward_agent, true
 set :port, 22
 set :repository, 'https://github.com/etalab/sirene_as_api.git'
 
-case ENV['to']
-when 'production'
-  set :branch, 'master'
-when 'sandbox'
-  set :branch, 'develop'
-else
-  abort 'Environment must be set to sandbox or production'
-end
+branch = ENV['branch'] || case ENV['to']
+  when 'production'
+    'master'
+  when 'sandbox'
+    'develop'
+  else
+    abort 'Environment must be set to sandbox or production'
+  end
+
+set :branch, branch
 
 # shared dirs and files will be symlinked into the app-folder by the 'deploy:link_shared_paths' step.
 set :shared_dirs, fetch(:shared_dirs, []).push(
