@@ -6,7 +6,7 @@ git_source(:github) do |repo_name|
 end
 
 gem 'rack-cors'
-gem 'rails', '~> 5.0.7.2'
+gem 'rails', '~> 5'
 
 gem 'listen', '~> 3.0.5'
 
@@ -16,13 +16,13 @@ gem 'pg', '~> 0.20'
 gem 'connection_pool', '~> 2.2'
 
 # Backend jobs
-gem 'redis', '~> 3.0'
+gem 'redis', '~> 4.5'
 gem 'redis-namespace'
 gem 'redis-objects'
 gem 'resque'
-gem 'sidekiq'
+gem 'sidekiq', '~> 5.2.10'
 gem 'sidekiq-cron'
-gem 'sinatra', '~> 2.0.2'
+gem 'sinatra', '>= 2.2.0'
 
 # Sunspot / Solr friends
 gem 'sunspot_rails'
@@ -100,6 +100,7 @@ end
 
 group :development do
   gem 'brakeman', require: false
+  gem 'bundler-audit', require: false
   gem 'mina'
   gem 'rails_best_practices'
   gem 'rubocop-checkstyle_formatter', require: false
