@@ -1,3 +1,13 @@
+# Un fork de l'API pour le fichier SIRENE
+
+## 🎉 Fork suite à dépréciation et besoin de développement
+
+Suite à un besoin de développement, à la dépréciation de l'API, à l'avertissement concernant la sécurité et aux changements importants repris ci-après, à l'étude de l'intégration de l'annuaire entreprises SIRENE API dans un projet de développement plutôt que le maintien de sirene_as_api, j'ai proposé un fork du projet sirene_as_api que voici.
+
+Les issues ont été activées sur ce dépôt.
+
+Feel free to contribute 🎉
+
 ## ⚠ Déprécation de l'API & Avertissement concernant la sécurité ⚠
 
 Les développements de la DINUM ont cessé sur cette API.
