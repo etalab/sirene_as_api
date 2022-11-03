@@ -31,5 +31,6 @@ UNITE_LEGALE_HEADER_MAPPING = {
   'nomenclatureActivitePrincipaleUniteLegale' => :nomenclature_activite_principale,
   'nicSiegeUniteLegale' => :nic_siege,
   'economieSocialeSolidaireUniteLegale' => :economie_sociale_solidaire,
+  'societeMissionUniteLegale' => :societe_mission,
   'caractereEmployeurUniteLegale' => :caractere_employeur
 }.freeze

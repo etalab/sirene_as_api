@@ -28,6 +28,7 @@ default: &default
     - columns: categorie_juridique
     - columns: activite_principale
     - columns: economie_sociale_solidaire
+    - columns: societe_mission
     - columns: caractere_employeur
   etablissements:
     - columns: siren

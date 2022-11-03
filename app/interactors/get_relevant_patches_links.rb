@@ -104,7 +104,7 @@ class GetRelevantPatchesLinks < SireneAsAPIInteractor
   end
 
   def files_repository
-    "#{files_domain}/geo_sirene/quotidien"
+    "#{files_domain}/geo_sirene/v2019/quotidien"
   end
 
   def sirene_daily_update_filename_pattern

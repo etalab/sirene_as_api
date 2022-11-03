@@ -1,10 +1,3 @@
---
--- PostgreSQL database dump
---
-
--- Dumped from database version 10.12 (Ubuntu 10.12-0ubuntu0.18.04.1)
--- Dumped by pg_dump version 10.12 (Ubuntu 10.12-0ubuntu0.18.04.1)
-
 SET statement_timeout = 0;
 SET lock_timeout = 0;
 SET idle_in_transaction_session_timeout = 0;
@@ -15,20 +8,6 @@ SET check_function_bodies = false;
 SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
-
---
--- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: -
---
-
-CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
-
-
---
--- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: -
---
-
-COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
-
 
 --
 -- Name: pg_trgm; Type: EXTENSION; Schema: -; Owner: -
@@ -46,7 +25,7 @@ COMMENT ON EXTENSION pg_trgm IS 'text similarity measurement and index searching
 
 SET default_tablespace = '';
 
-SET default_with_oids = false;
+SET default_table_access_method = heap;
 
 --
 -- Name: ar_internal_metadata; Type: TABLE; Schema: public; Owner: -
@@ -501,7 +480,8 @@ CREATE TABLE public.unites_legales (
     economie_sociale_solidaire character varying,
     caractere_employeur character varying,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    societe_mission character varying
 );
 
 
@@ -566,7 +546,8 @@ CREATE TABLE public.unites_legales_tmp (
     economie_sociale_solidaire character varying,
     caractere_employeur character varying,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    societe_mission character varying
 );
 
 
@@ -835,6 +816,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200127073524'),
 ('20200127074730'),
 ('20200210140344'),
-('20200613110234');
+('20200613110234'),
+('20221031193553');
 
 
