@@ -138,30 +138,10 @@ CREATE TABLE public.etablissements (
     geo_ligne character varying,
     geo_l4 character varying,
     geo_l5 character varying,
+    unite_legale_id integer,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    unite_legale_id integer
+    updated_at timestamp without time zone NOT NULL
 );
-
-
---
--- Name: etablissements_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.etablissements_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: etablissements_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.etablissements_id_seq OWNED BY public.etablissements.id;
 
 
 --
@@ -227,10 +207,30 @@ CREATE TABLE public.etablissements_tmp (
     geo_ligne character varying,
     geo_l4 character varying,
     geo_l5 character varying,
-    unite_legale_id integer,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    unite_legale_id integer
 );
+
+
+--
+-- Name: etablissements_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.etablissements_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: etablissements_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.etablissements_id_seq OWNED BY public.etablissements_tmp.id;
 
 
 --
@@ -250,7 +250,7 @@ CREATE SEQUENCE public.etablissements_tmp_id_seq
 -- Name: etablissements_tmp_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.etablissements_tmp_id_seq OWNED BY public.etablissements_tmp.id;
+ALTER SEQUENCE public.etablissements_tmp_id_seq OWNED BY public.etablissements.id;
 
 
 --
@@ -395,6 +395,39 @@ ALTER SEQUENCE public.etablissements_v2_id_seq OWNED BY public.etablissements_v2
 
 
 --
+-- Name: pg_search_documents; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.pg_search_documents (
+    id bigint NOT NULL,
+    content text,
+    searchable_type character varying,
+    searchable_id bigint,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: pg_search_documents_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.pg_search_documents_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: pg_search_documents_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.pg_search_documents_id_seq OWNED BY public.pg_search_documents.id;
+
+
+--
 -- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -486,26 +519,6 @@ CREATE TABLE public.unites_legales (
 
 
 --
--- Name: unites_legales_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.unites_legales_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: unites_legales_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.unites_legales_id_seq OWNED BY public.unites_legales.id;
-
-
---
 -- Name: unites_legales_tmp; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -552,6 +565,26 @@ CREATE TABLE public.unites_legales_tmp (
 
 
 --
+-- Name: unites_legales_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.unites_legales_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: unites_legales_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.unites_legales_id_seq OWNED BY public.unites_legales_tmp.id;
+
+
+--
 -- Name: unites_legales_tmp_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
@@ -568,7 +601,7 @@ CREATE SEQUENCE public.unites_legales_tmp_id_seq
 -- Name: unites_legales_tmp_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.unites_legales_tmp_id_seq OWNED BY public.unites_legales_tmp.id;
+ALTER SEQUENCE public.unites_legales_tmp_id_seq OWNED BY public.unites_legales.id;
 
 
 --
@@ -582,14 +615,14 @@ ALTER TABLE ONLY public.daily_updates ALTER COLUMN id SET DEFAULT nextval('publi
 -- Name: etablissements id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.etablissements ALTER COLUMN id SET DEFAULT nextval('public.etablissements_id_seq'::regclass);
+ALTER TABLE ONLY public.etablissements ALTER COLUMN id SET DEFAULT nextval('public.etablissements_tmp_id_seq'::regclass);
 
 
 --
 -- Name: etablissements_tmp id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.etablissements_tmp ALTER COLUMN id SET DEFAULT nextval('public.etablissements_tmp_id_seq'::regclass);
+ALTER TABLE ONLY public.etablissements_tmp ALTER COLUMN id SET DEFAULT nextval('public.etablissements_id_seq'::regclass);
 
 
 --
@@ -597,6 +630,13 @@ ALTER TABLE ONLY public.etablissements_tmp ALTER COLUMN id SET DEFAULT nextval('
 --
 
 ALTER TABLE ONLY public.etablissements_v2 ALTER COLUMN id SET DEFAULT nextval('public.etablissements_v2_id_seq'::regclass);
+
+
+--
+-- Name: pg_search_documents id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.pg_search_documents ALTER COLUMN id SET DEFAULT nextval('public.pg_search_documents_id_seq'::regclass);
 
 
 --
@@ -610,14 +650,14 @@ ALTER TABLE ONLY public.stocks ALTER COLUMN id SET DEFAULT nextval('public.stock
 -- Name: unites_legales id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.unites_legales ALTER COLUMN id SET DEFAULT nextval('public.unites_legales_id_seq'::regclass);
+ALTER TABLE ONLY public.unites_legales ALTER COLUMN id SET DEFAULT nextval('public.unites_legales_tmp_id_seq'::regclass);
 
 
 --
 -- Name: unites_legales_tmp id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.unites_legales_tmp ALTER COLUMN id SET DEFAULT nextval('public.unites_legales_tmp_id_seq'::regclass);
+ALTER TABLE ONLY public.unites_legales_tmp ALTER COLUMN id SET DEFAULT nextval('public.unites_legales_id_seq'::regclass);
 
 
 --
@@ -637,18 +677,18 @@ ALTER TABLE ONLY public.daily_updates
 
 
 --
--- Name: etablissements etablissements_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: etablissements_tmp etablissements_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.etablissements
+ALTER TABLE ONLY public.etablissements_tmp
     ADD CONSTRAINT etablissements_pkey PRIMARY KEY (id);
 
 
 --
--- Name: etablissements_tmp etablissements_tmp_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: etablissements etablissements_tmp_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.etablissements_tmp
+ALTER TABLE ONLY public.etablissements
     ADD CONSTRAINT etablissements_tmp_pkey PRIMARY KEY (id);
 
 
@@ -658,6 +698,14 @@ ALTER TABLE ONLY public.etablissements_tmp
 
 ALTER TABLE ONLY public.etablissements_v2
     ADD CONSTRAINT etablissements_v2_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: pg_search_documents pg_search_documents_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.pg_search_documents
+    ADD CONSTRAINT pg_search_documents_pkey PRIMARY KEY (id);
 
 
 --
@@ -677,18 +725,18 @@ ALTER TABLE ONLY public.stocks
 
 
 --
--- Name: unites_legales unites_legales_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: unites_legales_tmp unites_legales_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.unites_legales
+ALTER TABLE ONLY public.unites_legales_tmp
     ADD CONSTRAINT unites_legales_pkey PRIMARY KEY (id);
 
 
 --
--- Name: unites_legales_tmp unites_legales_tmp_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: unites_legales unites_legales_tmp_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.unites_legales_tmp
+ALTER TABLE ONLY public.unites_legales
     ADD CONSTRAINT unites_legales_tmp_pkey PRIMARY KEY (id);
 
 
@@ -735,17 +783,227 @@ CREATE INDEX etablissements_to_tsvector_idx ON public.etablissements_v2 USING gi
 
 
 --
--- Name: index_etablissements_siren_tmp; Type: INDEX; Schema: public; Owner: -
+-- Name: index_etablissements_activite_principale; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_etablissements_siren_tmp ON public.etablissements USING btree (siren);
+CREATE INDEX index_etablissements_activite_principale ON public.etablissements USING btree (activite_principale);
 
 
 --
--- Name: index_etablissements_siret_tmp; Type: INDEX; Schema: public; Owner: -
+-- Name: index_etablissements_activite_principale_registre_metiers; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_etablissements_siret_tmp ON public.etablissements USING btree (siret);
+CREATE INDEX index_etablissements_activite_principale_registre_metiers ON public.etablissements USING btree (activite_principale_registre_metiers);
+
+
+--
+-- Name: index_etablissements_annee_effectifs; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_etablissements_annee_effectifs ON public.etablissements USING btree (annee_effectifs);
+
+
+--
+-- Name: index_etablissements_caractere_employeur; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_etablissements_caractere_employeur ON public.etablissements USING btree (caractere_employeur);
+
+
+--
+-- Name: index_etablissements_code_cedex; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_etablissements_code_cedex ON public.etablissements USING btree (code_cedex);
+
+
+--
+-- Name: index_etablissements_code_cedex_2; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_etablissements_code_cedex_2 ON public.etablissements USING btree (code_cedex_2);
+
+
+--
+-- Name: index_etablissements_code_commune; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_etablissements_code_commune ON public.etablissements USING btree (code_commune);
+
+
+--
+-- Name: index_etablissements_code_commune_2; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_etablissements_code_commune_2 ON public.etablissements USING btree (code_commune_2);
+
+
+--
+-- Name: index_etablissements_code_pays_etranger; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_etablissements_code_pays_etranger ON public.etablissements USING btree (code_pays_etranger);
+
+
+--
+-- Name: index_etablissements_code_pays_etranger_2; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_etablissements_code_pays_etranger_2 ON public.etablissements USING btree (code_pays_etranger_2);
+
+
+--
+-- Name: index_etablissements_code_postal; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_etablissements_code_postal ON public.etablissements USING btree (code_postal);
+
+
+--
+-- Name: index_etablissements_code_postal_2; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_etablissements_code_postal_2 ON public.etablissements USING btree (code_postal_2);
+
+
+--
+-- Name: index_etablissements_date_creation; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_etablissements_date_creation ON public.etablissements USING btree (date_creation);
+
+
+--
+-- Name: index_etablissements_date_debut; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_etablissements_date_debut ON public.etablissements USING btree (date_debut);
+
+
+--
+-- Name: index_etablissements_date_dernier_traitement; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_etablissements_date_dernier_traitement ON public.etablissements USING btree (date_dernier_traitement);
+
+
+--
+-- Name: index_etablissements_denomination_usuelle; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_etablissements_denomination_usuelle ON public.etablissements USING btree (denomination_usuelle);
+
+
+--
+-- Name: index_etablissements_enseigne_1; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_etablissements_enseigne_1 ON public.etablissements USING btree (enseigne_1);
+
+
+--
+-- Name: index_etablissements_etablissement_siege; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_etablissements_etablissement_siege ON public.etablissements USING btree (etablissement_siege);
+
+
+--
+-- Name: index_etablissements_etat_administratif; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_etablissements_etat_administratif ON public.etablissements USING btree (etat_administratif);
+
+
+--
+-- Name: index_etablissements_libelle_commune; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_etablissements_libelle_commune ON public.etablissements USING btree (libelle_commune);
+
+
+--
+-- Name: index_etablissements_libelle_commune_2; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_etablissements_libelle_commune_2 ON public.etablissements USING btree (libelle_commune_2);
+
+
+--
+-- Name: index_etablissements_libelle_commune_etranger; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_etablissements_libelle_commune_etranger ON public.etablissements USING btree (libelle_commune_etranger);
+
+
+--
+-- Name: index_etablissements_libelle_commune_etranger_2; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_etablissements_libelle_commune_etranger_2 ON public.etablissements USING btree (libelle_commune_etranger_2);
+
+
+--
+-- Name: index_etablissements_libelle_pays_etranger; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_etablissements_libelle_pays_etranger ON public.etablissements USING btree (libelle_pays_etranger);
+
+
+--
+-- Name: index_etablissements_libelle_pays_etranger_2; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_etablissements_libelle_pays_etranger_2 ON public.etablissements USING btree (libelle_pays_etranger_2);
+
+
+--
+-- Name: index_etablissements_nombre_periodes; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_etablissements_nombre_periodes ON public.etablissements USING btree (nombre_periodes);
+
+
+--
+-- Name: index_etablissements_nomenclature_activite_principale; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_etablissements_nomenclature_activite_principale ON public.etablissements USING btree (nomenclature_activite_principale);
+
+
+--
+-- Name: index_etablissements_siren; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_etablissements_siren ON public.etablissements USING btree (siren);
+
+
+--
+-- Name: index_etablissements_siret; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_etablissements_siret ON public.etablissements USING btree (siret);
+
+
+--
+-- Name: index_etablissements_statut_diffusion; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_etablissements_statut_diffusion ON public.etablissements USING btree (statut_diffusion);
+
+
+--
+-- Name: index_etablissements_tranche_effectifs; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_etablissements_tranche_effectifs ON public.etablissements USING btree (tranche_effectifs);
+
+
+--
+-- Name: index_etablissements_unite_legale_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_etablissements_unite_legale_id ON public.etablissements USING btree (unite_legale_id);
 
 
 --
@@ -791,6 +1049,216 @@ CREATE INDEX index_etablissements_v2_on_siret ON public.etablissements_v2 USING 
 
 
 --
+-- Name: index_pg_search_documents_on_content; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pg_search_documents_on_content ON public.pg_search_documents USING gin (to_tsvector('simple'::regconfig, COALESCE(content, ''::text)));
+
+
+--
+-- Name: index_pg_search_documents_on_searchable_type_and_searchable_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pg_search_documents_on_searchable_type_and_searchable_id ON public.pg_search_documents USING btree (searchable_type, searchable_id);
+
+
+--
+-- Name: index_unites_legales_activite_principale; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_unites_legales_activite_principale ON public.unites_legales USING btree (activite_principale);
+
+
+--
+-- Name: index_unites_legales_annee_categorie_entreprise; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_unites_legales_annee_categorie_entreprise ON public.unites_legales USING btree (annee_categorie_entreprise);
+
+
+--
+-- Name: index_unites_legales_annee_effectifs; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_unites_legales_annee_effectifs ON public.unites_legales USING btree (annee_effectifs);
+
+
+--
+-- Name: index_unites_legales_caractere_employeur; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_unites_legales_caractere_employeur ON public.unites_legales USING btree (caractere_employeur);
+
+
+--
+-- Name: index_unites_legales_categorie_entreprise; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_unites_legales_categorie_entreprise ON public.unites_legales USING btree (categorie_entreprise);
+
+
+--
+-- Name: index_unites_legales_categorie_juridique; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_unites_legales_categorie_juridique ON public.unites_legales USING btree (categorie_juridique);
+
+
+--
+-- Name: index_unites_legales_date_creation; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_unites_legales_date_creation ON public.unites_legales USING btree (date_creation);
+
+
+--
+-- Name: index_unites_legales_date_debut; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_unites_legales_date_debut ON public.unites_legales USING btree (date_debut);
+
+
+--
+-- Name: index_unites_legales_date_dernier_traitement; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_unites_legales_date_dernier_traitement ON public.unites_legales USING btree (date_dernier_traitement);
+
+
+--
+-- Name: index_unites_legales_date_fin; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_unites_legales_date_fin ON public.unites_legales USING btree (date_fin);
+
+
+--
+-- Name: index_unites_legales_denomination; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_unites_legales_denomination ON public.unites_legales USING btree (denomination);
+
+
+--
+-- Name: index_unites_legales_denomination_usuelle_1; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_unites_legales_denomination_usuelle_1 ON public.unites_legales USING btree (denomination_usuelle_1);
+
+
+--
+-- Name: index_unites_legales_economie_sociale_solidaire; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_unites_legales_economie_sociale_solidaire ON public.unites_legales USING btree (economie_sociale_solidaire);
+
+
+--
+-- Name: index_unites_legales_etat_administratif; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_unites_legales_etat_administratif ON public.unites_legales USING btree (etat_administratif);
+
+
+--
+-- Name: index_unites_legales_identifiant_association; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_unites_legales_identifiant_association ON public.unites_legales USING btree (identifiant_association);
+
+
+--
+-- Name: index_unites_legales_nom; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_unites_legales_nom ON public.unites_legales USING btree (nom);
+
+
+--
+-- Name: index_unites_legales_nom_usage; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_unites_legales_nom_usage ON public.unites_legales USING btree (nom_usage);
+
+
+--
+-- Name: index_unites_legales_nombre_periodes; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_unites_legales_nombre_periodes ON public.unites_legales USING btree (nombre_periodes);
+
+
+--
+-- Name: index_unites_legales_prenom_1; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_unites_legales_prenom_1 ON public.unites_legales USING btree (prenom_1);
+
+
+--
+-- Name: index_unites_legales_prenom_usuel; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_unites_legales_prenom_usuel ON public.unites_legales USING btree (prenom_usuel);
+
+
+--
+-- Name: index_unites_legales_pseudonyme; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_unites_legales_pseudonyme ON public.unites_legales USING btree (pseudonyme);
+
+
+--
+-- Name: index_unites_legales_sexe; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_unites_legales_sexe ON public.unites_legales USING btree (sexe);
+
+
+--
+-- Name: index_unites_legales_sigle; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_unites_legales_sigle ON public.unites_legales USING btree (sigle);
+
+
+--
+-- Name: index_unites_legales_siren; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_unites_legales_siren ON public.unites_legales USING btree (siren);
+
+
+--
+-- Name: index_unites_legales_societe_mission; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_unites_legales_societe_mission ON public.unites_legales USING btree (societe_mission);
+
+
+--
+-- Name: index_unites_legales_statut_diffusion; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_unites_legales_statut_diffusion ON public.unites_legales USING btree (statut_diffusion);
+
+
+--
+-- Name: index_unites_legales_tranche_effectifs; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_unites_legales_tranche_effectifs ON public.unites_legales USING btree (tranche_effectifs);
+
+
+--
+-- Name: index_unites_legales_unite_purgee; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_unites_legales_unite_purgee ON public.unites_legales USING btree (unite_purgee);
+
+
+--
 -- PostgreSQL database dump complete
 --
 
@@ -817,6 +1285,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200127074730'),
 ('20200210140344'),
 ('20200613110234'),
-('20221031193553');
+('20221031193553'),
+('20221103144107'),
+('20221103150050');
 
 

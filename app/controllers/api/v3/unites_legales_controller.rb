@@ -23,7 +23,11 @@ class API::V3::UnitesLegalesController < ApplicationController
   private
 
   def scoped_results
-    apply_scopes(UniteLegale).all
+    if params[:q]
+      apply_scopes(UniteLegale.full_text_search_for(params[:q])).all
+    else
+      apply_scopes(UniteLegale).all
+    end
   end
 
   def unite_legale_params

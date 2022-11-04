@@ -281,10 +281,13 @@ La requête directe pour un établissement se fait ainsi :
 
 Pour ces endpoints, vous pouvez filtrer les résultats par n'importe lequel des champs des ressources demandées en passant les paramètres dans la requête. Exemple :
 
-    # recherche de tous les établissments ouverts pour un siren donné
+    # recherche de toutes les unités légales ouvertes pour une dénomination Qwant donnée
+    curl 'localhost:3000/v3/unites_legales/?etat_administratif=A&q=Qwant'
+
+    # recherche de tous les établissements ouverts pour un SIREN donné
     curl 'localhost:3000/v3/etablissements/?etat_administratif=A&siren=345184428'
 
-    # recherche de toutes les unité légales ouvertes du code postal 59 380
+    # recherche de toutes les unités légales ouvertes du code postal 59 380
     curl 'localhost:3000/v3/unites_legales/?etat_administratif=A&code_postal=59380'
 
 La pagination est controlée par les paramètres `page` et `per_page`.

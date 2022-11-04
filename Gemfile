@@ -64,6 +64,9 @@ gem 'has_scope'
 # Pagination
 gem 'pagy'
 
+# PostgreSQL full text search
+gem 'pg_search'
+
 gem 'sitemap_generator'
 
 group :development, :test do

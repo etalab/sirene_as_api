@@ -1,7 +1,15 @@
 class UniteLegale < ApplicationRecord
+  include PgSearch::Model
   include Scopable::Model
 
   has_many :etablissements
+
+  multisearchable against: [:denomination, :siren]
+  scope :full_text_search_for, -> (term) do
+    joins(:pg_search_document).merge(
+      PgSearch.multisearch(term).where(searchable_type: klass.to_s)
+    )
+  end
 
   AUTHORIZED_FIELDS = %w[id siren statut_diffusion etablissements date_dernier_traitement created_at updated_at].freeze
 

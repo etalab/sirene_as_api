@@ -23,7 +23,11 @@ class API::V3::EtablissementsController < ApplicationController
   private
 
   def scoped_results
-    apply_scopes(Etablissement).all
+    if params[:q]
+      apply_scopes(Etablissement.full_text_search_for(params[:q])).all
+    else
+      apply_scopes(Etablissement).all
+    end
   end
 
   def etablissements_params
