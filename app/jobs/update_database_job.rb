@@ -5,9 +5,9 @@ class UpdateDatabaseJob < ApplicationJob
     if dual_server_update?
       other_server_in_service = CheckCurrentService.call
 
-      Stock::Operation::UpdateDatabase.call(logger: Rails.logger) if other_server_in_service.success?
+      StockConcept::Operation::UpdateDatabase.call(logger: Rails.logger) if other_server_in_service.success?
     else
-      Stock::Operation::UpdateDatabase.call(logger: Rails.logger)
+      StockConcept::Operation::UpdateDatabase.call(logger: Rails.logger)
     end
   end
 

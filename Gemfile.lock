@@ -80,14 +80,10 @@ GEM
       rexml
     crass (1.0.6)
     declarative (0.0.20)
-    declarative-builder (0.2.0)
-      trailblazer-option (~> 0.1.0)
     diff-lcs (1.4.4)
-    disposable (0.5.0)
+    disposable (0.6.3)
       declarative (>= 0.0.9, < 1.0.0)
-      declarative-builder (~> 0.2.0)
-      representable (>= 3.1.1, < 3.2.0)
-      uber (< 0.2.0)
+      representable (>= 3.1.1, < 4)
     docile (1.3.5)
     erubi (1.11.0)
     erubis (2.7.0)
@@ -139,6 +135,7 @@ GEM
       actionpack (>= 4.1)
       activesupport (>= 4.1)
     hashdiff (1.0.1)
+    hashie (5.0.0)
     highline (2.0.3)
     hirb (0.7.3)
     i18n (1.12.0)
@@ -184,7 +181,8 @@ GEM
       shellany (~> 0.0)
     open4 (1.3.4)
     options (2.3.2)
-    pagy (3.13.0)
+    pagy (5.10.1)
+      activesupport
     parallel (1.20.1)
     parser (3.0.1.0)
       ast (~> 2.4.1)
@@ -254,12 +252,12 @@ GEM
       redis (>= 3.0.4)
     redis-objects (1.7.0)
       redis
-    reform (2.6.0)
-      disposable (~> 0.5.0)
-      representable (>= 3.1.1, < 3.2.0)
+    reform (2.6.2)
+      disposable (>= 0.5.0, < 1.0.0)
+      representable (>= 3.1.1, < 4)
       uber (< 0.2.0)
     regexp_parser (2.1.1)
-    representable (3.1.1)
+    representable (3.2.0)
       declarative (< 0.1.0)
       trailblazer-option (>= 0.1.1, < 0.2.0)
       uber (< 0.2.0)
@@ -382,27 +380,35 @@ GEM
     thread_safe (0.3.6)
     tilt (2.0.11)
     timecop (0.9.4)
-    trailblazer (2.1.0.rc1)
-      declarative
-      trailblazer-macro (>= 2.1.0.rc1, < 2.2.0)
-      trailblazer-macro-contract (= 2.1.0.rc1)
-      trailblazer-operation
-    trailblazer-activity (0.7.1)
+    trailblazer (2.1.1)
+      trailblazer-macro (>= 2.1.11, < 2.2.0)
+      trailblazer-macro-contract (>= 2.1.3, < 2.2.0)
+      trailblazer-operation (>= 0.8.0, < 1.0.0)
+    trailblazer-activity (0.14.0)
+      trailblazer-context (~> 0.5.0)
+      trailblazer-option (~> 0.1.0)
+    trailblazer-activity-dsl-linear (1.0.0)
+      trailblazer-activity (>= 0.14.0, < 0.15.0)
+      trailblazer-declarative (>= 0.0.1, < 0.1.0)
+    trailblazer-context (0.5.1)
+      hashie (>= 3.0.0)
+    trailblazer-declarative (0.0.2)
+    trailblazer-developer (0.0.26)
       hirb
-      trailblazer-context
-    trailblazer-context (0.2.0)
-    trailblazer-loader (0.1.2)
-    trailblazer-macro (2.1.0.rc1)
-    trailblazer-macro-contract (2.1.0.rc1)
+      trailblazer-activity-dsl-linear (>= 1.0.0.beta1, < 1.1.0)
+    trailblazer-macro (2.1.11)
+      trailblazer-activity-dsl-linear (>= 1.0.0, < 1.1.0)
+      trailblazer-operation (>= 0.8.0)
+    trailblazer-macro-contract (2.1.3)
       reform (>= 2.2.0, < 3.0.0)
-    trailblazer-operation (0.4.1)
-      trailblazer-activity (>= 0.7.1, < 0.8.0)
-      trailblazer-context (>= 0.1.1, < 0.3.0)
-    trailblazer-option (0.1.1)
-    trailblazer-rails (2.1.7)
-      railties (>= 4.0.0)
-      trailblazer (>= 2.1.0.beta1, < 2.2.0)
-      trailblazer-loader (>= 0.1.0)
+      trailblazer-activity-dsl-linear (>= 1.0.0, < 1.1.0)
+    trailblazer-operation (0.8.0)
+      trailblazer-activity-dsl-linear (>= 1.0.0, < 1.1.0)
+      trailblazer-developer (>= 0.0.26)
+    trailblazer-option (0.1.2)
+    trailblazer-rails (2.4.3)
+      railties (>= 5.2.0)
+      trailblazer (>= 2.1.0, < 2.2.0)
     tzinfo (1.2.10)
       thread_safe (~> 0.1)
     uber (0.1.0)
@@ -418,8 +424,6 @@ GEM
     websocket-driver (0.7.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
-    whirly (0.2.6)
-      unicode-display_width (~> 1.1)
 
 PLATFORMS
   ruby
@@ -480,14 +484,16 @@ DEPENDENCIES
   sunspot_rails
   sunspot_solr
   timecop
-  trailblazer (= 2.1.0.rc1)
-  trailblazer-activity (= 0.7.1)
-  trailblazer-operation (= 0.4.1)
+  trailblazer
+  trailblazer-activity
+  trailblazer-operation
   trailblazer-rails
   unindent
   vcr
   webmock
-  whirly
+
+RUBY VERSION
+   ruby 2.7.6p219
 
 BUNDLED WITH
    2.2.4

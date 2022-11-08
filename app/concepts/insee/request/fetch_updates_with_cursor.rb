@@ -1,7 +1,7 @@
 module INSEE
   module Request
     class FetchUpdatesWithCursor < Trailblazer::Operation
-      step Nested Operation::RenewToken
+      step Subprocess Operation::RenewToken
 
       step :set_http_params
       step :fetch_api_results

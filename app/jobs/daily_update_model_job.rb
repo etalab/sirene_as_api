@@ -14,14 +14,14 @@ class DailyUpdateModelJob < ApplicationJob
 
   def execute_transaction(operation)
     ActiveRecord::Base.transaction do
-      operation = DailyUpdate::Operation::Update.call params
+      operation = DailyUpdateConcept::Operation::Update.call params
 
       raise ActiveRecord::Rollback unless operation.success?
     end
 
     if operation.success?
       daily_update.update(status: 'COMPLETED')
-      DailyUpdate::Operation::PostUpdate.call logger: daily_update.logger_for_import
+      DailyUpdateConcept::Operation::PostUpdate.call logger: daily_update.logger_for_import
     else
       daily_update.update(status: 'ERROR')
     end

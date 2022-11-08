@@ -4,8 +4,8 @@ module INSEE
       step :file_exist?
       step :load_file
       step :verify_expiration
-      step :log_token_still_valid, Output(:success) => 'End.success'
-      fail Nested(INSEE::Request::RenewToken), Output(:success) => Track(:success)
+      step :log_token_still_valid, Output(:success) => End(:success)
+      fail Subprocess(INSEE::Request::RenewToken), Output(:success) => Track(:success)
       step :persist_secrets
 
       def file_exist?(_, **)

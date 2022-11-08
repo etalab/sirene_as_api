@@ -5,6 +5,8 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+ruby "~> 2.7.6"
+
 gem 'rack-cors'
 gem 'rails', '~> 5'
 
@@ -39,9 +41,6 @@ gem 'ruby-progressbar'
 # Gem progress_bar required for displaying progress in rake sunspot:reindex
 gem 'progress_bar'
 
-# Loader in terminal for heavy tasks
-gem 'whirly'
-
 # use `ap var` for awesome print
 gem 'awesome_print'
 
@@ -53,9 +52,9 @@ gem 'interactor', '~> 3.0'
 gem 'interactor-rails', '~> 2.0'
 
 # Trailblazer
-gem 'trailblazer', '2.1.0.rc1'
-gem 'trailblazer-activity', '0.7.1'
-gem 'trailblazer-operation', '0.4.1'
+gem 'trailblazer'
+gem 'trailblazer-activity'
+gem 'trailblazer-operation'
 gem 'trailblazer-rails'
 
 # Map incoming requests to scopes

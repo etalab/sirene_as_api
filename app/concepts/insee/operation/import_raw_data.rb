@@ -1,7 +1,7 @@
 module INSEE
   module Operation
     class ImportRawData < Trailblazer::Operation
-      step Nested Task::AdaptApiResults
+      step Subprocess Task::AdaptApiResults
       pass :log_supersede_starts
       step :supersede
 

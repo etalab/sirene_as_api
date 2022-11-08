@@ -13,3 +13,8 @@ test:
     port: 8981
     log_level: 'OFF'
     path: /solr/test
+
+production:
+  solr:
+    url: <%= ENV["SOLR_URL"] %>
+    log_level: 'OFF'

@@ -48,3 +48,6 @@ coverage/*
 /config/insee_secrets.yml
 
 \.idea/
+
+# Ignore master key for decrypting credentials and more.
+/config/master.key

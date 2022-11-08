@@ -1,5 +1,11 @@
 ---
-concurrency: 1
-queues:
+:concurrency: 1
+
+production:
+  :concurrency: 1
+
+:queues:
   - sirene_api_development_stock
   - sirene_api_development_auto_updates
+  - sirene_api_production_stock
+  - sirene_api_production_auto_updates

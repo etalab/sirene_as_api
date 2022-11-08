@@ -16,7 +16,7 @@ class ImportStockJob < ApplicationJob
   private
 
   def import
-    operation = Stock::Operation::Import.call(stock: @stock, logger: @logger)
+    operation = StockConcept::Operation::Import.call(stock: @stock, logger: @logger)
 
     if operation.success?
       @stock.update(status: 'COMPLETED')
@@ -29,7 +29,7 @@ class ImportStockJob < ApplicationJob
   def post_import
     operation = nil
     ActiveRecord::Base.transaction do
-      operation = Stock::Operation::PostImport.call logger: @logger
+      operation = StockConcept::Operation::PostImport.call logger: @logger
 
       raise ActiveRecord::Rollback unless operation.success?
     end
