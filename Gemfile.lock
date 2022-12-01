@@ -163,7 +163,7 @@ GEM
     mono_logger (1.1.1)
     multi_json (1.15.0)
     multipart-post (2.1.1)
-    mustermann (1.1.1)
+    mustermann (2.0.2)
       ruby2_keywords (~> 0.0.1)
     nenv (0.3.0)
     nio4r (2.5.7)
@@ -193,10 +193,10 @@ GEM
     public_suffix (4.0.6)
     raabro (1.4.0)
     racc (1.6.0)
-    rack (2.2.3)
+    rack (2.2.4)
     rack-cors (1.1.1)
       rack (>= 2.0.0)
-    rack-protection (2.0.8.1)
+    rack-protection (2.2.3)
       rack
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -313,7 +313,7 @@ GEM
       rubocop (~> 1.0)
       rubocop-ast (>= 1.1.0)
     ruby-progressbar (1.11.0)
-    ruby2_keywords (0.0.4)
+    ruby2_keywords (0.0.5)
     sexp_processor (4.15.2)
     shellany (0.0.1)
     shoulda-matchers (4.5.1)
@@ -336,10 +336,10 @@ GEM
       terminal-table
     simplecov-html (0.12.3)
     simplecov_json_formatter (0.1.2)
-    sinatra (2.0.8.1)
-      mustermann (~> 1.0)
-      rack (~> 2.0)
-      rack-protection (= 2.0.8.1)
+    sinatra (2.2.3)
+      mustermann (~> 2.0)
+      rack (~> 2.2)
+      rack-protection (= 2.2.3)
       tilt (~> 2.0)
     sitemap_generator (6.1.2)
       builder (~> 3.0)
@@ -367,7 +367,7 @@ GEM
       unicode-display_width (~> 1.1, >= 1.1.1)
     thor (1.1.0)
     thread_safe (0.3.6)
-    tilt (2.0.10)
+    tilt (2.0.11)
     timecop (0.9.4)
     trailblazer (2.1.0.rc1)
       declarative
@@ -456,7 +456,7 @@ DEPENDENCIES
   sidekiq-cron
   simplecov
   simplecov-console
-  sinatra (~> 2.0.2)
+  sinatra (~> 2.2.3)
   sitemap_generator
   smarter_csv!
   spring
