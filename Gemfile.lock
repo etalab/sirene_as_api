@@ -152,7 +152,7 @@ GEM
     logstasher (2.0.2)
       activesupport (>= 5.0)
       request_store
-    loofah (2.19.0)
+    loofah (2.19.1)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     lumberjack (1.2.8)
