@@ -169,4 +169,193 @@ http_interactions:
       encoding: UTF-8
       string: ''
   recorded_at: Wed, 09 Mar 2022 23:00:00 GMT
+- request:
+    method: get
+    uri: http://data.cquest.org/geo_sirene/v2017
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 301
+      message: Moved Permanently
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Thu, 03 Nov 2022 12:08:30 GMT
+      Content-Type:
+      - text/html
+      Content-Length:
+      - '169'
+      Connection:
+      - keep-alive
+      Location:
+      - http://data.cquest.org/geo_sirene/v2017/
+      Strict-Transport-Security:
+      - max-age=15552000; includeSubdomains; preload
+    body:
+      encoding: UTF-8
+      string: "<html>\r\n<head><title>301 Moved Permanently</title></head>\r\n<body>\r\n<center><h1>301
+        Moved Permanently</h1></center>\r\n<hr><center>nginx/1.23.1</center>\r\n</body>\r\n</html>\r\n"
+  recorded_at: Wed, 09 Mar 2022 23:00:00 GMT
+- request:
+    method: get
+    uri: http://data.cquest.org/geo_sirene/v2017/
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Thu, 03 Nov 2022 12:08:30 GMT
+      Content-Type:
+      - text/html; charset=utf8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Vary:
+      - Accept-Encoding
+      - Accept-Encoding
+      Strict-Transport-Security:
+      - max-age=15552000; includeSubdomains; preload
+    body:
+      encoding: ASCII-8BIT
+      string: "<html>\r\n<head><title>Index of /geo_sirene/v2017/</title></head>\r\n<body>\r\n<h1>Index
+        of /geo_sirene/v2017/</h1><hr><pre><a href=\"../\">../</a>\r\n<a href=\"2017-12/\">2017-12/</a>
+        \                                          23-Aug-2019 10:32                   -\r\n<a
+        href=\"2018-01/\">2018-01/</a>                                           23-Aug-2019
+        10:31                   -\r\n<a href=\"2018-02/\">2018-02/</a>                                           23-Aug-2019
+        10:32                   -\r\n<a href=\"2018-03/\">2018-03/</a>                                           23-Aug-2019
+        10:32                   -\r\n<a href=\"2018-04/\">2018-04/</a>                                           23-Aug-2019
+        10:32                   -\r\n<a href=\"2018-05/\">2018-05/</a>                                           23-Aug-2019
+        10:32                   -\r\n<a href=\"2018-06/\">2018-06/</a>                                           23-Aug-2019
+        10:32                   -\r\n<a href=\"2018-07/\">2018-07/</a>                                           23-Aug-2019
+        10:32                   -\r\n<a href=\"2018-08/\">2018-08/</a>                                           23-Aug-2019
+        10:32                   -\r\n<a href=\"2018-09/\">2018-09/</a>                                           23-Aug-2019
+        10:32                   -\r\n<a href=\"2018-10/\">2018-10/</a>                                           23-Feb-2020
+        14:25                   -\r\n<a href=\"2018-11/\">2018-11/</a>                                           23-Feb-2020
+        14:26                   -\r\n<a href=\"2018-12/\">2018-12/</a>                                           23-Feb-2020
+        14:26                   -\r\n<a href=\"2019-01/\">2019-01/</a>                                           23-Feb-2020
+        14:26                   -\r\n<a href=\"2019-02/\">2019-02/</a>                                           23-Feb-2020
+        14:28                   -\r\n<a href=\"2019-03/\">2019-03/</a>                                           23-Feb-2020
+        14:26                   -\r\n<a href=\"2019-04/\">2019-04/</a>                                           23-Aug-2019
+        10:32                   -\r\n<a href=\"2019-07/\">2019-07/</a>                                           23-Aug-2019
+        10:32                   -\r\n<a href=\"2019-08/\">2019-08/</a>                                           05-Dec-2019
+        17:09                   -\r\n<a href=\"2019-09/\">2019-09/</a>                                           23-Feb-2020
+        14:18                   -\r\n<a href=\"2019-10/\">2019-10/</a>                                           02-Oct-2019
+        12:36                   -\r\n<a href=\"2019-11/\">2019-11/</a>                                           07-Nov-2019
+        10:02                   -\r\n<a href=\"2019-12/\">2019-12/</a>                                           04-Dec-2019
+        22:05                   -\r\n<a href=\"2020-01/\">2020-01/</a>                                           01-Jan-2020
+        18:32                   -\r\n<a href=\"2020-02/\">2020-02/</a>                                           02-Feb-2020
+        08:23                   -\r\n<a href=\"2020-03/\">2020-03/</a>                                           09-Mar-2020
+        19:40                   -\r\n<a href=\"2020-04/\">2020-04/</a>                                           01-Apr-2020
+        21:10                   -\r\n<a href=\"2020-05/\">2020-05/</a>                                           02-May-2020
+        21:09                   -\r\n<a href=\"2020-06/\">2020-06/</a>                                           05-Jun-2020
+        16:11                   -\r\n<a href=\"2020-07/\">2020-07/</a>                                           02-Jul-2020
+        06:22                   -\r\n<a href=\"2020-08/\">2020-08/</a>                                           01-Aug-2020
+        18:22                   -\r\n<a href=\"2020-09/\">2020-09/</a>                                           03-Sep-2020
+        07:56                   -\r\n<a href=\"2020-10/\">2020-10/</a>                                           02-Oct-2020
+        08:23                   -\r\n<a href=\"2020-11/\">2020-11/</a>                                           01-Nov-2020
+        19:35                   -\r\n<a href=\"2020-12/\">2020-12/</a>                                           04-Dec-2020
+        09:54                   -\r\n<a href=\"2021-01/\">2021-01/</a>                                           05-Jan-2021
+        11:55                   -\r\n<a href=\"2021-02/\">2021-02/</a>                                           08-Feb-2021
+        08:46                   -\r\n<a href=\"2021-03/\">2021-03/</a>                                           17-Mar-2021
+        08:37                   -\r\n<a href=\"2021-04/\">2021-04/</a>                                           08-Apr-2021
+        10:39                   -\r\n<a href=\"2021-05/\">2021-05/</a>                                           04-May-2021
+        07:31                   -\r\n<a href=\"2021-06/\">2021-06/</a>                                           02-Jun-2021
+        19:03                   -\r\n<a href=\"2021-07/\">2021-07/</a>                                           03-Jul-2021
+        18:28                   -\r\n<a href=\"2021-09/\">2021-09/</a>                                           03-Sep-2021
+        12:11                   -\r\n<a href=\"2021-10/\">2021-10/</a>                                           02-Oct-2021
+        15:54                   -\r\n<a href=\"2021-11/\">2021-11/</a>                                           02-Nov-2021
+        09:43                   -\r\n<a href=\"2021-12/\">2021-12/</a>                                           03-Dec-2021
+        14:26                   -\r\n<a href=\"2022-01/\">2022-01/</a>                                           05-Jan-2022
+        23:13                   -\r\n<a href=\"2022-02/\">2022-02/</a>                                           06-Feb-2022
+        09:58                   -\r\n<a href=\"2022-03/\">2022-03/</a>                                           02-Mar-2022
+        06:09                   -\r\n<a href=\"2022-04/\">2022-04/</a>                                           25-Apr-2022
+        18:46                   -\r\n<a href=\"2022-05/\">2022-05/</a>                                           03-May-2022
+        09:52                   -\r\n<a href=\"2022-06/\">2022-06/</a>                                           03-Jun-2022
+        17:50                   -\r\n<a href=\"2022-08/\">2022-08/</a>                                           16-Aug-2022
+        22:09                   -\r\n<a href=\"2022-10/\">2022-10/</a>                                           04-Oct-2022
+        23:57                   -\r\n<a href=\"2022-11/\">2022-11/</a>                                           03-Nov-2022
+        07:26                   -\r\n<a href=\"last/\">last/</a>                                              03-Nov-2022
+        07:26                   -\r\n<a href=\"quotidien/\">quotidien/</a>                                         23-Feb-2020
+        14:21                   -\r\n<a href=\"sirene_201612_L_M.zip\">sirene_201612_L_M.zip</a>
+        \                             05-Jan-2017 00:12          1474975916\r\n<a
+        href=\"sirene_201701_L_M.zip\">sirene_201701_L_M.zip</a>                              01-Feb-2017
+        17:51          1479677478\r\n<a href=\"sirene_201702_L_M.zip\">sirene_201702_L_M.zip</a>
+        \                             01-Mar-2017 09:13          1485829209\r\n<a
+        href=\"sirene_201703_L_M.zip\">sirene_201703_L_M.zip</a>                              01-Apr-2017
+        04:12          1482755243\r\n<a href=\"sirene_201704_L_M.zip\">sirene_201704_L_M.zip</a>
+        \                             29-Apr-2017 05:15          1488719267\r\n<a
+        href=\"sirene_201705_L_M.zip\">sirene_201705_L_M.zip</a>                              01-Jun-2017
+        04:16          1494342495\r\n<a href=\"sirene_201706_L_M.zip\">sirene_201706_L_M.zip</a>
+        \                             05-Jul-2017 12:17          1495086071\r\n<a
+        href=\"sirene_201707_L_M.zip\">sirene_201707_L_M.zip</a>                              02-Aug-2017
+        14:17          1499628734\r\n<a href=\"sirene_201708_L_M.zip\">sirene_201708_L_M.zip</a>
+        \                             01-Sep-2017 04:17          1502688147\r\n<a
+        href=\"sirene_201709_L_M.zip\">sirene_201709_L_M.zip</a>                              30-Sep-2017
+        04:17          1507846195\r\n<a href=\"sirene_201710_L_M.zip\">sirene_201710_L_M.zip</a>
+        \                             02-Nov-2017 03:23          1513363243\r\n<a
+        href=\"sirene_201711_L_M.zip\">sirene_201711_L_M.zip</a>                              01-Dec-2017
+        07:17          1518041128\r\n</pre><hr></body>\r\n</html>\r\n"
+  recorded_at: Wed, 09 Mar 2022 23:00:00 GMT
+- request:
+    method: head
+    uri: http://data.cquest.org/geo_sirene/v2017/2022-11/etablissements_actifs.csv.gz
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Thu, 03 Nov 2022 12:08:30 GMT
+      Content-Type:
+      - application/octet-stream
+      Content-Length:
+      - '1670454576'
+      Connection:
+      - keep-alive
+      Last-Modified:
+      - Thu, 03 Nov 2022 07:06:03 GMT
+      Etag:
+      - '"6363685b-63911d30"'
+      Accept-Ranges:
+      - bytes
+      Strict-Transport-Security:
+      - max-age=15552000; includeSubdomains; preload
+    body:
+      encoding: UTF-8
+      string: ''
+  recorded_at: Wed, 09 Mar 2022 23:00:00 GMT
 recorded_with: VCR 6.0.0

@@ -583,6 +583,13 @@ Une fois celle-ci terminée il est possible de lancer les mises à jours quotidi
 DailyUpdateJob.perform_now
 ```
 
+### Regénérer l'index de recherche
+
+```shell
+bin/rails pg_search:multisearch:rebuild[UniteLegale]
+bin/rails pg_search:multisearch:rebuild[Etablissement]
+```
+
 #### Connaître l'état des mises à jours
 
 Ce fichier contient le nom du dernier fichier importé avec succès en v1 :
