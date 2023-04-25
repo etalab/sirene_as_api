@@ -22,7 +22,7 @@ gem 'redis', '~> 4.5'
 gem 'redis-namespace'
 gem 'redis-objects'
 gem 'resque'
-gem 'sidekiq', '~> 5.2.10'
+gem 'sidekiq', '~> 7.0.8'
 gem 'sidekiq-cron'
 gem 'sinatra', '>= 2.2.0'
 
