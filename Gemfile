@@ -5,14 +5,14 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-ruby "~> 2.7.7"
+ruby "~> 2.7.8"
 
 gem 'rack-cors'
-gem 'rails', '~> 5'
+gem 'rails', '~> 6'
 
 gem 'listen', '~> 3.0.5'
 
-gem 'pg', '~> 0.20'
+gem 'pg'
 
 # RDBM Agnostic connection pool manager
 gem 'connection_pool', '~> 2.2'

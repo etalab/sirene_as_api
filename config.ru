@@ -6,3 +6,4 @@ require 'sidekiq/web'
 
 run Sidekiq::Web
 run Rails.application
+Rails.application.load_server
