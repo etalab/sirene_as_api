@@ -22,7 +22,7 @@ gem 'redis-objects'
 gem 'resque'
 gem 'sidekiq'
 gem 'sidekiq-cron'
-gem 'sinatra', '~> 2.0.2'
+gem 'sinatra', '~> 2.2.3'
 
 # Sunspot / Solr friends
 gem 'sunspot_rails'
